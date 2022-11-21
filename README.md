@@ -6,8 +6,10 @@ This project's aim is to emulate the feature set of the AntWordProfiler, (Lauren
 
 The project relies heavily on the Russian Lemma list compiled by Dr.
 
-## Aknowlegments
+## Acknowledgements
 
 Authors: Dr. Pavel Gudoshnikov, Micheal Nestor
+
 AntWordProfiler: Dr. Laurence Anthony
+
 Russian Lemma List:
