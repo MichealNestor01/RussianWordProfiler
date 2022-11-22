@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!--prettier-ignore-->
+    <py-env>
+        - paths:
+            - ./getTime.py 
+    </py-env>
+    <!--prettier-ignore-->
+    <py-script> 
+        from getTime import hello, getTime
+        import js
+        js.getTime = getTime
+    </py-script>
+
+    <button id="getTime">Click Me to Get 'x' from Python</button>
+    <h1 id="time"></h1>
+    <script src="./app.js"></script>
+  </body>
+</html>
