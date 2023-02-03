@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
+const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
+
 const band_color = {
   0: "#eb4334",
   1000: "#eb9934",
@@ -16,7 +18,7 @@ function App() {
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: "http://localhost/scantext/",
+      url: `http://${apiURL}/scantext/`,
       data: { text: input },
     });
     if (response.status === 200) {
