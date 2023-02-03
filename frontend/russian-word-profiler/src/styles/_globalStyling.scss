@@ -1,0 +1,16 @@
+// get montserrat font, the website's font
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+// remove margin and padding from everything
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// standard body styling
+body {
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: $colorPrimaryA;
+}
