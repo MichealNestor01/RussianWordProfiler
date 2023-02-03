@@ -1,15 +1,23 @@
+import { useState } from "react";
+
 function App() {
+  const [output, setOutput] = useState("");
+
+  const textChangedHandler = (e) => {
+    setOutput(e.target.value);
+  };
+
+  const submitHandler = async () => {
+    console.log(output);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn Today
-        </a>
-      </header>
+      <h1>Russain Word Profiler</h1>
+      <h3>Put your text:</h3>
+      <textarea type="text" onChange={textChangedHandler} />
+      <button onClick={submitHandler}>Scan text</button>
+      <p>{output}</p>
     </div>
   );
 }

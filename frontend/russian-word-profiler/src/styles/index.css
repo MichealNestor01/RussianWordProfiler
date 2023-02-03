@@ -10,5 +10,31 @@ body {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: #6aa6cb;
+  color: #742121;
+}
+
+button {
+  cursor: pointer;
+  background-color: #ecfff6;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #6aa6cb;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  font-weight: 700;
+}
+
+button p {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+button:hover {
+  background-color: #742121;
+  color: #ecfff6;
 }
 /*# sourceMappingURL=index.css.map */

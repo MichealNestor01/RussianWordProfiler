@@ -13,4 +13,25 @@ body {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: $colorPrimaryA;
+  color: $colorPrimaryB;
+}
+
+// standard button styling
+button {
+  cursor: pointer;
+  background-color: $colorSecondary;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: $colorPrimaryA;
+  transition: all 0.5s ease;
+  font-weight: 700;
+  p {
+    user-select: none;
+  }
+  &:hover {
+    background-color: $colorPrimaryB;
+    color: $colorSecondary;
+  }
 }
