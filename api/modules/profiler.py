@@ -1,5 +1,6 @@
 import csv
 from pymystem3 import Mystem
+import re
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
@@ -21,116 +22,99 @@ class ProfilerObj:
         self.bands_step = 1000
 
     def scan_text(self, txt):
-        data = self.mystem.analyze(txt)
-        # TAKE OUT STOPSTRING ENTRIES
-        stopstring = " , . ; : - – х « » ( ) )\n  \n  "
-        for i, val in enumerate (data):
-            if val["text"] in stopstring:
-                data.pop(i)
-        # TAKE OUT STOPWORDS
-        for i, val in enumerate (data):
-            if "analysis" in val and len(val["analysis"]) > 0 and val["analysis"][0]["lex"] in self.stopwords:
-                data.pop(i)
+        # REMOVE ALL PUNCTUATION FROM THE TEXT
+        txt = re.sub(r'[^\w ]','',txt)
+        # ANALYSE TEXT, AND REMOVE WHITE SPACE, (as well as all non-russian words)
+        data = [lemma_data for lemma_data in self.mystem.analyze(txt) if len(re.sub(r'[^\w]','',lemma_data['text'])) > 0]
         # LIST LEMMAS
-        lemmas = []
+        lemma_data = []
         for i in data:
             if "analysis" in i and len(i["analysis"]) != 0:
-                lemmas.append (i["analysis"][0]['lex'])
+                lemma_data.append(i["analysis"][0]['lex'])
         # COUNT LEMMA OCCURENCES (where available)
-        lemmas = FreqDist(lemmas).most_common()
-        # ADD LEMMA FREQUENCY RANK
-        for i, val in enumerate (lemmas):
+        # lemma_data is a list of all lemmas together with there occurences in the text
+        lemma_data = FreqDist(lemma_data).most_common()
+        # ADD LEMMA FREQUENCY RANK (how often they appear in typical russian)
+        for i, val in enumerate (lemma_data):
             if any (val[0] in sl for sl in self.frequency_list):
                 rank = [val[0] in lem for lem in self.frequency_list].index(True)
                 entry = {"lemma": val[0], "occ": val[1], "rank": rank}
-                lemmas[i] = entry
+                lemma_data[i] = entry
             else:
                 entry = {"lemma": val[0], "occ": val[1], "rank": "not listed"}
-                lemmas[i] = entry
-        # PAIR WORD AND LEMMA
-        words = []
-        for i in data:
-            if "analysis" in i and "text" in i: 
-                if len(i["analysis"]) != 0:
-                    words.append({"word":i["text"], "lemma":i["analysis"][0]['lex']})
-                else:
-                    words.append({"word":i["text"], "lemma":""})
-        # ADD OCCURRENCES AND RANK
-        for word in words:  
-            for lemma in lemmas:
-                if word["lemma"] == lemma["lemma"]:
-                    word["occ"] = lemma["occ"]
-                    word["rank"] = lemma["rank"]
-        
-        sum_occ_int = 0
-        for i in lemmas:
-            if "occ" in i and "rank" in i and type(i["rank"])==int:
-                sum_occ_int += i["occ"]
+                lemma_data[i] = entry
 
-        sum_occ_not_int = 0
-        for i in lemmas:
+        # PAIR WORDs AND LEMMAs
+        word_lemma_pairs = []
+        for i in data:
+            if "analysis" in i and "text" in i:
+                if len(i["analysis"]) != 0:
+                    word_lemma_pairs.append({"word":i["text"], "lemma":i["analysis"][0]['lex']})
+                else:
+                    word_lemma_pairs.append({"word":i["text"], "lemma":""})
+
+        # ADD LEMMA RANK DATA TO THE WORD_LEMMA_PAIRS 
+        for pair in word_lemma_pairs:  
+            for lemma in lemma_data:
+                if pair["lemma"] == lemma["lemma"]:
+                    pair["occ"] = lemma["occ"]
+                    pair["rank"] = lemma["rank"]
+
+        return word_lemma_pairs
+
+        # ====================== #
+        # NOTE TO PAVEL:
+        # Why are you counting the words identified vs unidentified?
+        # ====================== #
+        total_identified_words = 0
+        for i in lemma_data:
+            if "occ" in i and "rank" in i and type(i["rank"])==int:
+                total_identified_words += i["occ"]
+
+        total_unidentified_words = 0
+        for i in lemma_data:
             if "occ" in i and "rank" in i and type(i["rank"])!=int:
-                sum_occ_not_int += i["occ"]
+                total_unidentified_words += i["occ"]
         
-        sum_occ_all = sum_occ_int + sum_occ_not_int
+        total_words = total_identified_words + total_unidentified_words
 
         # Create bands array
-        bands = []
-        # Create bottom bracket for listed lemmas
-        for band_boundary in range(self.bands_from, self.bands_to, self.bands_step):
-            bands.append({"listed": "yes", "from": band_boundary})
+        bands = [{
+            "listed": "yes", 
+            "from": band_boundary, 
+            "to": band_boundary + self.bands_step, 
+            "entries": [lemma for lemma in lemma_data 
+                        if type (lemma["rank"]) is int 
+                        if lemma["rank"] >= band_boundary 
+                        and lemma["rank"] < band_boundary + self.bands_step],
+        } for band_boundary in range(self.bands_from, self.bands_to, self.bands_step)]
+        # add the not listed band
+        bands.append({"listed": "no", "entries": [
+            lemma for lemma in lemma_data if lemma["rank"] == "not listed"
+        ]})
 
-        # Create top bracket for listed lemmas  
-        for i in bands:
-            i["to"] = i["from"] + self.bands_step
-            i["count"] = 0
-            i["entries"] = []
-        
-        # Populate bands with listed lemmas
-        for i in bands:
-            for j in lemmas:
-                if type (j["rank"]) is int:
-                    if j["rank"] >= i["from"] and j["rank"] < i["to"]:
-                        i["entries"].append(j)
+        # DISPLAY WORDS BY BAND
+        #for i in bands:
+        #    if i["listed"] == "yes":
+        #        print(i["from"], i["to"]-1)
+        #        for j in i["entries"]:
+        #            print("\t", j["lemma"], j["occ"])
+        #    if i["listed"] == "no":
+        #        print("not listed")
+        #        for j in i["entries"]:
+        #            print("\t", j["lemma"], j["occ"])
 
-        # Create a band for unlisted lemmas 
-        bands.append({"listed": "no", "count": 0, "entries": []})
-        
-        # Populate the unlisted lemma band
-        for i in (bands):
-            if i["listed"] == "no":
-                for j in lemmas:
-                    if j["rank"] == "not listed":
-                        i["entries"].append(j)  
-        return bands
-        # SORT WORDS BY BAND
-        for i in bands:
-            if i["listed"] == "yes":
-                print(i["from"], i["to"]-1)
-                for j in i["entries"]:
-                    print("\t", j["lemma"], j["occ"])
-            if i["listed"] == "no":
-                print("not listed")
-                for j in i["entries"]:
-                    print("\t", j["lemma"], j["occ"])
-        print("ran line 116")
-        # CALCULATE COVERAGE
-        sum_occ = 0
-        for i in bands:
-            for j in i["entries"]:
-                sum_occ += j["occ"]
-            i["count"] = sum_occ
-        print(bands[-1]["count"])
-        print("ran line 123")
+        print(total_words)
+        print(bands[-1])
         output = []
-        for i in bands:
-            if i["listed"] == "yes":  
-                from_ = i["from"]
-                to_ = i["to"]-1
-                coverage = round(100*i["count"]/sum_occ_all,2)
+        for band in bands:
+            if band["listed"] == "yes":  
+                from_ = band["from"]
+                to_ = band["to"]-1
+                coverage = round(100*len(band["entries"])/total_words,2)
                 output.append(f"from: {from_} to: {to_} coverage: {coverage}%")
             else:
-                not_listed = round(100*i["count"]/sum_occ_all,2)
+                not_listed = round(100*len(band["entries"])/total_words,2)
                 output.append(f"not listed {not_listed}%")
         return output
     
