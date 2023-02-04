@@ -27,7 +27,6 @@ function textFormatReducer(state, action) {
 
 function App() {
   const [input, setInput] = useState("");
-  const [output, setOutput] = useState(<p></p>);
   const [bands, setBands] = useState([]);
   const [wordBandPairs, setWordBandPairs] = useState({});
   const [textFormat, textFormatDispatch] = useReducer(textFormatReducer, {
