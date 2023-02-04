@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 
 function reducer(state, action) {
   const newState = [...state];
@@ -11,7 +11,7 @@ function reducer(state, action) {
   });
 }
 
-function TextInput({ text, setText, placeholder = "Text Here." }) {
+function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here." }) {
   const [state, dispatch] = useReducer(reducer, [
     { id: "words", text: "WORDS", count: 0 },
     { id: "chars", text: "CHARACTERS", count: 0 },
@@ -23,6 +23,7 @@ function TextInput({ text, setText, placeholder = "Text Here." }) {
   const textChangeHandler = (e) => {
     setText(e.target.value);
     const txt = e.target.value;
+    let newLineBreaks = [];
     // calculate words:
     const wordCount = txt.split(" ").filter((word) => {
       if (word !== "") {
@@ -36,22 +37,36 @@ function TextInput({ text, setText, placeholder = "Text Here." }) {
     // calculate sentences and paragraphs:
     let sentences = 0;
     let paragraphs = characters > 0 ? 1 : 0;
+    let wordCounter = 0;
     let prevChar = "";
-    txt.split("").forEach((char) => {
-      console.log(char, char === "\n");
+    txt.split("").forEach((char, index) => {
       if (char === "." || char === "?" || char === "!") {
         sentences++;
       } else if (char === "\n" && prevChar !== char) {
         paragraphs++;
+        // line breaks gives the formatter information about where
+        // to place line breaks.
+        newLineBreaks.push(wordCounter + newLineBreaks.length);
+        //if (newLineBreaks.length == 0) {
+        //  newLineBreaks.push(wordCounter);
+        //} else {
+        //  newLineBreaks.push(wordCounter + 1);
+        //}
+      }
+      if (index > 0) {
+        if (char === " " && prevChar !== " " && prevChar !== "\n") {
+          wordCounter++;
+        }
       }
       prevChar = char;
     });
+    textFormatDispatch({ type: "set_line_breaks", new: newLineBreaks });
     dispatch({ target: "sents", count: sentences });
     dispatch({ target: "paras", count: paragraphs });
   };
 
   return (
-    <section className="text-input">
+    <section className="text-input card">
       <section className="stats-container">
         {state.map((stat, index) => {
           return (
@@ -65,7 +80,7 @@ function TextInput({ text, setText, placeholder = "Text Here." }) {
       </section>
       <section className="input-container">
         <textarea
-          className="input"
+          className="input main-text"
           value={text}
           onChange={textChangeHandler}
           placeholder={placeholder}
