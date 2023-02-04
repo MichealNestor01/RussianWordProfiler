@@ -1,5 +1,6 @@
 // get montserrat font, the website's font
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
 
 // remove margin and padding from everything
 * {
@@ -10,9 +11,16 @@
 
 // standard body styling
 body {
-  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-family: "Inter";
   -webkit-font-smoothing: antialiased;
-  background-color: $colorPrimaryA;
+  background-color: $colourBackground;
+}
+h1 {
+  color: $colorPrimaryA;
+}
+h2,
+p {
   color: $colorPrimaryB;
 }
 
@@ -34,4 +42,24 @@ button {
     background-color: $colorPrimaryB;
     color: $colorSecondary;
   }
+}
+
+// scroll bar styling
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $colorSecondary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $colorPrimaryB;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $colorPrimaryA;
 }

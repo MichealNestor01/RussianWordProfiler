@@ -8,7 +8,7 @@ The project relies heavily on Sharov's and Lyashevskaya's Russian Frequency Dict
 
 ## Acknowledgements
 
-Authors: Dr. Pavel Gudoshnikov, Micheal Nestor
+Authors: Dr. Pavel Gudoshnikov, Micheal Nestor, Ben Thirkill
 
 AntWordProfiler: Dr. Laurence Anthony
 

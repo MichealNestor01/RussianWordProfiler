@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
+import TextInput from "./components/TextInput";
+
 const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 
 const band_color = {
@@ -11,14 +13,14 @@ const band_color = {
 };
 
 function App() {
-  const [input, setInput] = useState("Enter some text here");
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState(<p></p>);
   const [bands, setBands] = useState([]);
 
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: `http://${apiURL}/scantext/`,
+      url: `http://localhost/scantext/`,
       data: { text: input },
     });
     if (response.status === 200) {
@@ -80,7 +82,7 @@ function App() {
     <div className="App">
       <h1>Russain Word Profiler</h1>
       <h3>Put your text:</h3>
-      <textarea value={input} onChange={(e) => setInput(e.target.value)} />
+      <TextInput text={input} setText={setInput} placeholder="Place text here!" />
       <button onClick={submitHandler}>Scan text</button>
       <p>{output}</p>
       <h3>Bands:</h3>
