@@ -99,7 +99,9 @@ function App() {
         </section>
         <section className="output-section">
           <h2>WORD FREQUENCY</h2>
-          <FormattedOutput text={input} wordBandPairs={wordBandPairs} textFormat={textFormat} />
+          <p className="card text-output">
+            <FormattedOutput text={input} wordBandPairs={wordBandPairs} textFormat={textFormat} />
+          </p>
         </section>
       </section>
       <div className="image-container">

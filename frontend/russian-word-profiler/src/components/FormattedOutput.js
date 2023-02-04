@@ -74,7 +74,7 @@ function FormattedOutput({ text, wordBandPairs, textFormat }) {
     setOutput(coloredWords);
   }, [wordBandPairs, textFormat, text]);
 
-  return <p className="card text-output">{output}</p>;
+  return <Fragment>{output}</Fragment>;
 }
 
 export default FormattedOutput;
