@@ -31,6 +31,8 @@ class ProfilerObj:
         for i in data:
             if "analysis" in i and len(i["analysis"]) != 0:
                 lemma_data.append(i["analysis"][0]['lex'])
+
+        '''
         # COUNT LEMMA OCCURENCES (where available)
         # lemma_data is a list of all lemmas together with there occurences in the text
         lemma_data = FreqDist(lemma_data).most_common()
@@ -43,6 +45,31 @@ class ProfilerObj:
             else:
                 entry = {"lemma": val[0], "occ": val[1], "rank": "not listed"}
                 lemma_data[i] = entry
+        '''
+        lemma_data = FreqDist(lemma_data).most_common()
+        lemmas = {}
+        for lemma_tuple in lemma_data:
+            if any (lemma_tuple[0] in sl for sl in self.frequency_list):
+                rank = [lemma_tuple[0] in lem for lem in self.frequency_list].index(True)
+                lemmas[lemma_tuple[0]] = {"occ": lemma_tuple[1], "rank": rank}
+            else:
+                lemmas[lemma_tuple[0]] = {"occ": lemma_tuple[1], "rank": "not listed"}
+
+        print(lemmas)
+        word_metadata = {}
+        for obj in data:
+            if "analysis" in obj and "text" in obj:
+                if len(obj["analysis"]) != 0:
+                    lemma = obj["analysis"][0]['lex']
+                    word_metadata[obj["text"]] = {
+                        "word":obj["text"], 
+                        "occ":lemmas[lemma]["occ"],
+                        "rank":lemmas[lemma]["rank"]
+                    }
+                else:
+                    word_metadata[obj["text"]] = {"word":obj["text"], "lemma":""}
+
+        return word_metadata
 
         # PAIR WORDs AND LEMMAs
         word_lemma_pairs = []
