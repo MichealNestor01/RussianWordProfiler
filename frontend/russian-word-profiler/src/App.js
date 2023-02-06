@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState, useReducer } from "react";
 import axios from "axios";
 import background from "./assets/background.png";
-import TextInput from "./components/TextInput";
+import MainEditor from "./components/MainEditor";
 import FormattedOutput from "./components/FormattedOutput";
 import BandsSelector from "./components/BandsSelector";
 
@@ -14,26 +14,14 @@ const band_color = {
   3000: "#40eb34",
 };
 
-function textFormatReducer(state, action) {
-  switch (action.type) {
-    case "add_paragraph_end":
-      if (state.lineBreaks.includes(action.index)) {
-        return state;
-      }
-      return { ...state, lineBreaks: [...state.lineBreaks, action.index] };
-    case "set_line_breaks":
-      return { ...state, lineBreaks: action.new };
-  }
-}
-
 function App() {
   const [input, setInput] = useState("");
   //const [bands, setBands] = useState([]);
   const [wordData, setWordData] = useState([]);
   const [wordBandPairs, setWordBandPairs] = useState({});
-  const [textFormat, textFormatDispatch] = useReducer(textFormatReducer, {
-    lineBreaks: [],
-  });
+  //const [textFormat, textFormatDispatch] = useReducer(textFormatReducer, {
+  //  lineBreaks: [],
+  //});
 
   const submitHandler = async () => {
     const response = await axios({
@@ -66,35 +54,13 @@ function App() {
       <h1 className="title">Russian Word Profiler</h1>
       <section className="input-section">
         <h2>TEXT TO PROFILE:</h2>
-        <TextInput
-          text={input}
-          setText={setInput}
-          placeholder="Place text here!"
-          textFormatDispatch={textFormatDispatch}
-        />
+        <MainEditor text={input} setText={setInput} wordData={wordData} placeholder="Place text here!" />
         <button onClick={submitHandler}>Profile Text</button>
       </section>
       <section className="bottom-panel">
-        <section className="left-panel">
-          <section className="bands-panel">
-            <h2>WORD FREQUENCY BANDS</h2>
-            <BandsSelector />
-          </section>
-          <section className="data-panel">
-            <h2>DATA AGREGATION</h2>
-            <div className="card"></div>
-          </section>
-        </section>
-        <section className="output-section">
-          <h2>WORD FREQUENCY</h2>
-          <p className="card text-output">
-            <FormattedOutput
-              text={input}
-              wordBandPairs={wordBandPairs}
-              wordData={wordData}
-              textFormat={textFormat}
-            />
-          </p>
+        <section className="data-panel">
+          <h2>DATA AGREGATION</h2>
+          <div className="card"></div>
         </section>
       </section>
       <div className="image-container">
