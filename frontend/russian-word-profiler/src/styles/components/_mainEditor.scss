@@ -36,29 +36,33 @@
   .input-container {
     // POSITION AND LAYOUT
     position: relative;
+    // BOX MODEL
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
     // CHILDREN
     .input {
       // BOX MODEL
-      max-width: 100%;
-      min-width: 100%;
-      height: 100%;
+      resize: none;
       min-height: 250px;
       padding: 10px 15px 15px 15px;
       // BOX MODEL
       border: none;
+      border-top: 1px solid #e1e1e1;
+      border-bottom: 1px solid #e1e1e1;
       outline: none;
       // BACKGROUND
       background-color: $colorSecondary;
       // TYPOGRAPH
       font-family: "Inter";
     }
-    .top-border {
-      // POSITION AND LAYOUT
-      position: absolute;
-      bottom: 100%;
+    .text-output {
       // BOX MODEL
-      border-top: 1px solid #e1e1e1;
-      width: 100%;
+      padding: 10px 15px 15px 15px;
+      border: 1px solid #e1e1e1;
+      border-right: none;
+      // BACKGROUND
+      background-color: #dbe8fd87;
     }
   }
 }
