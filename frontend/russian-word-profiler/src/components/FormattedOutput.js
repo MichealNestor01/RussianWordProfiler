@@ -7,25 +7,24 @@ const band_color = [
   { end: 60000, colour: "#9c9205" },
 ];
 
-const whichColour = (rank) => {
-  if (rank === "not listed") {
-    return "#9c0f05";
-  }
-  for (let bandIndex = 0; bandIndex < band_color.length; bandIndex++) {
-    const band = band_color[bandIndex];
-    if (rank < band.end) {
-      return band.colour;
-    }
-  }
-};
-
-const FormattedOutput = ({ text, wordBandPairs, textFormat, wordData }) => {
+const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
   const [output, setOutput] = useState("");
 
+  const whichColour = (rank) => {
+    if (rank === "not listed") {
+      return colourBands[3].colour;
+    }
+    for (let bandIndex = 0; bandIndex < colourBands.length; bandIndex++) {
+      const band = colourBands[bandIndex];
+      if (rank < band.top) {
+        return band.colour;
+      }
+    }
+  };
+
   useEffect(() => {
-    //console.log("Formatting text!!");
+    console.log(colourBands);
     const words = text.split(/\s+/);
-    //console.log(words);
     const coloredWords = words.map((word, index) => {
       let end = "";
       if (
@@ -39,9 +38,7 @@ const FormattedOutput = ({ text, wordBandPairs, textFormat, wordData }) => {
         word = word.slice(0, word.length - 1);
       }
       let lineBreak = "";
-      //console.log(word);
       if (textFormat.lineBreaks.includes(index)) {
-        //console.log("FOUND LINEBREAK AT ", index);
         lineBreak = (
           <Fragment>
             <br />
@@ -49,17 +46,12 @@ const FormattedOutput = ({ text, wordBandPairs, textFormat, wordData }) => {
           </Fragment>
         );
       }
-
       let wordLower = word.toLowerCase();
       if (wordLower in wordData) {
-        console.log(wordLower);
-        console.log(wordData[wordLower]);
-        console.log(wordData[wordLower].rank);
         if (wordData[wordLower].rank !== undefined) {
           const colour = whichColour(wordData[wordLower].rank);
-          console.log(colour);
           return (
-            <Fragment>
+            <Fragment key={index}>
               <span style={{ color: colour }} key={index}>
                 {`${word}`}
               </span>
@@ -70,49 +62,14 @@ const FormattedOutput = ({ text, wordBandPairs, textFormat, wordData }) => {
         }
       }
       return (
-        <Fragment>
+        <Fragment key={index}>
           {`${word}${end} `}
           {lineBreak}
         </Fragment>
       );
-
-      /*
-      if (wordLower in wordBandPairs) {
-        if (wordBandPairs[wordLower] in band_color) {
-          return (
-            <Fragment>
-              <span style={{ color: band_color[wordBandPairs[wordLower]] }} key={index}>
-                {`${word}`}
-              </span>
-              {`${end} `}
-              {lineBreak}
-            </Fragment>
-          );
-        } else {
-          return (
-            <Fragment>
-              <span style={{ color: "#eb34dc" }} key={index}>
-                {`${word}${end} `}
-              </span>
-              {`${end} `}
-              {lineBreak}
-            </Fragment>
-          );
-        }
-      } else {
-        return (
-          <Fragment>
-            {`${word}${end} `}
-            {lineBreak}
-          </Fragment>
-        );
-      }
-      */
     });
-    //console.log("COLOURED WORDS:");
-    //console.log(coloredWords);
     setOutput(coloredWords);
-  }, [wordData, textFormat, text]);
+  }, [wordData, textFormat, text, colourBands]);
 
   return <Fragment>{output}</Fragment>;
 };
