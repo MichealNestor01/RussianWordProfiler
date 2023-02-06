@@ -27,7 +27,8 @@ function textFormatReducer(state, action) {
 
 function App() {
   const [input, setInput] = useState("");
-  const [bands, setBands] = useState([]);
+  //const [bands, setBands] = useState([]);
+  const [wordData, setWordData] = useState([]);
   const [wordBandPairs, setWordBandPairs] = useState({});
   const [textFormat, textFormatDispatch] = useReducer(textFormatReducer, {
     lineBreaks: [],
@@ -40,10 +41,13 @@ function App() {
       data: { text: input },
     });
     if (response.status === 200) {
-      setBands(response.data);
+      //setBands(response.data);
+      console.log(response.data);
+      setWordData(response.data);
     }
   };
 
+  /*
   useEffect(() => {
     let newWordBandPairs = {};
     bands.forEach((band) => {
@@ -54,17 +58,17 @@ function App() {
     setWordBandPairs(newWordBandPairs);
     console.log(wordBandPairs);
   }, [bands]);
+  */
 
   return (
     <div className="page-wrapper">
-      <h1 className="title">Russain Word Profiler</h1>
+      <h1 className="title">Russian Word Profiler</h1>
       <section className="input-section">
         <h2>TEXT TO PROFILE:</h2>
         <TextInput
           text={input}
           setText={setInput}
           placeholder="Place text here!"
-          wordBandPairs={wordBandPairs}
           textFormatDispatch={textFormatDispatch}
         />
         <button onClick={submitHandler}>Profile Text</button>
@@ -99,7 +103,12 @@ function App() {
         <section className="output-section">
           <h2>WORD FREQUENCY</h2>
           <p className="card text-output">
-            <FormattedOutput text={input} wordBandPairs={wordBandPairs} textFormat={textFormat} />
+            <FormattedOutput
+              text={input}
+              wordBandPairs={wordBandPairs}
+              wordData={wordData}
+              textFormat={textFormat}
+            />
           </p>
         </section>
       </section>

@@ -1,13 +1,25 @@
 import { useState, useEffect, Fragment } from "react";
 
-const band_color = {
-  0: "#eb4334",
-  1000: "#eb9934",
-  2000: "#ebe134",
-  3000: "#40eb34",
+const band_color = [
+  { end: 1000, colour: "#9c058f" },
+  { end: 2000, colour: "#050a9c" },
+  { end: 3000, colour: "#179c05" },
+  { end: 60000, colour: "#9c9205" },
+];
+
+const whichColour = (rank) => {
+  if (rank === "not listed") {
+    return "#9c0f05";
+  }
+  for (let bandIndex = 0; bandIndex < band_color.length; bandIndex++) {
+    const band = band_color[bandIndex];
+    if (rank < band.end) {
+      return band.colour;
+    }
+  }
 };
 
-function FormattedOutput({ text, wordBandPairs, textFormat }) {
+const FormattedOutput = ({ text, wordBandPairs, textFormat, wordData }) => {
   const [output, setOutput] = useState("");
 
   useEffect(() => {
@@ -37,7 +49,34 @@ function FormattedOutput({ text, wordBandPairs, textFormat }) {
           </Fragment>
         );
       }
+
       let wordLower = word.toLowerCase();
+      if (wordLower in wordData) {
+        console.log(wordLower);
+        console.log(wordData[wordLower]);
+        console.log(wordData[wordLower].rank);
+        if (wordData[wordLower].rank !== undefined) {
+          const colour = whichColour(wordData[wordLower].rank);
+          console.log(colour);
+          return (
+            <Fragment>
+              <span style={{ color: colour }} key={index}>
+                {`${word}`}
+              </span>
+              {`${end} `}
+              {lineBreak}
+            </Fragment>
+          );
+        }
+      }
+      return (
+        <Fragment>
+          {`${word}${end} `}
+          {lineBreak}
+        </Fragment>
+      );
+
+      /*
       if (wordLower in wordBandPairs) {
         if (wordBandPairs[wordLower] in band_color) {
           return (
@@ -68,13 +107,14 @@ function FormattedOutput({ text, wordBandPairs, textFormat }) {
           </Fragment>
         );
       }
+      */
     });
     //console.log("COLOURED WORDS:");
     //console.log(coloredWords);
     setOutput(coloredWords);
-  }, [wordBandPairs, textFormat, text]);
+  }, [wordData, textFormat, text]);
 
   return <Fragment>{output}</Fragment>;
-}
+};
 
 export default FormattedOutput;
