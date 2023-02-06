@@ -47,11 +47,6 @@ function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here
         // line breaks gives the formatter information about where
         // to place line breaks.
         newLineBreaks.push(wordCounter + newLineBreaks.length);
-        //if (newLineBreaks.length == 0) {
-        //  newLineBreaks.push(wordCounter);
-        //} else {
-        //  newLineBreaks.push(wordCounter + 1);
-        //}
       }
       if (index > 0) {
         if (char === " " && prevChar !== " " && prevChar !== "\n") {
