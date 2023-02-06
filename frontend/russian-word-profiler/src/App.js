@@ -3,6 +3,7 @@ import axios from "axios";
 import background from "./assets/background.png";
 import TextInput from "./components/TextInput";
 import FormattedOutput from "./components/FormattedOutput";
+import BandsSelector from "./components/BandsSelector";
 
 const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 
@@ -77,23 +78,7 @@ function App() {
         <section className="left-panel">
           <section className="bands-panel">
             <h2>WORD FREQUENCY BANDS</h2>
-            <ul className="card">
-              <li>
-                0-1000:<span style={{ color: "#eb4334" }}>This Colour</span>
-              </li>
-              <li>
-                1000-2000:<span style={{ color: "#eb9934" }}>This Colour</span>
-              </li>
-              <li>
-                2000-3000:<span style={{ color: "#ebe134" }}>This Colour</span>
-              </li>
-              <li>
-                3000-4000:<span style={{ color: "#40eb34" }}>This Colour</span>
-              </li>
-              <li>
-                5000+:<span style={{ color: "#eb34dc" }}>This Colour</span>
-              </li>
-            </ul>
+            <BandsSelector />
           </section>
           <section className="data-panel">
             <h2>DATA AGREGATION</h2>
