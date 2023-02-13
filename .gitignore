@@ -3,8 +3,10 @@
 
 # dependencies
 /node_modules
+/build
 */node_modules
 /frontend/russian-word-profiler/node_modules/
+/frontend/russian-word-profiler/build/
 /.pnp
 .pnp.js
 
