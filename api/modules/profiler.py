@@ -22,6 +22,8 @@ class ProfilerObj:
         self.bands_step = 1000
 
     def scan_text(self, txt):
+        # put text to lower case
+        txt = txt.lower()
         # REMOVE ALL PUNCTUATION FROM THE TEXT
         txt = re.sub(r'[^\w ]','',txt)
         # ANALYSE TEXT, AND REMOVE WHITE SPACE, (as well as all non-russian words)
