@@ -23,7 +23,6 @@ const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
   };
 
   useEffect(() => {
-    console.log(colourBands);
     const words = text.split(/\s+/);
     const coloredWords = words.map((word, index) => {
       let end = "";
@@ -47,8 +46,6 @@ const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
         );
       }
       let wordLower = word.toLowerCase();
-      console.log(wordLower);
-      console.log(wordData);
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
           const colour = whichColour(wordData[wordLower].rank);
