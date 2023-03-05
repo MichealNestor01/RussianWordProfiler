@@ -1,6 +1,7 @@
-import { Fragment, useState, useReducer } from "react";
+import { Fragment, useState, useReducer, useEffect } from "react";
 import { ChromePicker } from "react-color";
 import Band from "./Band";
+import BandConfig from "./BandConfig";
 
 /*
 const colourBandReducer = (state, action) => {
@@ -29,20 +30,31 @@ const BandsSelector = ({ colourBands, dispatchColourBands }) => {
     { id: 3, top: "rest", colour: "#F008D8" },
   ]);
   */
-  console.log(colourBands);
-  const bandDivs = colourBands.map((band) => {
-    return (
-      <Band
-        key={band.id}
-        id={band.id}
-        startTop={band.top}
-        startColour={band.colour}
-        change={dispatchColourBands}
-      />
-    );
-  });
+  const createBandDivs = () => {
+    console.log("Create band divs from: ", colourBands);
+    return colourBands.map((band) => {
+      return (
+        <Fragment>
+          <div className="bandColour" style={{ backgroundColor: band.colour }} />
+          <h2>{band.top}</h2>
+        </Fragment>
+      );
+    });
+  };
 
-  return <section className="bands-selector">{bandDivs}</section>;
+  let bandDivs = createBandDivs();
+
+  useEffect(() => {
+    bandDivs = createBandDivs();
+  }, [colourBands]);
+
+  return (
+    <section className="bands-selector">
+      {bandDivs}
+
+      <BandConfig bands={colourBands} setBands={dispatchColourBands} />
+    </section>
+  );
 };
 
 export default BandsSelector;

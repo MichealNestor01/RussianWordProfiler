@@ -1,12 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
 
-const band_color = [
-  { end: 1000, colour: "#9c058f" },
-  { end: 2000, colour: "#050a9c" },
-  { end: 3000, colour: "#179c05" },
-  { end: 60000, colour: "#9c9205" },
-];
-
 const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
   const [output, setOutput] = useState("");
 

@@ -1,9 +1,9 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useState } from "react";
 import { ChromePicker } from "react-color";
 
-const Band = ({ id, startTop, startColour, change }) => {
+const Band = ({ id, startColour, change, total }) => {
   const [colour, setColour] = useState(startColour);
-  const [top, setTop] = useState(startTop);
   const [showPicker, setShowPicker] = useState(false);
 
   const changeHandler = (c) => {
@@ -11,21 +11,26 @@ const Band = ({ id, startTop, startColour, change }) => {
     change({ type: "change_colour", target: id, colour: c.hex });
   };
 
-  return showPicker ? (
+  return (
     <Fragment>
-      <ChromePicker color={colour} onChange={(c) => changeHandler(c)} />
-      <h1 className="close-button" onClick={() => setShowPicker(!showPicker)}>
-        X
-      </h1>
-    </Fragment>
-  ) : (
-    <Fragment>
+      <AnimatePresence>
+        {showPicker && (
+          <motion.div
+            initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
+            animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
+            exit={{ opacity: 0, y: `-80%`, x: `-120%` }}
+            transition={{ duration: 0.2 }}
+            className="colourSelector"
+          >
+            <ChromePicker className="picker" color={colour} onChange={(c) => changeHandler(c)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
-        className="band-colour"
+        className="bandColour"
         style={{ backgroundColor: colour }}
         onClick={() => setShowPicker(!showPicker)}
       />
-      <h2>{id > 0 ? top : `Top ${top}`}</h2>
     </Fragment>
   );
 };

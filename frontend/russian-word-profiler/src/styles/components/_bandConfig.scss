@@ -1,0 +1,75 @@
+.bandConfig {
+  // display and layout
+  position: relative;
+
+  // children
+  h3 {
+    // animation
+    transition: all 0.5s ease;
+    // box model
+    padding: 5px 3px;
+    height: 100%;
+    width: 100%;
+    // box model
+    border: solid 2px $colorPrimaryA;
+    border-radius: 2rem;
+    // background
+    &:hover {
+      background-color: $colorPrimaryB;
+    }
+    // background
+    user-select: none;
+    cursor: pointer;
+  }
+  .panel {
+    // display and layout
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    //transform: translate(-110%, -100%);
+    // box model
+    width: 300px;
+    height: 200px;
+    padding: 0px 0px 0px 4px;
+    // background
+    background-color: $colorCardBackground;
+    // children
+    .top {
+      // display and layout
+      display: flex;
+      justify-content: space-between;
+
+      // children
+      h2 {
+        margin-top: 4px;
+      }
+      .closeButton {
+        background-color: $colorMainText;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0px 4px 0px 15px;
+        color: $colorSecondary;
+        font-weight: 700;
+        font-size: 1.5rem;
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+    .bandsForm {
+      display: flex;
+      flex-direction: column;
+      .bandInput {
+        display: flex;
+        flex-direction: row;
+
+        input {
+          width: 70px;
+        }
+      }
+    }
+  }
+}

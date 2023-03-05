@@ -37,6 +37,15 @@ const colourBandReducer = (state, action) => {
         }
         return band;
       });
+    case "change_top":
+      console.log("Action: ");
+      console.log(action);
+      return state.map((band) => {
+        if (band.id === action.target) {
+          return { ...band, top: action.top };
+        }
+        return band;
+      });
     default:
       return state;
   }
@@ -58,7 +67,7 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
     { id: 0, top: 1000, colour: "#FF0000" },
     { id: 1, top: 2500, colour: "#07BD14" },
     { id: 2, top: 5000, colour: "#0804D4" },
-    { id: 3, top: "rest", colour: "#F008D8" },
+    { id: 3, top: 60000, colour: "#F008D8" },
   ]);
 
   // recalculate text stats after each update:

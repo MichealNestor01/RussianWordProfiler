@@ -221,6 +221,7 @@ button:hover {
 }
 
 .bands-selector {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -235,10 +236,122 @@ button:hover {
       -ms-flex-pack: end;
           justify-content: flex-end;
   gap: 15px;
+  height: 50px;
 }
 
-.band-colour {
+.bands-selector .colourSelector {
+  position: absolute;
+}
+
+.bands-selector .colourSelector .picker {
+  max-width: 150px;
+}
+
+.bands-selector .bandColour {
   width: 20px;
   height: 20px;
+}
+
+.bandConfig {
+  position: relative;
+}
+
+.bandConfig h3 {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  padding: 5px 3px;
+  height: 100%;
+  width: 100%;
+  border: solid 2px #343734;
+  border-radius: 2rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.bandConfig h3:hover {
+  background-color: #a6a6a8;
+}
+
+.bandConfig .panel {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 300px;
+  height: 200px;
+  padding: 0px 0px 0px 4px;
+  background-color: #f5f5f5;
+}
+
+.bandConfig .panel .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.bandConfig .panel .top h2 {
+  margin-top: 4px;
+}
+
+.bandConfig .panel .top .closeButton {
+  background-color: #616161;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0px 4px 0px 15px;
+  color: #f5f5f5;
+  font-weight: 700;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.bandConfig .panel .bandsForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bandConfig .panel .bandsForm .bandInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.bandConfig .panel .bandsForm .bandInput input {
+  width: 70px;
 }
 /*# sourceMappingURL=index.css.map */
