@@ -1,17 +1,24 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeColour } from "../store/bandsSlice";
 
 const Band = ({ id, startColour, show, setShow }) => {
   const dispatch = useDispatch();
+  const bands = useSelector((state) => state.bands);
   const [colour, setColour] = useState(startColour);
 
   const changeHandler = (c) => {
     setColour(c.hex);
     dispatch(changeColour({ target: id, colour: c.hex }));
   };
+
+  useEffect(() => {
+    if (bands[id].colour != colour) {
+      setColour(bands[id].colour);
+    }
+  }, [bands]);
 
   return (
     <Fragment>
