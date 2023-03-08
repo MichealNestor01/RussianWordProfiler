@@ -78,9 +78,9 @@ const BandConfig = () => {
 
   const panel = (
     <motion.div
-      initial={{ opacity: 0, y: "-50%", x: "-100%" }}
-      animate={{ opacity: 1, y: "-100%", x: "-100%" }}
-      exit={{ opacity: 0, y: "-50%", x: "-100%" }}
+      initial={{ opacity: 0, y: "-50%", x: "-120%" }}
+      animate={{ opacity: 1, y: "-90%", x: "-120%" }}
+      exit={{ opacity: 0, y: "-50%", x: "-120%" }}
       transition={{ duration: 0.2 }}
       className="panel card"
     >

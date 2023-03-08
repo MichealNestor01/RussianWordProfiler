@@ -1,13 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
+import chroma from "chroma-js";
+
+let initialState = [];
+let colour = chroma("#ff0000");
+for (let i = 1; i <= 10; i++) {
+  initialState.push({
+    id: i - 1,
+    top: 1000 * i,
+    colour: colour.set("hsl.h", (i - 1) * 33).hex(),
+  });
+}
+initialState.push({
+  id: 10,
+  top: 60000,
+  colour: colour.set("hsl.h", 10 * 33).hex(),
+});
 
 export const bandsSlice = createSlice({
   name: "bands",
-  initialState: [
-    { id: 0, top: 1000, colour: "#FF0000" },
-    { id: 1, top: 2500, colour: "#18b542" },
-    { id: 2, top: 5000, colour: "#0804D4" },
-    { id: 3, top: 60000, colour: "#588C9C" },
-  ],
+  initialState,
   reducers: {
     changeColour: (state, action) => {
       state.forEach((band) => {
