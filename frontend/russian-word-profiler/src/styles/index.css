@@ -232,11 +232,11 @@ button:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   gap: 15px;
-  height: 50px;
+  height: 70px;
 }
 
 .bands-selector .colourSelector {
@@ -247,7 +247,39 @@ button:hover {
   max-width: 150px;
 }
 
+.bands-selector .bandContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  min-width: 80px;
+}
+
+.bands-selector .bandContainer .bandColour {
+  width: 20px;
+  height: 20px;
+}
+
+.bands-selector .bandContainer h5 {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 13px;
+}
+
 .bands-selector .bandColour {
+  cursor: pointer;
   width: 20px;
   height: 20px;
 }
@@ -257,11 +289,12 @@ button:hover {
 }
 
 .bandConfig h3 {
+  text-align: center;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   padding: 5px 3px;
   height: 100%;
-  width: 100%;
+  width: 190px;
   border: solid 2px #343734;
   border-radius: 2rem;
   -webkit-user-select: none;

@@ -41,7 +41,7 @@ const BandConfig = () => {
                 type="number"
                 min="0"
                 max="60000"
-                value={bands[index - 1].top}
+                value={parseInt(bands[index - 1].top) + 1}
                 onChange={(e) => {
                   dispatch(changeTopValue({ target: index - 1, top: e.target.value }));
                 }}
@@ -49,7 +49,7 @@ const BandConfig = () => {
               to
               <input
                 type="number"
-                min={bands[index - 1].top}
+                min={parseInt(bands[index - 1].top) + 1}
                 max="60000"
                 value={bands[index].top}
                 onChange={(e) => {

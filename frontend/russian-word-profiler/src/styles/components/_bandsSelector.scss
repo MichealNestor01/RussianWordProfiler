@@ -4,16 +4,35 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   gap: 15px;
-  height: 50px;
+  height: 70px;
+  // overflow-x: scroll; add this at some point, but will
+  // need to move the config panel outside
   .colourSelector {
     position: absolute;
     .picker {
       max-width: 150px;
     }
   }
+  .bandContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 80px;
+    .bandColour {
+      width: 20px;
+      height: 20px;
+    }
+    h5 {
+      user-select: none;
+      font-size: 13px;
+    }
+  }
   .bandColour {
+    cursor: pointer;
     width: 20px;
     height: 20px;
   }
