@@ -1,14 +1,17 @@
-import { Fragment, useEffect, useState } from "react";
-import { ChromePicker } from "react-color";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Band from "./Band";
+import { useSelector, useDispatch } from "react-redux";
+import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
 
-const BandConfig = ({ bands, setBands }) => {
+const BandConfig = () => {
   const [show, setShow] = useState(false);
+  const [bandShow, setBandShow] = useState(-1);
+  const dispatch = useDispatch();
+  const bands = useSelector((state) => state.bands);
 
   const generateBands = () => {
     return bands.map((band, index) => {
-      console.log(band);
       const top = index === 0;
       return (
         <div className="bandInput">
@@ -16,11 +19,11 @@ const BandConfig = ({ bands, setBands }) => {
             key={band.id}
             id={band.id}
             startColour={band.colour}
-            change={setBands}
-            total={bands.length}
+            show={bandShow}
+            setShow={setBandShow}
           />
           {top ? (
-            <div>
+            <div className="gridItem">
               Top
               <input
                 type="number"
@@ -28,21 +31,21 @@ const BandConfig = ({ bands, setBands }) => {
                 max="60000"
                 value={bands[index].top}
                 onChange={(e) => {
-                  setBands({ type: "change_top", target: index, top: e.target.value });
+                  dispatch(changeTopValue({ target: index, top: e.target.value }));
                 }}
               />
             </div>
           ) : (
-            <div>
+            <div className="gridItem">
               <input
                 type="number"
                 min="0"
                 max="60000"
                 value={bands[index - 1].top}
                 onChange={(e) => {
-                  setBands({ type: "change_top", target: index - 1, top: e.target.value });
+                  dispatch(changeTopValue({ target: index - 1, top: e.target.value }));
                 }}
-              />{" "}
+              />
               to
               <input
                 type="number"
@@ -50,11 +53,19 @@ const BandConfig = ({ bands, setBands }) => {
                 max="60000"
                 value={bands[index].top}
                 onChange={(e) => {
-                  setBands({ type: "change_top", target: index, top: e.target.value });
+                  dispatch(changeTopValue({ target: index, top: e.target.value }));
                 }}
               />
             </div>
           )}
+          <h2
+            className="removeButton"
+            onClick={() => {
+              dispatch(removeBand(index));
+            }}
+          >
+            x
+          </h2>
         </div>
       );
     });
@@ -75,13 +86,26 @@ const BandConfig = ({ bands, setBands }) => {
     >
       <div className="top">
         <h2>Band Configuration</h2>
-        <div className="closeButton" onClick={() => setShow(false)}>
+        <div
+          className="closeButton"
+          onClick={() => {
+            setShow(false);
+            setBandShow(-1);
+          }}
+        >
           x
         </div>
       </div>
       <div className="bandsForm">
         Bands:
         {bandInputs}
+        <div
+          onClick={() => {
+            dispatch(addBand());
+          }}
+        >
+          Add Band +
+        </div>
       </div>
     </motion.div>
   );
@@ -91,6 +115,7 @@ const BandConfig = ({ bands, setBands }) => {
       <h3
         onClick={() => {
           setShow(!show);
+          setBandShow(-1);
         }}
       >
         Configure Bands

@@ -1,14 +1,17 @@
 import { useState, useEffect, Fragment } from "react";
+import { useSelector } from "react-redux";
 
-const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
+const FormattedOutput = ({ text, wordData }) => {
   const [output, setOutput] = useState("");
+  const bands = useSelector((state) => state.bands);
+  const lineBreaks = useSelector((state) => state.text.lineBreaks);
 
   const whichColour = (rank) => {
     if (rank === "not listed") {
-      return colourBands[3].colour;
+      return "";
     }
-    for (let bandIndex = 0; bandIndex < colourBands.length; bandIndex++) {
-      const band = colourBands[bandIndex];
+    for (let bandIndex = 0; bandIndex < bands.length; bandIndex++) {
+      const band = bands[bandIndex];
       if (rank < band.top) {
         return band.colour;
       }
@@ -30,7 +33,7 @@ const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
         word = word.slice(0, word.length - 1);
       }
       let lineBreak = "";
-      if (textFormat.lineBreaks.includes(index)) {
+      if (lineBreaks.includes(index)) {
         lineBreak = (
           <Fragment>
             <br />
@@ -61,7 +64,7 @@ const FormattedOutput = ({ text, textFormat, wordData, colourBands }) => {
       );
     });
     setOutput(coloredWords);
-  }, [wordData, textFormat, text, colourBands]);
+  }, [wordData, lineBreaks, text, bands]);
 
   return <Fragment>{output}</Fragment>;
 };

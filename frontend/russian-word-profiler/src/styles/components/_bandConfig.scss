@@ -62,12 +62,24 @@
     .bandsForm {
       display: flex;
       flex-direction: column;
-      .bandInput {
-        display: flex;
-        flex-direction: row;
 
+      .bandInput {
+        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        width: 100%;
         input {
           width: 70px;
+          height: 25px;
+        }
+        .removeButton {
+          user-select: none;
+          cursor: pointer;
+        }
+        .gridItem {
+          text-align: center;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
         }
       }
     }

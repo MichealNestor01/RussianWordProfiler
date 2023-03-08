@@ -1,4 +1,6 @@
 import { useReducer } from "react";
+import { useDispatch } from "react-redux";
+import { setLineBreaks } from "../store/textSlice";
 import BandsSelector from "./BandsSelector";
 import FormattedOutput from "./FormattedOutput";
 
@@ -13,61 +15,13 @@ function statisticsReducer(state, action) {
   });
 }
 
-function textFormatReducer(state, action) {
-  switch (action.type) {
-    case "add_paragraph_end":
-      if (state.lineBreaks.includes(action.index)) {
-        return state;
-      }
-      return { ...state, lineBreaks: [...state.lineBreaks, action.index] };
-    case "set_line_breaks":
-      return { ...state, lineBreaks: action.new };
-    default:
-      return state;
-  }
-}
-
-const colourBandReducer = (state, action) => {
-  console.log(state);
-  switch (action.type) {
-    case "change_colour":
-      return state.map((band) => {
-        if (band.id === action.target) {
-          return { ...band, colour: action.colour };
-        }
-        return band;
-      });
-    case "change_top":
-      console.log("Action: ");
-      console.log(action);
-      return state.map((band) => {
-        if (band.id === action.target) {
-          return { ...band, top: action.top };
-        }
-        return band;
-      });
-    default:
-      return state;
-  }
-};
-
 function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
-  const [textFormat, textFormatDispatch] = useReducer(textFormatReducer, {
-    lineBreaks: [],
-  });
-
+  const dispatch = useDispatch();
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },
     { id: "chars", text: "CHARACTERS", count: 0 },
     { id: "sents", text: "SENTENCES", count: 0 },
     { id: "paras", text: "PARAGRAPHS", count: 0 },
-  ]);
-
-  const [colourBands, dispatchColourBands] = useReducer(colourBandReducer, [
-    { id: 0, top: 1000, colour: "#FF0000" },
-    { id: 1, top: 2500, colour: "#07BD14" },
-    { id: 2, top: 5000, colour: "#0804D4" },
-    { id: 3, top: 60000, colour: "#F008D8" },
   ]);
 
   // recalculate text stats after each update:
@@ -109,7 +63,7 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
       }
       prevChar = char;
     });
-    textFormatDispatch({ type: "set_line_breaks", new: newLineBreaks });
+    dispatch(setLineBreaks({ new: newLineBreaks }));
     dispatchStatistics({ target: "sents", count: sentences });
     dispatchStatistics({ target: "paras", count: paragraphs });
   };
@@ -135,16 +89,11 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
           placeholder={placeholder}
         />
         <div className="text-output main-text">
-          <FormattedOutput
-            text={text}
-            wordData={wordData}
-            textFormat={textFormat}
-            colourBands={colourBands}
-          />
+          <FormattedOutput text={text} wordData={wordData} />
         </div>
       </section>
       <section className="bands-container">
-        <BandsSelector colourBands={colourBands} dispatchColourBands={dispatchColourBands} />
+        <BandsSelector />
       </section>
     </section>
   );

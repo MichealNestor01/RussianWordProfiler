@@ -1,20 +1,22 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useState } from "react";
 import { ChromePicker } from "react-color";
+import { useDispatch } from "react-redux";
+import { changeColour } from "../store/bandsSlice";
 
-const Band = ({ id, startColour, change, total }) => {
+const Band = ({ id, startColour, show, setShow }) => {
+  const dispatch = useDispatch();
   const [colour, setColour] = useState(startColour);
-  const [showPicker, setShowPicker] = useState(false);
 
   const changeHandler = (c) => {
     setColour(c.hex);
-    change({ type: "change_colour", target: id, colour: c.hex });
+    dispatch(changeColour({ target: id, colour: c.hex }));
   };
 
   return (
     <Fragment>
       <AnimatePresence>
-        {showPicker && (
+        {show === id && (
           <motion.div
             initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
             animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
@@ -29,7 +31,13 @@ const Band = ({ id, startColour, change, total }) => {
       <div
         className="bandColour"
         style={{ backgroundColor: colour }}
-        onClick={() => setShowPicker(!showPicker)}
+        onClick={() => {
+          if (show === id) {
+            setShow(-1);
+          } else {
+            setShow(id);
+          }
+        }}
       />
     </Fragment>
   );

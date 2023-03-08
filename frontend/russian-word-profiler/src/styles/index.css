@@ -342,16 +342,32 @@ button:hover {
 }
 
 .bandConfig .panel .bandsForm .bandInput {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 4fr 1fr;
+      grid-template-columns: 1fr 4fr 1fr;
+  width: 100%;
 }
 
 .bandConfig .panel .bandsForm .bandInput input {
   width: 70px;
+  height: 25px;
+}
+
+.bandConfig .panel .bandsForm .bandInput .removeButton {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.bandConfig .panel .bandsForm .bandInput .gridItem {
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
 }
 /*# sourceMappingURL=index.css.map */
