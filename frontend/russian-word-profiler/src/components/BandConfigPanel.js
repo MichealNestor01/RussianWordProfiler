@@ -3,19 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import Band from "./Band";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
+import { setShow, setActiveBandIndex } from "../store/bandsConfigSlice";
 
-const BandConfig = () => {
-  const [show, setShow] = useState(false);
-  const [bandShow, setBandShow] = useState(-1);
+const BandConfigPanel = () => {
+  const [bandInputDivs, setBandInputDivs] = useState([]);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
 
-  const generateBands = () => {
+  const createBandInputDivs = () => {
     return bands.map((band, index) => {
       const top = index === 0;
       return (
         <div className="bandInput" key={`bandInput-${index}`}>
-          <Band id={band.id} startColour={band.colour} show={bandShow} setShow={setBandShow} />
+          <Band id={band.id} startColour={band.colour} />
           {top ? (
             <div className="gridItem">
               Top
@@ -65,16 +65,15 @@ const BandConfig = () => {
     });
   };
 
-  let bandInputs = generateBands();
   useEffect(() => {
-    bandInputs = generateBands();
+    setBandInputDivs(createBandInputDivs());
   }, [bands]);
 
-  const panel = (
+  return (
     <motion.div
-      initial={{ opacity: 0, y: "-50%", x: "-120%" }}
-      animate={{ opacity: 1, y: "-90%", x: "-120%" }}
-      exit={{ opacity: 0, y: "-50%", x: "-120%" }}
+      initial={{ opacity: 0, y: "0%", x: "50%" }}
+      animate={{ opacity: 1, y: "-20%", x: "50%" }}
+      exit={{ opacity: 0, y: "0%", x: "50%" }}
       transition={{ duration: 0.2 }}
       className="panel card"
     >
@@ -83,8 +82,8 @@ const BandConfig = () => {
         <div
           className="closeButton"
           onClick={() => {
-            setShow(false);
-            setBandShow(-1);
+            dispatch(setShow(false));
+            dispatch(setActiveBandIndex(-1));
           }}
         >
           x
@@ -92,7 +91,7 @@ const BandConfig = () => {
       </div>
       <div className="bandsForm">
         Bands:
-        {bandInputs}
+        {bandInputDivs}
         <div
           onClick={() => {
             dispatch(addBand());
@@ -103,20 +102,6 @@ const BandConfig = () => {
       </div>
     </motion.div>
   );
-
-  return (
-    <div className="bandConfig">
-      <h3
-        onClick={() => {
-          setShow(!show);
-          setBandShow(-1);
-        }}
-      >
-        Configure Bands
-      </h3>
-      <AnimatePresence>{show && panel}</AnimatePresence>
-    </div>
-  );
 };
 
-export default BandConfig;
+export default BandConfigPanel;

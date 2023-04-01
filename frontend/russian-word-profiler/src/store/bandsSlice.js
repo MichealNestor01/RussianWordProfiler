@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import chroma from "chroma-js";
 
-let initialState = [];
+const initialState = [];
 let colour = chroma("#ff0000");
 for (let i = 1; i <= 10; i++) {
   initialState.push({
@@ -49,7 +49,6 @@ export const bandsSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { changeColour, changeTopValue, removeBand, addBand } = bandsSlice.actions;
 
 export default bandsSlice.reducer;

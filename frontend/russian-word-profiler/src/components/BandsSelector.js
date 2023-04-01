@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import BandConfig from "./BandConfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import BandConfigPanel from "./BandConfigPanel";
+import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
+import { AnimatePresence } from "framer-motion";
 
 const BandsSelector = () => {
   const [bandDivs, setBandDivs] = useState([]);
+  const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
+  const show = useSelector((state) => state.config.show);
 
   const createBandDivs = () => {
     return bands.map((band, index) => {
@@ -29,8 +34,18 @@ const BandsSelector = () => {
 
   return (
     <section className="bands-selector">
-      {bandDivs}
-      <BandConfig />
+      <div className="scrollArea">{bandDivs}</div>
+      <div className="bandConfig">
+        <h3
+          onClick={() => {
+            dispatch(setShow(!show));
+            dispatch(setActiveBandIndex(-1));
+          }}
+        >
+          Configure Bands
+        </h3>
+      </div>
+      <AnimatePresence>{show && <BandConfigPanel />}</AnimatePresence>
     </section>
   );
 };
