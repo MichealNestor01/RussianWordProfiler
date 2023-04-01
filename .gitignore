@@ -28,3 +28,4 @@ yarn-debug.log*
 yarn-error.log*
 # Local Netlify folder
 .netlify
+frontend/russian-word-profiler/build/asset-manifest.json
