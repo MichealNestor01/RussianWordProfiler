@@ -7,6 +7,8 @@ import FormattedOutput from "./FormattedOutput";
 function statisticsReducer(state, action) {
   const newState = [...state];
   return newState.filter((stat) => {
+    // all of the stats are just numbers, so this
+    // if statement is enough to update them
     if (stat.id === action.target) {
       stat.count = action.count;
       return stat;
@@ -26,11 +28,10 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
 
   // recalculate text stats after each update:
   const textChangeHandler = (e) => {
-    // deal with scroll height
     // deal with text and statistics
     setText(e.target.value);
     const txt = e.target.value;
-    let newLineBreaks = [];
+    const newLineBreaks = [];
     // calculate words:
     const wordCount = txt.split(" ").filter((word) => {
       if (word !== "") {
