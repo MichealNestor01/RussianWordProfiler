@@ -101,4 +101,3 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
 }
 
 export default MainEditor;
-//
