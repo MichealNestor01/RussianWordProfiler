@@ -1,10 +1,12 @@
 import { useState, useEffect, Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
 
 const FormattedOutput = ({ text, wordData }) => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
   const lineBreaks = useSelector((state) => state.text.lineBreaks);
+  const dispatch = useDispatch();
 
   const whichColour = (rank) => {
     if (rank === "not listed") {
@@ -47,7 +49,14 @@ const FormattedOutput = ({ text, wordData }) => {
           const colour = whichColour(wordData[wordLower].rank);
           return (
             <Fragment key={index}>
-              <span style={{ color: colour }} key={index}>
+              <span
+                style={{ color: colour, cursor: "pointer" }}
+                key={index}
+                onClick={() => {
+                  dispatch(setActiveWordIndex(index));
+                  dispatch(setShow(true));
+                }}
+              >
                 {`${word}`}
               </span>
               {`${end} `}
