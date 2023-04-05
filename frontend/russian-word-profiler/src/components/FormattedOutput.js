@@ -53,7 +53,9 @@ const FormattedOutput = ({ text, wordData }) => {
                 style={{ color: colour, cursor: "pointer" }}
                 key={index}
                 onClick={() => {
-                  dispatch(setActiveWordIndex(index));
+                  dispatch(
+                    setActiveWordIndex({ index, word, colour, data: wordData[word].DictionaryData })
+                  );
                   dispatch(setShow(true));
                 }}
               >

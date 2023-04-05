@@ -5,6 +5,7 @@ import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
+import json
 
 class ProfilerObj:
     def __init__(self):
@@ -16,6 +17,9 @@ class ProfilerObj:
         # Retrieve frequency list (Sharoff 2011)   
         with open("2011-frequency-list-SORTED.txt", "r", encoding = "utf8") as file_name:
             self.frequency_list = list(csv.reader(file_name))
+        # get the russian dictionary (Н. Абрамов 1999)
+        with open('dictionary.json') as json_file:
+            self.dictionary = json.load(json_file)
         # Define frequency band limits and increment
         self.bands_from = 0
         self.bands_to = 53000
@@ -57,19 +61,26 @@ class ProfilerObj:
             else:
                 lemmas[lemma_tuple[0]] = {"occ": lemma_tuple[1], "rank": "not listed"}
 
-        print(lemmas)
+
         word_metadata = {}
         for obj in data:
             if "analysis" in obj and "text" in obj:
-                if len(obj["analysis"]) != 0:
-                    lemma = obj["analysis"][0]['lex']
+                # get frequencey data for the word
+                if len(obj["analysis"]) > 0:
+                    # search through dictionary for the word
+                    dictionaryData = self.dictionary.get(obj["analysis"][0]["lex"])
+                    # get freq data
+                    lemma = obj["analysis"][0]['lex']  
                     word_metadata[obj["text"]] = {
                         "word":obj["text"], 
                         "occ":lemmas[lemma]["occ"],
                         "rank":lemmas[lemma]["rank"]
                     }
+                    # save dictionary data
+                    word_metadata[obj["text"]]["DictionaryData"] = dictionaryData
                 else:
                     word_metadata[obj["text"]] = {"word":obj["text"], "lemma":""}
+                
 
         return word_metadata
 

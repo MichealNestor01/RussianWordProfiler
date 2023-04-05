@@ -17,3 +17,6 @@ def scan_data():
     text = request.json["text"]
     output = profiler.scan_text(text)
     return output
+
+if __name__ =='__main__':  
+    app.run(debug = True)  

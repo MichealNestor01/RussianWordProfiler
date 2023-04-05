@@ -159,6 +159,7 @@ button:hover {
 }
 
 .text-input {
+  position: relative;
   width: 100%;
 }
 
@@ -415,5 +416,67 @@ button:hover {
 
 .bandConfig h3:hover {
   background-color: #a6a6a8;
+}
+
+.wordEditor {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #ececec;
+  -webkit-box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0px 0px 0px 4px;
+  width: 450px;
+  height: 200px;
+  background-color: #f5f5f5;
+}
+
+.wordEditor .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.wordEditor .top h2 {
+  margin-top: 4px;
+}
+
+.wordEditor .top .closeButton {
+  background-color: #616161;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0px 4px 0px 15px;
+  color: #f5f5f5;
+  font-weight: 700;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=index.css.map */
