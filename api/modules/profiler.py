@@ -5,7 +5,12 @@ import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
+import requests
 import json
+from decouple import config
+
+# get api key from local environment variable
+API_KEY = config('API_KEY')
 
 class ProfilerObj:
     def __init__(self):
@@ -13,23 +18,78 @@ class ProfilerObj:
         self.mystem = Mystem()
         # Retrieve the stop words
         with open("stopwords.txt", "r", encoding="utf-8") as file:
-            self.stopwords = file.readlines()
+            self.stopwords = set(file.readlines())
         # Retrieve frequency list (Sharoff 2011)   
-        with open("2011-frequency-list-SORTED.txt", "r", encoding = "utf8") as file_name:
-            self.frequency_list = list(csv.reader(file_name))
+        self.load_frequency_list("2011-frequency-list-SORTED.txt")
+        #with open("2011-frequency-list-SORTED.txt", "r", encoding = "utf8") as file_name:
+        #    self.frequency_list = list(csv.reader(file_name))
         # get the russian dictionary (Н. Абрамов 1999)
-        with open('dictionary.json') as json_file:
-            self.dictionary = json.load(json_file)
+        #with open('dictionary.json') as json_file:
+        #    self.dictionary = json.load(json_file)
         # Define frequency band limits and increment
-        self.bands_from = 0
-        self.bands_to = 53000
-        self.bands_step = 1000
+        #self.bands_from = 0
+        #self.bands_to = 53000
+        #self.bands_step = 1000
+
+    # loads in the frequency csv
+    def load_frequency_list(self, file_path):
+        self.frequency_list = {}
+        with open(file_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                lemma, rank = row[1], row[0]
+                self.frequency_list[lemma] = rank
+
+    # gets dictionary data about a word from yandex
+    def get_word_data(self, word):
+        url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
+        response = requests.get(url)
+        data = response.json()
+        return data
+
+    # retrives the frequency rank of a lemma
+    def get_frequency_rank(self, lemma):
+        return self.frequency_list.get(lemma, -1)
 
     def scan_text(self, txt):
         # put text to lower case
         txt = txt.lower()
         # REMOVE ALL PUNCTUATION FROM THE TEXT
         txt = re.sub(r'[^\w ]','',txt)
+        # Split the text into a list of words
+        words = txt.split()
+        # remove the stopwords
+        words = list(set(words) - self.stopwords)
+        # now get the data on each word
+        word_data = {}
+        for word in words:
+            print(f"Scanning word: {word}")
+            # lemmatise the word 
+            lemma = self.mystem.lemmatize(word)[0]
+            # get data from yandex about the word
+            data = self.get_word_data(word)
+            # get the words frequency rank
+            rank = self.get_frequency_rank(lemma)
+            # find synonyms from the word data
+            synonyms = []
+            if 'def' in data and data['def']:
+                word_def = data['def'][0]
+                if 'tr' in word_def:
+                    synonyms = [tr['text'] for tr in word_def['tr'] if 'text' in tr]
+            # update word data
+            word_data[word] = {
+                'rank': rank,
+                'synonyms': synonyms,
+                'lemma': lemma
+            }
+        for key in word_data.keys():
+            print(f"{key}:{word_data[key]}")
+        # return all the word data
+        return word_data
+
+        # FIX THIS SHIT
+
+        '''
         # ANALYSE TEXT, AND REMOVE WHITE SPACE, (as well as all non-russian words)
         data = [lemma_data for lemma_data in self.mystem.analyze(txt) if len(re.sub(r'[^\w]','',lemma_data['text'])) > 0]
         # LIST LEMMAS
@@ -38,7 +98,7 @@ class ProfilerObj:
             if "analysis" in i and len(i["analysis"]) != 0:
                 lemma_data.append(i["analysis"][0]['lex'])
 
-        '''
+        #============not used===================#
         # COUNT LEMMA OCCURENCES (where available)
         # lemma_data is a list of all lemmas together with there occurences in the text
         lemma_data = FreqDist(lemma_data).most_common()
@@ -51,7 +111,8 @@ class ProfilerObj:
             else:
                 entry = {"lemma": val[0], "occ": val[1], "rank": "not listed"}
                 lemma_data[i] = entry
-        '''
+        #============not used===================#
+        
         lemma_data = FreqDist(lemma_data).most_common()
         lemmas = {}
         for lemma_tuple in lemma_data:
@@ -84,6 +145,8 @@ class ProfilerObj:
 
         return word_metadata
 
+        
+        #======================= nothing beyond this point============#
         # PAIR WORDs AND LEMMAs
         word_lemma_pairs = []
         for i in data:
@@ -157,6 +220,7 @@ class ProfilerObj:
                 not_listed = round(100*len(band["entries"])/total_words,2)
                 output.append(f"not listed {not_listed}%")
         return output
+        '''
     
 def _tests():
     profiler = ProfilerObj()
