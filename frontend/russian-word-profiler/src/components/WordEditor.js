@@ -2,20 +2,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
-import { setShow, setActiveWordIndex } from "../store/wordStatsSlice";
+import { setShow, setActiveWordIndex, closeWordStats } from "../store/wordStatsSlice";
 
 const WordEditor = () => {
   const dispatch = useDispatch();
-  const { activeWord: word, colour, data } = useSelector((state) => state.wordStats);
-  const [definition, setDefinition] = useState("");
-  const [synonyms, setSynonyms] = useState("");
-
-  useEffect(() => {
-    if (data != undefined) {
-      setDefinition(data.definition);
-      setSynonyms(data.synonyms);
-    }
-  }, [data]);
+  const { activeWord: word, colour, synonyms } = useSelector((state) => state.wordStats);
 
   return (
     <motion.div
@@ -32,15 +23,13 @@ const WordEditor = () => {
         <div
           className="closeButton"
           onClick={() => {
-            dispatch(setShow(false));
-            dispatch(setActiveWordIndex(-1));
+            dispatch(closeWordStats());
           }}
         >
           x
         </div>
       </div>
-      {definition.length > 0 && <div>Definition: {definition}</div>}
-      {synonyms.length > 0 && (
+      {synonyms !== undefined && synonyms.length > 0 && (
         <div>
           Synonyms:{" "}
           <ul>

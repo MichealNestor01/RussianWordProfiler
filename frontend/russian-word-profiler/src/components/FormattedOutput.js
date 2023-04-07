@@ -44,19 +44,22 @@ const FormattedOutput = ({ text, wordData }) => {
         );
       }
       let wordLower = word.toLowerCase();
+      let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
           const colour = whichColour(wordData[wordLower].rank);
           return (
             <Fragment key={index}>
               <span
-                style={{ color: colour, cursor: "pointer" }}
+                style={{ color: colour, cursor: totalSynonyms > 0 ? "pointer" : "auto" }}
                 key={index}
                 onClick={() => {
-                  dispatch(
-                    setActiveWordIndex({ index, word, colour, data: wordData[word].DictionaryData })
-                  );
-                  dispatch(setShow(true));
+                  if (totalSynonyms > 0) {
+                    dispatch(
+                      setActiveWordIndex({ index, word, colour, synonyms: wordData[wordLower].synonyms })
+                    );
+                    dispatch(setShow(true));
+                  }
                 }}
               >
                 {`${word}`}
