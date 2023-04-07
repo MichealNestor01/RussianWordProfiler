@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask import render_template
 from modules.profiler import ProfilerObj
+from flask import jsonify 
 
 profiler = ProfilerObj()
 
@@ -13,10 +14,11 @@ def hello_world():
     return render_template('index.html')
 
 @app.route('/scantext/', methods=['POST'])
-def scan_data():
+async def scan_data():
     text = request.json["text"]
-    output = profiler.scan_text(text)
-    return output
+    # Run the scan_text function synchronously using a worker thread
+    output = await profiler.scan_text(text)
+    return jsonify(output)
 
 if __name__ =='__main__':  
     app.run(debug = True)  
