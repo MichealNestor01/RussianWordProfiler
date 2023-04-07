@@ -1,6 +1,7 @@
 */env
 /api/testfiles
 /api/modules/.env
+*/__pycache__
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -31,3 +32,4 @@ yarn-error.log*
 # Local Netlify folder
 .netlify
 frontend/russian-word-profiler/build/asset-manifest.json
+api/modules/__pycache__/profiler.cpython-311.pyc
