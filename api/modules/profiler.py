@@ -59,10 +59,12 @@ class ProfilerObj:
             word_def = data['def'][0]
             if 'tr' in word_def:
                 synonyms = [tr['text'] for tr in word_def['tr'] if 'text' in tr]
+        # get the frequency rank of the synonyms
+        synonyms_rank = {synonym: self.get_frequency_rank(synonym) for synonym in synonyms}
         # update word data
         return {word: {
             'rank': rank,
-            'synonyms': synonyms,
+            'synonyms': synonyms_rank,
             'lemma': lemma
         }}
 
