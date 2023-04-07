@@ -33,3 +33,4 @@ yarn-error.log*
 .netlify
 frontend/russian-word-profiler/build/asset-manifest.json
 api/modules/__pycache__/profiler.cpython-311.pyc
+api/modules/__pycache__/profiler.cpython-311.pyc
