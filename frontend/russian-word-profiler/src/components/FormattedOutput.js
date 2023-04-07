@@ -9,40 +9,21 @@ const FormattedOutput = ({ text, wordData }) => {
   const lineBreaks = useSelector((state) => state.text.lineBreaks);
   const dispatch = useDispatch();
 
+  const extractPunctuation = (word) => {
+    const startMatch = word.match(/^[^a-zA-Zа-яА-Я0-9]+/u);
+    const endMatch = word.match(/[^a-zA-Zа-яА-Я0-9]+$/u);
+    const start = startMatch ? startMatch[0] : "";
+    const end = endMatch ? endMatch[0] : "";
+    const trimmedWord = word.slice(start.length, word.length - end.length);
+    return { start, end, trimmedWord };
+  };
+
   useEffect(() => {
     const words = text.split(/\s+/);
     const coloredWords = words.map((word, index) => {
       // deal with puctuation at the start and end
       // store it and remove it.
-      let start = "";
-      if (
-        word[0] === "(" ||
-        word[0] === "«" ||
-        word[0] === "[" ||
-        word[0] === "{" ||
-        word[0] === '"' ||
-        word[0] === "'"
-      ) {
-        start = word[0];
-        word = word.slice(1);
-      }
-      let end = "";
-      if (
-        word[word.length - 1] === "," ||
-        word[word.length - 1] === "." ||
-        word[word.length - 1] === ";" ||
-        word[word.length - 1] === "!" ||
-        word[word.length - 1] === "?" ||
-        word[word.length - 1] === "»" ||
-        word[word.length - 1] === ")" ||
-        word[word.length - 1] === "]" ||
-        word[word.length - 1] === '"' ||
-        word[word.length - 1] === "'" ||
-        word[word.length - 1] === "}"
-      ) {
-        end = word[word.length - 1];
-        word = word.slice(0, -1);
-      }
+      const { start, end, trimmedWord } = extractPunctuation(word);
       let lineBreak = "";
       if (lineBreaks.includes(index)) {
         lineBreak = (
@@ -52,7 +33,7 @@ const FormattedOutput = ({ text, wordData }) => {
           </Fragment>
         );
       }
-      let wordLower = word.toLowerCase();
+      let wordLower = trimmedWord.toLowerCase();
       let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
@@ -72,7 +53,7 @@ const FormattedOutput = ({ text, wordData }) => {
                   }
                 }}
               >
-                {`${word}`}
+                {`${trimmedWord}`}
               </span>
               {`${end} `}
               {lineBreak}
@@ -82,7 +63,7 @@ const FormattedOutput = ({ text, wordData }) => {
       }
       return (
         <Fragment key={index}>
-          {`${start}${word}${end} `}
+          {`${start}${trimmedWord}${end} `}
           {lineBreak}
         </Fragment>
       );
