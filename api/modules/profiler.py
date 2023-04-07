@@ -2,12 +2,14 @@ import csv
 from typing import Dict, List, Any, Set
 from pymystem3 import Mystem
 import re
+import pickle
 import asyncio
 import aiohttp
 from decouple import config
 
 # get api key from local environment variable
 API_KEY = config('API_KEY')
+CACHE_FILE = "word_data_cache.pickle"
 
 class ProfilerObj:
     def __init__(self):
@@ -19,7 +21,20 @@ class ProfilerObj:
         # Retrieve frequency list (Sharoff 2011)   
         self.load_frequency_list("2011-frequency-list-SORTED.txt")
         # Create a cache to store word data
-        self.word_data_cache: Dict[str, Dict[str, Any]] = {}
+        self.load_cache()
+
+    # loads in any chanced yandex queries
+    def load_cache(self) -> None:
+        try:
+            with open(CACHE_FILE, "rb") as f:
+                self.word_data_cache = pickle.load(f)
+        except FileNotFoundError:
+            self.word_data_cache: Dict[str, Dict[str, Any]] = {}
+    
+    # save queries to the cache file
+    def save_cache(self) -> None:
+        with open(CACHE_FILE, "wb") as f:
+            pickle.dump(self.word_data_cache, f)
 
     # loads in the frequency csv
     def load_frequency_list(self, file_path: str) -> None:
@@ -39,11 +54,12 @@ class ProfilerObj:
         if word in self.word_data_cache:
             return self.word_data_cache[word]
         
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession() as session:  
             url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
             async with session.get(url) as response:
                 data = await response.json()
                 self.word_data_cache[word] = data
+                self.save_cache()
                 return data
     
     async def process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
