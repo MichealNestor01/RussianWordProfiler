@@ -47,7 +47,6 @@ class ProfilerObj:
                 return data
     
     async def process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
-        print(f"Scanning word: {word}")
         # lemmatise the word 
         lemma = self.mystem.lemmatize(word)[0]
         # get data from yandex about the word
