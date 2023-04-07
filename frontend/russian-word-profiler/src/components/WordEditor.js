@@ -36,10 +36,7 @@ const WordEditor = () => {
           Synonyms:{" "}
           <ul>
             {synonyms.map((synonym, index) => {
-              console.log("This is a synonym");
-              console.log(synonym);
               const colour = whichColour(synonym.rank, [...bands]);
-              console.log(colour);
               return (
                 <li key={`synonym-${index}`} style={{ color: colour }}>
                   {synonym.synonym}
