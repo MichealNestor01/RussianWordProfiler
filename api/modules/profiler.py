@@ -74,7 +74,7 @@ class ProfilerObj:
         # put text to lower case
         txt = txt.lower()
         # remove all punctuation for the text
-        txt = re.sub(r'[^\w ]','',txt)
+        txt = re.sub(r'[.,;:!?…–\-_"“”‘’«»(){}\[\]]', '', txt)
         # Split the text into a list of words
         words = txt.split()
         # remove the stopwords
