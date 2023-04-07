@@ -9,8 +9,13 @@ const FormattedOutput = ({ text, wordData }) => {
   const lineBreaks = useSelector((state) => state.text.lineBreaks);
   const dispatch = useDispatch();
 
+  function splitWordsAndPunctuation(text) {
+    const regex = /[\w\u0400-\u04FF]+|[«»]|[^\w\s\u0400-\u04FF]/g;
+    return text.match(regex);
+  }
+
   useEffect(() => {
-    const words = text.split(/\s+/);
+    const words = splitWordsAndPunctuation(text);
     const coloredWords = words.map((word, index) => {
       let end = "";
       if (
