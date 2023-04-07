@@ -12,10 +12,9 @@ const WordEditor = () => {
   const [editorHeight, setEditorHeight] = useState(0);
 
   useEffect(() => {
-    const listItemHeight = 24; // Adjust this value based on your desired list item height, including margins and padding
-    const minHeight = 100; // Set a minimum height for the wordEditor div
-    const extraHeight = 50; // Additional height to accommodate other elements inside the wordEditor div
-
+    const listItemHeight = 24;
+    const minHeight = 100;
+    const extraHeight = 50;
     if (synonyms) {
       setEditorHeight(Math.max(minHeight, synonyms.length * listItemHeight + extraHeight));
     }
