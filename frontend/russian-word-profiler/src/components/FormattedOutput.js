@@ -9,24 +9,39 @@ const FormattedOutput = ({ text, wordData }) => {
   const lineBreaks = useSelector((state) => state.text.lineBreaks);
   const dispatch = useDispatch();
 
-  function splitWordsAndPunctuation(text) {
-    const regex = /[\w\u0400-\u04FF]+|[«»]|[^\w\s\u0400-\u04FF]/g;
-    return text.match(regex);
-  }
-
   useEffect(() => {
-    const words = splitWordsAndPunctuation(text);
+    const words = text.split(/\s+/);
     const coloredWords = words.map((word, index) => {
+      // deal with puctuation at the start and end
+      // store it and remove it.
+      let start = "";
+      if (
+        word[0] === "(" ||
+        word[0] === "«" ||
+        word[0] === "[" ||
+        word[0] === "{" ||
+        word[0] === '"' ||
+        word[0] === "'"
+      ) {
+        start = word[0];
+        word = word.slice(1);
+      }
       let end = "";
       if (
         word[word.length - 1] === "," ||
         word[word.length - 1] === "." ||
         word[word.length - 1] === ";" ||
         word[word.length - 1] === "!" ||
-        word[word.length - 1] === "?"
+        word[word.length - 1] === "?" ||
+        word[word.length - 1] === "»" ||
+        word[word.length - 1] === ")" ||
+        word[word.length - 1] === "]" ||
+        word[word.length - 1] === '"' ||
+        word[word.length - 1] === "'" ||
+        word[word.length - 1] === "}"
       ) {
         end = word[word.length - 1];
-        word = word.slice(0, word.length - 1);
+        word = word.slice(0, -1);
       }
       let lineBreak = "";
       if (lineBreaks.includes(index)) {
@@ -44,6 +59,7 @@ const FormattedOutput = ({ text, wordData }) => {
           const colour = whichColour(wordData[wordLower].rank, [...bands]);
           return (
             <Fragment key={index}>
+              {`${start}`}
               <span
                 style={{ color: colour, cursor: totalSynonyms > 0 ? "pointer" : "auto" }}
                 key={index}
@@ -66,7 +82,7 @@ const FormattedOutput = ({ text, wordData }) => {
       }
       return (
         <Fragment key={index}>
-          {`${word}${end} `}
+          {`${start}${word}${end} `}
           {lineBreak}
         </Fragment>
       );
