@@ -17,7 +17,6 @@ const Band = ({ id, startColour }) => {
   };
 
   useEffect(() => {
-    console.log(`bands from ${id}: `, bands);
     if (id < bands.length) {
       if (bands[id].colour != colour) {
         setColour(bands[id].colour);
