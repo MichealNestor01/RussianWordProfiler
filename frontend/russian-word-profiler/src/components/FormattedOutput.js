@@ -1,24 +1,13 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
+import { whichColour } from "../functions/whichColour";
 
 const FormattedOutput = ({ text, wordData }) => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
   const lineBreaks = useSelector((state) => state.text.lineBreaks);
   const dispatch = useDispatch();
-
-  const whichColour = (rank) => {
-    if (rank === -1) {
-      return "";
-    }
-    for (let bandIndex = 0; bandIndex < bands.length; bandIndex++) {
-      const band = bands[bandIndex];
-      if (rank < band.top) {
-        return band.colour;
-      }
-    }
-  };
 
   useEffect(() => {
     const words = text.split(/\s+/);
@@ -47,7 +36,7 @@ const FormattedOutput = ({ text, wordData }) => {
       let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
-          const colour = whichColour(wordData[wordLower].rank);
+          const colour = whichColour(wordData[wordLower].rank, [...bands]);
           return (
             <Fragment key={index}>
               <span

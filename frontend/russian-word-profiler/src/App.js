@@ -14,7 +14,7 @@ function App() {
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: `http://localhost/scantext/`,
+      url: `http://localhost:5000/scantext/`,
       data: { text: input },
     });
     if (response.status === 200) {

@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
 import { setShow, setActiveWordIndex, closeWordStats } from "../store/wordStatsSlice";
+import { whichColour } from "../functions/whichColour";
 
 const WordEditor = () => {
   const dispatch = useDispatch();
+  const bands = useSelector((state) => state.bands);
   const { activeWord: word, colour, synonyms } = useSelector((state) => state.wordStats);
 
   return (
@@ -34,7 +36,15 @@ const WordEditor = () => {
           Synonyms:{" "}
           <ul>
             {synonyms.map((synonym, index) => {
-              return <li key={`synonym-${index}`}>{synonym}</li>;
+              console.log("This is a synonym");
+              console.log(synonym);
+              const colour = whichColour(synonym.rank, [...bands]);
+              console.log(colour);
+              return (
+                <li key={`synonym-${index}`} style={{ color: colour }}>
+                  {synonym.synonym}
+                </li>
+              );
             })}
           </ul>
         </div>
