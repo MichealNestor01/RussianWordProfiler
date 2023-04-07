@@ -1,4 +1,5 @@
 import csv
+from typing import Dict, List, Any, Set
 from pymystem3 import Mystem
 import re
 import asyncio
@@ -14,27 +15,27 @@ class ProfilerObj:
         self.mystem = Mystem()
         # Retrieve the stop words
         with open("stopwords.txt", "r", encoding="utf-8") as file:
-            self.stopwords = set(line.strip() for line in file)
+            self.stopwords: Set[str]  = set(line.strip() for line in file)
         # Retrieve frequency list (Sharoff 2011)   
         self.load_frequency_list("2011-frequency-list-SORTED.txt")
         # Create a cache to store word data
-        self.word_data_cache = {}
+        self.word_data_cache: Dict[str, Dict[str, Any]] = {}
 
     # loads in the frequency csv
-    def load_frequency_list(self, file_path):
-        self.frequency_list = {}
+    def load_frequency_list(self, file_path: str) -> None:
+        self.frequency_list: Dict[str, int] = {}
         with open(file_path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for row in reader:
-                lemma, rank = row[1], row[0]
+                lemma, rank = row[1], int(row[0])  # Convert the rank to an integer
                 self.frequency_list[lemma] = rank
 
     # retrives the frequency rank of a lemma
-    def get_frequency_rank(self, lemma):
+    def get_frequency_rank(self, lemma: str) -> int:
         return self.frequency_list.get(lemma, -1)
 
     # gets dictionary data about a word from yandex
-    async def get_word_data(self, word):
+    async def get_word_data(self, word: str) -> Dict[str, Any]:
         if word in self.word_data_cache:
             return self.word_data_cache[word]
         
@@ -45,7 +46,7 @@ class ProfilerObj:
                 self.word_data_cache[word] = data
                 return data
     
-    async def process_word(self, word):
+    async def process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
         print(f"Scanning word: {word}")
         # lemmatise the word 
         lemma = self.mystem.lemmatize(word)[0]
@@ -60,7 +61,7 @@ class ProfilerObj:
             if 'tr' in word_def:
                 synonyms = [tr['text'] for tr in word_def['tr'] if 'text' in tr]
         # get the frequency rank of the synonyms
-        synonyms_rank = {synonym: self.get_frequency_rank(synonym) for synonym in synonyms}
+        synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(self.mystem.lemmatize(synonym)[0])} for synonym in synonyms]
         # update word data
         return {word: {
             'rank': rank,
@@ -70,7 +71,7 @@ class ProfilerObj:
 
     # scan text recieves a large amount of plain text that needs to
     # be analysed
-    async def scan_text(self, txt):
+    async def scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]:
         # put text to lower case
         txt = txt.lower()
         # remove all punctuation for the text
