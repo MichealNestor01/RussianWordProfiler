@@ -250,7 +250,18 @@ button:hover {
   display: flex;
   overflow-x: auto;
   height: 70px;
-  width: 82%;
+  width: 80%;
+}
+
+.bands-selector .bandConfig {
+  position: relative;
+  width: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .bands-selector .bandContainer {
@@ -392,30 +403,6 @@ button:hover {
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
-}
-
-.bandConfig {
-  position: relative;
-}
-
-.bandConfig h3 {
-  text-align: center;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  padding: 5px 3px;
-  height: 100%;
-  width: 190px;
-  border: solid 2px #343734;
-  border-radius: 2rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
-}
-
-.bandConfig h3:hover {
-  background-color: #a6a6a8;
 }
 
 .wordEditor {

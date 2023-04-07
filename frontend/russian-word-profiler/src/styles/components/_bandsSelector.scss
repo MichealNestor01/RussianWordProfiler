@@ -18,7 +18,14 @@
     display: flex;
     overflow-x: auto;
     height: 70px;
-    width: 82%;
+    width: 80%;
+  }
+  .bandConfig {
+    // display and layout
+    position: relative;
+    width: 20%;
+    display: flex;
+    justify-content: center;
   }
   .bandContainer {
     flex: 0 0 100px;

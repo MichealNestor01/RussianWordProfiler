@@ -36,14 +36,14 @@ const BandsSelector = () => {
     <section className="bands-selector">
       <div className="scrollArea">{bandDivs}</div>
       <div className="bandConfig">
-        <h3
+        <button
           onClick={() => {
             dispatch(setShow(!show));
             dispatch(setActiveBandIndex(-1));
           }}
         >
           Configure Bands
-        </h3>
+        </button>
       </div>
       <AnimatePresence>{show && <BandConfigPanel />}</AnimatePresence>
     </section>
