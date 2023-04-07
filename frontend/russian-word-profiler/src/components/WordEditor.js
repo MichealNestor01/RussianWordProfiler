@@ -9,6 +9,17 @@ const WordEditor = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
   const { activeWord: word, colour, synonyms } = useSelector((state) => state.wordStats);
+  const [editorHeight, setEditorHeight] = useState(0);
+
+  useEffect(() => {
+    const listItemHeight = 24; // Adjust this value based on your desired list item height, including margins and padding
+    const minHeight = 100; // Set a minimum height for the wordEditor div
+    const extraHeight = 50; // Additional height to accommodate other elements inside the wordEditor div
+
+    if (synonyms) {
+      setEditorHeight(Math.max(minHeight, synonyms.length * listItemHeight + extraHeight));
+    }
+  }, [synonyms]);
 
   return (
     <motion.div
@@ -17,6 +28,7 @@ const WordEditor = () => {
       exit={{ opacity: 0, y: "-400px", x: "400px" }}
       transition={{ duration: 0.2 }}
       className="wordEditor"
+      style={{ height: editorHeight }}
     >
       <div className="top">
         <h2>
