@@ -9,7 +9,7 @@ const FormattedOutput = ({ text, wordData }) => {
   const dispatch = useDispatch();
 
   const whichColour = (rank) => {
-    if (rank === "not listed") {
+    if (rank === -1) {
       return "";
     }
     for (let bandIndex = 0; bandIndex < bands.length; bandIndex++) {
