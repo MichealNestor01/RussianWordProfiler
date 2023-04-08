@@ -10,7 +10,6 @@ function App() {
       <section className="input-section">
         <h2>TEXT TO PROFILE:</h2>
         <MainEditor placeholder="Place text here!" />
-        <button onClick={submitHandler}>Profile Text</button>
       </section>
       <section className="bottom-panel">
         <section className="data-panel">

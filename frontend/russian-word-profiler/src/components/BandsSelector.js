@@ -51,7 +51,7 @@ const BandsSelector = () => {
   return (
     <section className="bands-selector">
       <div className="scrollArea">{bandDivs}</div>
-      <div className="bandConfig">
+      <div className="buttons">
         <button onClick={submitHandler}>Profile Text</button>
         <button
           onClick={() => {
