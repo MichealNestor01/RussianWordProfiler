@@ -13,13 +13,13 @@ const BandsSelector = () => {
   const bands = useSelector((state) => state.bands);
   const showBandConfig = useSelector((state) => state.config.show);
   const showApiConfig = useSelector((state) => state.text.showApiConfig);
-  const { text, stopwords } = useSelector((state) => state.text);
+  const { text, stopWords } = useSelector((state) => state.text);
 
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: `http://localhost/scantext/`,
-      data: { text: text, stopwords: stopwords },
+      url: `http://localhost:5000/scantext/`,
+      data: { stopwords: stopWords, text: text },
     });
     if (response.status === 200) {
       console.log(response.data);
