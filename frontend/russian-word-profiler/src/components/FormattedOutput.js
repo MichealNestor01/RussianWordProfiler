@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
 import { whichColour } from "../functions/whichColour";
 
-const FormattedOutput = ({ text, wordData }) => {
+const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
-  const lineBreaks = useSelector((state) => state.text.lineBreaks);
+  const { text, lineBreaks, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
 
   const extractPunctuation = (word) => {

@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLineBreaks } from "../store/textSlice";
+import { setLineBreaks, setText } from "../store/textSlice";
 import BandsSelector from "./BandsSelector";
 import FormattedOutput from "./FormattedOutput";
 import WordEditor from "./WordEditor";
@@ -19,9 +19,10 @@ function statisticsReducer(state, action) {
   });
 }
 
-function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
+function MainEditor({ placeholder = "Text Here." }) {
   const dispatch = useDispatch();
   const showWordStats = useSelector((state) => state.wordStats.show);
+  const text = useSelector((state) => state.text.text);
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },
     { id: "chars", text: "CHARACTERS", count: 0 },
@@ -32,7 +33,7 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
   // recalculate text stats after each update:
   const textChangeHandler = (e) => {
     // deal with text and statistics
-    setText(e.target.value);
+    dispatch(setText(e.target.value));
     const txt = e.target.value;
     const newLineBreaks = [];
     // calculate words:
@@ -93,7 +94,7 @@ function MainEditor({ text, setText, wordData, placeholder = "Text Here." }) {
           placeholder={placeholder}
         />
         <div className="text-output main-text">
-          <FormattedOutput text={text} wordData={wordData} />
+          <FormattedOutput />
         </div>
       </section>
       <section className="bands-container">

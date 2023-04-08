@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import BandConfig from "./BandConfig";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "./BandConfigPanel";
 import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
+import { setWordData } from "../store/textSlice";
 import { AnimatePresence } from "framer-motion";
 
 const BandsSelector = () => {
@@ -10,6 +11,21 @@ const BandsSelector = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
   const show = useSelector((state) => state.config.show);
+  const text = useSelector((state) => state.text.text);
+
+  const submitHandler = async () => {
+    const response = await axios({
+      method: "post",
+      url: `http://localhost/scantext/`,
+      data: { text: text },
+    });
+    if (response.status === 200) {
+      console.log(response.data);
+      dispatch(setWordData(response.data));
+    } else {
+      console.error(`ERROR CODE: ${response.status} - ${response.statusText}`);
+    }
+  };
 
   const createBandDivs = () => {
     return bands.map((band, index) => {
@@ -36,6 +52,7 @@ const BandsSelector = () => {
     <section className="bands-selector">
       <div className="scrollArea">{bandDivs}</div>
       <div className="bandConfig">
+        <button onClick={submitHandler}>Profile Text</button>
         <button
           onClick={() => {
             dispatch(setShow(!show));
