@@ -66,7 +66,8 @@ button {
   cursor: pointer;
   background-color: #8c8c8d;
   border: none;
-  padding: 10px 25px;
+  padding: 15px 5px;
+  width: 120px;
   border-radius: 30px;
   text-decoration: none;
   color: #343734;
@@ -250,13 +251,13 @@ button:hover {
   display: flex;
   overflow-x: auto;
   height: 70px;
-  width: 65%;
+  width: 70%;
   background-color: #6e6e6e1f;
 }
 
 .bands-selector .buttons {
   position: relative;
-  width: 35%;
+  width: 30%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -8,6 +8,8 @@ export const textSlice = createSlice({
   initialState: {
     text: TEXT,
     lineBreaks: [],
+    stopWords: [],
+    showApiConfig: false,
     wordData: {},
   },
   reducers: {
@@ -25,10 +27,17 @@ export const textSlice = createSlice({
     setText: (state, action) => {
       state.text = action.payload;
     },
+    setStopWords: (state, action) => {
+      state.stopWords = action.payload;
+    },
+    setShowApiConfig: (state, action) => {
+      state.showApiConfig = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addParagraphEnd, setLineBreaks, setWordData, setText } = textSlice.actions;
+export const { addParagraphEnd, setLineBreaks, setWordData, setText, setShowApiConfig } =
+  textSlice.actions;
 
 export default textSlice.reducer;

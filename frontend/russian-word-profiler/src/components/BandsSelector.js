@@ -3,14 +3,16 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "./BandConfigPanel";
 import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
-import { setWordData } from "../store/textSlice";
+import { setWordData, setShowApiConfig } from "../store/textSlice";
 import { AnimatePresence } from "framer-motion";
+import ApiSettings from "./ApiSettings";
 
 const BandsSelector = () => {
   const [bandDivs, setBandDivs] = useState([]);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
-  const show = useSelector((state) => state.config.show);
+  const showBandConfig = useSelector((state) => state.config.show);
+  const showApiConfig = useSelector((state) => state.text.showApiConfig);
   const text = useSelector((state) => state.text.text);
 
   const submitHandler = async () => {
@@ -52,17 +54,25 @@ const BandsSelector = () => {
     <section className="bands-selector">
       <div className="scrollArea">{bandDivs}</div>
       <div className="buttons">
+        <button
+          onClick={() => {
+            dispatch(setShowApiConfig(!showApiConfig));
+          }}
+        >
+          API Settings
+        </button>
         <button onClick={submitHandler}>Profile Text</button>
         <button
           onClick={() => {
-            dispatch(setShow(!show));
+            dispatch(setShow(!showBandConfig));
             dispatch(setActiveBandIndex(-1));
           }}
         >
           Configure Bands
         </button>
       </div>
-      <AnimatePresence>{show && <BandConfigPanel />}</AnimatePresence>
+      <AnimatePresence>{showBandConfig && <BandConfigPanel />}</AnimatePresence>
+      <AnimatePresence>{showApiConfig && <ApiSettings />}</AnimatePresence>
     </section>
   );
 };
