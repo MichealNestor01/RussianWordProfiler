@@ -4,25 +4,39 @@ import chroma from "chroma-js";
 const initialState = [];
 let colour = chroma("#ff0000");
 for (let i = 1; i <= 10; i++) {
-  const hue = (i - 1) * 33;
+  const hue = (i - 1) * 16.5;
   const color = chroma(hue, 0.5, 0.5, "hsl");
   const darkerColor = color.darken(-0.3);
   const pastelColor = darkerColor.saturate(-0.1);
 
   initialState.push({
     id: i - 1,
-    top: 1000 * i,
+    top: 100 * i,
+    colour: pastelColor.hex(),
+  });
+}
+for (let i = 1; i <= 10; i++) {
+  const hue = (i + 10 - 1) * 16.5;
+  const color = chroma(hue, 0.5, 0.5, "hsl");
+  const darkerColor = color.darken(-0.3);
+  const pastelColor = darkerColor.saturate(-0.1);
+
+  initialState.push({
+    id: i + 10 - 1,
+    top: 1000 * (i + 1),
     colour: pastelColor.hex(),
   });
 }
 initialState.push({
-  id: 10,
+  id: 20,
   top: 60000,
   colour: chroma(10 * 33, 0.5, 0.5, "hsl")
     .darken(-0.3)
     .saturate(-0.1)
     .hex(),
 });
+
+console.log(initialState);
 
 export const bandsSlice = createSlice({
   name: "bands",
