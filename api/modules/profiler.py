@@ -22,6 +22,10 @@ class ProfilerObj:
         self.load_frequency_list("2011-frequency-list-SORTED.txt")
         # Create a cache to store word data
         self.load_cache()
+    
+    # set stowards to user defined stopwards 
+    def set_stopwords(self, stopwords):
+        self.stopwords = stopwords
 
     # loads in any chanced yandex queries
     def load_cache(self) -> None:

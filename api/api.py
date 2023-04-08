@@ -17,6 +17,8 @@ def hello_world() -> Any:
 @app.route('/scantext/', methods=['POST'])
 async def scan_data() -> Dict[str, Any]:
     text = request.json["text"]
+    stopwords = request.json["stopwords"]
+    profiler.set_stopwords(stopwords)
     # Run the scan_text function synchronously using a worker thread
     output = await profiler.scan_text(text)
     return jsonify(output)
