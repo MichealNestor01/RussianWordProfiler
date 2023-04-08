@@ -37,7 +37,7 @@ export const textSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addParagraphEnd, setLineBreaks, setWordData, setText, setShowApiConfig } =
+export const { addParagraphEnd, setLineBreaks, setWordData, setText, setStopWords, setShowApiConfig } =
   textSlice.actions;
 
 export default textSlice.reducer;

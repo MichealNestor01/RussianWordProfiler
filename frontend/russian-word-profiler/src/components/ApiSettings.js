@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { setShowApiConfig } from "../store/textSlice";
+import FileUpload from "./FileUpload";
 
 const ApiSettings = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,8 @@ const ApiSettings = () => {
           x
         </div>
       </div>
-      <h1>TEXT TEXT TEXT</h1>
+      <h1>Upload stopwords</h1>
+      <FileUpload />
     </motion.div>
   );
 };
