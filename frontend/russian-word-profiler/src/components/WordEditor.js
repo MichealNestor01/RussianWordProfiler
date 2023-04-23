@@ -37,7 +37,10 @@ const WordEditor = () => {
     >
       <div className="top">
         <h2>
-          Selected Word: <span style={{ color: colour }}>{word}</span>
+          Selected Word:{" "}
+          <span style={{ color: colour }}>
+            {word} : {activeWordIndex}
+          </span>
         </h2>
         <div
           className="closeButton"

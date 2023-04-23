@@ -34,10 +34,28 @@ export const textSlice = createSlice({
       state.showApiConfig = action.payload;
     },
     changeWord: (state, action) => {
+      /* I know this one is ugly, but it mostly works and I am too busy to make a better version right now */
       const { newWord, index } = action.payload;
-      let words = state.text.split(/[^\S\n]+/);
-      words[index] = newWord;
-      state.text = words.join(" ");
+      let wordsWithLineBreaks = state.text.split(/[^\S\n]+/);
+      let words = state.text.split(/\s+/);
+      let newIndex = index;
+      let warn = false;
+      for (let i = 0, j = 0; i < index; i++, j++) {
+        warn = false;
+        if (words[i] != wordsWithLineBreaks[j]) {
+          warn = true;
+          newIndex--;
+          i++;
+        }
+      }
+      console.log(words, wordsWithLineBreaks);
+      if (warn) {
+        let wordA = wordsWithLineBreaks[newIndex].split(/\s+/)[0];
+        wordsWithLineBreaks[newIndex] = `${wordA}\n\n${newWord}`;
+      } else {
+        wordsWithLineBreaks[newIndex] = newWord;
+      }
+      state.text = wordsWithLineBreaks.join(" ");
     },
   },
 });
