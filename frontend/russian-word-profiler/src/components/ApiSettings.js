@@ -8,9 +8,9 @@ const ApiSettings = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: "-400px", x: "400px" }}
-      animate={{ opacity: 1, y: "-440px", x: "400px" }}
-      exit={{ opacity: 0, y: "-400px", x: "400px" }}
+      initial={{ opacity: 0, y: "-200px", x: "700px" }}
+      animate={{ opacity: 1, y: "-240px", x: "700px" }}
+      exit={{ opacity: 0, y: "-200px", x: "700px" }}
       transition={{ duration: 0.2 }}
       className="wordEditor"
     >

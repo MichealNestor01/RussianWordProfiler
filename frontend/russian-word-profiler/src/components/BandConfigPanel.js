@@ -74,7 +74,7 @@ const BandConfigPanel = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: "0%", x: "350px" }}
-      animate={{ opacity: 1, y: "-150px", x: "350px" }}
+      animate={{ opacity: 1, y: "-60px", x: "350px" }}
       exit={{ opacity: 0, y: "0%", x: "350px" }}
       transition={{ duration: 0.2 }}
       style={{ height: `${panelHeight + 160}px` }}
