@@ -1,7 +1,9 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
+import { changeBandTotal } from "../store/bandsSlice";
 import { whichColour } from "../functions/whichColour";
+import { incrementBand, reset } from "../store/bandsStatsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
@@ -19,6 +21,7 @@ const FormattedOutput = () => {
   };
 
   useEffect(() => {
+    dispatch(reset());
     const words = text.split(/\s+/);
     const coloredWords = words.map((word, index) => {
       // deal with puctuation at the start and end
@@ -37,7 +40,8 @@ const FormattedOutput = () => {
       let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
-          const colour = whichColour(wordData[wordLower].rank, [...bands]);
+          const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
+          if (band != undefined) dispatch(incrementBand({ id: band.id, colour: band.colour }));
           return (
             <Fragment key={index}>
               {`${start}`}

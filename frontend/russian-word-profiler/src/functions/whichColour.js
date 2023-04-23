@@ -5,7 +5,7 @@ export const whichColour = (rank, bands) => {
   for (let bandIndex = 0; bandIndex < bands.length; bandIndex++) {
     const band = bands[bandIndex];
     if (rank < band.top) {
-      return band.colour;
+      return [band.colour, band];
     }
   }
 };

@@ -314,6 +314,7 @@ button:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  z-index: 10;
   width: 300px;
   height: 480px;
   padding: 0px 0px 0px 4px;

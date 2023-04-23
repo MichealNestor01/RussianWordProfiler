@@ -1,4 +1,5 @@
 import background from "./assets/background.png";
+import CustomBarChart from "./components/CustomBarChart";
 import MainEditor from "./components/MainEditor";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
@@ -14,7 +15,9 @@ function App() {
       <section className="bottom-panel">
         <section className="data-panel">
           <h2>DATA AGREGATION</h2>
-          <div className="card"></div>
+          <div className="">
+            <CustomBarChart />
+          </div>
         </section>
       </section>
       {/* This is a background splash image */}

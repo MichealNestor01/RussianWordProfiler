@@ -3,6 +3,7 @@ import bandsReducer from "./bandsSlice";
 import textReducer from "./textSlice";
 import bandsConfigReducer from "./bandsConfigSlice";
 import wordStatsReducer from "./wordStatsSlice";
+import bandsStatsSlice from "./bandsStatsSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     bands: bandsReducer,
     text: textReducer,
     wordStats: wordStatsReducer,
+    bandStats: bandsStatsSlice,
   },
 });
 

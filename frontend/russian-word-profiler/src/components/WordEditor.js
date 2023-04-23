@@ -37,10 +37,7 @@ const WordEditor = () => {
     >
       <div className="top">
         <h2>
-          Selected Word:{" "}
-          <span style={{ color: colour }}>
-            {word} : {activeWordIndex}
-          </span>
+          Selected Word: <span style={{ color: colour }}>{word}</span>
         </h2>
         <div
           className="closeButton"
@@ -56,7 +53,7 @@ const WordEditor = () => {
           Synonyms:{" "}
           <ul>
             {synonyms.map((synonym, index) => {
-              const colour = whichColour(synonym.rank, [...bands]);
+              const [colour] = whichColour(synonym.rank, [...bands]);
               return (
                 <li
                   key={`synonym-${index}`}
@@ -64,6 +61,7 @@ const WordEditor = () => {
                   onClick={() => {
                     dispatch(setShow(false));
                     dispatch(changeWord({ index: activeWordIndex, newWord: synonym.synonym }));
+                    dispatch();
                   }}
                 >
                   {synonym.synonym}
