@@ -33,11 +33,24 @@ export const textSlice = createSlice({
     setShowApiConfig: (state, action) => {
       state.showApiConfig = action.payload;
     },
+    changeWord: (state, action) => {
+      const { newWord, index } = action.payload;
+      let words = state.text.split(/[^\S\n]+/);
+      words[index] = newWord;
+      state.text = words.join(" ");
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addParagraphEnd, setLineBreaks, setWordData, setText, setStopWords, setShowApiConfig } =
-  textSlice.actions;
+export const {
+  addParagraphEnd,
+  setLineBreaks,
+  setWordData,
+  setText,
+  setStopWords,
+  setShowApiConfig,
+  changeWord,
+} = textSlice.actions;
 
 export default textSlice.reducer;

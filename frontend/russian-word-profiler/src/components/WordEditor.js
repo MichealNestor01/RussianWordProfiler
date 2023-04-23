@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
 import { setShow, setActiveWordIndex, closeWordStats } from "../store/wordStatsSlice";
+
 import { whichColour } from "../functions/whichColour";
+import { changeWord } from "../store/textSlice";
 
 const WordEditor = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
-  const { activeWord: word, colour, synonyms } = useSelector((state) => state.wordStats);
+  const {
+    activeWord: word,
+    colour,
+    synonyms,
+    activeWordIndex,
+  } = useSelector((state) => state.wordStats);
   const [editorHeight, setEditorHeight] = useState(0);
 
   useEffect(() => {
@@ -49,7 +55,14 @@ const WordEditor = () => {
             {synonyms.map((synonym, index) => {
               const colour = whichColour(synonym.rank, [...bands]);
               return (
-                <li key={`synonym-${index}`} style={{ color: colour }}>
+                <li
+                  key={`synonym-${index}`}
+                  style={{ color: colour, cursor: "pointer" }}
+                  onClick={() => {
+                    dispatch(setShow(false));
+                    dispatch(changeWord({ index: activeWordIndex, newWord: synonym.synonym }));
+                  }}
+                >
                   {synonym.synonym}
                 </li>
               );
