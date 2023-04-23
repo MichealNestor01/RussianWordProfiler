@@ -69,12 +69,15 @@ const BandConfigPanel = () => {
     setBandInputDivs(createBandInputDivs());
   }, [bands]);
 
+  const panelHeight = 31 * bandInputDivs.length;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: "0%", x: "120%" }}
-      animate={{ opacity: 1, y: "-20%", x: "120%" }}
-      exit={{ opacity: 0, y: "0%", x: "120%" }}
+      initial={{ opacity: 0, y: "0%", x: "350px" }}
+      animate={{ opacity: 1, y: "-150px", x: "350px" }}
+      exit={{ opacity: 0, y: "0%", x: "350px" }}
       transition={{ duration: 0.2 }}
+      style={{ height: `${panelHeight + 160}px` }}
       className="panel card"
     >
       <div className="top">
