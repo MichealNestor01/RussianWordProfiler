@@ -66,7 +66,8 @@ button {
   cursor: pointer;
   background-color: #8c8c8d;
   border: none;
-  padding: 10px 25px;
+  padding: 15px 5px;
+  width: 120px;
   border-radius: 30px;
   text-decoration: none;
   color: #343734;
@@ -159,6 +160,7 @@ button:hover {
 }
 
 .text-input {
+  position: relative;
   width: 100%;
 }
 
@@ -195,24 +197,276 @@ button:hover {
 
 .text-input .input-container {
   position: relative;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
 }
 
 .text-input .input-container .input {
-  max-width: 100%;
-  min-width: 100%;
-  height: 100%;
+  resize: none;
   min-height: 250px;
   padding: 10px 15px 15px 15px;
   border: none;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
   outline: none;
   background-color: #f5f5f5;
   font-family: "Inter";
 }
 
-.text-input .input-container .top-border {
-  position: absolute;
-  bottom: 100%;
-  border-top: 1px solid #e1e1e1;
+.text-input .input-container .text-output {
+  padding: 10px 15px 15px 15px;
+  border: 1px solid #e1e1e1;
+  border-right: none;
+  background-color: #dbe8fd87;
+}
+
+.bands-selector {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
+  height: 70px;
+}
+
+.bands-selector .colourSelector {
+  position: absolute;
+}
+
+.bands-selector .colourSelector .picker {
+  max-width: 150px;
+}
+
+.bands-selector .scrollArea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  height: 70px;
+  width: 70%;
+  background-color: #6e6e6e1f;
+}
+
+.bands-selector .buttons {
+  position: relative;
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.bands-selector .bandContainer {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100px;
+          flex: 0 0 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  margin-right: 10px;
+}
+
+.bands-selector .bandContainer .bandColour {
+  width: 20px;
+  height: 20px;
+}
+
+.bands-selector .bandContainer h5 {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 13px;
+}
+
+.bands-selector .bandColour {
+  width: 20px;
+  height: 20px;
+}
+
+.bands-selector .panel {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 10;
+  width: 300px;
+  height: 480px;
+  padding: 0px 0px 0px 4px;
+  background-color: #f5f5f5;
+}
+
+.bands-selector .panel .bandColour {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.bands-selector .panel .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.bands-selector .panel .top h2 {
+  margin-top: 4px;
+}
+
+.bands-selector .panel .top .closeButton {
+  background-color: #616161;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0px 4px 0px 15px;
+  color: #f5f5f5;
+  font-weight: 700;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.bands-selector .panel .bandsForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bands-selector .panel .bandsForm .bandInput {
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 4fr 1fr;
+      grid-template-columns: 1fr 4fr 1fr;
+  width: 100%;
+}
+
+.bands-selector .panel .bandsForm .bandInput input {
+  width: 70px;
+  height: 25px;
+}
+
+.bands-selector .panel .bandsForm .bandInput .removeButton {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.bands-selector .panel .bandsForm .bandInput .gridItem {
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+}
+
+.wordEditor {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #ececec;
+  -webkit-box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0px 0px 0px 4px;
+  width: 450px;
+  height: 200px;
+  background-color: #f5f5f5;
+}
+
+.wordEditor .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.wordEditor .top h2 {
+  margin-top: 4px;
+}
+
+.wordEditor .top .closeButton {
+  background-color: #616161;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0px 4px 0px 15px;
+  color: #f5f5f5;
+  font-weight: 700;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=index.css.map */

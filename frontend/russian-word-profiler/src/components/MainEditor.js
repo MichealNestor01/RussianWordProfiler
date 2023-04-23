@@ -1,8 +1,16 @@
+import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLineBreaks, setText } from "../store/textSlice";
+import BandsSelector from "./BandsSelector";
+import FormattedOutput from "./FormattedOutput";
+import WordEditor from "./WordEditor";
 
-function reducer(state, action) {
+function statisticsReducer(state, action) {
   const newState = [...state];
   return newState.filter((stat) => {
+    // all of the stats are just numbers, so this
+    // if statement is enough to update them
     if (stat.id === action.target) {
       stat.count = action.count;
       return stat;
@@ -11,8 +19,11 @@ function reducer(state, action) {
   });
 }
 
-function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here." }) {
-  const [state, dispatch] = useReducer(reducer, [
+function MainEditor({ placeholder = "Text Here." }) {
+  const dispatch = useDispatch();
+  const showWordStats = useSelector((state) => state.wordStats.show);
+  const text = useSelector((state) => state.text.text);
+  const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },
     { id: "chars", text: "CHARACTERS", count: 0 },
     { id: "sents", text: "SENTENCES", count: 0 },
@@ -21,19 +32,21 @@ function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here
 
   // recalculate text stats after each update:
   const textChangeHandler = (e) => {
-    setText(e.target.value);
+    // deal with text and statistics
+    dispatch(setText(e.target.value));
     const txt = e.target.value;
-    let newLineBreaks = [];
+    const newLineBreaks = [];
     // calculate words:
     const wordCount = txt.split(" ").filter((word) => {
       if (word !== "") {
-        return word;
+        return true;
       }
+      return false;
     }).length;
-    dispatch({ target: "words", count: wordCount });
+    dispatchStatistics({ target: "words", count: wordCount });
     // calculate characters:
     let characters = txt.split("").length;
-    dispatch({ target: "chars", count: characters });
+    dispatchStatistics({ target: "chars", count: characters });
     // calculate sentences and paragraphs:
     let sentences = 0;
     let paragraphs = characters > 0 ? 1 : 0;
@@ -47,11 +60,6 @@ function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here
         // line breaks gives the formatter information about where
         // to place line breaks.
         newLineBreaks.push(wordCounter + newLineBreaks.length);
-        //if (newLineBreaks.length == 0) {
-        //  newLineBreaks.push(wordCounter);
-        //} else {
-        //  newLineBreaks.push(wordCounter + 1);
-        //}
       }
       if (index > 0) {
         if (char === " " && prevChar !== " " && prevChar !== "\n") {
@@ -60,18 +68,18 @@ function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here
       }
       prevChar = char;
     });
-    textFormatDispatch({ type: "set_line_breaks", new: newLineBreaks });
-    dispatch({ target: "sents", count: sentences });
-    dispatch({ target: "paras", count: paragraphs });
+    dispatch(setLineBreaks({ new: newLineBreaks }));
+    dispatchStatistics({ target: "sents", count: sentences });
+    dispatchStatistics({ target: "paras", count: paragraphs });
   };
 
   return (
     <section className="text-input card">
       <section className="stats-container">
-        {state.map((stat, index) => {
+        {statistics.map((stat, index) => {
           return (
             <div className="stat" key={stat.text}>
-              {index < state.length - 1 && <div className="right-border" />}
+              {index < statistics.length - 1 && <div className="right-border" />}
               <h1 className="number">{stat.count}</h1>
               <p className="text">{stat.text}</p>
             </div>
@@ -85,10 +93,16 @@ function TextInput({ text, setText, textFormatDispatch, placeholder = "Text Here
           onChange={textChangeHandler}
           placeholder={placeholder}
         />
-        <div className="top-border" />
+        <div className="text-output main-text">
+          <FormattedOutput />
+        </div>
       </section>
+      <section className="bands-container">
+        <BandsSelector />
+      </section>
+      <AnimatePresence>{showWordStats && <WordEditor />}</AnimatePresence>
     </section>
   );
 }
 
-export default TextInput;
+export default MainEditor;

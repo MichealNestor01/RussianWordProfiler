@@ -1,9 +1,15 @@
 import csv
+from typing import Dict, List, Any, Set
 from pymystem3 import Mystem
-import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords
-from nltk.probability import FreqDist
+import re
+import pickle
+import asyncio
+import aiohttp
+from decouple import config
+
+# get api key from local environment variable
+API_KEY = config('API_KEY')
+CACHE_FILE = "word_data_cache.pickle"
 
 class ProfilerObj:
     def __init__(self):
@@ -11,128 +17,93 @@ class ProfilerObj:
         self.mystem = Mystem()
         # Retrieve the stop words
         with open("stopwords.txt", "r", encoding="utf-8") as file:
-            self.stopwords = file.readlines()
+            self.stopwords: Set[str]  = set(line.strip() for line in file)
         # Retrieve frequency list (Sharoff 2011)   
-        with open("2011-frequency-list-SORTED.txt", "r", encoding = "utf8") as file_name:
-            self.frequency_list = list(csv.reader(file_name))
-        # Define frequency band limits and increment
-        self.bands_from = 0
-        self.bands_to = 53000
-        self.bands_step = 1000
+        self.load_frequency_list("2011-frequency-list-SORTED.txt")
+        # Create a cache to store word data
+        self.load_cache()
+    
+    # set stowards to user defined stopwards 
+    def set_stopwords(self, stopwords):
+        self.stopwords = set(stopwords)
 
-    def scan_text(self, txt):
-        data = self.mystem.analyze(txt)
-        # TAKE OUT STOPSTRING ENTRIES
-        stopstring = " , . ; : - – х « » ( ) )\n  \n  "
-        for i, val in enumerate (data):
-            if val["text"] in stopstring:
-                data.pop(i)
-        # TAKE OUT STOPWORDS
-        for i, val in enumerate (data):
-            if "analysis" in val and len(val["analysis"]) > 0 and val["analysis"][0]["lex"] in self.stopwords:
-                data.pop(i)
-        # LIST LEMMAS
-        lemmas = []
-        for i in data:
-            if "analysis" in i and len(i["analysis"]) != 0:
-                lemmas.append (i["analysis"][0]['lex'])
-        # COUNT LEMMA OCCURENCES (where available)
-        lemmas = FreqDist(lemmas).most_common()
-        # ADD LEMMA FREQUENCY RANK
-        for i, val in enumerate (lemmas):
-            if any (val[0] in sl for sl in self.frequency_list):
-                rank = [val[0] in lem for lem in self.frequency_list].index(True)
-                entry = {"lemma": val[0], "occ": val[1], "rank": rank}
-                lemmas[i] = entry
-            else:
-                entry = {"lemma": val[0], "occ": val[1], "rank": "not listed"}
-                lemmas[i] = entry
-        # PAIR WORD AND LEMMA
-        words = []
-        for i in data:
-            if "analysis" in i and "text" in i: 
-                if len(i["analysis"]) != 0:
-                    words.append({"word":i["text"], "lemma":i["analysis"][0]['lex']})
-                else:
-                    words.append({"word":i["text"], "lemma":""})
-        # ADD OCCURRENCES AND RANK
-        for word in words:  
-            for lemma in lemmas:
-                if word["lemma"] == lemma["lemma"]:
-                    word["occ"] = lemma["occ"]
-                    word["rank"] = lemma["rank"]
+    # loads in any chanced yandex queries
+    def load_cache(self) -> None:
+        try:
+            with open(CACHE_FILE, "rb") as f:
+                self.word_data_cache = pickle.load(f)
+        except FileNotFoundError:
+            self.word_data_cache: Dict[str, Dict[str, Any]] = {}
+    
+    # save queries to the cache file
+    def save_cache(self) -> None:
+        with open(CACHE_FILE, "wb") as f:
+            pickle.dump(self.word_data_cache, f)
+
+    # loads in the frequency csv
+    def load_frequency_list(self, file_path: str) -> None:
+        self.frequency_list: Dict[str, int] = {}
+        with open(file_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                lemma, rank = row[1], int(row[0])  # Convert the rank to an integer
+                self.frequency_list[lemma] = rank
+
+    # retrives the frequency rank of a lemma
+    def get_frequency_rank(self, lemma: str) -> int:
+        return self.frequency_list.get(lemma, -1)
+
+    # gets dictionary data about a word from yandex
+    async def get_word_data(self, word: str) -> Dict[str, Any]:
+        if word in self.word_data_cache:
+            return self.word_data_cache[word]
         
-        sum_occ_int = 0
-        for i in lemmas:
-            if "occ" in i and "rank" in i and type(i["rank"])==int:
-                sum_occ_int += i["occ"]
+        async with aiohttp.ClientSession() as session:  
+            url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
+            async with session.get(url) as response:
+                data = await response.json()
+                self.word_data_cache[word] = data
+                self.save_cache()
+                return data
+    
+    async def process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
+        # lemmatise the word 
+        lemma = self.mystem.lemmatize(word)[0]
+        # get data from yandex about the word
+        data = await self.get_word_data(word)
+        # get the words frequency rank
+        rank = self.get_frequency_rank(lemma)
+        # find synonyms from the word data
+        synonyms = []
+        if 'def' in data and data['def']:
+            word_def = data['def'][0]
+            if 'tr' in word_def:
+                synonyms = [tr['text'] for tr in word_def['tr'] if 'text' in tr]
+        # get the frequency rank of the synonyms
+        synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(self.mystem.lemmatize(synonym)[0])} for synonym in synonyms]
+        # update word data
+        return {word: {
+            'rank': rank,
+            'synonyms': synonyms_rank,
+            'lemma': lemma
+        }}
 
-        sum_occ_not_int = 0
-        for i in lemmas:
-            if "occ" in i and "rank" in i and type(i["rank"])!=int:
-                sum_occ_not_int += i["occ"]
-        
-        sum_occ_all = sum_occ_int + sum_occ_not_int
-
-        # Create bands array
-        bands = []
-        # Create bottom bracket for listed lemmas
-        for band_boundary in range(self.bands_from, self.bands_to, self.bands_step):
-            bands.append({"listed": "yes", "from": band_boundary})
-
-        # Create top bracket for listed lemmas  
-        for i in bands:
-            i["to"] = i["from"] + self.bands_step
-            i["count"] = 0
-            i["entries"] = []
-        
-        # Populate bands with listed lemmas
-        for i in bands:
-            for j in lemmas:
-                if type (j["rank"]) is int:
-                    if j["rank"] >= i["from"] and j["rank"] < i["to"]:
-                        i["entries"].append(j)
-
-        # Create a band for unlisted lemmas 
-        bands.append({"listed": "no", "count": 0, "entries": []})
-        
-        # Populate the unlisted lemma band
-        for i in (bands):
-            if i["listed"] == "no":
-                for j in lemmas:
-                    if j["rank"] == "not listed":
-                        i["entries"].append(j)  
-        return bands
-        # SORT WORDS BY BAND
-        for i in bands:
-            if i["listed"] == "yes":
-                print(i["from"], i["to"]-1)
-                for j in i["entries"]:
-                    print("\t", j["lemma"], j["occ"])
-            if i["listed"] == "no":
-                print("not listed")
-                for j in i["entries"]:
-                    print("\t", j["lemma"], j["occ"])
-        print("ran line 116")
-        # CALCULATE COVERAGE
-        sum_occ = 0
-        for i in bands:
-            for j in i["entries"]:
-                sum_occ += j["occ"]
-            i["count"] = sum_occ
-        print(bands[-1]["count"])
-        print("ran line 123")
-        output = []
-        for i in bands:
-            if i["listed"] == "yes":  
-                from_ = i["from"]
-                to_ = i["to"]-1
-                coverage = round(100*i["count"]/sum_occ_all,2)
-                output.append(f"from: {from_} to: {to_} coverage: {coverage}%")
-            else:
-                not_listed = round(100*i["count"]/sum_occ_all,2)
-                output.append(f"not listed {not_listed}%")
-        return output
+    # scan text recieves a large amount of plain text that needs to
+    # be analysed
+    async def scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]:
+        # put text to lower case
+        txt = txt.lower()
+        # remove all punctuation for the text
+        txt = re.sub(r'[.,;:!?…–\-_"“”‘’«»(){}\[\]]', '', txt)
+        # Split the text into a list of words
+        words = txt.split()
+        # remove the stopwords
+        words = list(set(words) - self.stopwords)
+        # now get the data on each word
+        # Create an asyncio event loop to run asynchronous tasks
+        tasks = [self.process_word(word) for word in words]
+        word_data = await asyncio.gather(*tasks)
+        return {k: v for word_data_dict in word_data for k, v in word_data_dict.items()}
     
 def _tests():
     profiler = ProfilerObj()

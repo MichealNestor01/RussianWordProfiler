@@ -1,35 +1,34 @@
 import { useState, useEffect, Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
+import { changeBandTotal } from "../store/bandsSlice";
+import { whichColour } from "../functions/whichColour";
+import { incrementBand, reset } from "../store/bandsStatsSlice";
 
-const band_color = {
-  0: "#eb4334",
-  1000: "#eb9934",
-  2000: "#ebe134",
-  3000: "#40eb34",
-};
-
-function FormattedOutput({ text, wordBandPairs, textFormat }) {
+const FormattedOutput = () => {
   const [output, setOutput] = useState("");
+  const bands = useSelector((state) => state.bands);
+  const { text, lineBreaks, wordData } = useSelector((state) => state.text);
+  const dispatch = useDispatch();
+
+  const extractPunctuation = (word) => {
+    const startMatch = word.match(/^[^a-zA-Zа-яА-Я0-9]+/u);
+    const endMatch = word.match(/[^a-zA-Zа-яА-Я0-9]+$/u);
+    const start = startMatch ? startMatch[0] : "";
+    const end = endMatch ? endMatch[0] : "";
+    const trimmedWord = word.slice(start.length, word.length - end.length);
+    return { start, end, trimmedWord };
+  };
 
   useEffect(() => {
-    //console.log("Formatting text!!");
+    dispatch(reset());
     const words = text.split(/\s+/);
-    //console.log(words);
     const coloredWords = words.map((word, index) => {
-      let end = "";
-      if (
-        word[word.length - 1] === "," ||
-        word[word.length - 1] === "." ||
-        word[word.length - 1] === ";" ||
-        word[word.length - 1] === "!" ||
-        word[word.length - 1] === "?"
-      ) {
-        end = word[word.length - 1];
-        word = word.slice(0, word.length - 1);
-      }
+      // deal with puctuation at the start and end
+      // store it and remove it.
+      const { start, end, trimmedWord } = extractPunctuation(word);
       let lineBreak = "";
-      //console.log(word);
-      if (textFormat.lineBreaks.includes(index)) {
-        //console.log("FOUND LINEBREAK AT ", index);
+      if (lineBreaks.includes(index)) {
         lineBreak = (
           <Fragment>
             <br />
@@ -37,44 +36,50 @@ function FormattedOutput({ text, wordBandPairs, textFormat }) {
           </Fragment>
         );
       }
-      let wordLower = word.toLowerCase();
-      if (wordLower in wordBandPairs) {
-        if (wordBandPairs[wordLower] in band_color) {
+      let wordLower = trimmedWord.toLowerCase();
+      let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
+      if (wordLower in wordData) {
+        if (wordData[wordLower].rank !== undefined) {
+          const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
+          if (band != undefined) dispatch(incrementBand({ id: band.id, colour: band.colour }));
           return (
-            <Fragment>
-              <span style={{ color: band_color[wordBandPairs[wordLower]] }} key={index}>
-                {`${word}`}
-              </span>
-              {`${end} `}
-              {lineBreak}
-            </Fragment>
-          );
-        } else {
-          return (
-            <Fragment>
-              <span style={{ color: "#eb34dc" }} key={index}>
-                {`${word}${end} `}
+            <Fragment key={index}>
+              {`${start}`}
+              <span
+                style={
+                  totalSynonyms > 0
+                    ? { color: colour, cursor: "pointer", textDecoration: "underline" }
+                    : { color: colour, cursor: "auto" }
+                }
+                key={index}
+                onClick={() => {
+                  if (totalSynonyms > 0) {
+                    dispatch(
+                      setActiveWordIndex({ index, word, colour, synonyms: wordData[wordLower].synonyms })
+                    );
+                    dispatch(setShow(true));
+                  }
+                }}
+              >
+                {`${trimmedWord}`}
               </span>
               {`${end} `}
               {lineBreak}
             </Fragment>
           );
         }
-      } else {
-        return (
-          <Fragment>
-            {`${word}${end} `}
-            {lineBreak}
-          </Fragment>
-        );
       }
+      return (
+        <Fragment key={index}>
+          {`${start}${trimmedWord}${end} `}
+          {lineBreak}
+        </Fragment>
+      );
     });
-    //console.log("COLOURED WORDS:");
-    //console.log(coloredWords);
     setOutput(coloredWords);
-  }, [wordBandPairs, textFormat, text]);
+  }, [wordData, lineBreaks, text, bands]);
 
   return <Fragment>{output}</Fragment>;
-}
+};
 
 export default FormattedOutput;
