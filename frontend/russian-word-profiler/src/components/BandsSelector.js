@@ -18,7 +18,7 @@ const BandsSelector = () => {
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: `http://localhost:5000/scantext/`,
+      url: `http://localhost/scantext/`,
       data: { stopwords: stopWords, text: text },
     });
     if (response.status === 200) {
