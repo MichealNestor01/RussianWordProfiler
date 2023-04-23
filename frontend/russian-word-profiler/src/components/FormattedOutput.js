@@ -42,7 +42,11 @@ const FormattedOutput = () => {
             <Fragment key={index}>
               {`${start}`}
               <span
-                style={{ color: colour, cursor: totalSynonyms > 0 ? "pointer" : "auto" }}
+                style={
+                  totalSynonyms > 0
+                    ? { color: colour, cursor: "pointer", textDecoration: "underline" }
+                    : { color: colour, cursor: "auto" }
+                }
                 key={index}
                 onClick={() => {
                   if (totalSynonyms > 0) {
