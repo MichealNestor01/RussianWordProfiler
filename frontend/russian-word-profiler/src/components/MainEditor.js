@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLineBreaks, setText } from "../store/textSlice";
-import BandsSelector from "./BandsSelector";
+import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
 import WordEditor from "./WordEditor";
 
@@ -98,7 +98,7 @@ function MainEditor({ placeholder = "Text Here." }) {
         </div>
       </section>
       <section className="bands-container">
-        <BandsSelector />
+        <BandsBar />
       </section>
       <AnimatePresence>{showWordStats && <WordEditor />}</AnimatePresence>
     </section>

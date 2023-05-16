@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { setShowApiConfig } from "../store/textSlice";
-import FileUpload from "./FileUpload";
+import { setShowApiConfig } from "../../store/textSlice";
+import FileUpload from "../FileUpload";
 
 const ApiSettings = () => {
   const dispatch = useDispatch();

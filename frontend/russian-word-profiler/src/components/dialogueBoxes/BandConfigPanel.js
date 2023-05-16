@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Band from "./Band";
+import Band from "../Band";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTopValue, removeBand, addBand } from "../store/bandsSlice";
-import { setShow, setActiveBandIndex } from "../store/bandsConfigSlice";
+import { changeTopValue, removeBand, addBand } from "../../store/bandsSlice";
+import { setShow, setActiveBandIndex } from "../../store/bandsConfigSlice";
 
 const BandConfigPanel = () => {
   const [bandInputDivs, setBandInputDivs] = useState([]);

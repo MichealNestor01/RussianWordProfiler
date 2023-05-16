@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import BandConfigPanel from "./BandConfigPanel";
+import BandConfigPanel from "./dialogueBoxes/BandConfigPanel";
 import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
 import { setWordData, setShowApiConfig } from "../store/textSlice";
 import { AnimatePresence } from "framer-motion";
-import ApiSettings from "./ApiSettings";
+import ApiSettings from "./dialogueBoxes/ApiSettings";
 
-const BandsSelector = () => {
+const BandsBar = () => {
   const [bandDivs, setBandDivs] = useState([]);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
@@ -18,7 +18,7 @@ const BandsSelector = () => {
   const submitHandler = async () => {
     const response = await axios({
       method: "post",
-      url: `http://localhost/scantext/`,
+      url: `${window.location.href}scantext/`,
       data: { stopwords: stopWords, text: text },
     });
     if (response.status === 200) {
@@ -77,4 +77,4 @@ const BandsSelector = () => {
   );
 };
 
-export default BandsSelector;
+export default BandsBar;
