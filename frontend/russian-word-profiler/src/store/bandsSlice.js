@@ -2,19 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import chroma from "chroma-js";
 
 const initialState = [];
-let colour = chroma("#ff0000");
+//let colour = chroma("#ff0000");
 for (let i = 1; i <= 10; i++) {
-  const hue = (i - 1) * 16.5;
+  const hue = (i - 1) * 33;
   const color = chroma(hue, 0.5, 0.5, "hsl");
   const darkerColor = color.darken(-0.3);
   const pastelColor = darkerColor.saturate(-0.1);
 
   initialState.push({
     id: i - 1,
-    top: 100 * i,
+    top: 1000 * i,
     colour: pastelColor.hex(),
   });
 }
+/*
 for (let i = 1; i <= 10; i++) {
   const hue = (i + 10 - 1) * 16.5;
   const color = chroma(hue, 0.5, 0.5, "hsl");
@@ -27,8 +28,9 @@ for (let i = 1; i <= 10; i++) {
     colour: pastelColor.hex(),
   });
 }
+*/
 initialState.push({
-  id: 20,
+  id: 10,
   top: 60000,
   colour: chroma(10 * 33, 0.5, 0.5, "hsl")
     .darken(-0.3)

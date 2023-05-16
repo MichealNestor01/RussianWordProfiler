@@ -16,9 +16,11 @@ const BandsBar = () => {
   const { text, stopWords } = useSelector((state) => state.text);
 
   const submitHandler = async () => {
+    const url =
+      window.location.href === "http://localhost:3000/" ? "http://localhost/" : window.location.href;
     const response = await axios({
       method: "post",
-      url: `${window.location.href}scantext/`,
+      url: `${url}scantext/`,
       data: { stopwords: stopWords, text: text },
     });
     if (response.status === 200) {
