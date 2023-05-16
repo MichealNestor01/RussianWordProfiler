@@ -1,10 +1,20 @@
+import { useEffect } from "react";
 import background from "./assets/background.png";
 import CustomBarChart from "./components/CustomBarChart";
 import MainEditor from "./components/MainEditor";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
-
+let initial = true;
 function App() {
+  useEffect(() => {
+    if (initial) {
+      alert(
+        "This is a demo of a project that is very much in a pre-alpha state. There are many catastrophic bugs, you have been warned. If you do find some errors please report them to michealnestor@outlook.com"
+      );
+    }
+    initial = false;
+  }, []);
+
   return (
     <div className="page-wrapper">
       <h1 className="title">Russian Word Profiler</h1>
