@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { setShow, setActiveWordIndex, closeWordStats } from "../store/wordStatsSlice";
-
-import { whichColour } from "../functions/whichColour";
-import { changeWord } from "../store/textSlice";
+import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
+import { whichColour } from "../../../functions/whichColour";
+import { changeWord } from "../../../store/slices/textSlice";
 
 const WordEditor = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
   const {
-    activeWord: word,
+    index: activeWordIndex,
+    word,
     colour,
     synonyms,
-    activeWordIndex,
-  } = useSelector((state) => state.wordStats);
+  } = useSelector((state) => state.siteState.selectedWord);
   const [editorHeight, setEditorHeight] = useState(0);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const WordEditor = () => {
         <div
           className="closeButton"
           onClick={() => {
-            dispatch(closeWordStats());
+            dispatch(closeActiveDialogue());
           }}
         >
           x
@@ -59,9 +58,8 @@ const WordEditor = () => {
                   key={`synonym-${index}`}
                   style={{ color: colour, cursor: "pointer" }}
                   onClick={() => {
-                    dispatch(setShow(false));
                     dispatch(changeWord({ index: activeWordIndex, newWord: synonym.synonym }));
-                    dispatch();
+                    dispatch(closeActiveDialogue());
                   }}
                 >
                   {synonym.synonym}

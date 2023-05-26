@@ -1,9 +1,9 @@
-version: "3"
+version: "0.1"
 
 services:
-  flask_app:
+  word_profiler:
     build: .
     restart: always
     ports:
       - "80:5000"
-    container_name: russian_word_profiler_v3
+    container_name: v1.0

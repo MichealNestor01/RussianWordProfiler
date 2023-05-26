@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { setShowApiConfig } from "../store/textSlice";
-import FileUpload from "./FileUpload";
+import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
+import FileUpload from "../../generic/FileUpload";
 
 const ApiSettings = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const ApiSettings = () => {
         <div
           className="closeButton"
           onClick={() => {
-            dispatch(setShowApiConfig(false));
+            dispatch(closeActiveDialogue());
           }}
         >
           x

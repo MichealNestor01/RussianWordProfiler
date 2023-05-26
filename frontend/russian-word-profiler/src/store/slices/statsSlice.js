@@ -4,8 +4,8 @@ const initialState = {
   bands: [],
 };
 
-export const bandsStatsSlice = createSlice({
-  name: "bandsStats",
+export const statsSlice = createSlice({
+  name: "stats",
   initialState,
   reducers: {
     incrementBand: (state, action) => {
@@ -28,6 +28,6 @@ export const bandsStatsSlice = createSlice({
   },
 });
 
-export const { incrementBand, reset } = bandsStatsSlice.actions;
+export const { incrementBand, reset } = statsSlice.actions;
 
-export default bandsStatsSlice.reducer;
+export default statsSlice.reducer;

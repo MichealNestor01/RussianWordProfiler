@@ -11,8 +11,7 @@ const data = [
 ];
 
 const CustomBarChart = () => {
-  const bandData = useSelector((state) => state.bandStats.bands);
-  console.log(bandData);
+  const bandData = useSelector((state) => state.stats.bands);
 
   return (
     <BarChart width={900} height={300} data={bandData}>

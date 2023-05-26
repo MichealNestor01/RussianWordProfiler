@@ -1,24 +1,23 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import BandConfigPanel from "./BandConfigPanel";
-import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
-import { setWordData, setShowApiConfig } from "../store/textSlice";
+import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
+import { setActiveDialogue } from "../../store/slices/siteStateSlice";
+import { setWordData } from "../../store/slices/textSlice";
 import { AnimatePresence } from "framer-motion";
-import ApiSettings from "./ApiSettings";
+import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 
-const BandsSelector = () => {
-  const [bandDivs, setBandDivs] = useState([]);
+const BandsBar = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
-  const showBandConfig = useSelector((state) => state.config.show);
-  const showApiConfig = useSelector((state) => state.text.showApiConfig);
+  const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const { text, stopWords } = useSelector((state) => state.text);
 
   const submitHandler = async () => {
+    const url =
+      window.location.href === "http://localhost:3000/" ? "http://localhost/" : window.location.href;
     const response = await axios({
       method: "post",
-      url: `http://localhost/scantext/`,
+      url: `${url}scantext/`,
       data: { stopwords: stopWords, text: text },
     });
     if (response.status === 200) {
@@ -46,35 +45,30 @@ const BandsSelector = () => {
     });
   };
 
-  useEffect(() => {
-    setBandDivs(createBandDivs());
-  }, [bands]);
-
   return (
     <section className="bands-selector">
-      <div className="scrollArea">{bandDivs}</div>
+      <div className="scrollArea">{createBandDivs()}</div>
       <div className="buttons">
         <button
           onClick={() => {
-            dispatch(setShowApiConfig(!showApiConfig));
+            dispatch(setActiveDialogue(activeWindow === "bands" ? "" : "bands"));
+          }}
+        >
+          Configure Bands
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setActiveDialogue(activeWindow === "api" ? "" : "api"));
           }}
         >
           API Settings
         </button>
         <button onClick={submitHandler}>Profile Text</button>
-        <button
-          onClick={() => {
-            dispatch(setShow(!showBandConfig));
-            dispatch(setActiveBandIndex(-1));
-          }}
-        >
-          Configure Bands
-        </button>
       </div>
-      <AnimatePresence>{showBandConfig && <BandConfigPanel />}</AnimatePresence>
-      <AnimatePresence>{showApiConfig && <ApiSettings />}</AnimatePresence>
+      <AnimatePresence>{activeWindow === "api" && <ApiSettings />}</AnimatePresence>
+      <AnimatePresence>{activeWindow === "bands" && <BandConfigPanel />}</AnimatePresence>
     </section>
   );
 };
 
-export default BandsSelector;
+export default BandsBar;
