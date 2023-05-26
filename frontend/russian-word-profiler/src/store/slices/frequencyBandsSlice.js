@@ -49,12 +49,14 @@ export const frequencyBandsSlice = createSlice({
       });
     },
     removeBand: (state, action) => {
-      console.log(action);
       state.splice(action.payload, 1);
       //state.remove(action.payload.target);
       for (let id = action.payload; id < state.length; id++) {
         console.log(state[id].colour);
         state[id].id = id;
+      }
+      if (action.payload === state.length) {
+        state[state.length - 1].top = 60000;
       }
     },
     addBand: (state) => {
