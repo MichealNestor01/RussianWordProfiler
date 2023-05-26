@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveDialogue, setSelectedWord } from "../../store/siteStateSlice";
+import { setActiveDialogue, setSelectedWord } from "../../store/slices/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import { incrementBand, reset } from "../../store/statsSlice";
+import { incrementBand, reset } from "../../store/slices/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");

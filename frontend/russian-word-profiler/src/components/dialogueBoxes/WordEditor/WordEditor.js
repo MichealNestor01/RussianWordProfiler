@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/siteStateSlice";
+import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
 import { whichColour } from "../../../functions/whichColour";
-import { changeWord } from "../../../store/textSlice";
+import { changeWord } from "../../../store/slices/textSlice";
 
 const WordEditor = () => {
   const dispatch = useDispatch();

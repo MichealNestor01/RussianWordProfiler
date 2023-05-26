@@ -2,8 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Band from "./Band";
 import { useSelector, useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/siteStateSlice";
-import { changeTopValue, removeBand, addBand } from "../../../store/frequencyBandsSlice";
+import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
+import { changeTopValue, removeBand, addBand } from "../../../store/slices/frequencyBandsSlice";
 
 const BandConfigPanel = () => {
   const [activeIndex, setActiveIndex] = useState(-1);

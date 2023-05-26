@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
-import { setActiveDialogue } from "../../store/siteStateSlice";
-import { setWordData } from "../../store/textSlice";
+import { setActiveDialogue } from "../../store/slices/siteStateSlice";
+import { setWordData } from "../../store/slices/textSlice";
 import { AnimatePresence } from "framer-motion";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 
