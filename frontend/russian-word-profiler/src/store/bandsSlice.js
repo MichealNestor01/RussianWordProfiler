@@ -1,41 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import chroma from "chroma-js";
+
+// by default have 11 colours selected for readability
+const colors = [
+  "#e6194b",
+  "#f58231",
+  "#D7BF17",
+  "#98C41D",
+  "#3cb44b",
+  "#42d4f4",
+  "#4363d8",
+  "#911eb4",
+  "#f032e6",
+  "#fabebe",
+  "#aa6e28",
+];
 
 const initialState = [];
-//let colour = chroma("#ff0000");
-for (let i = 1; i <= 10; i++) {
-  const hue = (i - 1) * 33;
-  const color = chroma(hue, 0.5, 0.5, "hsl");
-  const darkerColor = color.darken(-0.3);
-  const pastelColor = darkerColor.saturate(-0.1);
-
+for (let i = 0; i < 10; i++) {
   initialState.push({
-    id: i - 1,
-    top: 1000 * i,
-    colour: pastelColor.hex(),
-  });
-}
-/*
-for (let i = 1; i <= 10; i++) {
-  const hue = (i + 10 - 1) * 16.5;
-  const color = chroma(hue, 0.5, 0.5, "hsl");
-  const darkerColor = color.darken(-0.3);
-  const pastelColor = darkerColor.saturate(-0.1);
-
-  initialState.push({
-    id: i + 10 - 1,
+    id: i,
     top: 1000 * (i + 1),
-    colour: pastelColor.hex(),
+    colour: colors[i],
   });
 }
-*/
+
 initialState.push({
   id: 10,
   top: 60000,
-  colour: chroma(10 * 33, 0.5, 0.5, "hsl")
-    .darken(-0.3)
-    .saturate(-0.1)
-    .hex(),
+  colour: colors[10], // You can change this to any color you want.
 });
 
 console.log(initialState);
