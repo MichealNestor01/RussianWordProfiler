@@ -3,13 +3,11 @@ import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import { changeColour } from "../../../store/bandsSlice";
-import { setActiveBandIndex } from "../../../store/bandsConfigSlice";
 
-const Band = ({ id, startColour }) => {
+const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
   const [colour, setColour] = useState(startColour);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
-  const activeBandIndex = useSelector((state) => state.config.activeBandIndex);
 
   const changeHandler = (c) => {
     setColour(c.hex);
@@ -24,10 +22,14 @@ const Band = ({ id, startColour }) => {
     }
   }, [bands]);
 
+  useEffect(() => {
+    console.log("activeIndexChanged ", activeIndex);
+  }, [activeIndex]);
+
   return (
     <Fragment>
       <AnimatePresence>
-        {activeBandIndex === id && (
+        {activeIndex === id && (
           <motion.div
             initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
             animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
@@ -43,10 +45,11 @@ const Band = ({ id, startColour }) => {
         className="bandColour"
         style={{ backgroundColor: colour }}
         onClick={() => {
-          if (activeBandIndex === id) {
-            dispatch(setActiveBandIndex(-1));
+          console.log(activeIndex);
+          if (activeIndex === id) {
+            setActiveIndex(-1);
           } else {
-            dispatch(setActiveBandIndex(id));
+            setActiveIndex(id);
           }
         }}
       />

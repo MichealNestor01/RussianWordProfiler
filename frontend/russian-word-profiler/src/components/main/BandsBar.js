@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
-import { setActiveBandIndex, setShow } from "../../store/bandsConfigSlice";
+import { setShow } from "../../store/bandsConfigSlice";
 import { setWordData, setShowApiConfig } from "../../store/textSlice";
 import { AnimatePresence } from "framer-motion";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
@@ -66,7 +66,6 @@ const BandsBar = () => {
         <button
           onClick={() => {
             dispatch(setShow(!showBandConfig));
-            dispatch(setActiveBandIndex(-1));
           }}
         >
           Configure Bands

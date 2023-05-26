@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   show: false,
-  activeBandIndex: -1,
 };
 
 export const bandsConfigSlice = createSlice({
@@ -12,12 +11,9 @@ export const bandsConfigSlice = createSlice({
     setShow: (state, action) => {
       state.show = action.payload;
     },
-    setActiveBandIndex: (state, action) => {
-      state.activeBandIndex = action.payload;
-    },
   },
 });
 
-export const { setShow, setActiveBandIndex } = bandsConfigSlice.actions;
+export const { setShow } = bandsConfigSlice.actions;
 
 export default bandsConfigSlice.reducer;

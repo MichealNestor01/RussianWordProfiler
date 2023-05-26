@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Band from "./Band";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTopValue, removeBand, addBand } from "../../../store/bandsSlice";
-import { setShow, setActiveBandIndex } from "../../../store/bandsConfigSlice";
+import { setShow } from "../../../store/bandsConfigSlice";
 
 const BandConfigPanel = () => {
-  const [bandInputDivs, setBandInputDivs] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
 
@@ -15,7 +15,12 @@ const BandConfigPanel = () => {
       const top = index === 0;
       return (
         <div className="bandInput" key={`bandInput-${index}`}>
-          <Band id={band.id} startColour={band.colour} />
+          <Band
+            id={band.id}
+            startColour={band.colour}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+          />
           {top ? (
             <div className="gridItem">
               Top
@@ -65,11 +70,7 @@ const BandConfigPanel = () => {
     });
   };
 
-  useEffect(() => {
-    setBandInputDivs(createBandInputDivs());
-  }, [bands]);
-
-  const panelHeight = 31 * bandInputDivs.length;
+  const panelHeight = 31 * bands.length;
 
   return (
     <motion.div
@@ -86,7 +87,7 @@ const BandConfigPanel = () => {
           className="closeButton"
           onClick={() => {
             dispatch(setShow(false));
-            dispatch(setActiveBandIndex(-1));
+            setActiveIndex(-1);
           }}
         >
           x
@@ -94,7 +95,7 @@ const BandConfigPanel = () => {
       </div>
       <div className="bandsForm">
         Bands:
-        {bandInputDivs}
+        {createBandInputDivs()}
         <div
           onClick={() => {
             dispatch(addBand());
