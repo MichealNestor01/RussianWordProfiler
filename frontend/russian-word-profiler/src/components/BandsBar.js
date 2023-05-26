@@ -63,7 +63,6 @@ const BandsBar = () => {
         >
           API Settings
         </button>
-        <button onClick={submitHandler}>Profile Text</button>
         <button
           onClick={() => {
             dispatch(setShow(!showBandConfig));
@@ -72,6 +71,7 @@ const BandsBar = () => {
         >
           Configure Bands
         </button>
+        <button onClick={submitHandler}>Profile Text</button>
       </div>
       <AnimatePresence>{showBandConfig && <BandConfigPanel />}</AnimatePresence>
       <AnimatePresence>{showApiConfig && <ApiSettings />}</AnimatePresence>
