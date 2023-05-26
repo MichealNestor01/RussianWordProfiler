@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import background from "./assets/background.png";
 import CustomBarChart from "./components/dataAggregation/CustomBarChart";
 import MainEditor from "./components/main/MainEditor";
+import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
@@ -25,7 +26,7 @@ function App() {
         <section className="data-panel">
           <h2>DATA AGREGATION</h2>
           <div className="">
-            <CustomBarChart />
+            <DistributionDisplay />
           </div>
         </section>
       </section>

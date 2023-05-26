@@ -139,8 +139,8 @@ button:hover {
 .page-wrapper .bottom-panel {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1.5fr;
-      grid-template-columns: 1fr 1.5fr;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
   gap: 30px;
   margin-top: 40px;
   margin-bottom: 150px;
@@ -468,5 +468,46 @@ button:hover {
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
+}
+
+.distributionContainer .bandBarContainer {
+  height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.distributionContainer .bandBarContainer .bandBar {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  height: 40px;
+}
+
+.distributionContainer .bandBarContainer .title {
+  margin-top: 0;
+  background-color: grey;
+  font-size: 1rem;
+  height: 40px;
+  width: 120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.distributionContainer .bandBarContainer .coverage {
+  margin-left: 5px;
+}
+
+.distributionContainer .noData {
+  margin: 100px 100px;
 }
 /*# sourceMappingURL=index.css.map */

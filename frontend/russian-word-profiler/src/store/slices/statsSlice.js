@@ -18,7 +18,7 @@ export const statsSlice = createSlice({
         }
       });
       if (notFound) {
-        state.bands.push({ name: id, color: colour, total: 0 });
+        state.bands.push({ name: id, colour: colour, total: 0 });
         state.bands.sort((a, b) => a.name - b.name);
       }
     },
