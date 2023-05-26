@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Band from "./Band";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTopValue, removeBand, addBand } from "../../../store/bandsSlice";
-import { setShow } from "../../../store/bandsConfigSlice";
+import { closeActiveDialogue } from "../../../store/siteStateSlice";
+import { changeTopValue, removeBand, addBand } from "../../../store/frequencyBandsSlice";
 
 const BandConfigPanel = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -86,7 +86,7 @@ const BandConfigPanel = () => {
         <div
           className="closeButton"
           onClick={() => {
-            dispatch(setShow(false));
+            dispatch(closeActiveDialogue());
             setActiveIndex(-1);
           }}
         >

@@ -19,7 +19,6 @@ function App() {
     <div className="page-wrapper">
       <h1 className="title">Russian Word Profiler</h1>
       <section className="input-section">
-        <h2>TEXT TO PROFILE:</h2>
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">

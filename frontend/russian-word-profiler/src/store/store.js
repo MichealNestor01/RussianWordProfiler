@@ -1,17 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import bandsReducer from "./bandsSlice";
 import textReducer from "./textSlice";
-import bandsConfigReducer from "./bandsConfigSlice";
-import wordStatsReducer from "./wordStatsSlice";
-import bandsStatsSlice from "./bandsStatsSlice";
+import frequencyBandsReducer from "./frequencyBandsSlice";
+import siteStateReducer from "./siteStateSlice";
+import statsReducer from "./statsSlice";
 
 const store = configureStore({
   reducer: {
-    config: bandsConfigReducer,
-    bands: bandsReducer,
+    bands: frequencyBandsReducer,
+    siteState: siteStateReducer,
     text: textReducer,
-    wordStats: wordStatsReducer,
-    bandStats: bandsStatsSlice,
+    stats: statsReducer,
   },
 });
 

@@ -21,7 +21,7 @@ function statisticsReducer(state, action) {
 
 function MainEditor({ placeholder = "Text Here." }) {
   const dispatch = useDispatch();
-  const showWordStats = useSelector((state) => state.wordStats.show);
+  const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const text = useSelector((state) => state.text.text);
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },
@@ -100,7 +100,7 @@ function MainEditor({ placeholder = "Text Here." }) {
       <section className="bands-container">
         <BandsBar />
       </section>
-      <AnimatePresence>{showWordStats && <WordEditor />}</AnimatePresence>
+      <AnimatePresence>{activeWindow === "words" && <WordEditor />}</AnimatePresence>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // by default have 11 colours selected for readability
-const colors = [
+const colours = [
   "#e6194b",
   "#f58231",
   "#D7BF17",
@@ -20,19 +20,17 @@ for (let i = 0; i < 10; i++) {
   initialState.push({
     id: i,
     top: 1000 * (i + 1),
-    colour: colors[i],
+    colour: colours[i],
   });
 }
 
 initialState.push({
   id: 10,
   top: 60000,
-  colour: colors[10], // You can change this to any color you want.
+  colour: colours[10],
 });
 
-console.log(initialState);
-
-export const bandsSlice = createSlice({
+export const frequencyBandsSlice = createSlice({
   name: "bands",
   initialState,
   reducers: {
@@ -60,11 +58,11 @@ export const bandsSlice = createSlice({
       }
     },
     addBand: (state) => {
-      state.push({ id: state.length, top: 60000, colour: "#FF0000" });
+      state.push({ id: state.length, top: 60000, colour: colours[10] });
     },
   },
 });
 
-export const { changeColour, changeTopValue, removeBand, addBand } = bandsSlice.actions;
+export const { changeColour, changeTopValue, removeBand, addBand } = frequencyBandsSlice.actions;
 
-export default bandsSlice.reducer;
+export default frequencyBandsSlice.reducer;

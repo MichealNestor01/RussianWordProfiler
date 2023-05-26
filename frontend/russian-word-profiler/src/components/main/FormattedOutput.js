@@ -1,9 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveWordIndex, setShow } from "../../store/wordStatsSlice";
-import { changeBandTotal } from "../../store/bandsSlice";
+import { setActiveDialogue, setSelectedWord } from "../../store/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import { incrementBand, reset } from "../../store/bandsStatsSlice";
+import { incrementBand, reset } from "../../store/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
@@ -55,9 +54,9 @@ const FormattedOutput = () => {
                 onClick={() => {
                   if (totalSynonyms > 0) {
                     dispatch(
-                      setActiveWordIndex({ index, word, colour, synonyms: wordData[wordLower].synonyms })
+                      setSelectedWord({ index, word, colour, synonyms: wordData[wordLower].synonyms })
                     );
-                    dispatch(setShow(true));
+                    dispatch(setActiveDialogue("words"));
                   }
                 }}
               >

@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
-import { setShow } from "../../store/bandsConfigSlice";
-import { setWordData, setShowApiConfig } from "../../store/textSlice";
+import { setActiveDialogue } from "../../store/siteStateSlice";
+import { setWordData } from "../../store/textSlice";
 import { AnimatePresence } from "framer-motion";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 
 const BandsBar = () => {
-  const [bandDivs, setBandDivs] = useState([]);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
-  const showBandConfig = useSelector((state) => state.config.show);
-  const showApiConfig = useSelector((state) => state.text.showApiConfig);
+  const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const { text, stopWords } = useSelector((state) => state.text);
 
   const submitHandler = async () => {
@@ -48,32 +45,28 @@ const BandsBar = () => {
     });
   };
 
-  useEffect(() => {
-    setBandDivs(createBandDivs());
-  }, [bands]);
-
   return (
     <section className="bands-selector">
-      <div className="scrollArea">{bandDivs}</div>
+      <div className="scrollArea">{createBandDivs()}</div>
       <div className="buttons">
         <button
           onClick={() => {
-            dispatch(setShowApiConfig(!showApiConfig));
-          }}
-        >
-          API Settings
-        </button>
-        <button
-          onClick={() => {
-            dispatch(setShow(!showBandConfig));
+            dispatch(setActiveDialogue(activeWindow === "bands" ? "" : "bands"));
           }}
         >
           Configure Bands
         </button>
+        <button
+          onClick={() => {
+            dispatch(setActiveDialogue(activeWindow === "api" ? "" : "api"));
+          }}
+        >
+          API Settings
+        </button>
         <button onClick={submitHandler}>Profile Text</button>
       </div>
-      <AnimatePresence>{showBandConfig && <BandConfigPanel />}</AnimatePresence>
-      <AnimatePresence>{showApiConfig && <ApiSettings />}</AnimatePresence>
+      <AnimatePresence>{activeWindow === "api" && <ApiSettings />}</AnimatePresence>
+      <AnimatePresence>{activeWindow === "bands" && <BandConfigPanel />}</AnimatePresence>
     </section>
   );
 };
