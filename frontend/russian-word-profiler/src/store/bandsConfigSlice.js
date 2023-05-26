@@ -10,11 +10,9 @@ export const bandsConfigSlice = createSlice({
   initialState,
   reducers: {
     setShow: (state, action) => {
-      console.log("SET SHOW: ", action.payload);
       state.show = action.payload;
     },
     setActiveBandIndex: (state, action) => {
-      console.log("SET ACTIVE BAND: ", action.payload);
       state.activeBandIndex = action.payload;
     },
   },
