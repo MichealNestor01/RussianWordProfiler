@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { setShow, setActiveWordIndex, closeWordStats } from "../store/wordStatsSlice";
+import { setShow, setActiveWordIndex, closeWordStats } from "../../../store/wordStatsSlice";
 
-import { whichColour } from "../functions/whichColour";
-import { changeWord } from "../store/textSlice";
+import { whichColour } from "../../../functions/whichColour";
+import { changeWord } from "../../../store/textSlice";
 
 const WordEditor = () => {
   const dispatch = useDispatch();

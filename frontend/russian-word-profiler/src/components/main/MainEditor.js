@@ -1,10 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLineBreaks, setText } from "../store/textSlice";
+import { setLineBreaks, setText } from "../../store/textSlice";
 import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
-import WordEditor from "./WordEditor";
+import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
 
 function statisticsReducer(state, action) {
   const newState = [...state];

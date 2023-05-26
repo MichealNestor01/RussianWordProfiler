@@ -1,9 +1,9 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveWordIndex, setShow } from "../store/wordStatsSlice";
-import { changeBandTotal } from "../store/bandsSlice";
-import { whichColour } from "../functions/whichColour";
-import { incrementBand, reset } from "../store/bandsStatsSlice";
+import { setActiveWordIndex, setShow } from "../../store/wordStatsSlice";
+import { changeBandTotal } from "../../store/bandsSlice";
+import { whichColour } from "../../functions/whichColour";
+import { incrementBand, reset } from "../../store/bandsStatsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");

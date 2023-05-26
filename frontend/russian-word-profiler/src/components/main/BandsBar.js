@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import BandConfigPanel from "./dialogueBoxes/BandConfigPanel";
-import { setActiveBandIndex, setShow } from "../store/bandsConfigSlice";
-import { setWordData, setShowApiConfig } from "../store/textSlice";
+import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
+import { setActiveBandIndex, setShow } from "../../store/bandsConfigSlice";
+import { setWordData, setShowApiConfig } from "../../store/textSlice";
 import { AnimatePresence } from "framer-motion";
-import ApiSettings from "./dialogueBoxes/ApiSettings";
+import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 
 const BandsBar = () => {
   const [bandDivs, setBandDivs] = useState([]);

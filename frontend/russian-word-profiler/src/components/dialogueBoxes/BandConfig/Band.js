@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
-import { changeColour } from "../store/bandsSlice";
-import { setActiveBandIndex } from "../store/bandsConfigSlice";
+import { changeColour } from "../../../store/bandsSlice";
+import { setActiveBandIndex } from "../../../store/bandsConfigSlice";
 
 const Band = ({ id, startColour }) => {
   const [colour, setColour] = useState(startColour);

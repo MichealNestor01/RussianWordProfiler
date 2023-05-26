@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import background from "./assets/background.png";
-import CustomBarChart from "./components/CustomBarChart";
-import MainEditor from "./components/MainEditor";
+import CustomBarChart from "./components/dataAggregation/CustomBarChart";
+import MainEditor from "./components/main/MainEditor";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;

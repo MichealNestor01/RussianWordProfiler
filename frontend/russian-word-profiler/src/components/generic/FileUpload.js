@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setStopWords } from "../store/textSlice";
+import { setStopWords } from "../../store/textSlice";
 
 const FileUpload = () => {
   const dispatch = useDispatch();
