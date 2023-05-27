@@ -468,6 +468,11 @@ button:hover {
   cursor: pointer;
 }
 
+.distributionContainer {
+  text-align: center;
+  padding: 10px;
+}
+
 .distributionContainer .bandBarContainer {
   height: 45px;
   display: -webkit-box;
@@ -507,5 +512,14 @@ button:hover {
 
 .distributionContainer .noData {
   margin: 100px 100px;
+}
+
+.lemmaTable {
+  text-align: center;
+  padding: 10px;
+}
+
+.lemmaTable .table {
+  width: 100%;
 }
 /*# sourceMappingURL=index.css.map */

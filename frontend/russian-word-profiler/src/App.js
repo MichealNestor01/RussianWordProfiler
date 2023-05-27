@@ -23,7 +23,7 @@ function App() {
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">
-        <h2>DATA AGREGATION</h2>
+        <h2>DATA AGGREGATION</h2>
         <section className="data-grid">
           <DistributionDisplay />
           <LemmaTable />
