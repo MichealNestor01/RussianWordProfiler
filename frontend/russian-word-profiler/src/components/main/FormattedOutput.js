@@ -40,7 +40,7 @@ const FormattedOutput = () => {
       if (wordLower in wordData) {
         if (wordData[wordLower].rank !== undefined) {
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
-          if (band != undefined) dispatch(incrementBand({ id: band.top, colour: band.colour }));
+          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour: band.colour }));
           return (
             <Fragment key={index}>
               {`${start}`}
@@ -76,7 +76,7 @@ const FormattedOutput = () => {
       );
     });
     setOutput(coloredWords);
-  }, [wordData, lineBreaks, text, bands]);
+  }, [wordData, lineBreaks, text, bands, dispatch]);
 
   return <Fragment>{output}</Fragment>;
 };
