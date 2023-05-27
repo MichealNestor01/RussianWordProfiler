@@ -469,6 +469,10 @@ button:hover {
 }
 
 .distributionContainer {
+  min-height: 300px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   text-align: center;
   padding: 10px;
 }
@@ -515,6 +519,10 @@ button:hover {
 }
 
 .lemmaTable {
+  min-height: 300px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   text-align: center;
   padding: 10px;
 }
