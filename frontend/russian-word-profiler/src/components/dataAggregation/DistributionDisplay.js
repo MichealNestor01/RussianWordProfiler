@@ -6,7 +6,6 @@ const DistributionDisplay = () => {
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
   let prevBand = 0;
-  console.log(bands);
   return (
     <div className="distributionContainer card">
       <h1>Word Frequency Distrbition</h1>
