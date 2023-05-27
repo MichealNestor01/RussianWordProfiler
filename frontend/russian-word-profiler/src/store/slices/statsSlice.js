@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   bands: [],
+  tableData: {},
+  lemmaMatchData: {},
 };
 
 export const statsSlice = createSlice({
@@ -25,9 +27,15 @@ export const statsSlice = createSlice({
     reset: (state) => {
       state.bands = [];
     },
+    setTableData: (state, action) => {
+      state.tableData = action.payload;
+    },
+    setLemmaMatchData: (state, action) => {
+      state.lemmaMatchData = action.payload;
+    },
   },
 });
 
-export const { incrementBand, reset } = statsSlice.actions;
+export const { incrementBand, reset, setTableData, setLemmaMatchData } = statsSlice.actions;
 
 export default statsSlice.reducer;
