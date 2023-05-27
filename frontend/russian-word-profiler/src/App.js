@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import background from "./assets/background.png";
 import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
+import LemmaTable from "./components/dataAggregation/LemmaTable";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
@@ -22,11 +23,10 @@ function App() {
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">
-        <section className="data-panel">
-          <h2>DATA AGREGATION</h2>
-          <div className="">
-            <DistributionDisplay />
-          </div>
+        <h2>DATA AGREGATION</h2>
+        <section className="data-grid">
+          <DistributionDisplay />
+          <LemmaTable />
         </section>
       </section>
       {/* This is a background splash image */}
