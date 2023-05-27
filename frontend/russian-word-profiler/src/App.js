@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import background from "./assets/background.png";
-import CustomBarChart from "./components/dataAggregation/CustomBarChart";
 import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
 
