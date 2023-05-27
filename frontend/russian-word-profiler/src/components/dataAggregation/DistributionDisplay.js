@@ -22,7 +22,7 @@ const DistributionDisplay = () => {
               <div
                 className="bandBar"
                 key={`bandBar${index}`}
-                style={{ width: `${(40 * band.total) / maxTotal}%`, background: band.colour }}
+                style={{ width: `${(70 * band.total) / maxTotal}%`, background: band.colour }}
               />
               <h1 className="coverage">{parseFloat(((100 * band.total) / sumTotal).toFixed(1))}%</h1>
             </div>
