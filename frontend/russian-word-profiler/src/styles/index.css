@@ -55,7 +55,9 @@ p,
   -webkit-box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
-  height: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 ul {
