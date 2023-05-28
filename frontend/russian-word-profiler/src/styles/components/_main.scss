@@ -20,7 +20,7 @@
   }
   .input-section {
     // BOX MODEL
-    margin-top: 40px;
+    margin-top: 30px;
     // CHILDREN
     h2 {
       margin-bottom: 10px;
@@ -28,24 +28,18 @@
   }
   .bottom-panel {
     // DISPLAY AND VISIBILITY
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
     // BOX MODEL
     margin-top: 40px;
     margin-bottom: 150px;
-    min-height: 700px;
     // CHILDREN
-    .left-panel {
+    .data-grid {
       // DISPLAY AND VISIBILITY
+      width: 100%;
       display: grid;
-      grid-template-rows: 1.5fr 1fr;
-      gap: 60px;
-    }
-    .output-section {
-      .text-output {
-        padding: 15px;
-      }
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
     }
   }
 }

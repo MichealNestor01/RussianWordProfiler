@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   bands: [],
+  tableData: {},
+  lemmaMatchData: {},
+  lemmaFrequencyDict: {},
 };
 
 export const statsSlice = createSlice({
@@ -18,16 +21,26 @@ export const statsSlice = createSlice({
         }
       });
       if (notFound) {
-        state.bands.push({ name: id, color: colour, total: 0 });
+        state.bands.push({ name: id, colour: colour, total: 0 });
         state.bands.sort((a, b) => a.name - b.name);
       }
     },
     reset: (state) => {
       state.bands = [];
     },
+    setTableData: (state, action) => {
+      state.tableData = action.payload;
+    },
+    setLemmaMatchData: (state, action) => {
+      state.lemmaMatchData = action.payload;
+    },
+    setLemmaFrequencyDict: (state, action) => {
+      state.lemmaFrequencyDict = action.payload;
+    },
   },
 });
 
-export const { incrementBand, reset } = statsSlice.actions;
+export const { incrementBand, reset, setTableData, setLemmaMatchData, setLemmaFrequencyDict } =
+  statsSlice.actions;
 
 export default statsSlice.reducer;

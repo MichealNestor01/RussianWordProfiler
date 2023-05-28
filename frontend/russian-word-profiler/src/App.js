@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import background from "./assets/background.png";
-import CustomBarChart from "./components/dataAggregation/CustomBarChart";
 import MainEditor from "./components/main/MainEditor";
+import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
+import LemmaTable from "./components/dataAggregation/LemmaTable";
+import DownloadData from "./components/dataAggregation/DownloadData";
+import { useSelector } from "react-redux";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
 function App() {
+  const dataCollected = useSelector((state) => Object.keys(state.stats.lemmaMatchData).length);
+
   useEffect(() => {
     if (initial) {
       alert(
@@ -22,11 +27,13 @@ function App() {
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">
-        <section className="data-panel">
-          <h2>DATA AGREGATION</h2>
-          <div className="">
-            <CustomBarChart />
+        <h2>DATA AGGREGATION</h2>
+        <section className="data-grid">
+          <div className="left-panel">
+            <DistributionDisplay />
+            {dataCollected > 0 && <DownloadData />}
           </div>
+          <LemmaTable />
         </section>
       </section>
       {/* This is a background splash image */}

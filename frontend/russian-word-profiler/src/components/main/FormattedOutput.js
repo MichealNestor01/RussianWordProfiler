@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveDialogue, setSelectedWord } from "../../store/slices/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import { incrementBand, reset } from "../../store/slices/statsSlice";
+import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
@@ -21,6 +21,7 @@ const FormattedOutput = () => {
 
   useEffect(() => {
     dispatch(reset());
+    const lemmaFrequencyDict = {};
     const words = text.split(/\s+/);
     const coloredWords = words.map((word, index) => {
       // deal with puctuation at the start and end
@@ -38,9 +39,16 @@ const FormattedOutput = () => {
       let wordLower = trimmedWord.toLowerCase();
       let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
       if (wordLower in wordData) {
+        if (wordData[wordLower].rank !== -1) {
+          if (wordData[wordLower].lemma in lemmaFrequencyDict) {
+            lemmaFrequencyDict[wordData[wordLower].lemma]++;
+          } else {
+            lemmaFrequencyDict[wordData[wordLower].lemma] = 1;
+          }
+        }
         if (wordData[wordLower].rank !== undefined) {
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
-          if (band != undefined) dispatch(incrementBand({ id: band.id, colour: band.colour }));
+          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour: band.colour }));
           return (
             <Fragment key={index}>
               {`${start}`}
@@ -75,8 +83,9 @@ const FormattedOutput = () => {
         </Fragment>
       );
     });
+    dispatch(setLemmaFrequencyDict(lemmaFrequencyDict));
     setOutput(coloredWords);
-  }, [wordData, lineBreaks, text, bands]);
+  }, [wordData, lineBreaks, text, bands, dispatch]);
 
   return <Fragment>{output}</Fragment>;
 };
