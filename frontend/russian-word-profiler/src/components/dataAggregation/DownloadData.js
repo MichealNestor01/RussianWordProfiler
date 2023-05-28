@@ -2,8 +2,7 @@ import { useSelector } from "react-redux";
 import DownloadButton from "../generic/DownlaodButton";
 
 const DownloadData = () => {
-  const lemmaData = useSelector((state) => state.stats.lemmaMatchData);
-
+  const lemmaData = useSelector((state) => state.stats.lemmaFrequencyDict);
   return (
     <div className="downloadData card">
       <h1>Download Data</h1>
