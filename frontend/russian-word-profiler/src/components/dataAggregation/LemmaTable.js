@@ -4,6 +4,7 @@ import { setLemmaMatchData, setTableData } from "../../store/slices/statsSlice";
 const LemmaTable = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.stats.bands);
+  const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
   const wordData = useSelector((state) => state.text.wordData);
 
   // Create a dictionary with lemma as key and an array of words as value.
@@ -54,6 +55,7 @@ const LemmaTable = () => {
             <th style={{ width: "120px" }}>Band</th>
             <th>Lemma</th>
             <th>Matching Words</th>
+            <th style={{ width: "60px" }}>Occ</th>
             <th style={{ width: "60px" }}>Rank</th>
           </tr>
         </thead>
@@ -70,6 +72,7 @@ const LemmaTable = () => {
                 )}
                 <td>{lemmaObj.lemma}</td>
                 <td>{lemmaObj.words.join(", ")}</td>
+                <td>{lemmaFrequencyDict[lemmaObj.lemma]}</td>
                 <td>{lemmaObj.rank}</td>
               </tr>
             ));

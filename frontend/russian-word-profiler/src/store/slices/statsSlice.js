@@ -4,6 +4,7 @@ const initialState = {
   bands: [],
   tableData: {},
   lemmaMatchData: {},
+  lemmaFrequencyDict: {},
 };
 
 export const statsSlice = createSlice({
@@ -33,9 +34,13 @@ export const statsSlice = createSlice({
     setLemmaMatchData: (state, action) => {
       state.lemmaMatchData = action.payload;
     },
+    setLemmaFrequencyDict: (state, action) => {
+      state.lemmaFrequencyDict = action.payload;
+    },
   },
 });
 
-export const { incrementBand, reset, setTableData, setLemmaMatchData } = statsSlice.actions;
+export const { incrementBand, reset, setTableData, setLemmaMatchData, setLemmaFrequencyDict } =
+  statsSlice.actions;
 
 export default statsSlice.reducer;
