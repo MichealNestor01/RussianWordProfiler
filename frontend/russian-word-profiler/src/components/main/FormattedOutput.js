@@ -7,7 +7,7 @@ import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
-  const { text, lineBreaks, wordData } = useSelector((state) => state.text);
+  const { text, lineBreaks, paragraphBreaks, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
 
   const extractPunctuation = (word) => {
@@ -27,8 +27,12 @@ const FormattedOutput = () => {
       // deal with puctuation at the start and end
       // store it and remove it.
       const { start, end, trimmedWord } = extractPunctuation(word);
+      // add in line break or paragraph break
       let lineBreak = "";
       if (lineBreaks.includes(index)) {
+        lineBreak = <br />;
+      }
+      if (paragraphBreaks.includes(index)) {
         lineBreak = (
           <Fragment>
             <br />
