@@ -49,7 +49,9 @@ class ProfilerObj:
             for row in reader:
                 # Convert the rank to an integer
                 lemma, rank = row[1], int(row[0])
-                self.frequency_list[lemma] = rank
+                # some lemmas appear twice, we only care for the first occurence
+                if (lemma not in self.frequency_list):
+                    self.frequency_list[lemma] = rank
 
     # retrives the frequency rank of a lemma
     def get_frequency_rank(self, lemma: str) -> int:
