@@ -25,7 +25,7 @@ class ProfilerObj:
         self.load_cache()
 
     # set stowards to user defined stopwards
-    def set_stopwords(self, stopwords):
+    def set_stopwords(self, stopwords) -> None:
         self.stopwords = set(stopwords)
 
     # loads in any chanced yandex queries
