@@ -26,7 +26,7 @@ for (let i = 0; i < 10; i++) {
 
 initialState.push({
   id: 10,
-  top: 60000,
+  top: 52047,
   colour: colours[10],
 });
 
