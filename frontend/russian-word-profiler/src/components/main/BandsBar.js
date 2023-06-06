@@ -20,7 +20,7 @@ const BandsBar = () => {
     const response = await axios({
       method: "post",
       url: `${url}scantext/`,
-      data: { stopwords: stopWords, text: text },
+      data: stopWords.length > 0 ? { stopwords: stopWords, text: text } : { text: text },
     });
     if (response.status === 200) {
       console.log(response.data);
