@@ -12,11 +12,12 @@ const LemmaTable = () => {
   for (const word in wordData) {
     const { lemma, rank } = wordData[word];
     if (rank !== -1) {
-      // only consider words with a valid frequency rank
       if (!lemmaWordsDict[lemma]) {
         lemmaWordsDict[lemma] = { words: [], rank };
       }
       lemmaWordsDict[lemma].words.push(word);
+    } else {
+      lemmaWordsDict[lemma] = { words: [], rank };
     }
   }
 

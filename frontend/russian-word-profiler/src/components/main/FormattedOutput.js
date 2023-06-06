@@ -2,12 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveDialogue, setSelectedWord } from "../../store/slices/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import {
-  incrementBand,
-  reset,
-  setLemmaFrequencyDict,
-  setNotInList,
-} from "../../store/slices/statsSlice";
+import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
@@ -61,7 +56,7 @@ const FormattedOutput = () => {
         }
         if (wordData[wordLower].rank !== undefined) {
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
-          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour: band.colour }));
+          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour }));
           return (
             <Fragment key={index}>
               {`${start}`}
@@ -96,7 +91,6 @@ const FormattedOutput = () => {
         </Fragment>
       );
     });
-    dispatch(setNotInList(wordsNotInList));
     dispatch(setLemmaFrequencyDict(lemmaFrequencyDict));
     setOutput(coloredWords);
   }, [wordData, lineBreaks, text, bands, dispatch]);

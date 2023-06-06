@@ -1,6 +1,6 @@
 export const whichColour = (rank, bands) => {
   if (rank === -1) {
-    return "";
+    return ["black", { top: "N/A", colour: "black" }];
   }
   for (let bandIndex = 0; bandIndex < bands.length; bandIndex++) {
     const band = bands[bandIndex];
