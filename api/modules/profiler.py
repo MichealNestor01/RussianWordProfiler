@@ -19,7 +19,7 @@ class ProfilerObj:
         # Retrieve the stop words # I don't think it makes sense to have default stop words
         # with open("stopwords.txt", "r", encoding="utf-8") as file:
         #    self.stopwords: Set[str] = set(line.strip() for line in file)
-        self.stopwords = []
+        self.stopwords = set([])
         # Retrieve frequency list (Sharoff 2011)
         self.load_frequency_list("2011-frequency-list-SORTED.txt")
         # Create a cache to store word data
