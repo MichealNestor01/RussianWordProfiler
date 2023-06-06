@@ -5,6 +5,8 @@ const initialState = {
   tableData: {},
   lemmaMatchData: {},
   lemmaFrequencyDict: {},
+  // count the words not in any band
+  notInList: 0,
 };
 
 export const statsSlice = createSlice({
@@ -37,10 +39,19 @@ export const statsSlice = createSlice({
     setLemmaFrequencyDict: (state, action) => {
       state.lemmaFrequencyDict = action.payload;
     },
+    setNotInList: (state, action) => {
+      state.notInList = action.payload;
+    },
   },
 });
 
-export const { incrementBand, reset, setTableData, setLemmaMatchData, setLemmaFrequencyDict } =
-  statsSlice.actions;
+export const {
+  incrementBand,
+  reset,
+  setTableData,
+  setLemmaMatchData,
+  setLemmaFrequencyDict,
+  setNotInList,
+} = statsSlice.actions;
 
 export default statsSlice.reducer;

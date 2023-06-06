@@ -2,7 +2,12 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveDialogue, setSelectedWord } from "../../store/slices/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/statsSlice";
+import {
+  incrementBand,
+  reset,
+  setLemmaFrequencyDict,
+  setNotInList,
+} from "../../store/slices/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
@@ -23,6 +28,8 @@ const FormattedOutput = () => {
     dispatch(reset());
     const lemmaFrequencyDict = {};
     const words = text.split(/\s+/);
+    // count words not in the frequency list
+    let wordsNotInList = 0;
     const coloredWords = words.map((word, index) => {
       // deal with puctuation at the start and end
       // store it and remove it.
@@ -49,6 +56,8 @@ const FormattedOutput = () => {
           } else {
             lemmaFrequencyDict[wordData[wordLower].lemma] = 1;
           }
+        } else {
+          wordsNotInList++;
         }
         if (wordData[wordLower].rank !== undefined) {
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
@@ -87,6 +96,7 @@ const FormattedOutput = () => {
         </Fragment>
       );
     });
+    dispatch(setNotInList(wordsNotInList));
     dispatch(setLemmaFrequencyDict(lemmaFrequencyDict));
     setOutput(coloredWords);
   }, [wordData, lineBreaks, text, bands, dispatch]);
