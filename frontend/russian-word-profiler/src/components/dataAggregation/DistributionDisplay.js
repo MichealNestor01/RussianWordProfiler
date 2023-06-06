@@ -5,6 +5,7 @@ const DistributionDisplay = () => {
   const bands = useSelector((state) => state.stats.bands);
   const totals = bands.map((band) => band.total);
   const notFoundBand = bands.find((band) => band.name === "N/A");
+  console.log(notFoundBand);
   const notInList = notFoundBand ? notFoundBand.total : undefined;
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
@@ -44,7 +45,7 @@ const DistributionDisplay = () => {
               <div
                 className="bandBar"
                 key={`bandBar${bands.length}`}
-                style={{ width: `${(70 * notInList) / maxTotal}%`, background: "black" }}
+                style={{ width: `${(70 * notInList) / maxTotal}%`, background: notFoundBand.colour }}
               />
               <h1 className="coverage">{parseFloat(((100 * notInList) / sumTotal).toFixed(1))}%</h1>
             </div>

@@ -4,6 +4,7 @@ import { setLemmaMatchData, setTableData } from "../../store/slices/statsSlice";
 const LemmaTable = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.stats.bands);
+  const notFoundBand = bands.find((band) => band.name === "N/A");
   const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
   const wordData = useSelector((state) => state.text.wordData);
 
@@ -17,7 +18,7 @@ const LemmaTable = () => {
       }
       lemmaWordsDict[lemma].words.push(word);
     } else {
-      lemmaWordsDict[lemma] = { words: [], rank };
+      lemmaWordsDict[lemma] = { words: [], rank: "N/A" };
     }
   }
 
@@ -44,6 +45,14 @@ const LemmaTable = () => {
     prevBand = band.name;
     return { ...band, lemmas: lemmasInBand };
   });
+  const lemmasInNoBand = [];
+  for (const lemma in lemmaWordsDict) {
+    const { rank, words } = lemmaWordsDict[lemma];
+    if (rank === "N/A") {
+      lemmasInNoBand.push({ lemma, words, rank });
+    }
+  }
+  bandsWithLemmas.push({ ...notFoundBand, lemmas: lemmasInNoBand });
 
   dispatch(setTableData(bandsWithLemmas));
   prevBand = 0;
@@ -62,13 +71,22 @@ const LemmaTable = () => {
         </thead>
         <tbody>
           {bandsWithLemmas.map((band, bandIndex) => {
-            console.log(band);
             const row = band.lemmas.map((lemmaObj, lemmaIndex) => (
-              <tr key={bandIndex + "-" + lemmaIndex} style={{ backgroundColor: band.colour }}>
+              <tr
+                key={bandIndex + "-" + lemmaIndex}
+                style={{
+                  backgroundColor: band.colour,
+                  color: band.colour === "black" ? "white" : "black",
+                }}
+              >
                 {lemmaIndex === 0 && (
                   <td rowSpan={band.lemmas.length}>
-                    {bandIndex === 0 ? "Top " : `${prevBand} - `}
-                    {band.name}
+                    {bandIndex === bandsWithLemmas.length - 1
+                      ? "Not In List"
+                      : bandIndex === 0
+                      ? "Top "
+                      : `${prevBand} - `}
+                    {bandIndex !== bandsWithLemmas.length - 1 && band.name}
                   </td>
                 )}
                 <td>{lemmaObj.lemma}</td>
