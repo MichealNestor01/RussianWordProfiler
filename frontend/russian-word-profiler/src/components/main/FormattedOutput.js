@@ -7,7 +7,7 @@ import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
-  const { text, lineBreaks, wordData } = useSelector((state) => state.text);
+  const { text, lineBreaks, paragraphBreaks, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
 
   const extractPunctuation = (word) => {
@@ -23,12 +23,18 @@ const FormattedOutput = () => {
     dispatch(reset());
     const lemmaFrequencyDict = {};
     const words = text.split(/\s+/);
+    // count words not in the frequency list
+    let wordsNotInList = 0;
     const coloredWords = words.map((word, index) => {
       // deal with puctuation at the start and end
       // store it and remove it.
       const { start, end, trimmedWord } = extractPunctuation(word);
+      // add in line break or paragraph break
       let lineBreak = "";
       if (lineBreaks.includes(index)) {
+        lineBreak = <br />;
+      }
+      if (paragraphBreaks.includes(index)) {
         lineBreak = (
           <Fragment>
             <br />
@@ -45,10 +51,12 @@ const FormattedOutput = () => {
           } else {
             lemmaFrequencyDict[wordData[wordLower].lemma] = 1;
           }
+        } else {
+          wordsNotInList++;
         }
         if (wordData[wordLower].rank !== undefined) {
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
-          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour: band.colour }));
+          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour }));
           return (
             <Fragment key={index}>
               {`${start}`}

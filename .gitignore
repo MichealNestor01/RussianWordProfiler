@@ -36,3 +36,4 @@ api/modules/__pycache__/profiler.cpython-311.pyc
 api/modules/__pycache__/profiler.cpython-311.pyc
 api/word_data_cache.pickle
 api/stopwords2.txt
+.vscode/settings.json

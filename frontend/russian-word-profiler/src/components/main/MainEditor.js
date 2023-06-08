@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLineBreaks, setText } from "../../store/slices/textSlice";
+import { setBreaks, setText } from "../../store/slices/textSlice";
 import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
 import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
@@ -32,10 +32,10 @@ function MainEditor({ placeholder = "Text Here." }) {
 
   // recalculate text stats after each update:
   const textChangeHandler = (e) => {
-    // deal with text and statistics
     dispatch(setText(e.target.value));
     const txt = e.target.value;
     const newLineBreaks = [];
+    const newParagraphBreaks = [];
     // calculate words:
     const wordCount = txt.split(" ").filter((word) => {
       if (word !== "") {
@@ -47,28 +47,41 @@ function MainEditor({ placeholder = "Text Here." }) {
     // calculate characters:
     let characters = txt.split("").length;
     dispatchStatistics({ target: "chars", count: characters });
-    // calculate sentences and paragraphs:
+    // calculate sentences, words, and paragraphs:
     let sentences = 0;
-    let paragraphs = characters > 0 ? 1 : 0;
+    let paragraphs = 0;
+
+    // count the number of sentences
+    let sentenceMatches = txt.match(/[\.\?!]/g);
+    if (sentenceMatches) {
+      sentences = sentenceMatches.length;
+    }
+
+    // count the number of paragraphs
+    let paragraphMatches = txt.split(/\n\s*\n/);
+    if (paragraphMatches) {
+      paragraphs = paragraphMatches.length;
+    }
+
+    // get new line breaks
     let wordCounter = 0;
     let prevChar = "";
-    txt.split("").forEach((char, index) => {
-      if (char === "." || char === "?" || char === "!") {
-        sentences++;
-      } else if (char === "\n" && prevChar !== char) {
-        paragraphs++;
-        // line breaks gives the formatter information about where
-        // to place line breaks.
-        newLineBreaks.push(wordCounter + newLineBreaks.length);
-      }
-      if (index > 0) {
-        if (char === " " && prevChar !== " " && prevChar !== "\n") {
-          wordCounter++;
+    txt.split("").forEach((char) => {
+      if (char === "\n") {
+        if (prevChar !== "\n") {
+          newLineBreaks.push(wordCounter);
+        } else {
+          newParagraphBreaks.push(wordCounter);
+          newLineBreaks.pop();
         }
+      }
+      if (char === " " && prevChar !== " " && prevChar !== "\n") {
+        wordCounter++;
       }
       prevChar = char;
     });
-    dispatch(setLineBreaks({ new: newLineBreaks }));
+    dispatch(setBreaks({ lineBreaks: newLineBreaks, paragraphBreaks: newParagraphBreaks }));
+    dispatchStatistics({ target: "words", count: wordCount });
     dispatchStatistics({ target: "sents", count: sentences });
     dispatchStatistics({ target: "paras", count: paragraphs });
   };

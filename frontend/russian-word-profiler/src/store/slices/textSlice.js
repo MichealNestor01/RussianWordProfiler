@@ -8,7 +8,8 @@ export const textSlice = createSlice({
   name: "text",
   initialState: {
     text: TEXT,
-    lineBreaks: LINEBREAKS,
+    lineBreaks: [],
+    paragraphBreaks: [],
     stopWords: [],
     showApiConfig: false,
     wordData: {},
@@ -19,8 +20,15 @@ export const textSlice = createSlice({
         state.lineBreaks.push(action.payload.index);
       }
     },
-    setLineBreaks: (state, aciton) => {
-      state.lineBreaks = aciton.payload.new;
+    setLineBreaks: (state, action) => {
+      state.lineBreaks = action.payload.new;
+    },
+    setParagraphBreaks: (state, action) => {
+      state.lineBreaks = action.payload.new;
+    },
+    setBreaks: (state, action) => {
+      state.lineBreaks = action.payload.lineBreaks;
+      state.paragraphBreaks = action.payload.paragraphBreaks;
     },
     setWordData: (state, action) => {
       state.wordData = action.payload;
@@ -44,7 +52,7 @@ export const textSlice = createSlice({
       let warn = false;
       for (let i = 0, j = 0; i < index; i++, j++) {
         warn = false;
-        if (words[i] != wordsWithLineBreaks[j]) {
+        if (words[i] !== wordsWithLineBreaks[j]) {
           warn = true;
           newIndex--;
           i++;
@@ -66,6 +74,8 @@ export const textSlice = createSlice({
 export const {
   addParagraphEnd,
   setLineBreaks,
+  setParagraphBreaks,
+  setBreaks,
   setWordData,
   setText,
   setStopWords,

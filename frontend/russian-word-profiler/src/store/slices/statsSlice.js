@@ -37,6 +37,9 @@ export const statsSlice = createSlice({
     setLemmaFrequencyDict: (state, action) => {
       state.lemmaFrequencyDict = action.payload;
     },
+    setNotInList: (state, action) => {
+      state.notInList = action.payload;
+    },
   },
 });
 
