@@ -32,10 +32,9 @@ function MainEditor({ placeholder = "Text Here." }) {
 
   // recalculate text stats after each update:
   const textChangeHandler = (e) => {
-    dispatch(setText(e.target.value));
     const txt = e.target.value;
-    const newLineBreaks = [];
-    const newParagraphBreaks = [];
+    dispatch(setText(txt));
+
     // calculate words:
     const wordCount = txt.split(" ").filter((word) => {
       if (word !== "") {
@@ -44,10 +43,12 @@ function MainEditor({ placeholder = "Text Here." }) {
       return false;
     }).length;
     dispatchStatistics({ target: "words", count: wordCount });
+
     // calculate characters:
     let characters = txt.split("").length;
     dispatchStatistics({ target: "chars", count: characters });
-    // calculate sentences, words, and paragraphs:
+
+    // calculate sentences and paragraphs:
     let sentences = 0;
     let paragraphs = 0;
 
@@ -56,33 +57,13 @@ function MainEditor({ placeholder = "Text Here." }) {
     if (sentenceMatches) {
       sentences = sentenceMatches.length;
     }
+    dispatchStatistics({ target: "sents", count: sentences });
 
     // count the number of paragraphs
     let paragraphMatches = txt.split(/\n\s*\n/);
     if (paragraphMatches) {
       paragraphs = paragraphMatches.length;
     }
-
-    // get new line breaks
-    let wordCounter = 0;
-    let prevChar = "";
-    txt.split("").forEach((char) => {
-      if (char === "\n") {
-        if (prevChar !== "\n") {
-          newLineBreaks.push(wordCounter);
-        } else {
-          newParagraphBreaks.push(wordCounter);
-          newLineBreaks.pop();
-        }
-      }
-      if (char === " " && prevChar !== " " && prevChar !== "\n") {
-        wordCounter++;
-      }
-      prevChar = char;
-    });
-    dispatch(setBreaks({ lineBreaks: newLineBreaks, paragraphBreaks: newParagraphBreaks }));
-    dispatchStatistics({ target: "words", count: wordCount });
-    dispatchStatistics({ target: "sents", count: sentences });
     dispatchStatistics({ target: "paras", count: paragraphs });
   };
 

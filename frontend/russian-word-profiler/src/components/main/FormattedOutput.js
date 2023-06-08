@@ -7,59 +7,44 @@ import { incrementBand, reset, setLemmaFrequencyDict } from "../../store/slices/
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
-  const { text, lineBreaks, paragraphBreaks, wordData } = useSelector((state) => state.text);
+  const { textObjects, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
-
-  const extractPunctuation = (word) => {
-    const startMatch = word.match(/^[^a-zA-Zа-яА-Я0-9]+/u);
-    const endMatch = word.match(/[^a-zA-Zа-яА-Я0-9]+$/u);
-    const start = startMatch ? startMatch[0] : "";
-    const end = endMatch ? endMatch[0] : "";
-    const trimmedWord = word.slice(start.length, word.length - end.length);
-    return { start, end, trimmedWord };
-  };
 
   useEffect(() => {
     dispatch(reset());
+    // variables used for data tracking
     const lemmaFrequencyDict = {};
-    const words = text.split(/\s+/);
-    // count words not in the frequency list
     let wordsNotInList = 0;
-    const coloredWords = words.map((word, index) => {
-      // deal with puctuation at the start and end
-      // store it and remove it.
-      const { start, end, trimmedWord } = extractPunctuation(word);
-      // add in line break or paragraph break
-      let lineBreak = "";
-      if (lineBreaks.includes(index)) {
-        lineBreak = <br />;
+    const formattedText = textObjects.map((wordObj) => {
+      const { index, word, prefix, postfix } = wordObj;
+      // first check if the word is line breaks:
+      if (word[0] === "\n") {
+        return Array.from({ length: word.length }).map(() => <br />);
       }
-      if (paragraphBreaks.includes(index)) {
-        lineBreak = (
-          <Fragment>
-            <br />
-            <br />
-          </Fragment>
-        );
-      }
-      let wordLower = trimmedWord.toLowerCase();
-      let totalSynonyms = wordData[wordLower] !== undefined ? wordData[wordLower].synonyms.length : 0;
+      const wordLower = word.toLowerCase();
+      let totalSynonyms = 0;
       if (wordLower in wordData) {
-        if (wordData[wordLower].rank !== -1) {
-          if (wordData[wordLower].lemma in lemmaFrequencyDict) {
-            lemmaFrequencyDict[wordData[wordLower].lemma]++;
+        const data = wordData[wordLower];
+        // track lemma occurences:
+        totalSynonyms = data.synonyms.length;
+        if (data.rank !== -1) {
+          if (data.lemma in lemmaFrequencyDict) {
+            lemmaFrequencyDict[data.lemma]++;
           } else {
-            lemmaFrequencyDict[wordData[wordLower].lemma] = 1;
+            lemmaFrequencyDict[data.lemma] = 1;
           }
         } else {
           wordsNotInList++;
         }
-        if (wordData[wordLower].rank !== undefined) {
+        if (data.rank !== undefined) {
+          // get the colour this word should be
           const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
-          if (band !== undefined) dispatch(incrementBand({ id: band.top, colour }));
+          // increment the total words in this band
+          dispatch(incrementBand({ id: band.top, colour }));
+          // return the formatted text
           return (
-            <Fragment key={index}>
-              {`${start}`}
+            <Fragment key={`word-${index}`}>
+              {prefix}
               <span
                 style={
                   totalSynonyms > 0
@@ -76,24 +61,18 @@ const FormattedOutput = () => {
                   }
                 }}
               >
-                {`${trimmedWord}`}
+                {word}
               </span>
-              {`${end} `}
-              {lineBreak}
+              {postfix}{" "}
             </Fragment>
           );
         }
       }
-      return (
-        <Fragment key={index}>
-          {`${start}${trimmedWord}${end} `}
-          {lineBreak}
-        </Fragment>
-      );
+      return <Fragment key={`word-${index}`}>{`${prefix}${word}${postfix} `}</Fragment>;
     });
+    setOutput(formattedText);
     dispatch(setLemmaFrequencyDict(lemmaFrequencyDict));
-    setOutput(coloredWords);
-  }, [wordData, lineBreaks, text, bands, dispatch]);
+  }, [wordData, textObjects, bands, dispatch]);
 
   return <Fragment>{output}</Fragment>;
 };
