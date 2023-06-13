@@ -60,7 +60,7 @@ export const splitText = (text) => {
       if (charIndex === 0 && word[charIndex] === "\n") {
         foundLineBreak = true;
       }
-      if (word[charIndex] != "\n") {
+      if (word[charIndex] !== "\n") {
         break;
       } else {
         wordEnd = wordStart + charIndex + 1;

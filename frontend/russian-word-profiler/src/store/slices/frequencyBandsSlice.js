@@ -30,9 +30,13 @@ initialState.push({
   colour: colours[10],
 });
 
+const storedState = localStorage.getItem("russianWordProfilerBands")
+  ? JSON.parse(localStorage.getItem("russianWordProfilerBands"))
+  : initialState;
+
 export const frequencyBandsSlice = createSlice({
   name: "bands",
-  initialState,
+  initialState: storedState,
   reducers: {
     changeColour: (state, action) => {
       state.forEach((band) => {
@@ -62,9 +66,20 @@ export const frequencyBandsSlice = createSlice({
     addBand: (state) => {
       state.push({ id: state.length, top: 60000, colour: colours[10] });
     },
+    saveBands: (state) => {
+      localStorage.setItem("russianWordProfilerBands", JSON.stringify(state));
+    },
+    setDefaultBands: (state) => {
+      state.length = 0;
+      initialState.forEach((band) => {
+        state.push(band);
+      });
+      localStorage.setItem("russianWordProfilerBands", JSON.stringify(initialState));
+    },
   },
 });
 
-export const { changeColour, changeTopValue, removeBand, addBand } = frequencyBandsSlice.actions;
+export const { changeColour, changeTopValue, removeBand, addBand, saveBands, setDefaultBands } =
+  frequencyBandsSlice.actions;
 
 export default frequencyBandsSlice.reducer;

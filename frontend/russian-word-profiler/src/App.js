@@ -2,37 +2,55 @@ import { useEffect } from "react";
 import background from "./assets/background.png";
 import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
+import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
 import LemmaTable from "./components/dataAggregation/LemmaTable";
 import DownloadData from "./components/dataAggregation/DownloadData";
-import { useSelector } from "react-redux";
+import { saveBands, setDefaultBands } from "./store/slices/frequencyBandsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
 function App() {
-  const dataCollected = useSelector((state) => Object.keys(state.stats.lemmaMatchData).length);
+  const dispatch = useDispatch();
+  const dataCollected = useSelector((state) => Object.keys(state.stats.tableData).length);
 
   useEffect(() => {
     if (initial) {
       alert(
-        "This is a demo of a project that is very much in a pre-alpha state. There are many catastrophic bugs, you have been warned. If you do find some errors please report them to michealnestor@outlook.com"
+        "This project is still new and may have a few bugs, non-standard displays are not yet supported, if you do find some wierd behaviour please report them to michealnestor@outlook.com"
       );
     }
     initial = false;
   }, []);
 
+  const saveConfig = () => {
+    dispatch(saveBands());
+  };
+  const resetDefault = () => {
+    dispatch(setDefaultBands());
+  };
+
   return (
     <div className="page-wrapper">
-      <h1 className="title">Russian Word Profiler</h1>
+      <div className="title-container">
+        <h1 className="title">Russian Word Profiler</h1>
+        <div className="button-container">
+          <button onClick={saveConfig}>Save Band Configuration</button>
+          <button onClick={resetDefault}>Reset Band Configuration</button>
+        </div>
+      </div>
+
       <section className="input-section">
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">
         <h2>DATA AGGREGATION</h2>
         <section className="data-grid">
-          <div className="left-panel">
+          <div className="top-panel">
             <DistributionDisplay />
-            {dataCollected > 0 && <DownloadData />}
+            <CoverageDisplay />
           </div>
+          {dataCollected > 0 && <DownloadData />}
           <LemmaTable />
         </section>
       </section>

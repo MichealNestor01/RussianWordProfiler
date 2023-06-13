@@ -16,11 +16,11 @@ const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
 
   useEffect(() => {
     if (id < bands.length) {
-      if (bands[id].colour != colour) {
+      if (bands[id].colour !== colour) {
         setColour(bands[id].colour);
       }
     }
-  }, [bands]);
+  }, [bands, colour, id]);
 
   useEffect(() => {
     console.log("activeIndexChanged ", activeIndex);

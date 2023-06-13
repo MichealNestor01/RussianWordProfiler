@@ -1,15 +1,14 @@
 // java script function to convert a js object to a csv
-export function convertToCSV(obj) {
-  const array = Object.entries(obj);
+export function convertToCSV(arr) {
   let str = "";
 
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     let line = "";
 
-    for (let j = 0; j < array[i].length; j++) {
+    for (let j = 0; j < arr[i].length; j++) {
       if (line !== "") line += ",";
 
-      line += array[i][j];
+      line += arr[i][j];
     }
 
     str += line + "\r\n";

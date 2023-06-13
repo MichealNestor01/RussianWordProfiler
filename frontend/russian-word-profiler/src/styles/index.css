@@ -111,7 +111,13 @@ button:hover {
 
 .page-wrapper {
   position: relative;
-  width: 70%;
+  width: 80%;
+}
+
+@media only screen and (max-width: 1600px) {
+  .page-wrapper {
+    width: 95%;
+  }
 }
 
 .page-wrapper .image-container {
@@ -126,8 +132,23 @@ button:hover {
   max-height: 160vh;
 }
 
-.page-wrapper .title {
+.page-wrapper .title-container {
   margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.page-wrapper .title-container .button-container button {
+  margin-left: 10px;
+  width: 200px;
 }
 
 .page-wrapper .input-section {
@@ -152,11 +173,26 @@ button:hover {
 
 .page-wrapper .bottom-panel .data-grid {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 20px;
+}
+
+.page-wrapper .bottom-panel .data-grid .top-panel {
+  width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 30px;
 }
 
 .text-input {
@@ -527,9 +563,45 @@ button:hover {
   height: fit-content;
   text-align: center;
   padding: 10px;
+  width: 100%;
 }
 
 .lemmaTable .table {
   width: 100%;
+  font-size: 20px;
+}
+
+.downloadData {
+  width: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.downloadData .buttonsContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.downloadData .buttonsContainer button {
+  font-size: 16px;
+  width: 400px;
 }
 /*# sourceMappingURL=index.css.map */

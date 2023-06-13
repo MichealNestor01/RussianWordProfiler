@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setBreaks, setText } from "../../store/slices/textSlice";
+import { setText } from "../../store/slices/textSlice";
 import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
 import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setLemmaMatchData, setTableData } from "../../store/slices/statsSlice";
+import { setTableData } from "../../store/slices/statsSlice";
 
 const LemmaTable = () => {
   const dispatch = useDispatch();
@@ -25,24 +25,17 @@ const LemmaTable = () => {
     }
   }
 
-  // this data is useful so store it so people can downlaod it
-  const lemmaMatchData = [];
-  for (const lemma in lemmaWordsDict) {
-    const { rank, words } = lemmaWordsDict[lemma];
-    lemmaMatchData.push({ lemma, words, rank });
-  }
-  dispatch(setLemmaMatchData(lemmaMatchData.sort((a, b) => a.rank - b.rank)));
-
   // Create an array of bands with lemmas.
   let prevBand = -1;
   const bandsWithLemmas = bands.map((band) => {
     const lemmasInBand = [];
     for (const lemma in lemmaWordsDict) {
       const { rank, words } = lemmaWordsDict[lemma];
+      const occurrences = lemmaFrequencyDict[lemma];
       if (band.name === "N/A" && rank === "N/A") {
-        lemmasInBand.push({ lemma, words, rank });
+        lemmasInBand.push({ lemma, words, rank, occurrences });
       } else if (rank <= band.name && rank > prevBand) {
-        lemmasInBand.push({ lemma, words, rank });
+        lemmasInBand.push({ lemma, words, rank, occurrences });
       }
     }
     // Sort lemmasInBand by rank.
@@ -61,11 +54,11 @@ const LemmaTable = () => {
       <table className="table">
         <thead>
           <tr style={{ backgroundColor: "gray" }}>
-            <th style={{ width: "120px" }}>Band</th>
+            <th style={{ width: "240px" }}>Band</th>
             <th>Lemma</th>
             <th>Matching Words</th>
-            <th style={{ width: "60px" }}>Occ</th>
-            <th style={{ width: "60px" }}>Rank</th>
+            <th style={{ width: "160px" }}>occurrences</th>
+            <th style={{ width: "160px" }}>Rank</th>
           </tr>
         </thead>
         <tbody>
@@ -76,7 +69,7 @@ const LemmaTable = () => {
                 style={{
                   backgroundColor: band.colour,
                   color: band.colour === "black" ? "white" : "black",
-                  fontWeight: band.colour === "black" ? "bold" : "normal",
+                  fontWeight: "bold",
                 }}
               >
                 {lemmaIndex === 0 && (
@@ -91,7 +84,7 @@ const LemmaTable = () => {
                 )}
                 <td>{lemmaObj.lemma}</td>
                 <td>{lemmaObj.words.join(", ")}</td>
-                <td>{lemmaFrequencyDict[lemmaObj.lemma]}</td>
+                <td>{lemmaObj.occurrences}</td>
                 <td>{lemmaObj.rank}</td>
               </tr>
             ));

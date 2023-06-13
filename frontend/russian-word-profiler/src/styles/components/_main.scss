@@ -2,7 +2,11 @@
   // POSITION AND LAYOUT
   position: relative;
   // BOX MODEL
-  width: 70%;
+  width: 80%;
+  @media only screen and (max-width: 1600px) {
+    width: 95%;
+  }
+
   // CHILDREN
   .image-container {
     position: absolute;
@@ -14,9 +18,18 @@
       max-height: 160vh;
     }
   }
-  .title {
+  .title-container {
     // BOX MODEl
     margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .button-container {
+      button {
+        margin-left: 10px;
+        width: 200px;
+      }
+    }
   }
   .input-section {
     // BOX MODEL
@@ -37,9 +50,16 @@
     .data-grid {
       // DISPLAY AND VISIBILITY
       width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      .top-panel {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
     }
   }
 }
