@@ -24,10 +24,10 @@ function MainEditor({ placeholder = "Text Here." }) {
   const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const text = useSelector((state) => state.text.text);
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
-    { id: "words", text: "WORDS", count: 179 },
-    { id: "chars", text: "CHARACTERS", count: 1369 },
-    { id: "sents", text: "SENTENCES", count: 12 },
-    { id: "paras", text: "PARAGRAPHS", count: 4 },
+    { id: "words", text: "WORDS", count: 0 },
+    { id: "chars", text: "CHARACTERS", count: 0 },
+    { id: "sents", text: "SENTENCES", count: 0 },
+    { id: "paras", text: "PARAGRAPHS", count: 0 },
   ]);
 
   // recalculate text stats after each update:
