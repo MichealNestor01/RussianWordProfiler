@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   bands: [],
   tableData: {},
+  coverageData: [],
   bandFrequencyDict: {},
-  lemmaMatchData: {},
   lemmaFrequencyDict: {},
 };
 
@@ -12,20 +12,6 @@ export const statsSlice = createSlice({
   name: "stats",
   initialState,
   reducers: {
-    incrementBand: (state, action) => {
-      const { id, colour } = action.payload;
-      let notFound = true;
-      state.bands.forEach((band) => {
-        if (band.name === id) {
-          notFound = false;
-          band.total++;
-        }
-      });
-      if (notFound) {
-        state.bands.push({ name: id, colour: colour, total: 0 });
-        state.bands.sort((a, b) => a.name - b.name);
-      }
-    },
     reset: (state) => {
       state.bands = [];
     },
@@ -35,8 +21,8 @@ export const statsSlice = createSlice({
     setTableData: (state, action) => {
       state.tableData = action.payload;
     },
-    setLemmaMatchData: (state, action) => {
-      state.lemmaMatchData = action.payload;
+    setCoverageData: (state, action) => {
+      state.coverageData = action.payload;
     },
     setLemmaFrequencyDict: (state, action) => {
       state.lemmaFrequencyDict = action.payload;
@@ -47,13 +33,7 @@ export const statsSlice = createSlice({
   },
 });
 
-export const {
-  incrementBand,
-  reset,
-  setTableData,
-  setLemmaMatchData,
-  setLemmaFrequencyDict,
-  setBandFrequencyDict,
-} = statsSlice.actions;
+export const { reset, setTableData, setCoverageData, setLemmaFrequencyDict, setBandFrequencyDict } =
+  statsSlice.actions;
 
 export default statsSlice.reducer;

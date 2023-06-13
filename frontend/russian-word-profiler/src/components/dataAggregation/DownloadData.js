@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import DownloadButton from "../generic/DownlaodButton";
 
 const DownloadData = () => {
+  // GET TABLE DATA
   const tableData = useSelector((state) => state.stats.tableData);
   const CSVData = [["BAND", "LEMMA", "WORDS", "occurrences", "RANK"]];
   Object.keys(tableData).forEach((tableKey) => {
@@ -11,6 +12,10 @@ const DownloadData = () => {
       CSVData.push([name, lemma, words.join(" "), occurrences, rank]);
     });
   });
+  // GET FREQUENCY DISTRIBUTION DATA
+  const coverageData = useSelector((state) => state.stats.coverageData);
+  // GET COVERAGE DATA
+
   const currentdate = new Date();
   const datetime =
     currentdate.getDate() +
@@ -33,6 +38,11 @@ const DownloadData = () => {
           data={CSVData}
           filename={`profilerTableData${datetime}.csv`}
           text="Download Table as CSV"
+        />
+        <DownloadButton
+          data={coverageData}
+          filename={`profilerCoverageData${datetime}.csv`}
+          text="Download Coverage Data as CSV"
         />
       </div>
     </div>

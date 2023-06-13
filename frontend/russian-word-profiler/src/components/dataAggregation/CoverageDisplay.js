@@ -1,7 +1,9 @@
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCoverageData } from "../../store/slices/statsSlice";
 
 const DistributionDisplay = () => {
+  const dispatch = useDispatch();
   const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
@@ -11,6 +13,18 @@ const DistributionDisplay = () => {
   });
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
   let currentTotal = 0;
+  // coverage data to download:
+  const coverageData = [["BAND", "COVERAGE"]];
+  bands.forEach((band) => {
+    currentTotal += band.total;
+    coverageData.push([
+      band.name !== "N/A" ? band.name : "All",
+      parseFloat(((100 * currentTotal) / sumTotal).toFixed(1)),
+    ]);
+  });
+  dispatch(setCoverageData(coverageData));
+  // reset to 0 for display
+  currentTotal = 0;
   return (
     <div className="distributionContainer card">
       <h1>Cumulative Coverage</h1>
