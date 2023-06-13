@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   bands: [],
   tableData: {},
+  bandFrequencyDict: {},
   lemmaMatchData: {},
   lemmaFrequencyDict: {},
 };
@@ -28,6 +29,9 @@ export const statsSlice = createSlice({
     reset: (state) => {
       state.bands = [];
     },
+    setBandFrequencyDict: (state, action) => {
+      state.bandFrequencyDict = action.payload;
+    },
     setTableData: (state, action) => {
       state.tableData = action.payload;
     },
@@ -43,7 +47,13 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { incrementBand, reset, setTableData, setLemmaMatchData, setLemmaFrequencyDict } =
-  statsSlice.actions;
+export const {
+  incrementBand,
+  reset,
+  setTableData,
+  setLemmaMatchData,
+  setLemmaFrequencyDict,
+  setBandFrequencyDict,
+} = statsSlice.actions;
 
 export default statsSlice.reducer;

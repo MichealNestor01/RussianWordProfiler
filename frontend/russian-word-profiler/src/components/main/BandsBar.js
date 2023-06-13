@@ -10,7 +10,7 @@ const BandsBar = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
   const activeWindow = useSelector((state) => state.siteState.activeWindow);
-  const { text, stopWords } = useSelector((state) => state.text);
+  const { words, stopWords } = useSelector((state) => state.text);
 
   const submitHandler = async () => {
     const url =
@@ -20,7 +20,7 @@ const BandsBar = () => {
     const response = await axios({
       method: "post",
       url: `${url}scantext/`,
-      data: stopWords.length > 0 ? { stopwords: stopWords, text: text } : { text: text },
+      data: stopWords.length > 0 ? { stopwords: stopWords, text: words } : { text: words },
     });
     if (response.status === 200) {
       console.log(response.data);
