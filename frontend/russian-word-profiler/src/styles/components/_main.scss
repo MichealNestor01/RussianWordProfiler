@@ -40,12 +40,12 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 40px;
+      gap: 20px;
       .top-panel {
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 40px;
+        gap: 20px;
       }
     }
   }

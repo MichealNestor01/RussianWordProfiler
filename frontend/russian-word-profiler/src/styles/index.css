@@ -162,7 +162,7 @@ button:hover {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  gap: 40px;
+  gap: 20px;
 }
 
 .page-wrapper .bottom-panel .data-grid .top-panel {
@@ -171,7 +171,7 @@ button:hover {
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 20px;
 }
 
 .text-input {
