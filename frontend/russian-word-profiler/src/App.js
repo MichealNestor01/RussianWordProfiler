@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     if (initial) {
       alert(
-        "This is a demo of a project that is very much in a pre-alpha state. There are many catastrophic bugs, you have been warned. If you do find some errors please report them to michealnestor@outlook.com"
+        "This project is still new and may have a few bugs, non-standard displays are not yet supported, if you do find some wierd behaviour please report them to michealnestor@outlook.com"
       );
     }
     initial = false;
