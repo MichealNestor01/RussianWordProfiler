@@ -223,7 +223,7 @@ for i in mytxt_data:
     if "analysis" in i and len(i["analysis"]) != 0:
         mytxt_lemmas.append (i["analysis"][0]['lex'])
         
-# COUNT LEMMA OCCURENCES (where available)
+# COUNT LEMMA occurrences (where available)
 fdist = FreqDist(mytxt_lemmas)
 mytxt_lemmas = fdist.most_common()
 # ('в', 37), ('и', 29), ('казахстан', 24), ....
