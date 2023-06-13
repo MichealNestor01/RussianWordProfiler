@@ -9,34 +9,40 @@ const DistributionDisplay = () => {
     totals.push(total);
     return { name: band, colour, total };
   });
-  const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
-  let prevBand = 0;
+  let currentTotal = 0;
   return (
     <div className="distributionContainer card">
-      <h1>Word Frequency Distribution</h1>
+      <h1>Cumulative Coverage</h1>
       <div className="barGraph">
         {bands.length === 0 ? (
           <h1 className="noData">profile some text to see data</h1>
         ) : (
           <Fragment>
             {bands.map((band, index) => {
-              const bar = (
-                <div className="bandBarContainer">
-                  <h1 className="title">
-                    {band.name !== "N/A"
-                      ? `${prevBand === 0 ? "Top " : `${parseInt(prevBand) + 1} - `}${band.name}`
-                      : "Not in List"}
-                  </h1>
+              currentTotal += band.total;
+              const subBars = [];
+              for (let i = 0; i <= index; i++) {
+                subBars.push(
                   <div
                     className="bandBar"
-                    key={`bandBar${index}`}
-                    style={{ width: `${(70 * band.total) / maxTotal}%`, background: band.colour }}
+                    key={`bandBar${index}-${i}`}
+                    style={{
+                      width: `${(70 * bands[i].total) / sumTotal}%`,
+                      background: bands[i].colour,
+                    }}
                   />
-                  <h1 className="coverage">{parseFloat(((100 * band.total) / sumTotal).toFixed(1))}%</h1>
+                );
+              }
+              const bar = (
+                <div className="bandBarContainer">
+                  <h1 className="title">{band.name !== "N/A" ? `Top ${band.name}` : "All Words"}</h1>
+                  {subBars}
+                  <h1 className="coverage">
+                    {parseFloat(((100 * currentTotal) / sumTotal).toFixed(1))}%
+                  </h1>
                 </div>
               );
-              prevBand = band.name;
               return band.total > 0 && bar;
             })}
           </Fragment>

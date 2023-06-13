@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import background from "./assets/background.png";
 import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
+import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
 import LemmaTable from "./components/dataAggregation/LemmaTable";
 import DownloadData from "./components/dataAggregation/DownloadData";
 import { useSelector } from "react-redux";
@@ -31,7 +32,7 @@ function App() {
         <section className="data-grid">
           <div className="top-panel">
             <DistributionDisplay />
-            <DistributionDisplay />
+            <CoverageDisplay />
           </div>
           {dataCollected > 0 && <DownloadData />}
           <LemmaTable />
