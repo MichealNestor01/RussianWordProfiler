@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setLemmaMatchData, setTableData } from "../../store/slices/statsSlice";
+import { setTableData } from "../../store/slices/statsSlice";
 
 const LemmaTable = () => {
   const dispatch = useDispatch();

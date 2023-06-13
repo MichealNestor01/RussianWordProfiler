@@ -18,7 +18,7 @@ const DistributionDisplay = () => {
   bands.forEach((band, index) => {
     distributionData.push([
       band.name !== "N/A"
-        ? `${index != 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
+        ? `${index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
         : "Not in List",
       parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
     ]);

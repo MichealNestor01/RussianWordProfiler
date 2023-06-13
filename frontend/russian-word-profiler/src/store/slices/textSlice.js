@@ -54,7 +54,7 @@ export const textSlice = createSlice({
       words[index] = newWord;
       state.words = words.join(" ");
       const text = state.textObjects.map(({ prefix, word, postfix }) => {
-        if (word[0] != "\n") {
+        if (word[0] !== "\n") {
           return `${prefix}${word}${postfix} `;
         }
         return `${prefix}${word}${postfix}`;
