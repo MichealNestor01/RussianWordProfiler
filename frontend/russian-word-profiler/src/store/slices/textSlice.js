@@ -9,6 +9,8 @@ export const textSlice = createSlice({
   name: "text",
   initialState: {
     words: "",
+    text: "",
+    textToProfile: "",
     textObjects: [],
     stopWords: [],
     showApiConfig: false,
@@ -34,6 +36,7 @@ export const textSlice = createSlice({
       state.wordData = action.payload;
     },
     setText: (state, action) => {
+      state.text = action.payload;
       const { objects, words } = splitText(action.payload);
       state.textObjects = objects;
       state.words = words.join(" ");
@@ -45,29 +48,18 @@ export const textSlice = createSlice({
       state.showApiConfig = action.payload;
     },
     changeWord: (state, action) => {
-      /* I know this one is ugly, but it mostly works and I am too busy to make a better version right now */
       const { newWord, index } = action.payload;
-      console.log("swapping ", index, " with ", newWord);
-      let wordsWithLineBreaks = state.text.split(/[^\S\n]+/);
-      let words = state.text.split(/\s+/);
-      let newIndex = index;
-      let warn = false;
-      for (let i = 0, j = 0; i < index; i++, j++) {
-        warn = false;
-        if (words[i] !== wordsWithLineBreaks[j]) {
-          warn = true;
-          newIndex--;
-          i++;
+      state.textObjects[index].word = newWord;
+      const words = state.words.split(" ");
+      words[index] = newWord;
+      state.words = words.join(" ");
+      const text = state.textObjects.map(({ prefix, word, postfix }) => {
+        if (word[0] != "\n") {
+          return `${prefix}${word}${postfix} `;
         }
-      }
-      console.log(words, wordsWithLineBreaks);
-      if (warn) {
-        let wordA = wordsWithLineBreaks[newIndex].split(/\s+/)[0];
-        wordsWithLineBreaks[newIndex] = `${wordA}\n\n${newWord}`;
-      } else {
-        wordsWithLineBreaks[newIndex] = newWord;
-      }
-      state.text = wordsWithLineBreaks.join(" ");
+        return `${prefix}${word}${postfix}`;
+      });
+      state.text = text.join("");
     },
   },
 });
