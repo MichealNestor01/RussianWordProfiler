@@ -1,7 +1,9 @@
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setDistributionData } from "../../store/slices/statsSlice";
 
 const DistributionDisplay = () => {
+  const dispatch = useDispatch();
   const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
@@ -11,6 +13,17 @@ const DistributionDisplay = () => {
   });
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
+  // distribution data to download:
+  const distributionData = [["BAND", "PERCENTAGE COVERED"]];
+  bands.forEach((band, index) => {
+    distributionData.push([
+      band.name !== "N/A"
+        ? `${index != 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
+        : "Not in List",
+      parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
+    ]);
+  });
+  dispatch(setDistributionData(distributionData));
   let prevBand = 0;
   return (
     <div className="distributionContainer card">

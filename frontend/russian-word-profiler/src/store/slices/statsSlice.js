@@ -4,6 +4,7 @@ const initialState = {
   bands: [],
   tableData: {},
   coverageData: [],
+  distributionData: [],
   bandFrequencyDict: {},
   lemmaFrequencyDict: {},
 };
@@ -24,6 +25,9 @@ export const statsSlice = createSlice({
     setCoverageData: (state, action) => {
       state.coverageData = action.payload;
     },
+    setDistributionData: (state, action) => {
+      state.distributionData = action.payload;
+    },
     setLemmaFrequencyDict: (state, action) => {
       state.lemmaFrequencyDict = action.payload;
     },
@@ -33,7 +37,13 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { reset, setTableData, setCoverageData, setLemmaFrequencyDict, setBandFrequencyDict } =
-  statsSlice.actions;
+export const {
+  reset,
+  setTableData,
+  setCoverageData,
+  setDistributionData,
+  setLemmaFrequencyDict,
+  setBandFrequencyDict,
+} = statsSlice.actions;
 
 export default statsSlice.reducer;
