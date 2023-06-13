@@ -18,9 +18,18 @@
       max-height: 160vh;
     }
   }
-  .title {
+  .title-container {
     // BOX MODEl
     margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .button-container {
+      button {
+        margin-left: 10px;
+        width: 200px;
+      }
+    }
   }
   .input-section {
     // BOX MODEL

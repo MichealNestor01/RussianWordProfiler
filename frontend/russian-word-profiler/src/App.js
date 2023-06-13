@@ -5,11 +5,13 @@ import DistributionDisplay from "./components/dataAggregation/DistributionDispla
 import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
 import LemmaTable from "./components/dataAggregation/LemmaTable";
 import DownloadData from "./components/dataAggregation/DownloadData";
-import { useSelector } from "react-redux";
+import { saveBands, setDefaultBands } from "./store/slices/frequencyBandsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
 function App() {
+  const dispatch = useDispatch();
   const dataCollected = useSelector((state) => Object.keys(state.stats.tableData).length);
 
   useEffect(() => {
@@ -21,9 +23,23 @@ function App() {
     initial = false;
   }, []);
 
+  const saveConfig = () => {
+    dispatch(saveBands());
+  };
+  const resetDefault = () => {
+    dispatch(setDefaultBands());
+  };
+
   return (
     <div className="page-wrapper">
-      <h1 className="title">Russian Word Profiler</h1>
+      <div className="title-container">
+        <h1 className="title">Russian Word Profiler</h1>
+        <div className="button-container">
+          <button onClick={saveConfig}>Save Band Configuration</button>
+          <button onClick={resetDefault}>Reset Band Configuration</button>
+        </div>
+      </div>
+
       <section className="input-section">
         <MainEditor placeholder="Place text here!" />
       </section>
