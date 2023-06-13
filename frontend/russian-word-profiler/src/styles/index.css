@@ -152,6 +152,21 @@ button:hover {
 
 .page-wrapper .bottom-panel .data-grid {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 40px;
+}
+
+.page-wrapper .bottom-panel .data-grid .top-panel {
+  width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
@@ -527,9 +542,11 @@ button:hover {
   height: fit-content;
   text-align: center;
   padding: 10px;
+  width: 100%;
 }
 
 .lemmaTable .table {
   width: 100%;
+  font-size: 20px;
 }
 /*# sourceMappingURL=index.css.map */

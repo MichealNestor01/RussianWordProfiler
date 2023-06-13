@@ -61,11 +61,11 @@ const LemmaTable = () => {
       <table className="table">
         <thead>
           <tr style={{ backgroundColor: "gray" }}>
-            <th style={{ width: "120px" }}>Band</th>
+            <th style={{ width: "240px" }}>Band</th>
             <th>Lemma</th>
             <th>Matching Words</th>
-            <th style={{ width: "60px" }}>Occ</th>
-            <th style={{ width: "60px" }}>Rank</th>
+            <th style={{ width: "120px" }}>Occ</th>
+            <th style={{ width: "120px" }}>Rank</th>
           </tr>
         </thead>
         <tbody>

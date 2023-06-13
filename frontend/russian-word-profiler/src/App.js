@@ -29,10 +29,11 @@ function App() {
       <section className="bottom-panel">
         <h2>DATA AGGREGATION</h2>
         <section className="data-grid">
-          <div className="left-panel">
+          <div className="top-panel">
             <DistributionDisplay />
-            {dataCollected > 0 && <DownloadData />}
+            <DistributionDisplay />
           </div>
+          {dataCollected > 0 && <DownloadData />}
           <LemmaTable />
         </section>
       </section>
