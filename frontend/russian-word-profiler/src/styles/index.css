@@ -111,7 +111,13 @@ button:hover {
 
 .page-wrapper {
   position: relative;
-  width: 70%;
+  width: 80%;
+}
+
+@media only screen and (max-width: 1600px) {
+  .page-wrapper {
+    width: 95%;
+  }
 }
 
 .page-wrapper .image-container {
@@ -548,5 +554,37 @@ button:hover {
 .lemmaTable .table {
   width: 100%;
   font-size: 20px;
+}
+
+.downloadData {
+  width: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.downloadData .buttonsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.downloadData .buttonsContainer button {
+  width: 150px;
 }
 /*# sourceMappingURL=index.css.map */

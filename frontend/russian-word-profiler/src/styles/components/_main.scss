@@ -2,7 +2,11 @@
   // POSITION AND LAYOUT
   position: relative;
   // BOX MODEL
-  width: 70%;
+  width: 80%;
+  @media only screen and (max-width: 1600px) {
+    width: 95%;
+  }
+
   // CHILDREN
   .image-container {
     position: absolute;

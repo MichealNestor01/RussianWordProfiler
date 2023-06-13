@@ -3,10 +3,17 @@ import DownloadButton from "../generic/DownlaodButton";
 
 const DownloadData = () => {
   const lemmaData = useSelector((state) => state.stats.lemmaFrequencyDict);
+  console.log(lemmaData);
   return (
     <div className="downloadData card">
       <h1>Download Data</h1>
-      <DownloadButton data={lemmaData} filename="lemmaData.csv" text="Download Lemma Data" />
+      <div className="buttonsContainer">
+        <DownloadButton
+          data={lemmaData}
+          filename="lemmaData.csv"
+          text="Download Lemma Frequency Ranks"
+        />
+      </div>
     </div>
   );
 };
