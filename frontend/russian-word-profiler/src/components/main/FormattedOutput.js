@@ -15,7 +15,6 @@ const FormattedOutput = () => {
     // variables used for data tracking
     const lemmaFrequencyDict = {};
     const bandFrequencyDict = {};
-    let wordsNotInList = 0;
     const formattedText = textObjects.map((wordObj) => {
       const { index, word, prefix, postfix } = wordObj;
       // first check if the word is line breaks:
@@ -29,14 +28,10 @@ const FormattedOutput = () => {
         const data = wordData[wordLower];
         // track lemma occurences:
         totalSynonyms = data.synonyms.length;
-        if (data.rank !== -1) {
-          if (data.lemma in lemmaFrequencyDict) {
-            lemmaFrequencyDict[data.lemma]++;
-          } else {
-            lemmaFrequencyDict[data.lemma] = 1;
-          }
+        if (data.lemma in lemmaFrequencyDict) {
+          lemmaFrequencyDict[data.lemma]++;
         } else {
-          wordsNotInList++;
+          lemmaFrequencyDict[data.lemma] = 1;
         }
         // get the colour this word should be
         const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);

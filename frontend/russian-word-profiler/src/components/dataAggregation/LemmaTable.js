@@ -3,8 +3,11 @@ import { setLemmaMatchData, setTableData } from "../../store/slices/statsSlice";
 
 const LemmaTable = () => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.stats.bands);
-  const notFoundBand = bands.find((band) => band.name === "N/A");
+  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
+  const bands = Object.keys(bandFrequencyDict).map((band) => {
+    const { colour } = bandFrequencyDict[band];
+    return { name: band, colour };
+  });
   const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
   const wordData = useSelector((state) => state.text.wordData);
 
@@ -18,7 +21,7 @@ const LemmaTable = () => {
       }
       lemmaWordsDict[lemma].words.push(word);
     } else {
-      lemmaWordsDict[lemma] = { words: [], rank: "N/A" };
+      lemmaWordsDict[lemma] = { words: [word], rank: "N/A" };
     }
   }
 
@@ -36,23 +39,19 @@ const LemmaTable = () => {
     const lemmasInBand = [];
     for (const lemma in lemmaWordsDict) {
       const { rank, words } = lemmaWordsDict[lemma];
-      if (rank <= band.name && rank > prevBand) {
+      if (band.name === "N/A" && rank === "N/A") {
+        lemmasInBand.push({ lemma, words, rank });
+      } else if (rank <= band.name && rank > prevBand) {
         lemmasInBand.push({ lemma, words, rank });
       }
     }
     // Sort lemmasInBand by rank.
-    lemmasInBand.sort((a, b) => a.rank - b.rank);
+    if (band.name !== "N/A") {
+      lemmasInBand.sort((a, b) => a.rank - b.rank);
+    }
     prevBand = band.name;
     return { ...band, lemmas: lemmasInBand };
   });
-  const lemmasInNoBand = [];
-  for (const lemma in lemmaWordsDict) {
-    const { rank, words } = lemmaWordsDict[lemma];
-    if (rank === "N/A") {
-      lemmasInNoBand.push({ lemma, words, rank });
-    }
-  }
-  bandsWithLemmas.push({ ...notFoundBand, lemmas: lemmasInNoBand });
 
   dispatch(setTableData(bandsWithLemmas));
   prevBand = 0;
@@ -77,6 +76,7 @@ const LemmaTable = () => {
                 style={{
                   backgroundColor: band.colour,
                   color: band.colour === "black" ? "white" : "black",
+                  fontWeight: band.colour === "black" ? "bold" : "normal",
                 }}
               >
                 {lemmaIndex === 0 && (
