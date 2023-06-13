@@ -26,7 +26,7 @@ const FormattedOutput = () => {
       // '\n' is treated as a word, so this will be skipped here but every other word will be in wordData
       if (wordLower in wordData) {
         const data = wordData[wordLower];
-        // track lemma occurences:
+        // track lemma occurrences:
         totalSynonyms = data.synonyms.length;
         if (data.lemma in lemmaFrequencyDict) {
           lemmaFrequencyDict[data.lemma]++;

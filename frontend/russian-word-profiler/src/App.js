@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
 function App() {
-  const dataCollected = useSelector((state) => Object.keys(state.stats.lemmaMatchData).length);
+  const dataCollected = useSelector((state) => Object.keys(state.stats.tableData).length);
 
   useEffect(() => {
     if (initial) {
