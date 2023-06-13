@@ -47,7 +47,7 @@ const FormattedOutput = () => {
               {prefix}
               <span
                 style={
-                  totalSynonyms > 0
+                  totalSynonyms > 0 && colour !== "black"
                     ? { color: colour, cursor: "pointer", textDecoration: "underline" }
                     : { color: colour, cursor: "auto" }
                 }
