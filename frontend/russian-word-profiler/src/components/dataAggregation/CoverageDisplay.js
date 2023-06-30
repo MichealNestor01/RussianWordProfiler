@@ -1,10 +1,14 @@
 import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoverageData } from "../../store/slices/statsSlice";
+import BandBar from "../generic/BandBar";
+import DownloadCoverageData from "../dataAggregation/downloadButtons/DownloadCoverageData";
 
 const DistributionDisplay = () => {
   const dispatch = useDispatch();
-  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
+  const bandFrequencyDict = useSelector(
+    (state) => state.stats.bandFrequencyDict
+  );
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour, total } = bandFrequencyDict[band];
@@ -27,10 +31,14 @@ const DistributionDisplay = () => {
   currentTotal = 0;
   return (
     <div className="distributionContainer card">
-      <h1>Cumulative Coverage</h1>
+      <div className="cardHeader">
+        <h1 className="title">
+          Cumulative Coverage <DownloadCoverageData />
+        </h1>
+      </div>
       <div className="barGraph">
         {bands.length === 0 ? (
-          <h1 className="noData">profile some text to see data</h1>
+          <div className="noDataMessage">No data to show</div>
         ) : (
           <Fragment>
             {bands.map((band, index) => {
@@ -38,19 +46,25 @@ const DistributionDisplay = () => {
               const subBars = [];
               for (let i = 0; i <= index; i++) {
                 subBars.push(
-                  <div
-                    className="bandBar"
-                    key={`bandBar${index}-${i}`}
-                    style={{
-                      width: `${(70 * bands[i].total) / sumTotal}%`,
-                      background: bands[i].colour,
-                    }}
+                  <BandBar
+                    index={index}
+                    total={
+                      bands.slice(0, i + 1).length > 0
+                        ? bands
+                            .slice(0, i + 1)
+                            .reduce((sum, v) => sum + v.total, 0)
+                        : 0
+                    }
+                    width={`${(70 * bands[i].total) / sumTotal}%`}
+                    colour={bands[i].colour}
                   />
                 );
               }
               const bar = (
                 <div className="bandBarContainer">
-                  <h1 className="title">{band.name !== "N/A" ? `Top ${band.name}` : "All Words"}</h1>
+                  <h1 className="title">
+                    {band.name !== "N/A" ? `Top ${band.name}` : "All Words"}
+                  </h1>
                   {subBars}
                   <h1 className="coverage">
                     {parseFloat(((100 * currentTotal) / sumTotal).toFixed(1))}%
