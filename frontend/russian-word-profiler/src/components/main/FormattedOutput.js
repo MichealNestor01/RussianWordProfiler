@@ -1,14 +1,25 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveDialogue, setSelectedWord } from "../../store/slices/siteStateSlice";
+import {
+  setActiveDialogue,
+  setSelectedWord,
+} from "../../store/slices/siteStateSlice";
 import { whichColour } from "../../functions/whichColour";
-import { reset, setLemmaFrequencyDict, setBandFrequencyDict } from "../../store/slices/statsSlice";
+import {
+  reset,
+  setLemmaFrequencyDict,
+  setBandFrequencyDict,
+} from "../../store/slices/statsSlice";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bands);
   const { textObjects, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
+
+  const selectedBands = useSelector(
+    (state) => state.selectedBands.selectedBands
+  );
 
   useEffect(() => {
     dispatch(reset());
@@ -34,7 +45,9 @@ const FormattedOutput = () => {
           lemmaFrequencyDict[data.lemma] = 1;
         }
         // get the colour this word should be
-        const [colour, band] = whichColour(wordData[wordLower].rank, [...bands]);
+        const [colour, band] = whichColour(wordData[wordLower].rank, [
+          ...bands,
+        ]);
         // increment the total words in this band
         if (band.top in bandFrequencyDict) {
           bandFrequencyDict[band.top].total++;
@@ -48,14 +61,26 @@ const FormattedOutput = () => {
             <span
               style={
                 totalSynonyms > 0 && colour !== "black"
-                  ? { color: colour, cursor: "pointer", textDecoration: "underline" }
-                  : { color: colour, cursor: "auto" }
+                  ? {
+                      color: band.id in selectedBands ? "black" : colour,
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }
+                  : {
+                      color: band.id in selectedBands ? "black" : colour,
+                      cursor: "auto",
+                    }
               }
               key={index}
               onClick={() => {
                 if (totalSynonyms > 0) {
                   dispatch(
-                    setSelectedWord({ index, word, colour, synonyms: wordData[wordLower].synonyms })
+                    setSelectedWord({
+                      index,
+                      word,
+                      colour,
+                      synonyms: wordData[wordLower].synonyms,
+                    })
                   );
                   dispatch(setActiveDialogue("words"));
                 }
@@ -67,7 +92,11 @@ const FormattedOutput = () => {
           </Fragment>
         );
       }
-      return <Fragment key={`word-${index}`}>{`${prefix}${word}${postfix} `}</Fragment>;
+      return (
+        <Fragment
+          key={`word-${index}`}
+        >{`${prefix}${word}${postfix} `}</Fragment>
+      );
     });
     setOutput(formattedText);
     dispatch(setBandFrequencyDict(bandFrequencyDict));

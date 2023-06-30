@@ -5,12 +5,20 @@ import { setActiveDialogue } from "../../store/slices/siteStateSlice";
 import { setWordData } from "../../store/slices/textSlice";
 import { AnimatePresence } from "framer-motion";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
+import {
+  addSelectedBand,
+  removeSelectedBand,
+} from "../../store/slices/selectedBandSlice";
 
 const BandsBar = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
   const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const { words, stopWords } = useSelector((state) => state.text);
+
+  const selectedBands = useSelector(
+    (state) => state.selectedBands.selectedBands
+  );
 
   const submitHandler = async () => {
     const url =
@@ -20,7 +28,10 @@ const BandsBar = () => {
     const response = await axios({
       method: "post",
       url: `${url}scantext/`,
-      data: stopWords.length > 0 ? { stopwords: stopWords, text: words } : { text: words },
+      data:
+        stopWords.length > 0
+          ? { stopwords: stopWords, text: words }
+          : { text: words },
     });
     if (response.status === 200) {
       console.log(response.data);
@@ -30,18 +41,34 @@ const BandsBar = () => {
     }
   };
 
+  // Toggling the band adds it to the list of bands not to show on the formatted output.
+  function toggleBand(band) {
+    if (band.id in selectedBands) {
+      dispatch(removeSelectedBand(band.id));
+    } else {
+      dispatch(addSelectedBand(band.id));
+    }
+  }
+
   const createBandDivs = () => {
     return bands.map((band, index) => {
       return (
-        <div className={`bandContainer ${index > 0 && "withBorder"}`} key={`band-${index}`}>
-          <div className="bandColour" style={{ backgroundColor: band.colour }} />
-          {index > 0 ? (
-            <h5>
-              {parseInt(bands[index - 1].top) + 1}-{band.top}
-            </h5>
-          ) : (
-            <h5>Top {band.top}</h5>
-          )}
+        <div
+          className={`bandContainer ${index > 0 && "withBorder"}`}
+          key={`band-${index}`}
+        >
+          <div
+            className="bandColour"
+            style={{
+              backgroundColor: !(band.id in selectedBands)
+                ? band.colour
+                : "transparent",
+              borderColor:
+                band.id in selectedBands ? band.colour : "transparent",
+            }}
+            onClick={() => toggleBand(band)}
+          />
+          {index > 0 ? <h5>{band.top}</h5> : <h5>Top {band.top}</h5>}
         </div>
       );
     });
@@ -53,7 +80,9 @@ const BandsBar = () => {
       <div className="buttons">
         <button
           onClick={() => {
-            dispatch(setActiveDialogue(activeWindow === "bands" ? "" : "bands"));
+            dispatch(
+              setActiveDialogue(activeWindow === "bands" ? "" : "bands")
+            );
           }}
         >
           Configure Bands
@@ -67,8 +96,12 @@ const BandsBar = () => {
         </button>
         <button onClick={submitHandler}>Profile Text</button>
       </div>
-      <AnimatePresence>{activeWindow === "api" && <ApiSettings />}</AnimatePresence>
-      <AnimatePresence>{activeWindow === "bands" && <BandConfigPanel />}</AnimatePresence>
+      <AnimatePresence>
+        {activeWindow === "api" && <ApiSettings />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {activeWindow === "bands" && <BandConfigPanel />}
+      </AnimatePresence>
     </section>
   );
 };
