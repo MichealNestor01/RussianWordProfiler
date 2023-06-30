@@ -1,0 +1,39 @@
+.tooltipHovered {
+  visibility: hidden;
+  width: 120px;
+
+  background-color: black;
+  color: #fff;
+  font-size: 0.75rem;
+  font-family: "Roboto";
+
+  border-radius: 4px;
+  // Animate it
+  scale: 0.5;
+  opacity: 0;
+
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+
+  transition: all 0.1s ease;
+}
+
+.tooltip:hover .tooltipHovered {
+  visibility: visible;
+  left: 35px;
+  scale: 1;
+  opacity: 1;
+}
+
+.tooltip .tooltipHovered:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
