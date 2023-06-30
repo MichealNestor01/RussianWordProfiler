@@ -1,46 +1,20 @@
-.wordEditor {
-  background-color: $colorCardBackground;
-  border-radius: 4px;
-  border: 1px solid #ececec;
-  box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
+.wordEditorList {
+  margin-bottom: 1rem;
 
-  // display and layout
-  position: absolute;
-  display: flex;
-  flex-direction: column;
+  .wordOption {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
-  //transform: translate(-110%, -100%);
-  // box model
-  padding: 0px 0px 0px 4px;
-  width: 450px;
-  height: 200px;
-  // background
-  background-color: $colorCardBackground;
-  // children
-  .top {
-    // display and layout
-    display: flex;
-    justify-content: space-between;
+    border-bottom: 1px solid #e7e7e74d;
+  }
 
-    // children
-    h2 {
-      margin-top: 4px;
-    }
-    .closeButton {
-      background-color: $colorMainText;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0px 4px 0px 15px;
-      color: $colorSecondary;
-      font-weight: 700;
-      font-size: 1.5rem;
-      user-select: none;
-      cursor: pointer;
-    }
+  .wordOption:nth-child(odd) {
+    background-color: #f5f5f5;
+  }
+
+  .wordOption:hover {
+    background-color: #f3eff9;
   }
 }
