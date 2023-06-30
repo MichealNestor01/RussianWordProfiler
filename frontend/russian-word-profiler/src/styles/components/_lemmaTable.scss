@@ -1,11 +1,167 @@
-.lemmaTable {
-  min-height: 300px;
-  height: fit-content;
-  text-align: center;
-  padding: 10px;
+.lemmaFull {
   width: 100%;
-  .table {
+  height: 36rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    flex-grow: 1;
+    margin-left: 2rem;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 4rem;
+
+    border-bottom: 1px solid #e3dfe9;
+  }
+
+  .activeBandContainer {
+    height: 100%;
+  }
+
+  .activeBandSelector {
+    height: 2px;
+    background-color: #e3dfe9;
+    border-radius: 2px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .bands {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .band {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-weight: 500;
+    vertical-align: middle;
+    color: rgba(77, 77, 77, 0.44);
+    cursor: pointer;
+  }
+
+  .band:hover {
+    color: rgba(77, 77, 77, 0.87);
+    background-color: #f3eff9;
+  }
+
+  .band:last-child {
+    border-top-right-radius: 1rem;
+  }
+
+  .activeBand {
+    color: #4d4d4d;
+    font-weight: 600;
+    cursor: default;
+  }
+
+  .lemmaTable {
+    /* temp */
     width: 100%;
-    font-size: 20px;
+    height: 32rem;
+
+    .bandHeaders {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 100%;
+      height: 4rem;
+
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      border-bottom: 1px solid #eeeeee;
+
+      p {
+        text-align: center;
+        width: 15%;
+        color: #9e9e9e;
+        font-weight: normal;
+      }
+
+      p:nth-child(1) {
+        text-align: left;
+        width: 30%;
+      }
+
+      p:nth-child(2) {
+        width: 40%;
+      }
+
+      p:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  .bandBody {
+    height: 27.5rem;
+    overflow-y: auto;
+
+    .bandRow {
+      display: flex;
+      justify-content: space-between;
+
+      width: 100%;
+      height: 3rem;
+      border-bottom: 1px solid #efefef;
+
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .bandRow:nth-child(odd) {
+      background-color: #f8f6fc;
+    }
+
+    .bandRow:hover {
+      background-color: #f3eff9;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 15%;
+      color: #4d4d4d;
+    }
+
+    p:nth-child(1) {
+      justify-content: flex-start;
+      width: 30%;
+      font-weight: 600;
+    }
+
+    p:nth-child(2) {
+      width: 40%;
+    }
+
+    p:last-child {
+      justify-content: flex-end;
+    }
+  }
+
+  .noLemmasMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 28rem;
+
+    font-size: 2rem;
+    color: #4d4d4d;
   }
 }
