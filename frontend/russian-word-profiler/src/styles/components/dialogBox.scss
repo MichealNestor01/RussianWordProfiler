@@ -1,0 +1,55 @@
+.dialogBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(4, 4, 6, 0.95);
+  z-index: 1000;
+
+  .dialogBox {
+    width: 34rem;
+    max-width: 100%;
+    height: auto;
+    max-height: 32rem;
+    overflow-y: auto;
+
+    border-radius: 4px;
+    background-color: $colorCardBackground;
+
+    z-index: 1010;
+    .headerContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      height: 4rem;
+
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      border-bottom: 1px solid #e7e7e7;
+
+      .closeButton {
+        height: 4rem;
+
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        cursor: pointer;
+
+        .closeButtonIcon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
