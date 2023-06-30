@@ -46,7 +46,7 @@
     .input {
       // BOX MODEL
       resize: none;
-      min-height: 250px;
+      min-height: 32rem;
       padding: 10px 15px 15px 15px;
       // BOX MODEL
       border: none;
@@ -56,11 +56,11 @@
       // BACKGROUND
       background-color: #dbe8fd87;
       // TYPOGRAPH
-      font-family: "Inter";
+      font-family: "Roboto";
     }
     .text-output {
       // BOX MODEL
-      padding: 10px 15px 15px 15px;
+      padding: 10px 25px 15px 15px;
       border: 1px solid #e1e1e1;
       border-right: none;
       // BACKGROUND
