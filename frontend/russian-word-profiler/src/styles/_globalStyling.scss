@@ -1,6 +1,7 @@
 // get montserrat font, the website's font
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 
 // remove margin and padding from everything
 * {
@@ -21,13 +22,17 @@
 // standard body styling
 body {
   font-style: normal;
-  font-family: "Inter";
+  font-family: "Roboto";
   -webkit-font-smoothing: antialiased;
   background-color: $colorBackground;
 }
+
 h1 {
   color: $colorPrimaryA;
+  font-size: 1.1rem;
+  font-weight: medium;
 }
+
 h2 {
   color: $colorCardHeader;
   font-size: 22px;
@@ -44,36 +49,15 @@ p,
 
 .card {
   background-color: $colorCardBackground;
-  border-radius: 4px;
-  border: 1px solid #ececec;
-  box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  border: 1px solid #e6e2e2;
+  //box-shadow: 4px 4px 32px 1px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   height: fit-content;
 }
 
 ul {
   list-style: none;
-}
-
-// standard button styling
-button {
-  cursor: pointer;
-  background-color: $colorCardHeader;
-  border: none;
-  padding: 15px 5px;
-  width: 120px;
-  border-radius: 30px;
-  text-decoration: none;
-  color: $colorPrimaryA;
-  transition: all 0.5s ease;
-  font-weight: 700;
-  p {
-    user-select: none;
-  }
-  &:hover {
-    background-color: $colorBoldText;
-    color: $colorCardBackground;
-  }
 }
 
 // scroll bar styling

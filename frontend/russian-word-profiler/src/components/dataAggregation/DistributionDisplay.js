@@ -1,10 +1,14 @@
 import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDistributionData } from "../../store/slices/statsSlice";
+import DownloadDistributionData from "./downloadButtons/DownloadDistributionData";
+import BandBar from "../generic/BandBar";
 
 const DistributionDisplay = () => {
   const dispatch = useDispatch();
-  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
+  const bandFrequencyDict = useSelector(
+    (state) => state.stats.bandFrequencyDict
+  );
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour, total } = bandFrequencyDict[band];
@@ -18,7 +22,9 @@ const DistributionDisplay = () => {
   bands.forEach((band, index) => {
     distributionData.push([
       band.name !== "N/A"
-        ? `${index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
+        ? `${
+            index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "
+          }${band.name}`
         : "Not in List",
       parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
     ]);
@@ -27,10 +33,15 @@ const DistributionDisplay = () => {
   let prevBand = 0;
   return (
     <div className="distributionContainer card">
-      <h1>Word Frequency Distribution</h1>
+      <div className="cardHeader">
+        <h1 className="title">
+          Word Frequency Distribution <DownloadDistributionData />
+        </h1>
+      </div>
+
       <div className="barGraph">
         {bands.length === 0 ? (
-          <h1 className="noData">profile some text to see data</h1>
+          <div className="noDataMessage">No data to show</div>
         ) : (
           <Fragment>
             {bands.map((band, index) => {
@@ -38,15 +49,22 @@ const DistributionDisplay = () => {
                 <div className="bandBarContainer">
                   <h1 className="title">
                     {band.name !== "N/A"
-                      ? `${prevBand === 0 ? "Top " : `${parseInt(prevBand) + 1} - `}${band.name}`
+                      ? `${
+                          prevBand === 0
+                            ? "Top "
+                            : `${parseInt(prevBand) + 1} - `
+                        }${band.name}`
                       : "Not in List"}
                   </h1>
-                  <div
-                    className="bandBar"
-                    key={`bandBar${index}`}
-                    style={{ width: `${(70 * band.total) / maxTotal}%`, background: band.colour }}
+                  <BandBar
+                    index={index}
+                    total={band.total}
+                    width={`${(70 * band.total) / maxTotal}%`}
+                    colour={band.colour}
                   />
-                  <h1 className="coverage">{parseFloat(((100 * band.total) / sumTotal).toFixed(1))}%</h1>
+                  <h1 className="coverage">
+                    {parseFloat(((100 * band.total) / sumTotal).toFixed(1))}%
+                  </h1>
                 </div>
               );
               prevBand = band.name;

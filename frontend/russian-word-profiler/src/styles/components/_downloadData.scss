@@ -1,17 +1,19 @@
-.downloadData {
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .buttonsContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    button {
-      font-size: 16px;
-      width: 400px;
-    }
-  }
+.downloadButton {
+  position: relative;
+  width: 1.2rem;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  fill: $colorPrimaryA;
+  stroke: $colorPrimaryA;
+  cursor: pointer;
+
+  transition: all 0.1s ease-in-out;
+}
+
+.downloadButton:hover {
+  stroke: #9593ff;
+  fill: #9593ff;
 }

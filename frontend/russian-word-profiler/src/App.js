@@ -4,7 +4,6 @@ import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
 import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
 import LemmaTable from "./components/dataAggregation/LemmaTable";
-import DownloadData from "./components/dataAggregation/DownloadData";
 import { saveBands, setDefaultBands } from "./store/slices/frequencyBandsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,7 +11,9 @@ import { useSelector, useDispatch } from "react-redux";
 let initial = true;
 function App() {
   const dispatch = useDispatch();
-  const dataCollected = useSelector((state) => Object.keys(state.stats.tableData).length);
+  const dataCollected = useSelector(
+    (state) => Object.keys(state.stats.tableData).length
+  );
 
   useEffect(() => {
     if (initial) {
@@ -44,13 +45,11 @@ function App() {
         <MainEditor placeholder="Place text here!" />
       </section>
       <section className="bottom-panel">
-        <h2>DATA AGGREGATION</h2>
         <section className="data-grid">
           <div className="top-panel">
             <DistributionDisplay />
             <CoverageDisplay />
           </div>
-          {dataCollected > 0 && <DownloadData />}
           <LemmaTable />
         </section>
       </section>

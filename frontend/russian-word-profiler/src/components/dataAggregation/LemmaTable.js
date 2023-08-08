@@ -1,14 +1,24 @@
+import { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTableData } from "../../store/slices/statsSlice";
+import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableData";
 
 const LemmaTable = () => {
   const dispatch = useDispatch();
-  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
+  const allBands = useSelector((state) => state.bands);
+  const [selectedBand, setSelectedBand] = useState(0);
+  const bandFrequencyDict = useSelector(
+    (state) => state.stats.bandFrequencyDict
+  );
+
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour } = bandFrequencyDict[band];
     return { name: band, colour };
   });
-  const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
+
+  const lemmaFrequencyDict = useSelector(
+    (state) => state.stats.lemmaFrequencyDict
+  );
   const wordData = useSelector((state) => state.text.wordData);
 
   // Create a dictionary with lemma as key and an array of words as value.
@@ -38,6 +48,7 @@ const LemmaTable = () => {
         lemmasInBand.push({ lemma, words, rank, occurrences });
       }
     }
+
     // Sort lemmasInBand by rank.
     if (band.name !== "N/A") {
       lemmasInBand.sort((a, b) => a.rank - b.rank);
@@ -48,52 +59,76 @@ const LemmaTable = () => {
 
   dispatch(setTableData(bandsWithLemmas));
   prevBand = 0;
+
   return (
-    <div className="lemmaTable card">
-      <h1>Lemma Frequency Table</h1>
-      <table className="table">
-        <thead>
-          <tr style={{ backgroundColor: "gray" }}>
-            <th style={{ width: "240px" }}>Band</th>
-            <th>Lemma</th>
-            <th>Matching Words</th>
-            <th style={{ width: "160px" }}>occurrences</th>
-            <th style={{ width: "160px" }}>Rank</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bandsWithLemmas.map((band, bandIndex) => {
-            const row = band.lemmas.map((lemmaObj, lemmaIndex) => (
-              <tr
-                key={bandIndex + "-" + lemmaIndex}
-                style={{
-                  backgroundColor: band.colour,
-                  color: band.colour === "black" ? "white" : "black",
-                  fontWeight: "bold",
-                }}
-              >
-                {lemmaIndex === 0 && (
-                  <td rowSpan={band.lemmas.length}>
-                    {bandIndex === bandsWithLemmas.length - 1
-                      ? "Not In List"
-                      : bandIndex === 0
-                      ? "Top "
-                      : `${prevBand} - `}
-                    {bandIndex !== bandsWithLemmas.length - 1 && band.name}
-                  </td>
-                )}
-                <td>{lemmaObj.lemma}</td>
-                <td>{lemmaObj.words.join(", ")}</td>
-                <td>{lemmaObj.occurrences}</td>
-                <td>{lemmaObj.rank}</td>
-              </tr>
-            ));
-            prevBand = parseInt(band.name) + 1;
-            return row;
-          })}
-        </tbody>
-      </table>
-    </div>
+    <Fragment>
+      <div className="lemmaFull card">
+        <div className="cardHeader">
+          <h1 className="title">
+            Frequency Lemma Table <DownloadTableData />
+          </h1>
+          <div className="activeBandContainer">
+            <div className="bands">
+              {allBands.map((band, bandIndex) => {
+                return (
+                  <a
+                    className={
+                      "band " + (bandIndex == selectedBand && "activeBand")
+                    }
+                    onClick={() => {
+                      setSelectedBand(bandIndex);
+                    }}
+                    style={{
+                      width: 100 / allBands.length + "%",
+                      color:
+                        bandIndex == selectedBand &&
+                        allBands[selectedBand]?.colour,
+                    }}
+                  >
+                    {band.top}
+                  </a>
+                );
+              })}
+            </div>
+            <div
+              className="activeBandSelector"
+              style={{
+                marginLeft: (100 / allBands.length) * selectedBand + "%",
+                width: 100 / allBands.length + "%",
+                backgroundColor: allBands[selectedBand]?.colour,
+              }}
+            ></div>
+          </div>
+        </div>
+        {bandsWithLemmas[selectedBand] ? (
+          <div className="lemmaTable">
+            <div className="bandHeaders">
+              <p>Lemma</p>
+              <p>Matching Words</p>
+              <p>Occurrences</p>
+              <p>Rank</p>
+            </div>
+
+            <div className="bandBody">
+              {bandsWithLemmas[selectedBand]?.lemmas.map(
+                (lemmaObj, lemmaIndex) => {
+                  return (
+                    <div className="bandRow">
+                      <p>{lemmaObj.lemma}</p>
+                      <p>{lemmaObj.words.join(", ")}</p>
+                      <p>{lemmaObj.occurrences}</p>
+                      <p>{lemmaObj.rank}</p>
+                    </div>
+                  );
+                }
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="noLemmasMessage">No Lemmas in this band</div>
+        )}
+      </div>
+    </Fragment>
   );
 };
 
