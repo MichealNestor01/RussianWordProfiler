@@ -23,7 +23,7 @@ const BandsBar = () => {
   const submitHandler = async () => {
     const url =
       window.location.href === "http://localhost:3000/"
-        ? "http://localhost/"
+        ? "http://127.0.0.1:5000/" //"http://localhost/"
         : "http://michealnestor.pythonanywhere.com/";
     const response = await axios({
       method: "post",
