@@ -18,7 +18,7 @@ CACHE_FILE = "word_data_cache.pickle"
 
 
 class ProfilerObj:
-    def __init__(self):
+    def __init__(self, use_cache: bool = True):
         # Start a mystem connection
         self.mystem = Mystem()
         # Retrieve the stop words # I don't think it makes sense to have default stop words
@@ -27,8 +27,10 @@ class ProfilerObj:
         self.stopwords = set([])
         # Retrieve frequency list (Sharoff 2011)
         self.load_frequency_list("assets/2011-frequency-list-SORTED.txt")
-        # Create a cache to store word data
-        self.load_cache()
+        self.word_data_cache: Dict[str, Dict[str, Any]] = {}
+        if use_cache:
+            # Create a cache to store word data
+            self.load_cache()
 
     # set stowards to user defined stopwards
     def set_stopwords(self, stopwords) -> None:

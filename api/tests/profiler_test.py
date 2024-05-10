@@ -4,8 +4,8 @@ from modules.profiler import ProfilerObj
 
 class TestProfiler(unittest.TestCase):
     def setUp(self):
-        with patch('builtins.open', unittest.mock.mock_open()), patch('pickle.load', return_value={}):
-            self.profiler = ProfilerObj()
+        with patch('builtins.open', unittest.mock.mock_open()), patch('pickle.load', return_value={"cache": "data"}):
+            self.profiler = ProfilerObj(False)
 
     # ===== set_stopwords ===== #
     def test_set_stopwords(self):
@@ -20,10 +20,6 @@ class TestProfiler(unittest.TestCase):
     def test_load_frequency_list(self):
         # This test checks if the frequency list is correctly loaded into the profiler.
         # We use patch to mock the open function to control the file's content.
-        test_data = [
-            ['1', 'example'],
-            ['2', 'test']
-        ]
         with patch('builtins.open', unittest.mock.mock_open(read_data="1,example\n2,test")) as mocked_file:
             self.profiler.load_frequency_list("dummy_path")
             # Verify that the file was opened correctly with the specified parameters.
