@@ -87,11 +87,8 @@ class ProfilerObj:
         rank = self.get_frequency_rank(lemma)
         # find synonyms from the word data
         synonyms = []
-        if 'def' in data and data['def']:
-            word_def = data['def'][0]
-            if 'tr' in word_def:
-                synonyms = [tr['text']
-                            for tr in word_def['tr'] if 'text' in tr]
+        if 'def' in data and 'tr' in  data['def'][0] and 'syn' in data['def'][0]['tr'][0]:
+            synonyms = [syn['text'] for syn in data['def'][0]['tr'][0]['syn'] if 'text' in syn]
         # get the frequency rank of the synonyms
         synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(
             self.mystem.lemmatize(synonym)[0])} for synonym in synonyms]
