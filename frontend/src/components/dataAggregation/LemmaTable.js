@@ -71,11 +71,12 @@ const LemmaTable = () => {
               {bandsWithLemmas.map((band, bandIndex) => {
                 return (
                   <a
-                    href="#!"
+                    href="#"
                     className={
                       "band " + (bandIndex === selectedBand && "activeBand")
                     }
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       setSelectedBand(bandIndex);
                     }}
                     style={{
