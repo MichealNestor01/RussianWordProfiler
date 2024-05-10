@@ -44,7 +44,7 @@ const LemmaTable = () => {
       const occurrences = lemmaFrequencyDict[lemma];
       if (band.name === "N/A" && rank === "N/A") {
         lemmasInBand.push({ lemma, words, rank, occurrences });
-      } else if (rank <= band.name && rank > prevBand) {
+      } else if (rank <= parseInt(band.name) && rank > prevBand) {
         lemmasInBand.push({ lemma, words, rank, occurrences });
       }
     }
@@ -53,7 +53,7 @@ const LemmaTable = () => {
     if (band.name !== "N/A") {
       lemmasInBand.sort((a, b) => a.rank - b.rank);
     }
-    prevBand = band.name;
+    prevBand = parseInt(band.name);
     return { ...band, lemmas: lemmasInBand };
   });
 
@@ -69,7 +69,7 @@ const LemmaTable = () => {
           </h1>
           <div className="activeBandContainer">
             <div className="bands">
-              {allBands.map((band, bandIndex) => {
+              {bandsWithLemmas.map((band, bandIndex) => {
                 return (
                   <a
                     className={
@@ -79,13 +79,13 @@ const LemmaTable = () => {
                       setSelectedBand(bandIndex);
                     }}
                     style={{
-                      width: 100 / allBands.length + "%",
+                      width: 100 / bandsWithLemmas.length + "%",
                       color:
                         bandIndex == selectedBand &&
-                        allBands[selectedBand]?.colour,
+                        bandsWithLemmas[selectedBand]?.colour,
                     }}
                   >
-                    {band.top}
+                    {band.name}
                   </a>
                 );
               })}
@@ -93,9 +93,9 @@ const LemmaTable = () => {
             <div
               className="activeBandSelector"
               style={{
-                marginLeft: (100 / allBands.length) * selectedBand + "%",
-                width: 100 / allBands.length + "%",
-                backgroundColor: allBands[selectedBand]?.colour,
+                marginLeft: (100 / bandsWithLemmas.length) * selectedBand + "%",
+                width: 100 / bandsWithLemmas.length + "%",
+                backgroundColor: bandsWithLemmas[selectedBand]?.colour,
               }}
             ></div>
           </div>
