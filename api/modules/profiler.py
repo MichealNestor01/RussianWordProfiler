@@ -5,10 +5,15 @@ import re
 import pickle
 import asyncio
 import aiohttp
-from decouple import config
+from dotenv import load_dotenv
+import os
 
-# get api key from local environment variable
-API_KEY = config('API_KEY')
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API key from local environment variable
+API_KEY = os.getenv('API_KEY')
+# Load the cache file 
 CACHE_FILE = "word_data_cache.pickle"
 
 
@@ -21,7 +26,7 @@ class ProfilerObj:
         #    self.stopwords: Set[str] = set(line.strip() for line in file)
         self.stopwords = set([])
         # Retrieve frequency list (Sharoff 2011)
-        self.load_frequency_list("2011-frequency-list-SORTED.txt")
+        self.load_frequency_list("assets/2011-frequency-list-SORTED.txt")
         # Create a cache to store word data
         self.load_cache()
 
@@ -111,17 +116,3 @@ class ProfilerObj:
         tasks = [self.process_word(word) for word in words]
         word_data = await asyncio.gather(*tasks)
         return {k: v for word_data_dict in word_data for k, v in word_data_dict.items()}
-
-
-def _tests():
-    profiler = ProfilerObj()
-    text = "Администрация президента США Джо Байдена обеспокоена возможным обсуждением высокопоставленными российскими военными использования ядерного оружия в войне с Украиной. Военное руководство в Москве недавно вело дискуссии на эту тему. Об этом пишет газета New York Times со ссылкой на неназванных американских чиновников. По данным издания, президент России Владимир Путин не был частью этих обсуждений. Он единственный, кто может принять решение об использовании такого оружия, вне зависимости от мнения генералов. Но сам факт таких дискуссий вызывает опасения Белого дома. Там считают, что обсуждение вызвано фрустрацией российских военных от неудач в войне с Украиной. Западные страны считают, что Кремль с февраля регулярно намекает на возможность использования ядерного оружия. В выступлении 27 октября Путин заявил, что Москва никогда не говорила, что готова сделать это. За день до этого сотрудничающий с российским правительством Института мировой экономики и международных отношений РАН выпустил доклад, в котором утверждалось, что Запад неправильно трактует высказывания российских официальных лиц. Анонимные источники газеты Washington Post в администрации Байдена говорят, что американские чиновники не успокоены словами Путина. Там считают, что риск применения ядерного оружия повысится, когда Москва исчерпает свои силы и конвенциональное оружие в Украине."
-    output = profiler.scan_text(text)
-    with open("output", "w", encoding="utf-8") as file:
-        for i in output:
-            file.write(f"{i}\n")
-    print(f"OUTPUT:\n\n{output}")
-
-
-if __name__ == "__main__":
-    _tests()
