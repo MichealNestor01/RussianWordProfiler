@@ -82,12 +82,14 @@ class ProfilerObj:
         # lemmatise the word
         lemma = self.mystem.lemmatize(word)[0]
         # get data from yandex about the word
-        data = await self.get_word_data(word)
+        data = await self.get_word_data(lemma)
         # get the words frequency rank
         rank = self.get_frequency_rank(lemma)
         # find synonyms from the word data
         synonyms = []
-        if 'def' in data and 'tr' in  data['def'][0] and 'syn' in data['def'][0]['tr'][0]:
+        if 'def' in data and len(data['def']) > 0 and \
+            'tr' in data['def'][0] and len(data['def'][0]['tr']) > 0 and \
+            'syn' in data['def'][0]['tr'][0]:
             synonyms = [syn['text'] for syn in data['def'][0]['tr'][0]['syn'] if 'text' in syn]
         # get the frequency rank of the synonyms
         synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(
