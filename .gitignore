@@ -2,6 +2,7 @@
 .env
 *.venv
 .venv
+.zip
 /api/testfiles
 /api/modules/.env
 */__pycache__
