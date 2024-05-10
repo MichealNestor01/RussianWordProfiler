@@ -23,7 +23,6 @@ async def scan_data() -> Dict[str, Any]:
     stopwords = data.get("stopwords", None)
     if stopwords is not None:
         profiler.set_stopwords(stopwords)
-    print(f"text: {text}\n\nstopwords: {stopwords}")
     # Run the scan_text function synchronously using a worker thread
     output = await profiler.scan_text(text)
     return jsonify(output)
