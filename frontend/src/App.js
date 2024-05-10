@@ -51,6 +51,7 @@ function App() {
             <CoverageDisplay />
           </div>
           <LemmaTable />
+          <a href="https://tech.yandex.com/dictionary/" target="_blank">Powered by Yandex.Dictionary</a>
         </section>
       </section>
       {/* This is a background splash image */}
