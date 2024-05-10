@@ -5,7 +5,6 @@ import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableD
 
 const LemmaTable = () => {
   const dispatch = useDispatch();
-  const allBands = useSelector((state) => state.bands);
   const [selectedBand, setSelectedBand] = useState(0);
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
