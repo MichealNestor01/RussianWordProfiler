@@ -13,6 +13,8 @@ load_dotenv()
 
 # Get API key from local environment variable
 API_KEY = os.getenv('API_KEY')
+# Get whether or not we are dployed from local environment variable
+DEPLOYED = os.getenv('DEPLOYED')
 # Load the cache file 
 CACHE_FILE = "word_data_cache.pickle"
 
@@ -69,10 +71,10 @@ class ProfilerObj:
     async def get_word_data(self, word: str) -> Dict[str, Any]:
         if word in self.word_data_cache:
             return self.word_data_cache[word]
-
+        proxy = 'https//proxy.server:3128' if DEPLOYED == 'true' else None
+        url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
         async with aiohttp.ClientSession() as session:
-            url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
-            async with session.get(url) as response:
+            async with session.get(url, proxy=proxy) as response:
                 data = await response.json()
                 self.word_data_cache[word] = data
                 self.save_cache()
