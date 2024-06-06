@@ -12,7 +12,7 @@ API_KEY = os.getenv('API_KEY')
 DEPLOYED = os.getenv('DEPLOYED')
 
 async def query_yandex_for_synonyms(word: str) -> List[str]:
-    proxy = 'https//proxy.server:3128' if DEPLOYED == 'true' else None
+    proxy = 'https://proxy.server:3128' if DEPLOYED == 'true' else None
     url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
     async with aiohttp.ClientSession() as session:
         async with session.get(url, proxy=proxy) as response:
