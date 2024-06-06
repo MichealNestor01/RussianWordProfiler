@@ -1,55 +1,29 @@
 import csv
-from typing import Dict, List, Any, Set
+from typing import Dict, Any
 from pymystem3 import Mystem
 import re
-import pickle
 import asyncio
-import aiohttp
-from dotenv import load_dotenv
-import os
+from .cache import WordCache
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Get API key from local environment variable
-API_KEY = os.getenv('API_KEY')
-# Get whether or not we are dployed from local environment variable
-DEPLOYED = os.getenv('DEPLOYED')
 # Load the cache file 
 CACHE_FILE = "word_data_cache.pickle"
-
 
 class ProfilerObj:
     def __init__(self, use_cache: bool = True):
         # Start a mystem connection
         self.mystem = Mystem()
-        # Retrieve the stop words # I don't think it makes sense to have default stop words
-        # with open("stopwords.txt", "r", encoding="utf-8") as file:
-        #    self.stopwords: Set[str] = set(line.strip() for line in file)
         self.stopwords = set([])
         # Retrieve frequency list (Sharoff 2011)
-        self.load_frequency_list("assets/2011-frequency-list-SORTED.txt")
-        self.word_data_cache: Dict[str, Dict[str, Any]] = {}
+        self.load_frequency_list("assets/2011-frequency-list-SORTED.txt") 
+        # connect the cache to a file if we are using it
         if use_cache:
-            # Create a cache to store word data
-            self.load_cache()
+            self.cache = WordCache(CACHE_FILE)
+        else:
+            self.cache = WordCache()
 
     # set stowards to user defined stopwards
     def set_stopwords(self, stopwords) -> None:
         self.stopwords = set(stopwords)
-
-    # loads in any chanced yandex queries
-    def load_cache(self) -> None:
-        try:
-            with open(CACHE_FILE, "rb") as f:
-                self.word_data_cache = pickle.load(f)
-        except FileNotFoundError:
-            self.word_data_cache: Dict[str, Dict[str, Any]] = {}
-
-    # save queries to the cache file
-    def save_cache(self) -> None:
-        with open(CACHE_FILE, "wb") as f:
-            pickle.dump(self.word_data_cache, f)
 
     # loads in the frequency csv
     def load_frequency_list(self, file_path: str) -> None:
@@ -67,35 +41,13 @@ class ProfilerObj:
     def get_frequency_rank(self, lemma: str) -> int:
         return self.frequency_list.get(lemma, -1)
 
-    # gets dictionary data about a word from yandex
-    async def get_word_data(self, word: str) -> Dict[str, Any]:
-        if word in self.word_data_cache:
-            return self.word_data_cache[word]
-        proxy = 'https//proxy.server:3128' if DEPLOYED == 'true' else None
-        url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, proxy=proxy) as response:
-                data = await response.json()
-                self.word_data_cache[word] = data
-                self.save_cache()
-                return data
-
     async def process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
         # lemmatise the word
         lemma = self.mystem.lemmatize(word)[0]
-        # get data from yandex about the word
-        data = await self.get_word_data(lemma)
-        # get the words frequency rank
+        # get the word's frequency rank
         rank = self.get_frequency_rank(lemma)
-        # find synonyms from the word data
-        # data is a dictionary returned from yandex's dictionary translation api
-        # it can return a def array, which has a set of translations with relevant 
-        # synonyms to that translation, we take all the synonyms from the translations
-        # and the translations themselves as a list of synonyms for the current word.
-        synonyms = []
-        for definition in data.get('def', []):
-            synonyms += [tr['text'] for tr in definition.get('tr', [])]
-            synonyms += [syn['text'] for tr in definition.get('tr', []) for syn in tr.get('syn', []) if 'text' in syn]
+        # get data from yandex about the word
+        synonyms = await self.cache.get_synonyms(lemma)
         # get the frequency rank of the synonyms
         synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(
             self.mystem.lemmatize(synonym)[0])} for synonym in synonyms]
@@ -121,4 +73,7 @@ class ProfilerObj:
         # Create an asyncio event loop to run asynchronous tasks
         tasks = [self.process_word(word) for word in words]
         word_data = await asyncio.gather(*tasks)
+        # save the cache after processing all the words
+        self.cache.save()
+        # return the word data
         return {k: v for word_data_dict in word_data for k, v in word_data_dict.items()}
