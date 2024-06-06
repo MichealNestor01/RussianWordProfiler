@@ -85,6 +85,7 @@ class ProfilerObj:
         lemma = self.mystem.lemmatize(word)[0]
         # get data from yandex about the word
         data = await self.get_word_data(lemma)
+        self.save_cache()
         # get the words frequency rank
         rank = self.get_frequency_rank(lemma)
         # find synonyms from the word data
