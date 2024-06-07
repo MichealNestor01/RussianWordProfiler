@@ -3,58 +3,118 @@ import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import { changeColour } from "../../../store/slices/frequencyBandsSlice";
+import XIcon from "../../XIcon"
 
-const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
-  const [colour, setColour] = useState(startColour);
-  const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+// const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
+//   const [colour, setColour] = useState(startColour);
+//   const dispatch = useDispatch();
+//   const bands = useSelector((state) => state.bands);
 
-  const changeHandler = (c) => {
-    setColour(c.hex);
-    dispatch(changeColour({ target: id, colour: c.hex }));
-  };
+//   const changeHandler = (c) => {
+//     setColour(c.hex);
+//     dispatch(changeColour({ target: id, colour: c.hex }));
+//   };
 
-  useEffect(() => {
-    if (id < bands.length) {
-      if (bands[id].colour !== colour) {
-        setColour(bands[id].colour);
-      }
-    }
-  }, [bands, colour, id]);
+//   useEffect(() => {
+//     if (id < bands.length) {
+//       if (bands[id].colour !== colour) {
+//         setColour(bands[id].colour);
+//       }
+//     }
+//   }, [bands, colour, id]);
 
-  useEffect(() => {
-    console.log("activeIndexChanged ", activeIndex);
-  }, [activeIndex]);
+//   useEffect(() => {
+//     console.log("activeIndexChanged ", activeIndex);
+//   }, [activeIndex]);
 
+//   return (
+//     <Fragment>
+//       <AnimatePresence>
+//         {activeIndex === id && (
+//           <motion.div
+//             initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
+//             animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
+//             exit={{ opacity: 0, y: `-80%`, x: `-120%` }}
+//             transition={{ duration: 0.2 }}
+//             className="colourSelector"
+//           >
+//             <ChromePicker className="picker" color={colour} onChange={(c) => changeHandler(c)} />
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//       <div
+//         className="bandColour"
+//         style={{ backgroundColor: colour }}
+//         onClick={() => {
+//           console.log(activeIndex);
+//           if (activeIndex === id) {
+//             setActiveIndex(-1);
+//           } else {
+//             setActiveIndex(id);
+//           }
+//         }}
+//       />
+//     </Fragment>
+//   );
+// };
+
+
+
+// const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
+//   const [colour, setColour] = useState(startColour);
+//   const dispatch = useDispatch();
+//   const bands = useSelector((state) => state.bands);
+
+//   const changeHandler = (c) => {
+//     setColour(c.hex);
+//     dispatch(changeColour({ target: id, colour: c.hex }));
+//   };
+
+//   useEffect(() => {
+//     if (id < bands.length) {
+//       if (bands[id].colour !== colour) {
+//         setColour(bands[id].colour);
+//       }
+//     }
+//   }, [bands, colour, id]);
+
+//   useEffect(() => {
+//     console.log("activeIndexChanged ", activeIndex);
+//   }, [activeIndex]);
+
+//   return (
+//     <Fragment>
+//       <AnimatePresence>
+//         {activeIndex === id && (
+//           <motion.div
+//             initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
+//             animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
+//             exit={{ opacity: 0, y: `-80%`, x: `-120%` }}
+//             transition={{ duration: 0.2 }}
+//             className="colourSelector"
+//           >
+//             <ChromePicker className="picker" color={colour} onChange={(c) => changeHandler(c)} />
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//       <div className="band" style={{backgroundColor: colour}}>Band</div>
+//     </Fragment>
+//   );
+// };
+
+const Band = ({id, colour, val}) => {
   return (
-    <Fragment>
-      <AnimatePresence>
-        {activeIndex === id && (
-          <motion.div
-            initial={{ opacity: 0, y: `-80%`, x: `-120%` }}
-            animate={{ opacity: 1, y: `-80%`, x: `-120%` }}
-            exit={{ opacity: 0, y: `-80%`, x: `-120%` }}
-            transition={{ duration: 0.2 }}
-            className="colourSelector"
-          >
-            <ChromePicker className="picker" color={colour} onChange={(c) => changeHandler(c)} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <div
-        className="bandColour"
-        style={{ backgroundColor: colour }}
-        onClick={() => {
-          console.log(activeIndex);
-          if (activeIndex === id) {
-            setActiveIndex(-1);
-          } else {
-            setActiveIndex(id);
-          }
-        }}
-      />
-    </Fragment>
-  );
-};
+    <div className="band">
+      <div className="bandColor" style={{backgroundColor: colour}}></div>
+      <input className="bandInput" placeholder="1000" value={val}></input>
+      <p className="bandTo">TO</p>
+      <input className="bandInput" placeholder="2000"></input>
+      <button className="bandDelete" viewBox="0 0 24 24">
+        <XIcon className="closeButtonIcon" />
+      </button>
+    </div>
+  )
+}
 
 export default Band;
+
