@@ -1,6 +1,7 @@
 import React from "react";
 import { convertToCSV } from "../../functions/convertToCSV";
 import { downloadCSV } from "../../functions/downloadCSV";
+import { downloadXLS } from "../../functions/downloadXLS";
 import downloadIcon from "../../assets/download_icon.svg";
 
 function DownloadButton({ data, filename, text }) {
@@ -18,8 +19,9 @@ function DownloadButton({ data, filename, text }) {
       currentdate.getMinutes() +
       "-" +
       currentdate.getSeconds();
-    const csv = convertToCSV(data);
-    downloadCSV(csv, `${filename} ${datetime}.csv`);
+    // const csv = convertToCSV(data);
+    // downloadCSV(csv, `${filename} ${datetime}.csv`);
+    downloadXLS(data, `${filename}_${datetime}.xlsx`);
   };
 
   return (
