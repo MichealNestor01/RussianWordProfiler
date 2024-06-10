@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, AsyncMock
 from aioresponses import aioresponses
 import aiohttp
 import asyncio
@@ -42,7 +42,6 @@ STANDARD_YANDEX_RESPONSE_STRUCTURE = {
 
 class TestQueryYandexForSynonyms(unittest.IsolatedAsyncioTestCase):
     @patch("modules.query_yandex.API_KEY", "test_api_key")
-    @patch("modules.query_yandex.DEPLOYED", "false")
     async def test_standard_result(self):
         word = "test_word"
         expected_synonyms = ["synonym1", "synonym2", "synonym3", "synonym4", "synonym5"]
@@ -54,7 +53,6 @@ class TestQueryYandexForSynonyms(unittest.IsolatedAsyncioTestCase):
             self.assertCountEqual(synonyms, expected_synonyms)
 
     @patch("modules.query_yandex.API_KEY", "test_api_key")
-    @patch("modules.query_yandex.DEPLOYED", "false")
     async def test_empty_result(self):
         word = "test_word"
         expected_synonyms = []
@@ -64,3 +62,14 @@ class TestQueryYandexForSynonyms(unittest.IsolatedAsyncioTestCase):
             m.get(expected_url, payload={"def": []}) 
             synonyms = await query_yandex_for_synonyms(word)
             self.assertCountEqual(synonyms, expected_synonyms)
+
+    @patch("modules.query_yandex.API_KEY", "test_api_key")
+    async def test_http_error(self):
+        word = "test_word"
+        expected_url = f"https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=test_api_key&lang=ru-ru&text=test_word"
+        
+        with aioresponses() as m:
+            m.get(expected_url, status=500)  # Simulate a server error
+            # expect the function to raise a client response error
+            with self.assertRaises(aiohttp.ClientResponseError):
+                await query_yandex_for_synonyms(word)
