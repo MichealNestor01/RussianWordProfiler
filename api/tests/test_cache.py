@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import patch, mock_open
 from datetime import datetime, timedelta
 import pickle
-import asyncio
-import os
 from freezegun import freeze_time
 from modules.cache import WordCache
 
