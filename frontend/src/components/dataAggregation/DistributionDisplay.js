@@ -9,6 +9,7 @@ const DistributionDisplay = () => {
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
+
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour, total } = bandFrequencyDict[band];
@@ -17,19 +18,19 @@ const DistributionDisplay = () => {
   });
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
-  // distribution data to download:
-  const distributionData = [["BAND", "PERCENTAGE COVERED"]];
+
+  // organise distribution data so it can be downloaded
+  const distributionData = [];
   bands.forEach((band, index) => {
-    distributionData.push([
-      band.name !== "N/A"
-        ? `${
-            index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "
-          }${band.name}`
+    distributionData.push({
+      "BAND": band.name !== "N/A"
+        ? `${index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
         : "Not in List",
-      parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
-    ]);
+        "PERCENTAGE COVERED": parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
+    });
   });
   dispatch(setDistributionData(distributionData));
+
   let prevBand = 0;
   return (
     <div className="distributionContainer card">
