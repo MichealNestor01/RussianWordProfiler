@@ -41,15 +41,26 @@ STANDARD_YANDEX_RESPONSE_STRUCTURE = {
 }
 
 class TestQueryYandexForSynonyms(unittest.IsolatedAsyncioTestCase):
-
     @patch("modules.query_yandex.API_KEY", "test_api_key")
     @patch("modules.query_yandex.DEPLOYED", "false")
     async def test_standard_result(self):
         word = "test_word"
         expected_synonyms = ["synonym1", "synonym2", "synonym3", "synonym4", "synonym5"]
         expected_url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=test_api_key&lang=ru-ru&text=test_word"
-
+        
         with aioresponses() as m:
             m.get(expected_url, payload=STANDARD_YANDEX_RESPONSE_STRUCTURE) 
+            synonyms = await query_yandex_for_synonyms(word)
+            self.assertCountEqual(synonyms, expected_synonyms)
+
+    @patch("modules.query_yandex.API_KEY", "test_api_key")
+    @patch("modules.query_yandex.DEPLOYED", "false")
+    async def test_empty_result(self):
+        word = "test_word"
+        expected_synonyms = []
+        expected_url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=test_api_key&lang=ru-ru&text=test_word"
+        
+        with aioresponses() as m:
+            m.get(expected_url, payload={"def": []}) 
             synonyms = await query_yandex_for_synonyms(word)
             self.assertCountEqual(synonyms, expected_synonyms)
