@@ -60,7 +60,7 @@ class WordCache:
             try:
                 new_synonyms = await query_yandex_for_synonyms(word)
                 self.addWord(word, new_synonyms)
-            except aiohttp.ClientResponseError:
+            except aiohttp.client_exceptions.ClientConnectorError:
                 new_synonyms = ["Unable to access Yandex API. Please try again later."]
                 return new_synonyms
         return self.words[word]["synonyms"]
