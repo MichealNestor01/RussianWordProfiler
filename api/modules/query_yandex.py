@@ -16,6 +16,15 @@ async def query_yandex_for_synonyms(word: str) -> List[str]:
     url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
     async with aiohttp.ClientSession() as session:
         async with session.get(url, proxy=proxy) as response:
+            if response.status != 200:
+                error_message = await response.text()
+                raise aiohttp.ClientResponseError(
+                    request_info=response.request_info, 
+                    history=response.history, 
+                    status=response.status,
+                    message=error_message, 
+                    headers=response.headers
+                )
             data = await response.json()
     # find synonyms from the word data
     # data is a dictionary returned from yandex's dictionary translation api
