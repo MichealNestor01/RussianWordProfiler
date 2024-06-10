@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import patch
 from aioresponses import aioresponses
 import aiohttp
-import asyncio
 from modules.query_yandex import query_yandex_for_synonyms 
 
 STANDARD_YANDEX_RESPONSE_STRUCTURE = {
