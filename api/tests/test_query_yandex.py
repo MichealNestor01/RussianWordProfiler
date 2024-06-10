@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch
 from aioresponses import aioresponses
 import aiohttp
 import asyncio
