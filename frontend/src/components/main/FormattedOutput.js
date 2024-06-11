@@ -37,9 +37,9 @@ const FormattedOutput = () => {
         // get the band this word falls into
         const band = whichBand(wordData[wordLower].rank, {...bands});
         const topVal = band === -1 ? "N/A" : bands[band].topVal;
-        const colour = band === -1 ? "black" : bands[band].colour;
-        const active = band === -1 ? true : bands[band].active;
         const bottomVal = band === -1 ? "N/A" : bands[band].bottomVal;
+        const active = band === -1 ? true : bands[band].active;
+        const colour = band === -1 || !active ? "black" : bands[band].colour;
         console.log(bands[band]);
 
         
@@ -67,7 +67,7 @@ const FormattedOutput = () => {
               style={
                 totalSynonyms > 0 && band !== -1
                   ? {
-                      color: bands[band].active ? colour : "black",
+                      color: colour,
                       cursor: "pointer",
                       textDecoration: "underline",
                     }
