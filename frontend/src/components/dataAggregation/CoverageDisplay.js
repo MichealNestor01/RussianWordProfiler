@@ -9,6 +9,7 @@ const DistributionDisplay = () => {
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
+  
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour, total } = bandFrequencyDict[band];
@@ -17,15 +18,16 @@ const DistributionDisplay = () => {
   });
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
   let currentTotal = 0;
-  // coverage data to download:
-  const coverageData = [["BAND", "COVERAGE"]];
+
+  const coverageData = [];
   bands.forEach((band) => {
     currentTotal += band.total;
-    coverageData.push([
-      band.name !== "N/A" ? band.name : "All",
-      parseFloat(((100 * currentTotal) / sumTotal).toFixed(1)),
-    ]);
+    coverageData.push({
+      "BAND": band.name !== "N/A" ? band.name : "All",
+      "COVERAGE": parseFloat(((100 * currentTotal) / sumTotal).toFixed(1)),
+    });
   });
+
   dispatch(setCoverageData(coverageData));
   // reset to 0 for display
   currentTotal = 0;

@@ -1,5 +1,6 @@
 from typing import List, TypedDict, Dict, Any
 from datetime import datetime
+import aiohttp
 import pickle
 from .query_yandex import query_yandex_for_synonyms
 
@@ -15,7 +16,8 @@ class WordCache:
     def __init__(self, file: str = None):
         self.file = file
         self.words: Dict[str, WordDataCacheEntry] = {}
-        self.loadFromFile(file)
+        if file is not None:
+            self.loadFromFile(file)
     
     def loadFromFile(self, file: str) -> None:
         try:
@@ -36,7 +38,7 @@ class WordCache:
     def addWord(self, word: str, synonyms: List[str]) -> None:
         self.words[word] = {
             "synonyms": synonyms,
-            "last_updated": datetime.now(),
+            "last_updated": datetime.today(),
             "time_to_live": self.default_ttl
         }
 
@@ -55,6 +57,10 @@ class WordCache:
                 else:
                     self.words[word]["time_to_live"] += 30 if self.words[word]["time_to_live"] < 180 else 0
         else: 
-            new_synonyms = await query_yandex_for_synonyms(word)
-            self.addWord(word, new_synonyms)
+            try:
+                new_synonyms = await query_yandex_for_synonyms(word)
+                self.addWord(word, new_synonyms)
+            except aiohttp.client_exceptions.ClientConnectorError:
+                new_synonyms = ["Unable to access Yandex API. Please try again later."]
+                return new_synonyms
         return self.words[word]["synonyms"]

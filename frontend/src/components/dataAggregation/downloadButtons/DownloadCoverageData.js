@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import DownloadButton from "../../generic/DownlaodButton";
+import DownloadButton from "../../generic/DownloadButton";
 
 const DownloadCoverageData = () => {
   // Get coverage data.
