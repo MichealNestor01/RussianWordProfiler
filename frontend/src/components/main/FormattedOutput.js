@@ -44,12 +44,19 @@ const FormattedOutput = () => {
         const band = whichBand(wordData[wordLower].rank, {...bands});
         const topVal = band === -1 ? "N/A" : bands[band].topVal;
         const colour = band === -1 ? "black" : bands[band].colour;
+        const active = band === -1 ? true : bands[band].active;
+        const bottomVal = band === -1 ? "N/A" : bands[band].bottomVal;
+        console.log(bands[band]);
+
         // increment the total words in this band
-        if (topVal in bandFrequencyDict) {
-          bandFrequencyDict[topVal].total++;
-        } else {
-          bandFrequencyDict[topVal] = { colour, total: 0 };
+        if (active) {
+          if (topVal in bandFrequencyDict) {
+            bandFrequencyDict[topVal].total++;
+          } else {
+            bandFrequencyDict[topVal] = { colour, total: 1, active, bottomVal };
+          }
         }
+
         // return the formatted text
         return (
           <Fragment key={`word-${index}`}>
