@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { motion } from "framer-motion";
 import Band from "./Band";
+import NewBand from "./NewBand";
 import DialogBox from "../DialogBox"
 import { useSelector, useDispatch } from "react-redux";
 import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
@@ -121,8 +122,10 @@ const BandConfig = () => {
   return (
     <Fragment>
     {bands.map((band, index) => {
-      return <Band id={band.id} colour={band.colour} val={band.top} />;
+      return <Band id={band.id} colour={band.colour} top={band.top} bottom={band.bottom} />;
     })}
+
+    <NewBand />
 
     <div className="orDivider">
       <div className="divider"></div>

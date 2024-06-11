@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
-import { changeColour } from "../../../store/slices/frequencyBandsSlice";
-import XIcon from "../../XIcon"
+import { changeColour, changeTopValue, changeBottomValue } from "../../../store/slices/frequencyBandsSlice";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 // const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
 //   const [colour, setColour] = useState(startColour);
@@ -102,15 +102,19 @@ import XIcon from "../../XIcon"
 //   );
 // };
 
-const Band = ({id, colour, val}) => {
+
+const Band = ({id, colour, top, bottom}) => {
+
+  const dispatch = useDispatch();
+
   return (
     <div className="band">
       <div className="bandColor" style={{backgroundColor: colour}}></div>
-      <input className="bandInput" placeholder="1000" value={val}></input>
+      <input className="bandInput" value={bottom} onChange={(e) => {dispatch(changeBottomValue({target: id, bottom: e.target.value}))}}></input>
       <p className="bandTo">TO</p>
-      <input className="bandInput" placeholder="2000"></input>
+      <input className="bandInput" value={top} onChange={(e) => {dispatch(changeTopValue({target: id, top: e.target.value}))}} ></input>
       <button className="bandDelete" viewBox="0 0 24 24">
-        <XIcon className="closeButtonIcon" />
+        <XMarkIcon className="closeButtonIcon" />
       </button>
     </div>
   )
