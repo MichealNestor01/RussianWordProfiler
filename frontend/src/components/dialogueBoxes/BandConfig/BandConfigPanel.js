@@ -4,8 +4,6 @@ import Band from "./Band";
 import NewBand from "./NewBand";
 import DialogBox from "../DialogBox"
 import { useSelector, useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
-import { changeTopValue, removeBand, addBand } from "../../../store/slices/frequencyBandsSlice";
 import {SwatchIcon, CloudArrowDownIcon, CloudArrowUpIcon} from "@heroicons/react/24/solid"
 
 
@@ -121,8 +119,9 @@ const BandConfig = () => {
 
   return (
     <Fragment>
-    {bands.map((band, index) => {
-      return <Band id={band.id} colour={band.colour} top={band.top} bottom={band.bottom} />;
+
+    {Object.keys(bands).map((band) => { 
+      return <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} />;
     })}
 
     <NewBand />

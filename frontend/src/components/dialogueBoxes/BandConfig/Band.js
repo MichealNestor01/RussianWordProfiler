@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useEffect, useState } from "react";
 import { ChromePicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
-import { changeColour, changeTopValue, changeBottomValue } from "../../../store/slices/frequencyBandsSlice";
+import { changeColour, changeTopVal, changeBottomVal } from "../../../store/slices/frequencyBandsSlice";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 // const Band = ({ id, startColour, activeIndex, setActiveIndex }) => {
@@ -110,9 +110,9 @@ const Band = ({id, colour, top, bottom}) => {
   return (
     <div className="band">
       <div className="bandColor" style={{backgroundColor: colour}}></div>
-      <input className="bandInput" value={bottom} onChange={(e) => {dispatch(changeBottomValue({target: id, bottom: e.target.value}))}}></input>
+      <input className="bandInput" value={bottom} onChange={(e) => {dispatch(changeBottomVal({target: id, newVal: e.target.value}))}}></input>
       <p className="bandTo">TO</p>
-      <input className="bandInput" value={top} onChange={(e) => {dispatch(changeTopValue({target: id, top: e.target.value}))}} ></input>
+      <input className="bandInput" value={top} onChange={(e) => {dispatch(changeTopVal({target: id, newVal: e.target.value}))}} ></input>
       <button className="bandDelete" viewBox="0 0 24 24">
         <XMarkIcon className="closeButtonIcon" />
       </button>

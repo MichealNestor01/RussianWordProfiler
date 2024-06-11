@@ -4,7 +4,7 @@ import {
   setActiveDialogue,
   setSelectedWord,
 } from "../../store/slices/siteStateSlice";
-import { whichColour } from "../../functions/whichColour";
+import { whichBand } from "../../functions/whichBand";
 import {
   reset,
   setLemmaFrequencyDict,
@@ -16,10 +16,6 @@ const FormattedOutput = () => {
   const bands = useSelector((state) => state.bands);
   const { textObjects, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
-
-  const selectedBands = useSelector(
-    (state) => state.selectedBands.selectedBands
-  );
 
   useEffect(() => {
     dispatch(reset());
@@ -44,15 +40,15 @@ const FormattedOutput = () => {
         } else {
           lemmaFrequencyDict[data.lemma] = 1;
         }
-        // get the colour this word should be
-        const [colour, band] = whichColour(wordData[wordLower].rank, [
-          ...bands,
-        ]);
+        // get the band this word falls into
+        const band = whichBand(wordData[wordLower].rank, {...bands});
+        const topVal = band === -1 ? "N/A" : bands[band].topVal;
+        const colour = band === -1 ? "black" : bands[band].colour;
         // increment the total words in this band
-        if (band.top in bandFrequencyDict) {
-          bandFrequencyDict[band.top].total++;
+        if (topVal in bandFrequencyDict) {
+          bandFrequencyDict[topVal].total++;
         } else {
-          bandFrequencyDict[band.top] = { colour, total: 0 };
+          bandFrequencyDict[topVal] = { colour, total: 0 };
         }
         // return the formatted text
         return (
@@ -60,14 +56,14 @@ const FormattedOutput = () => {
             {prefix}
             <span
               style={
-                totalSynonyms > 0 && colour !== "black"
+                totalSynonyms > 0 && band !== -1
                   ? {
-                      color: band.id in selectedBands ? "black" : colour,
+                      color: bands[band].active ? colour : "black",
                       cursor: "pointer",
                       textDecoration: "underline",
                     }
                   : {
-                      color: band.id in selectedBands ? "black" : colour,
+                      color: colour,
                       cursor: "auto",
                     }
               }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
-import { whichColour } from "../../../functions/whichColour";
+import { whichBand } from "../../../functions/whichBand";
 import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
 const WordEditor = () => {
@@ -40,7 +40,8 @@ const WordEditor = () => {
           <div className="wordEditorList">
             <ul>
               {synonyms.map((synonym, index) => {
-                const [colour] = whichColour(synonym.rank, [...bands]);
+                const band = whichBand(synonym.rank, {...bands});
+                const colour = band === -1 ? "black" : bands[band].colour
                 return (
                   <li
                     key={`synonym-${index}`}
