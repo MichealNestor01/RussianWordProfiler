@@ -6,18 +6,8 @@ import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableD
 const LemmaTable = () => {
   const dispatch = useDispatch();
   const [selectedBand, setSelectedBand] = useState(0);
-  const bandFrequencyDict = useSelector(
-    (state) => state.stats.bandFrequencyDict
-  );
-
-  const bands = Object.keys(bandFrequencyDict).map((band) => {
-    const { colour } = bandFrequencyDict[band];
-    return { name: band, colour };
-  });
-
-  const lemmaFrequencyDict = useSelector(
-    (state) => state.stats.lemmaFrequencyDict
-  );
+  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
+  const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
   const wordData = useSelector((state) => state.text.wordData);
 
   // Create a dictionary with lemma as key and an array of words as value.
@@ -34,30 +24,34 @@ const LemmaTable = () => {
     }
   }
 
-  // Create an array of bands with lemmas.
-  let prevBand = -1;
-  const bandsWithLemmas = bands.map((band) => {
-    const lemmasInBand = [];
-    for (const lemma in lemmaWordsDict) {
-      const { rank, words } = lemmaWordsDict[lemma];
-      const occurrences = lemmaFrequencyDict[lemma];
-      if (band.name === "N/A" && rank === "N/A") {
-        lemmasInBand.push({ lemma, words, rank, occurrences });
-      } else if (rank <= parseInt(band.name) && rank > prevBand) {
-        lemmasInBand.push({ lemma, words, rank, occurrences });
-      }
-    }
-
-    // Sort lemmasInBand by rank.
-    if (band.name !== "N/A") {
-      lemmasInBand.sort((a, b) => a.rank - b.rank);
-    }
-    prevBand = parseInt(band.name);
-    return { ...band, lemmas: lemmasInBand };
+  const bands = Object.keys(bandFrequencyDict).map((band) => {
+    const { colour, active, bottomVal } = bandFrequencyDict[band];
+    return { name: band, colour, active, bottomVal };
   });
 
+  const bandsWithLemmas = []
+  bands.forEach((band) => {
+    if (band.active) {
+      const lemmasInBand = [];
+      for (const lemma in lemmaWordsDict) {
+        const { rank, words } = lemmaWordsDict[lemma];
+        const occurrences = lemmaFrequencyDict[lemma];
+        if (band.name === "N/A" && rank === "N/A") {
+          lemmasInBand.push({ lemma, words, rank, occurrences });
+        } else if (rank <= parseInt(band.name) && rank >= band.bottomVal) {
+          lemmasInBand.push({ lemma, words, rank, occurrences });
+        }
+      }
+
+      // Sort lemmasInBand by rank.
+      if (band.name !== "N/A") {
+        lemmasInBand.sort((a, b) => a.rank - b.rank);
+      }
+      bandsWithLemmas.push({ ...band, lemmas: lemmasInBand });
+    }
+  })
+
   dispatch(setTableData(bandsWithLemmas));
-  prevBand = 0;
 
   return (
     <Fragment>

@@ -33,13 +33,7 @@ const FormattedOutput = () => {
       // '\n' is treated as a word, so this will be skipped here but every other word will be in wordData
       if (wordLower in wordData) {
         const data = wordData[wordLower];
-        // track lemma occurrences:
-        totalSynonyms = data.synonyms.length;
-        if (data.lemma in lemmaFrequencyDict) {
-          lemmaFrequencyDict[data.lemma]++;
-        } else {
-          lemmaFrequencyDict[data.lemma] = 1;
-        }
+
         // get the band this word falls into
         const band = whichBand(wordData[wordLower].rank, {...bands});
         const topVal = band === -1 ? "N/A" : bands[band].topVal;
@@ -48,12 +42,20 @@ const FormattedOutput = () => {
         const bottomVal = band === -1 ? "N/A" : bands[band].bottomVal;
         console.log(bands[band]);
 
-        // increment the total words in this band
+        
         if (active) {
+          // increment the total words in this band
           if (topVal in bandFrequencyDict) {
             bandFrequencyDict[topVal].total++;
           } else {
             bandFrequencyDict[topVal] = { colour, total: 1, active, bottomVal };
+          }        
+          // track lemma occurrences:
+          totalSynonyms = data.synonyms.length;
+          if (data.lemma in lemmaFrequencyDict) {
+            lemmaFrequencyDict[data.lemma]++;
+          } else {
+            lemmaFrequencyDict[data.lemma] = 1;
           }
         }
 
