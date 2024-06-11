@@ -48,6 +48,17 @@ p,
   font-weight: 400;
 }
 
+button {
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  
+  
+  border:none;
+  background:none;
+  cursor:pointer;
+
+}
+
 .card {
   background-color: $colorCardBackground;
   border-radius: 1rem;
