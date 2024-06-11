@@ -12,9 +12,9 @@ const DistributionDisplay = () => {
 
   const totals = [];
   const bands = Object.keys(bandFrequencyDict).map((band) => {
-    const { colour, total } = bandFrequencyDict[band];
+    const { colour, total, bottomVal  } = bandFrequencyDict[band];
     totals.push(total);
-    return { name: band, colour, total };
+    return { name: band, colour, total, bottomVal };
   });
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
@@ -24,7 +24,7 @@ const DistributionDisplay = () => {
   bands.forEach((band, index) => {
     distributionData.push({
       "BAND": band.name !== "N/A"
-        ? `${index !== 0 ? `${parseInt(bands[index - 1].name) + 1} - ` : "Top "}${band.name}`
+        ? `${band.bottomVal !== 1 ? `${band.bottomVal} - ` : "Top "}${band.name}`
         : "Not in List",
         "PERCENTAGE COVERED": parseFloat(((100 * band.total) / sumTotal).toFixed(1)),
     });
@@ -51,11 +51,11 @@ const DistributionDisplay = () => {
                   <h1 className="title">
                     {band.name !== "N/A"
                       ? `${
-                          prevBand === 0
-                            ? "Top "
-                            : `${parseInt(prevBand) + 1} - `
-                        }${band.name}`
-                      : "Not in List"}
+                        band.bottomVal !== 1 
+                          ? `${band.bottomVal} - ` 
+                          : "Top "
+                      }${band.name}`
+                    : "Not in List"}
                   </h1>
                   <BandBar
                     index={index}
