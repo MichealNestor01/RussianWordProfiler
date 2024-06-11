@@ -30,10 +30,10 @@ h1 {
 }
 
 h2 {
-  color: #8c8c8d;
-  font-size: 22px;
+  color: #343734;
+  font-size: 1rem;
   line-height: 24px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 p,
@@ -42,6 +42,14 @@ p,
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+}
+
+button {
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .card {
@@ -268,7 +276,8 @@ ul {
   justify-content: space-between;
 }
 .bands-selector .panel .top h2 {
-  margin-top: 4px;
+  margin-top: 8px;
+  margin-left: 8px;
 }
 .bands-selector .panel .top .closeButton {
   background-color: #616161;
@@ -619,8 +628,8 @@ ul {
   width: 34rem;
   max-width: 100%;
   height: auto;
-  max-height: 32rem;
   overflow-y: auto;
+  max-height: 90vh;
   border-radius: 4px;
   background-color: #f5f5f5;
   z-index: 1010;
@@ -632,7 +641,6 @@ ul {
   height: 4rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-bottom: 1px solid #e7e7e7;
 }
 .dialogBackground .dialogBox .headerContainer .closeButton {
   height: 4rem;
@@ -642,6 +650,124 @@ ul {
   cursor: pointer;
 }
 .dialogBackground .dialogBox .headerContainer .closeButton .closeButtonIcon {
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  color: black;
+}
+.dialogBackground .dialogBox .content {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 1rem;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 2rem;
+}
+.band .bandColor {
+  width: 24px;
+  height: 24px;
+  margin-right: 1rem;
+  border-radius: 4px;
+}
+.band .bandInput {
+  width: 4.5rem;
+  height: 34px;
+  background-color: #F3EFF9;
+  padding-left: 0.5rem;
+  border-radius: 4px;
+  border: rgba(0, 0, 0, 0.1) 1px solid;
+}
+.band .bandTo {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.3);
+}
+.band .bandDelete {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  border: none;
+  background: none;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin-left: auto;
+}
+.band .bandAdd {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 8px;
+  color: rgb(27, 149, 255);
+  font-weight: 400;
+  transition: transform 0.1s ease-out;
+}
+.band .bandAdd:hover {
+  transform: scale(1.1);
+}
+.band .bandIcon {
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+}
+.band .disabled {
+  opacity: 0.5;
+}
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 1rem 1rem 1rem;
+}
+.orDivider .divider {
+  flex-grow: 1;
+  border-bottom: rgba(0, 0, 0, 0.1) 1px solid;
+}
+.orDivider p {
+  padding: 1rem;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.bandConfigOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+}
+.bandConfigOptions button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 33.3%;
+  height: 6rem;
+  padding: 0rem 1rem;
+  background: none;
+  border: none;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+.bandConfigOptions button .configIcon {
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.band:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.band:hover .bandDelete {
+  color: rgba(0, 0, 0, 0.8);
 }/*# sourceMappingURL=index.css.map */
