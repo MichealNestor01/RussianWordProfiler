@@ -20,6 +20,7 @@ for (let i = 0; i < 10; i++) {
   initialState.push({
     id: i,
     top: 1000 * (i + 1),
+    bottom: 1000 * i + 1,
     colour: colours[i],
   });
 }
@@ -27,7 +28,9 @@ for (let i = 0; i < 10; i++) {
 initialState.push({
   id: 10,
   top: 52047,
+  bottom: 1000 * (10) + 1,
   colour: colours[10],
+  
 });
 
 const storedState = localStorage.getItem("russianWordProfilerBands")
@@ -46,12 +49,33 @@ export const frequencyBandsSlice = createSlice({
       });
     },
     changeTopValue: (state, action) => {
-      state.forEach((band) => {
-        if (band.id === action.payload.target) {
-          band.top = action.payload.top;
+      for (let i = 0; i < state.length; i++) {
+        let band = state[i];
+        if (band.id == action.payload.target) {
+
+          band.top = parseInt(action.payload.top);
+
+          if (i + 1 < state.length) {
+            state[i+1].bottom = band.top + 1;
+          }
         }
-      });
+      }
     },
+
+    changeBottomValue: (state, action) => {
+      for (let i = 0; i < state.length; i++) {
+        let band = state[i];
+        if (band.id == action.payload.target) {
+
+          band.bottom = parseInt(action.payload.bottom);
+
+          if (i - 1 >= 0) {
+            state[i-1].top = band.bottom - 1 ;
+          }
+        }
+      }
+    },
+
     removeBand: (state, action) => {
       state.splice(action.payload, 1);
       //state.remove(action.payload.target);
@@ -79,7 +103,7 @@ export const frequencyBandsSlice = createSlice({
   },
 });
 
-export const { changeColour, changeTopValue, removeBand, addBand, saveBands, setDefaultBands } =
+export const { changeColour, changeTopValue, changeBottomValue, removeBand, addBand, saveBands, setDefaultBands } =
   frequencyBandsSlice.actions;
 
 export default frequencyBandsSlice.reducer;
