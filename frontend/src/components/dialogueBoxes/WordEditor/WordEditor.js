@@ -7,7 +7,7 @@ import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
 const WordEditor = () => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
   const {
     index: activeWordIndex,
     word,

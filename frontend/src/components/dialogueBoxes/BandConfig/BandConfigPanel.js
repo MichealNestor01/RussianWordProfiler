@@ -1,129 +1,34 @@
 import { Fragment, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Band from "./Band";
 import NewBand from "./NewBand";
 import DialogBox from "../DialogBox"
-import { useSelector, useDispatch } from "react-redux";
+import {useSelector, useDispatch, useEffect } from "react-redux";
 import {SwatchIcon, CloudArrowDownIcon, CloudArrowUpIcon} from "@heroicons/react/24/solid"
-
-
-
-// const BandConfigPanel = () => {
-//   const [activeIndex, setActiveIndex] = useState(-1);
-//   const dispatch = useDispatch();
-//   const bands = useSelector((state) => state.bands);
-
-//   const createBandInputDivs = () => {
-//     return bands.map((band, index) => {
-//       const top = index === 0;
-//       return (
-//         <div className="bandInput" key={`bandInput-${index}`}>
-//           <Band
-//             id={band.id}
-//             startColour={band.colour}
-//             activeIndex={activeIndex}
-//             setActiveIndex={setActiveIndex}
-//           />
-//           {top ? (
-//             <div className="gridItem">
-//               Top
-//               <input
-//                 type="number"
-//                 min="0"
-//                 max="60000"
-//                 value={bands[index].top}
-//                 onChange={(e) => {
-//                   dispatch(changeTopValue({ target: index, top: e.target.value }));
-//                 }}
-//               />
-//             </div>
-//           ) : (
-//             <div className="gridItem">
-//               <input
-//                 type="number"
-//                 min="0"
-//                 max="60000"
-//                 value={parseInt(bands[index - 1].top) + 1}
-//                 onChange={(e) => {
-//                   dispatch(changeTopValue({ target: index - 1, top: e.target.value }));
-//                 }}
-//               />
-//               to
-//               <input
-//                 type="number"
-//                 min={parseInt(bands[index - 1].top) + 1}
-//                 max="60000"
-//                 value={bands[index].top}
-//                 onChange={(e) => {
-//                   dispatch(changeTopValue({ target: index, top: e.target.value }));
-//                 }}
-//               />
-//             </div>
-//           )}
-//           <h2
-//             className="removeButton"
-//             onClick={() => {
-//               dispatch(removeBand(index));
-//             }}
-//           >
-//             x
-//           </h2>
-//         </div>
-//       );
-//     });
-//   };
-
-//   const panelHeight = 31 * bands.length;
-
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0, y: "0%", x: "350px" }}
-//       animate={{ opacity: 1, y: "-60px", x: "350px" }}
-//       exit={{ opacity: 0, y: "0%", x: "350px" }}
-//       transition={{ duration: 0.2 }}
-//       style={{ height: `${panelHeight + 160}px` }}
-//       className="panel card"
-//     >
-//       <div className="top">
-//         <h2>Band Configuration</h2>
-//         <div
-//           className="closeButton"
-//           onClick={() => {
-//             dispatch(closeActiveDialogue());
-//             setActiveIndex(-1);
-//           }}
-//         >
-//           x
-//         </div>
-//       </div>
-//       <div className="bandsForm">
-//         Bands:
-//         {createBandInputDivs()}
-//         <div
-//           onClick={() => {
-//             dispatch(addBand());
-//           }}
-//         >
-//           Add Band +
-//         </div>
-//       </div>
-//     </motion.div>
-//   );
-// };
+import { update } from "three/examples/jsm/libs/tween.module.js";
 
 
 const BandConfig = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
 
   return (
     <Fragment>
+      
+    <AnimatePresence initial={false}>
 
     {Object.keys(bands).map((band) => { 
-      return <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} />;
+      return <motion.div
+      initial={{opacity: 0, translateX: -50 }}
+      animate={{opacity:1, translateX: 0 }}
+      exit={{opacity:0, translateX: -50}}
+      transition={{ duration: 0.2 }}
+      key={band+"-container"}>
+        <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} />
+      </motion.div>;
     })}
-
+    </AnimatePresence>
     <NewBand />
 
     <div className="orDivider">
@@ -157,32 +62,5 @@ const BandConfigPanel = () => {
     />
   );
 }
-  // return (
-  //   <motion.div
-  //     initial={{ opacity: 0, y: "0%", x: "350px" }}
-  //     animate={{ opacity: 1, y: "-60px", x: "350px" }}
-  //     exit={{ opacity: 0, y: "0%", x: "350px" }}
-  //     transition={{ duration: 0.2 }}
-  //     style={{ height: `${panelHeight + 160}px` }}
-  //     className="panel card"
-  //   >
-  //     <div className="top">
-  //       <h2>Band Configuration</h2>
-  //       <div
-  //         className="closeButton"
-  //         onClick={() => {
-  //           dispatch(closeActiveDialogue());
-  //           setActiveIndex(-1);
-  //         }}
-  //       >
-  //         x
-  //       </div>
-  //     </div>
-  //     <div className="bandsForm">
-  //         Add Band +
-  //     </div>
-  //   </motion.div>
-  // );
-
 
 export default BandConfigPanel;

@@ -9,7 +9,7 @@ import { toggleActive } from "../../store/slices/frequencyBandsSlice";
 
 const BandsBar = () => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
   const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const { words, stopWords } = useSelector((state) => state.text);
 
@@ -35,6 +35,7 @@ const BandsBar = () => {
   };
 
   const createBandDivs = () => {
+    console.log("BANDS IN CREATE BANDS DIV: ", bands);
     return Object.keys(bands).map((band, index) => {
       return (
         <div

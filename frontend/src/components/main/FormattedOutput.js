@@ -13,7 +13,7 @@ import {
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
   const { textObjects, wordData } = useSelector((state) => state.text);
   const dispatch = useDispatch();
 

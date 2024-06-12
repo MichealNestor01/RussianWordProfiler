@@ -56,7 +56,7 @@ const storedState = localStorage.getItem("russianWordProfilerBandsV2")
 
 export const frequencyBandsSlice = createSlice({
     name: "bands",
-    initialState: storedState,
+    initialState: {bands: initialState},
     reducers: {
         changeColour: (state, action) => {
             // state.forEach((band) => {
@@ -64,19 +64,19 @@ export const frequencyBandsSlice = createSlice({
             //     band.colour = action.payload.colour;
             //   }
             // });
-            state[action.payload.target].colour = action.payload.colour;
+            state.bands[action.payload.target].colour = action.payload.colour;
         },
 
         changeTopVal: (state, action) => {
             const { target, newVal } = action.payload;
-            const next = state[target].next;
+            const next = state.bands[target].next;
 
             // update the current target's top val
-            state[target].topVal = parseInt(newVal);
+            state.bands[target].topVal = parseInt(newVal);
 
             // update the bottom value of the "next" item
             if (next !== -1) {
-                state[next].bottomVal = parseInt(newVal) + 1;
+                state.bands[next].bottomVal = parseInt(newVal) + 1;
             }
 
             // for (let i = 0; i < state.length; i++) {
@@ -94,14 +94,14 @@ export const frequencyBandsSlice = createSlice({
 
         changeBottomVal: (state, action) => {
             const { target, newVal } = action.payload;
-            const prev = state[target].prev;
+            const prev = state.bands[target].prev;
 
             // update the current target's bottom val
-            state[target].bottomVal = parseInt(newVal);
+            state.bands[target].bottomVal = parseInt(newVal);
 
             // update the top value of the "prev" item
             if (prev !== -1) {
-                state[prev].topVal = parseInt(newVal) - 1;
+                state.bands[prev].topVal = parseInt(newVal) - 1;
             }
         },
 
@@ -120,62 +120,63 @@ export const frequencyBandsSlice = createSlice({
         // },
 
         removeBand: (state, action) => {
-            if (!state.hasKey(action.payload)) {
-              return state;
+
+            console.log(action.payload)
+            if (!(action.payload in state.bands)) {
+              return state.bands;
             }
 
-            const bandToRemove = state[action.payload];
+            const bandToRemove = state.bands[action.payload];
 
             // update bands either side of the band to remove
             if (bandToRemove.prev !== -1) {
                 // prev band does exist
                 // make the prev point to the band to delete's next and take the band to delete's top
-                const prevBand = state[bandToRemove.prev];
+                const prevBand = state.bands[bandToRemove.prev];
                 prevBand.next = bandToRemove.next;
-                prevBand.top = bandToRemove.top;
+                prevBand.topVal = bandToRemove.topVal;
 
                 // if next exists, repoint its prev to the band to delete's prev
                 if (bandToRemove.next !== -1) {
-                    state[bandToRemove.next].prev = bandToRemove.prev;
+                    state.bands[bandToRemove.next].prev = bandToRemove.prev;
                 }
             } else if (bandToRemove.next !== -1) {
                 // prev band does not exist, but next does
-                const nextBand = state[bandToRemove.next];
+                const nextBand = state.bands[bandToRemove.next];
                 // make the next band take all the values of the current band
                 nextBand.bottomVal = bandToRemove.bottomVal;
                 nextBand.prev = -1;
             }
 
-            // remove the band
-            delete state[action.payload];
+            // For some reason delete 'state[action.payload]' sets the value of state[action.payload] to null instead of removing the key.....
+            // why? only the lord knows but this is the workaround 
+            const bandsCopy = {};
+            Object.keys(state.bands).forEach(band => {
+              if (band !== action.payload) {
+                bandsCopy[band] = {...state.bands[band]};
+              }
+            })
 
-            // state.splice(action.payload, 1);
-            // //state.remove(action.payload.target);
-            // for (let id = action.payload; id < state.length; id++) {
-            //   console.log(state[id].colour);
-            //   state[id].id = id;
-            // }
+            state.bands = {...bandsCopy}
 
-            // if (action.payload === state.length) {
-            //   state[state.length - 1].top = 60000;
-            // }
         },
 
         toggleActive: (state, action) => {
-          state[action.payload].active = !state[action.payload].active;
+          state.bands[action.payload].active = !state.bands[action.payload].active;
         },
 
         addBand: (state) => {
             // the maximum id already in state will be the "prev" of the new band
             let maxId = -1
-            if (Object.keys(state).length > 0) {
-              maxId = Math.max(Object.keys(state));  
+            if (Object.keys(state.bands).length > 0) {
+              maxId = Math.max(...Object.keys(state.bands).map(Number));  
             }
 
             if (maxId !== -1) {
-              state[maxId + 1] = { prev: maxId, next: -1, bottomVal: state[maxId].top + 1, topVal: state[maxId].top + 2, colour: colours[maxId < 10 ? maxId : 10], active: true };
+              state.bands[maxId + 1] = { prev: maxId, next: -1, bottomVal: state.bands[maxId].topVal + 1, topVal: state.bands[maxId].topVal + 2, colour: colours[maxId < 10 ? (maxId + 1) : 10], active: true };
+              state.bands[maxId].next = maxId + 1;
             } else { // no bands defined yet
-              state[0] = {prev: -1, next: -1, bottomVal: 1, topVal: 52047, colour: colours[0], active: true};
+              state.bands[0] = {prev: -1, next: -1, bottomVal: 1, topVal: 52047, colour: colours[0], active: true};
             }
         },
         
@@ -184,7 +185,7 @@ export const frequencyBandsSlice = createSlice({
         saveBands: (state) => {
             localStorage.setItem(
                 "russianWordProfilerBandsV2",
-                JSON.stringify(state)
+                JSON.stringify(state.bands)
             );
         },
 
@@ -193,7 +194,7 @@ export const frequencyBandsSlice = createSlice({
             // initialState.forEach((band) => {
             //     state.push(band);
             // });
-            state = {...initialState}
+            state.bands = {...initialState}
             localStorage.setItem(
                 "russianWordProfilerBandsV2",
                 JSON.stringify(state)
