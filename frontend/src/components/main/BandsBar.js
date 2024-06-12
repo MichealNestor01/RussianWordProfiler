@@ -35,7 +35,6 @@ const BandsBar = () => {
   };
 
   const createBandDivs = () => {
-    console.log("BANDS IN CREATE BANDS DIV: ", bands);
     return Object.keys(bands).map((band, index) => {
       return (
         <div

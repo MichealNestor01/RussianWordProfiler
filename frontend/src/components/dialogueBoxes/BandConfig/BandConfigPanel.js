@@ -5,13 +5,20 @@ import NewBand from "./NewBand";
 import DialogBox from "../DialogBox"
 import {useSelector, useDispatch, useEffect } from "react-redux";
 import {SwatchIcon, CloudArrowDownIcon, CloudArrowUpIcon} from "@heroicons/react/24/solid"
-import { update } from "three/examples/jsm/libs/tween.module.js";
+import { saveBands, setDefaultBands } from "../../../store/slices/frequencyBandsSlice"
 
 
 const BandConfig = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bandsSlice.bands);
+
+  const saveConfig = () => {
+    dispatch(saveBands());
+  };
+  const resetDefault = () => {
+    dispatch(setDefaultBands());
+  };
 
   return (
     <Fragment>
@@ -20,13 +27,13 @@ const BandConfig = () => {
 
     {Object.keys(bands).map((band) => { 
       return <motion.div
-      initial={{opacity: 0, translateX: -50 }}
-      animate={{opacity:1, translateX: 0 }}
-      exit={{opacity:0, translateX: -50}}
-      transition={{ duration: 0.2 }}
-      key={band+"-container"}>
-        <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} />
-      </motion.div>;
+        initial={{opacity: 0, scale:0.6}}
+        animate={{opacity:1, scale:1}}
+        exit={{opacity:0, scale:0.6}}
+        transition={{type:"spring", duration:0.2}}
+        key={band+"-container"}>
+        <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+    </motion.div>;
     })}
     </AnimatePresence>
     <NewBand />
@@ -39,7 +46,7 @@ const BandConfig = () => {
 
     <div className="bandConfigOptions">
       <button><SwatchIcon className="configIcon"/>Use Ready-Made Presets</button>
-      <button><CloudArrowDownIcon className="configIcon"/>Save current preset to local file</button>
+      <button onClick={(saveConfig())}><CloudArrowDownIcon className="configIcon"/>Save current preset to local file</button>
       <button><CloudArrowUpIcon className="configIcon"/>Load a preset from a local file</button>
     </div>
     </Fragment>
@@ -58,7 +65,7 @@ const BandConfigPanel = () => {
         </h1>
       }
       content={<BandConfig />}
-      
+    
     />
   );
 }

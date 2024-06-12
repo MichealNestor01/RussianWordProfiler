@@ -132,6 +132,13 @@
             height:2rem;
             margin-bottom:0.5rem;
         }
+
+        transition:transform 0.2s ease-in-out;
+    }
+
+    button:hover {
+        color: #9593ff;
+        transform:scale(1.1);
     }
 
 
