@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { scaleAnimation } from "../../../framer-defaults/animations";
 import Band from "./Band";
 import NewBand from "./NewBand";
 import DialogBox from "../DialogBox";
@@ -40,19 +41,24 @@ const BandConfigPanel = ({ active, onClose }) => {
             }}
             content={
                 <Fragment>
-                    {Object.keys(bands).map((band) => {
-                        return (
-                            <Band
-                                key={band}
-                                id={band}
-                                colour={bands[band].colour}
-                                top={bands[band].topVal}
-                                bottom={bands[band].bottomVal}
-                                setActiveIndex={setActiveIndex}
-                                activeIndex={activeIndex}
-                            />
-                        );
-                    })}
+                    <AnimatePresence initial={false}>
+                        {Object.keys(bands).map((band) => {
+                            return (
+                                <motion.div
+                                    {...scaleAnimation}
+                                    key={band + "-container"}
+                                >
+                                    <Band
+                                        key={band}
+                                        id={band}
+                                        colour={bands[band].colour}
+                                        top={bands[band].topVal}
+                                        bottom={bands[band].bottomVal}
+                                    />
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
 
                     <NewBand />
 
