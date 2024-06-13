@@ -8,30 +8,13 @@ import { splitText } from "../../functions/splitText";
 export const textSlice = createSlice({
   name: "text",
   initialState: {
-    words: "",
-    text: "",
-    textToProfile: "",
-    textObjects: [],
-    stopWords: [],
-    showApiConfig: false,
-    wordData: {},
+    words: "", // the words that make up the text typed
+    text: "", // the raw text typed by the user
+    textObjects: [], // the text tokeised
+    stopWords: [], // words to be ignored by the api
+    wordData: {}, // data for each word returned by the api
   },
   reducers: {
-    addParagraphEnd: (state, action) => {
-      if (!state.lineBreaks.includes(action.payload.index)) {
-        state.lineBreaks.push(action.payload.index);
-      }
-    },
-    setLineBreaks: (state, action) => {
-      state.lineBreaks = action.payload.new;
-    },
-    setParagraphBreaks: (state, action) => {
-      state.lineBreaks = action.payload.new;
-    },
-    setBreaks: (state, action) => {
-      state.lineBreaks = action.payload.lineBreaks;
-      state.paragraphBreaks = action.payload.paragraphBreaks;
-    },
     setWordData: (state, action) => {
       state.wordData = action.payload;
     },
@@ -43,9 +26,6 @@ export const textSlice = createSlice({
     },
     setStopWords: (state, action) => {
       state.stopWords = action.payload;
-    },
-    setShowApiConfig: (state, action) => {
-      state.showApiConfig = action.payload;
     },
     changeWord: (state, action) => {
       const { newWord, index } = action.payload;
@@ -65,16 +45,7 @@ export const textSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  addParagraphEnd,
-  setLineBreaks,
-  setParagraphBreaks,
-  setBreaks,
-  setWordData,
-  setText,
-  setStopWords,
-  setShowApiConfig,
-  changeWord,
-} = textSlice.actions;
+export const { setWordData, setText, setStopWords, changeWord } =
+  textSlice.actions;
 
 export default textSlice.reducer;
