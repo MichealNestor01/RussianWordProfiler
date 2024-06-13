@@ -24,6 +24,7 @@ export const textSlice = createSlice({
       state.stopWords = action.payload;
     },
     changeWord: (state, action) => {
+      // used to swap a word with a synonmym
       const { newWord, index } = action.payload;
       state.tokens[index].word = newWord;
       const words = state.words.split(" ");
