@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const BandsBar = () => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
   const { words, stopWords } = useSelector((state) => state.text);
   const [showBandConfig, setShowBandConfig] = useState(false);
   const [showApiSettings, setShowApiSettings] = useState(false);

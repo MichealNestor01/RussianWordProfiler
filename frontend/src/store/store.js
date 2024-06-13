@@ -5,7 +5,7 @@ import statsReducer from "./slices/statsSlice";
 
 const store = configureStore({
   reducer: {
-    bands: frequencyBandsReducer,
+    bandsSlice: frequencyBandsReducer,
     text: textReducer,
     stats: statsReducer,
   },

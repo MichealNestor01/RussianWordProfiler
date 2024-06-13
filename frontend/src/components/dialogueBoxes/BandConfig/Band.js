@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeColour,
   changeTopVal,
   changeBottomVal,
+  removeBand,
 } from "../../../store/slices/frequencyBandsSlice";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 

@@ -5,7 +5,7 @@ import DialogBox from "../DialogBox";
 
 const WordEditor = ({ active, onClose, selectedWord }) => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice);
   const { index: activeWordIndex, word, colour, synonyms } = selectedWord;
 
   return (
