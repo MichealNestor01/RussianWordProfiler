@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setText } from "../../store/slices/textSlice";
