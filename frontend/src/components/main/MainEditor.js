@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setText } from "../../store/slices/textSlice";
 import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
-import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
 
 function statisticsReducer(state, action) {
   const newState = [...state];
@@ -21,7 +20,6 @@ function statisticsReducer(state, action) {
 
 function MainEditor({ placeholder = "Text Here." }) {
   const dispatch = useDispatch();
-  const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const text = useSelector((state) => state.text.text);
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },

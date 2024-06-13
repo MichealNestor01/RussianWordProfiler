@@ -1,9 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setActiveDialogue,
-  setSelectedWord,
-} from "../../store/slices/siteStateSlice";
 import { whichBand } from "../../functions/whichBand";
 import {
   reset,
