@@ -11,7 +11,7 @@ import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bandsSlice.bands);
-  const { textObjects, wordData } = useSelector((state) => state.text);
+  const { tokens, wordData } = useSelector((state) => state.text);
   const [showWordEditor, setShowWordEditor] = useState(false);
   const [selectedWord, setSelectedWord] = useState({});
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const FormattedOutput = () => {
     // variables used for data tracking
     const lemmaFrequencyDict = {};
     const bandFrequencyDict = {};
-    const formattedText = textObjects.map((wordObj) => {
+    const formattedText = tokens.map((wordObj) => {
       const { index, word, prefix, postfix } = wordObj;
       // first check if the word is line breaks:
       if (word[0] === "\n") {
@@ -111,7 +111,7 @@ const FormattedOutput = () => {
     setOutput(formattedText);
     dispatch(setBandFrequencyDict(bandFrequencyDict));
     dispatch(setLemmaFrequencyDict(lemmaFrequencyDict));
-  }, [wordData, textObjects, bands, dispatch]);
+  }, [wordData, tokens, bands, dispatch]);
 
   return (
     <Fragment>
