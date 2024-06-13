@@ -25,11 +25,27 @@ export const textSlice = createSlice({
     },
     changeWord: (state, action) => {
       // used to swap a word with a synonmym
-      const { newWord, index } = action.payload;
+      const { index, newWord, newWordRank, newWordLemma } = action.payload;
+
+      // add the new word to word data.
+      if (!(newWord in state.wordData)) {
+        const oldWord = state.tokens[index].word;
+        state.wordData[newWord] = {
+          rank: newWordRank,
+          lemma: newWordLemma,
+          synonyms: [{ synonym: oldWord, rank: state.wordData[oldWord].rank }],
+        };
+      }
+
+      // update the tokeon of the word being replaced
       state.tokens[index].word = newWord;
+
+      // update the words string with the new word
       const words = state.words.split(" ");
       words[index] = newWord;
       state.words = words.join(" ");
+
+      // update the text string with the new word
       const text = state.tokens.map(({ prefix, word, postfix }) => {
         if (word[0] !== "\n") {
           return `${prefix}${word}${postfix} `;

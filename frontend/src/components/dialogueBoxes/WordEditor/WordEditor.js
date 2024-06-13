@@ -35,6 +35,8 @@ const WordEditor = ({ active, onClose, selectedWord }) => {
                         changeWord({
                           index: activeWordIndex,
                           newWord: synonym.synonym,
+                          newWordRank: synonym.rank,
+                          newWordLemma: synonym.lemma,
                         })
                       );
                       onClose();
