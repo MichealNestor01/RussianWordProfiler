@@ -36,8 +36,8 @@ function App() {
       <div className="title-container">
         <h1 className="title">Russian Word Profiler</h1>
         <div className="button-container">
-          <button onClick={saveConfig}>Save Band Configuration</button>
-          <button onClick={resetDefault}>Reset Band Configuration</button>
+          {/* <button onClick={saveConfig}>Save Band Configuration</button> */}
+          {/* <button onClick={resetDefault}>Reset Band Configuration</button> */}
         </div>
       </div>
 

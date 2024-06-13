@@ -104,8 +104,8 @@ ul {
   max-height: 160vh;
 }
 .page-wrapper .title-container {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -244,7 +244,7 @@ ul {
   margin-bottom: 4px;
   border: 3px solid transparent;
   border-radius: 4px;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .bands-selector .bandContainer h5 {
   white-space: nowrap;
@@ -575,6 +575,7 @@ ul {
 .downloadButton:hover {
   stroke: #9593ff;
   fill: #9593ff;
+  transform: scale(1.1);
 }
 
 .tooltipHovered {
@@ -759,10 +760,15 @@ ul {
   font-weight: 500;
   color: #333;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 .bandConfigOptions button .configIcon {
   height: 2rem;
   margin-bottom: 0.5rem;
+}
+.bandConfigOptions button:hover {
+  color: #9593ff;
+  transform: scale(1.1);
 }
 
 .band:hover {
