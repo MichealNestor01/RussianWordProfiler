@@ -1,6 +1,3 @@
-import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
 import FileUpload from "../../generic/FileUpload";
 import DialogBox from "../DialogBox";
 import { Fragment } from "react";

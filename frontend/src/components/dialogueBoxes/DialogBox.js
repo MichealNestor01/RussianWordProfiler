@@ -1,6 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../store/slices/siteStateSlice";
 import XIcon from "../XIcon";
 
 const DialogBox = ({ header, content, active, onClose }) => {
