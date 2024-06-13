@@ -2,11 +2,13 @@ import { Fragment, useState } from "react";
 import { motion } from "framer-motion";
 import Band from "./Band";
 import NewBand from "./NewBand";
-import DialogBox from "../DialogBox"
+import DialogBox from "../DialogBox";
 import { useSelector, useDispatch } from "react-redux";
-import {SwatchIcon, CloudArrowDownIcon, CloudArrowUpIcon} from "@heroicons/react/24/solid"
-
-
+import {
+  SwatchIcon,
+  CloudArrowDownIcon,
+  CloudArrowUpIcon,
+} from "@heroicons/react/24/solid";
 
 // const BandConfigPanel = () => {
 //   const [activeIndex, setActiveIndex] = useState(-1);
@@ -111,78 +113,88 @@ import {SwatchIcon, CloudArrowDownIcon, CloudArrowUpIcon} from "@heroicons/react
 //   );
 // };
 
-
-const BandConfig = () => {
+const BandConfig = ({}) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
 
   return (
     <Fragment>
+      {Object.keys(bands).map((band) => {
+        return (
+          <Band
+            key={band}
+            id={band}
+            colour={bands[band].colour}
+            top={bands[band].topVal}
+            bottom={bands[band].bottomVal}
+          />
+        );
+      })}
 
-    {Object.keys(bands).map((band) => { 
-      return <Band key={band} id={band} colour={bands[band].colour} top={bands[band].topVal} bottom={bands[band].bottomVal} />;
-    })}
+      <NewBand />
 
-    <NewBand />
+      <div className="orDivider">
+        <div className="divider"></div>
+        <p>OR</p>
+        <div className="divider"></div>
+      </div>
 
-    <div className="orDivider">
-      <div className="divider"></div>
-      <p>OR</p>
-      <div className="divider"></div>
-    </div>
-
-    <div className="bandConfigOptions">
-      <button><SwatchIcon className="configIcon"/>Use Ready-Made Presets</button>
-      <button><CloudArrowDownIcon className="configIcon"/>Save current preset to local file</button>
-      <button><CloudArrowUpIcon className="configIcon"/>Load a preset from a local file</button>
-    </div>
+      <div className="bandConfigOptions">
+        <button>
+          <SwatchIcon className="configIcon" />
+          Use Ready-Made Presets
+        </button>
+        <button>
+          <CloudArrowDownIcon className="configIcon" />
+          Save current preset to local file
+        </button>
+        <button>
+          <CloudArrowUpIcon className="configIcon" />
+          Load a preset from a local file
+        </button>
+      </div>
     </Fragment>
   );
-}
-
+};
 
 // Wrap the band config panel in a dialog box.
 // We add an onclose that saves the configuration when closing the dialog box.
-const BandConfigPanel = () => {
-  return  (
+const BandConfigPanel = ({ active, onClose }) => {
+  return (
     <DialogBox
-      header={
-        <h1>
-          Band Configuration
-        </h1>
-      }
+      header={<h1>Band Configuration</h1>}
       content={<BandConfig />}
-      
+      active={active}
+      onClose={onClose}
     />
   );
-}
-  // return (
-  //   <motion.div
-  //     initial={{ opacity: 0, y: "0%", x: "350px" }}
-  //     animate={{ opacity: 1, y: "-60px", x: "350px" }}
-  //     exit={{ opacity: 0, y: "0%", x: "350px" }}
-  //     transition={{ duration: 0.2 }}
-  //     style={{ height: `${panelHeight + 160}px` }}
-  //     className="panel card"
-  //   >
-  //     <div className="top">
-  //       <h2>Band Configuration</h2>
-  //       <div
-  //         className="closeButton"
-  //         onClick={() => {
-  //           dispatch(closeActiveDialogue());
-  //           setActiveIndex(-1);
-  //         }}
-  //       >
-  //         x
-  //       </div>
-  //     </div>
-  //     <div className="bandsForm">
-  //         Add Band +
-  //     </div>
-  //   </motion.div>
-  // );
-
+};
+// return (
+//   <motion.div
+//     initial={{ opacity: 0, y: "0%", x: "350px" }}
+//     animate={{ opacity: 1, y: "-60px", x: "350px" }}
+//     exit={{ opacity: 0, y: "0%", x: "350px" }}
+//     transition={{ duration: 0.2 }}
+//     style={{ height: `${panelHeight + 160}px` }}
+//     className="panel card"
+//   >
+//     <div className="top">
+//       <h2>Band Configuration</h2>
+//       <div
+//         className="closeButton"
+//         onClick={() => {
+//           dispatch(closeActiveDialogue());
+//           setActiveIndex(-1);
+//         }}
+//       >
+//         x
+//       </div>
+//     </div>
+//     <div className="bandsForm">
+//         Add Band +
+//     </div>
+//   </motion.div>
+// );
 
 export default BandConfigPanel;
