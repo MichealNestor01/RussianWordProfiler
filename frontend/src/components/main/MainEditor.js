@@ -1,10 +1,8 @@
-import { AnimatePresence } from "framer-motion";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setText } from "../../store/slices/textSlice";
 import BandsBar from "./BandsBar";
 import FormattedOutput from "./FormattedOutput";
-import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
 
 function statisticsReducer(state, action) {
   const newState = [...state];
@@ -21,7 +19,6 @@ function statisticsReducer(state, action) {
 
 function MainEditor({ placeholder = "Text Here." }) {
   const dispatch = useDispatch();
-  const activeWindow = useSelector((state) => state.siteState.activeWindow);
   const text = useSelector((state) => state.text.text);
   const [statistics, dispatchStatistics] = useReducer(statisticsReducer, [
     { id: "words", text: "WORDS", count: 0 },
@@ -73,7 +70,9 @@ function MainEditor({ placeholder = "Text Here." }) {
         {statistics.map((stat, index) => {
           return (
             <div className="stat" key={stat.text}>
-              {index < statistics.length - 1 && <div className="right-border" />}
+              {index < statistics.length - 1 && (
+                <div className="right-border" />
+              )}
               <h1 className="number">{stat.count}</h1>
               <p className="text">{stat.text}</p>
             </div>
@@ -94,7 +93,6 @@ function MainEditor({ placeholder = "Text Here." }) {
       <section className="bands-container">
         <BandsBar />
       </section>
-      <AnimatePresence>{activeWindow === "words" && <WordEditor />}</AnimatePresence>
     </section>
   );
 }

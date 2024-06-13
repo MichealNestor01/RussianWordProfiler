@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTopVal, changeBottomVal, removeBand } from "../../../store/slices/frequencyBandsSlice";
+import {
+  changeColour,
+  changeTopVal,
+  changeBottomVal,
+} from "../../../store/slices/frequencyBandsSlice";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 import BandColour from "./BandColour";
@@ -20,8 +24,7 @@ const Band = ({id, colour, top, bottom, activeIndex, setActiveIndex}) => {
         <XMarkIcon className="closeButtonIcon" />
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default Band;
-
