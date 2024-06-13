@@ -6,13 +6,13 @@ import {
   setLemmaFrequencyDict,
   setBandFrequencyDict,
 } from "../../store/slices/statsSlice";
-import WordEditor from "../dialogueBoxes/WordEditor/WordEditor";
+import SynonymReplacer from "../dialogueBoxes/SynonymReplacer/SynonymReplacer";
 
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bandsSlice.bands);
   const { tokens, wordData } = useSelector((state) => state.text);
-  const [showWordEditor, setShowWordEditor] = useState(false);
+  const [showSynonymReplacer, setShowSynonymReplacer] = useState(false);
   const [selectedWord, setSelectedWord] = useState({});
   const dispatch = useDispatch();
 
@@ -83,7 +83,7 @@ const FormattedOutput = () => {
                     colour,
                     synonyms: wordData[wordLower].synonyms,
                   });
-                  setShowWordEditor(true);
+                  setShowSynonymReplacer(true);
                   // dispatch(
                   //   setSelectedWord({
                   //     index,
@@ -116,9 +116,9 @@ const FormattedOutput = () => {
   return (
     <Fragment>
       {output}
-      <WordEditor
-        active={showWordEditor}
-        onClose={() => setShowWordEditor(false)}
+      <SynonymReplacer
+        active={showSynonymReplacer}
+        onClose={() => setShowSynonymReplacer(false)}
         selectedWord={selectedWord}
       />
     </Fragment>

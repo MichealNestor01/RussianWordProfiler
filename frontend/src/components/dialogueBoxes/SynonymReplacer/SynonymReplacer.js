@@ -3,7 +3,7 @@ import { whichBand } from "../../../functions/whichBand";
 import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
 
-const WordEditor = ({ active, onClose, selectedWord }) => {
+const SynonymReplacer = ({ active, onClose, selectedWord }) => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bandsSlice.bands);
   const { index: activeWordIndex, word, colour, synonyms } = selectedWord;
@@ -54,4 +54,4 @@ const WordEditor = ({ active, onClose, selectedWord }) => {
   );
 };
 
-export default WordEditor;
+export default SynonymReplacer;

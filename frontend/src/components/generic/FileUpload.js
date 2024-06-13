@@ -22,7 +22,9 @@ const FileUpload = () => {
         const words = lines.map((line) => line.trim());
         dispatch(setStopWords(words));
       } else {
-        alert("Invalid file format. Please upload a file with one word per line.");
+        alert(
+          "Invalid file format. Please upload a file with one word per line."
+        );
       }
     };
 

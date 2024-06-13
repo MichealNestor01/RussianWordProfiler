@@ -6,8 +6,12 @@ import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableD
 const LemmaTable = () => {
   const dispatch = useDispatch();
   const [selectedBand, setSelectedBand] = useState(0);
-  const bandFrequencyDict = useSelector((state) => state.stats.bandFrequencyDict);
-  const lemmaFrequencyDict = useSelector((state) => state.stats.lemmaFrequencyDict);
+  const bandFrequencyDict = useSelector(
+    (state) => state.stats.bandFrequencyDict
+  );
+  const lemmaFrequencyDict = useSelector(
+    (state) => state.stats.lemmaFrequencyDict
+  );
   const wordData = useSelector((state) => state.text.wordData);
 
   // Create a dictionary with lemma as key and an array of words as value.
@@ -29,7 +33,7 @@ const LemmaTable = () => {
     return { name: band, colour, active, bottomVal };
   });
 
-  const bandsWithLemmas = []
+  const bandsWithLemmas = [];
   bands.forEach((band) => {
     if (band.active) {
       const lemmasInBand = [];
@@ -49,7 +53,7 @@ const LemmaTable = () => {
       }
       bandsWithLemmas.push({ ...band, lemmas: lemmasInBand });
     }
-  })
+  });
 
   dispatch(setTableData(bandsWithLemmas));
 
