@@ -120,6 +120,8 @@ const BandConfigPanel = ({ active, onClose }) => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bands);
 
+  const [showPresets, setShowPresets] = useState(false);
+
   return (
     <DialogBox
       header={<h1>Band Configuration</h1>}
@@ -148,7 +150,7 @@ const BandConfigPanel = ({ active, onClose }) => {
           </div>
 
           <div className="bandConfigOptions">
-            <button>
+            <button onClick={() => setShowPresets(true)}>
               <SwatchIcon className="configIcon" />
               Use Ready-Made Presets
             </button>
@@ -161,6 +163,12 @@ const BandConfigPanel = ({ active, onClose }) => {
               Load a preset from a local file
             </button>
           </div>
+          <DialogBox
+            active={showPresets}
+            onClose={() => setShowPresets(false)}
+            header={<h1>Band Preset Selector</h1>}
+            content={<p>Select a preset:</p>}
+          />
         </Fragment>
       }
     />

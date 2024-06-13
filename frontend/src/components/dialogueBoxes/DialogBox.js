@@ -11,6 +11,7 @@ const DialogBox = ({ header, content, active, onClose }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="dialogBackground"
+          onClick={onClose}
         >
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
@@ -18,6 +19,7 @@ const DialogBox = ({ header, content, active, onClose }) => {
             exit={{ scale: 0.5, opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="dialogBox"
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="headerContainer">
               {header}
