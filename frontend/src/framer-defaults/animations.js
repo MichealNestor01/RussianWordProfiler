@@ -1,6 +1,8 @@
 /**
- * @description
- * Contains default animation configurations for the application using Framer Motion.
+ * Animation Configurations
+ *
+ * This module contains default animation configurations for the application using Framer Motion.
+ * It includes scaleAnimation and fadeAnimation for scaling and fading elements respectively.
  *
  * @example
  * import { scaleAnimation, fadeAnimation } from './animations';
