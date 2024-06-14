@@ -9,6 +9,38 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 
 import BandColour from "./BandColour";
 
+/**
+ * @description
+ * Component for configuring a single band.
+ *
+ * ### Redux Store Interaction
+ * The component dispatches the following Redux actions:
+ * - `changeBottomVal`: Action to change the bottom value of a band.
+ * - `changeTopVal`: Action to change the top value of a band.
+ * - `removeBand`: Action to remove a band.
+ *
+ * @component
+ * @param {Object} props - The props for Band.
+ * @param {number} props.id - The ID of the band.
+ * @param {string} props.colour - The color of the band.
+ * @param {number} props.top - The top value of the band.
+ * @param {number} props.bottom - The bottom value of the band.
+ * @param {number} props.activeIndex - The index of the active band.
+ * @param {Function} props.setActiveIndex - Function to set the active band index.
+ *
+ * @example
+ * const band = { id: 1, colour: 'red', top: 1000, bottom: 1 };
+ * return (
+ *   <Band
+ *     id={band.id}
+ *     colour={band.colour}
+ *     top={band.top}
+ *     bottom={band.bottom}
+ *     activeIndex={0}
+ *     setActiveIndex={() => {}}
+ *   />
+ * )
+ */
 const Band = ({ id, colour, top, bottom, activeIndex, setActiveIndex }) => {
   const dispatch = useDispatch();
 

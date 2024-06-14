@@ -2,6 +2,17 @@ import FileUpload from "../../generic/FileUpload";
 import DialogBox from "../DialogBox";
 import { Fragment } from "react";
 
+/**
+ * @description
+ * Component for API settings dialog.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <ApiSettings />
+ * )
+ */
 const ApiSettings = ({ active, onClose }) => {
   return (
     <DialogBox

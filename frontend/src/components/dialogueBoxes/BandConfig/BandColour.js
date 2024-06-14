@@ -4,6 +4,29 @@ import { ChromePicker } from "react-color";
 import { changeColour } from "../../../store/slices/frequencyBandsSlice";
 import { AnimatePresence, motion } from "framer-motion";
 
+/**
+ * @description
+ * Component for selecting a band color.
+ *
+ * ### Redux Store Interaction
+ * The component dispatches the following Redux actions:
+ * - `changeColour`: Action to change the color of a band.
+ *
+ * ### Dependencies
+ * This component depends on the `ChromePicker` component from the `react-color` library to provide a color picker interface.
+ *
+ * @component
+ * @param {Object} props - The props for BandColour.
+ * @param {number} props.id - The ID of the band.
+ * @param {string} props.colour - The current color of the band.
+ * @param {number} props.activeIndex - The index of the active band.
+ * @param {Function} props.setActiveIndex - Function to set the active band index.
+ *
+ * @example
+ * return (
+ *   <BandColour id={1} colour="red" activeIndex={0} setActiveIndex={() => {}} />
+ * )
+ */
 const BandColour = ({ id, colour, activeIndex, setActiveIndex }) => {
   const [newColour, setColour] = useState(colour);
   const dispatch = useDispatch();

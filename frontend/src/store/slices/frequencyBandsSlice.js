@@ -41,70 +41,98 @@ const storedState = localStorage.getItem("russianWordProfilerBandsV2")
   ? JSON.parse(localStorage.getItem("russianWordProfilerBandsV2"))
   : initialState;
 
+/**
+ * @description
+ * Redux slice for managing frequency bands, including their colors, values, and active states.
+ *
+ * ### Initial State
+ * The initial state is either loaded from localStorage or set to default values.
+ *
+ * @example
+ * import { useDispatch, useSelector } from 'react-redux';
+ * import { changeColour, addBand } from './frequencyBandsSlice';
+ *
+ * const dispatch = useDispatch();
+ * const bands = useSelector((state) => state.bandsSlice.bands);
+ *
+ * dispatch(changeColour({ target: 1, colour: '#000000' }));
+ * dispatch(addBand());
+ */
 export const frequencyBandsSlice = createSlice({
   name: "bands",
   initialState: { bands: storedState },
   reducers: {
+    /**
+     * @description
+     * Changes the color of a specified band.
+     * @param {Object} state - The current state of the slice.
+     * @param {Object} action - The action object containing payload with target band and new color.
+     */
     changeColour: (state, action) => {
       state.bands[action.payload.target].colour = action.payload.colour;
     },
 
+    /**
+     * @description
+     * Changes the top value of a specified band and adjusts the bottom value of the next band.
+     * @param {Object} state - The current state of the slice.
+     * @param {Object} action - The action object containing payload with target band and new top value.
+     */
     changeTopVal: (state, action) => {
       const { target, newVal } = action.payload;
       const next = state.bands[target].next;
 
-      // update the current target's top val
       state.bands[target].topVal = parseInt(newVal);
 
-      // update the bottom value of the "next" item
       if (next !== -1) {
         state.bands[next].bottomVal = parseInt(newVal) + 1;
       }
     },
 
+    /**
+     * @description
+     * Changes the bottom value of a specified band and adjusts the top value of the previous band.
+     * @param {Object} state - The current state of the slice.
+     * @param {Object} action - The action object containing payload with target band and new bottom value.
+     */
     changeBottomVal: (state, action) => {
       const { target, newVal } = action.payload;
       const prev = state.bands[target].prev;
 
-      // update the current target's bottom val
       state.bands[target].bottomVal = parseInt(newVal);
 
-      // update the top value of the "prev" item
       if (prev !== -1) {
         state.bands[prev].topVal = parseInt(newVal) - 1;
       }
     },
 
+    /**
+     * @description
+     * Removes a specified band and adjusts the pointers of adjacent bands.
+     * @param {Object} state - The current state of the slice.
+     * @param {Object} action - The action object containing payload with the target band to be removed.
+     */
     removeBand: (state, action) => {
-      console.log(action.payload);
       if (!(action.payload in state.bands)) {
         return state.bands;
       }
 
       const bandToRemove = state.bands[action.payload];
 
-      // update bands either side of the band to remove
       if (bandToRemove.prev !== -1) {
-        // prev band does exist
-        // make the prev point to the band to delete's next and take the band to delete's top
         const prevBand = state.bands[bandToRemove.prev];
         prevBand.next = bandToRemove.next;
         prevBand.topVal = bandToRemove.topVal;
 
-        // if next exists, repoint its prev to the band to delete's prev
         if (bandToRemove.next !== -1) {
           state.bands[bandToRemove.next].prev = bandToRemove.prev;
         }
       } else if (bandToRemove.next !== -1) {
-        // prev band does not exist, but next does
         const nextBand = state.bands[bandToRemove.next];
-        // make the next band take all the values of the current band
         nextBand.bottomVal = bandToRemove.bottomVal;
         nextBand.prev = -1;
       }
 
-      // For some reason delete 'state[action.payload]' sets the value of state[action.payload] to null instead of removing the key.....
-      // why? only the lord knows but this is the workaround
       const bandsCopy = {};
       Object.keys(state.bands).forEach((band) => {
         if (band !== action.payload) {
@@ -115,12 +143,22 @@ export const frequencyBandsSlice = createSlice({
       state.bands = { ...bandsCopy };
     },
 
+    /**
+     * @description
+     * Toggles the active state of a specified band.
+     * @param {Object} state - The current state of the slice.
+     * @param {Object} action - The action object containing payload with the target band.
+     */
     toggleActive: (state, action) => {
       state.bands[action.payload].active = !state.bands[action.payload].active;
     },
 
+    /**
+     * @description
+     * Adds a new band to the state.
+     * @param {Object} state - The current state of the slice.
+     */
     addBand: (state) => {
-      // the maximum id already in state will be the "prev" of the new band
       let maxId = -1;
       if (Object.keys(state.bands).length > 0) {
         maxId = Math.max(...Object.keys(state.bands).map(Number));
@@ -137,7 +175,6 @@ export const frequencyBandsSlice = createSlice({
         };
         state.bands[maxId].next = maxId + 1;
       } else {
-        // no bands defined yet
         state.bands[0] = {
           prev: -1,
           next: -1,
@@ -149,6 +186,11 @@ export const frequencyBandsSlice = createSlice({
       }
     },
 
+    /**
+     * @description
+     * Saves the current band configuration to localStorage.
+     * @param {Object} state - The current state of the slice.
+     */
     saveBands: (state) => {
       localStorage.setItem(
         "russianWordProfilerBandsV2",

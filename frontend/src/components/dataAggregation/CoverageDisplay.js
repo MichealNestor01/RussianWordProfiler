@@ -4,6 +4,24 @@ import { setCoverageData } from "../../store/slices/statsSlice";
 import BandBar from "../generic/BandBar";
 import DownloadCoverageData from "../dataAggregation/downloadButtons/DownloadCoverageData";
 
+/**
+ * @description
+ * Component for displaying coverage data.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
+ *
+ * The component dispatches the following Redux actions:
+ * - `setCoverageData`: Action to set the coverage data. Used so this data can be downloaded.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <CoverageDisplay />
+ * )
+ */
 const DistributionDisplay = () => {
   const dispatch = useDispatch();
   const bandFrequencyDict = useSelector(

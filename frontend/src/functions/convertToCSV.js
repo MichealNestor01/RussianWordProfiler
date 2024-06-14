@@ -1,4 +1,23 @@
-// java script function to convert a js object to a csv
+/**
+ * @description
+ * Converts a 2D array of JavaScript objects to a CSV string.
+ *
+ * @param {Array<Array<string|number>>} arr - The 2D array of data to be converted to CSV format.
+ * @returns {string} The CSV formatted string.
+ *
+ * @example
+ * const data = [
+ *   ["name", "age"],
+ *   ["John", 30],
+ *   ["Jane", 25]
+ * ];
+ * const csv = convertToCSV(data);
+ * console.log(csv);
+ * // Output:
+ * // name,age
+ * // John,30
+ * // Jane,25
+ */
 export function convertToCSV(arr) {
   let str = "";
 
