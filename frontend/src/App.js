@@ -7,6 +7,21 @@ import LemmaTable from "./components/dataAggregation/LemmaTable";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
+
+/**
+ * @description
+ * Main application component for the Russian Word Profiler.
+ *
+ * ### Initialization
+ * On the initial load, the application displays an alert informing users about the project's new status and requesting bug reports.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <App />
+ * )
+ */
 function App() {
   useEffect(() => {
     if (initial) {

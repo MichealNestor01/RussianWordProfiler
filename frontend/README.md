@@ -6,15 +6,23 @@
 
 <!-- toc -->
 
-- [Russian Word Profiler - react frontend](#russian-word-profiler---react-frontend)
-  - [Table of Contents](#table-of-contents)
-  - [Install](#install)
+  * [Install](#install)
 - [Documentation](#documentation)
-  - [Table of Contents](#table-of-contents-1)
-  - [SynonymReplacer](#synonymreplacer)
-    - [Redux Store Interaction](#redux-store-interaction)
-    - [Parameters](#parameters)
-    - [Examples](#examples)
+    + [Table of Contents](#table-of-contents)
+  * [App](#app)
+    + [Initialization](#initialization)
+    + [Examples](#examples)
+  * [MainEditor](#maineditor)
+    + [Redux Store Interaction](#redux-store-interaction)
+    + [Parameters](#parameters)
+    + [Examples](#examples-1)
+  * [FormattedOutput](#formattedoutput)
+    + [Redux Store Interaction](#redux-store-interaction-1)
+    + [Examples](#examples-2)
+  * [SynonymReplacer](#synonymreplacer)
+    + [Redux Store Interaction](#redux-store-interaction-2)
+    + [Parameters](#parameters-1)
+    + [Examples](#examples-3)
 
 <!-- tocstop -->
 
@@ -29,10 +37,91 @@ Installation instructions here
 
 ### Table of Contents
 
-- [SynonymReplacer][1]
-  - [Redux Store Interaction][2]
-  - [Parameters][3]
-  - [Examples][4]
+*   [App][1]
+    *   [Initialization][2]
+    *   [Examples][3]
+*   [MainEditor][4]
+    *   [Redux Store Interaction][5]
+    *   [Parameters][6]
+    *   [Examples][7]
+*   [FormattedOutput][8]
+    *   [Redux Store Interaction][9]
+    *   [Examples][10]
+*   [SynonymReplacer][11]
+    *   [Redux Store Interaction][12]
+    *   [Parameters][13]
+    *   [Examples][14]
+
+## App
+
+Main application component for the Russian Word Profiler.
+
+### Initialization
+
+On the initial load, the application displays an alert informing users about the project's new status and requesting bug reports.
+
+### Examples
+
+```javascript
+return (
+  <App />
+)
+```
+
+## MainEditor
+
+Main editor component for text input and analysis in the Russian Word Profiler.
+
+### Redux Store Interaction
+
+The component uses the following parts of the Redux store:
+
+*   `textSlice.text`: The current text input by the user.
+
+The component dispatches the following Redux actions:
+
+*   `setText`: Action to update the text input in the Redux store.
+
+### Parameters
+
+*   `props` **[Object][15]** The props for MainEditor.
+
+    *   `props.placeholder` **[string][16]** The placeholder text for the text input area. (optional, default `"Text Here."`)
+
+### Examples
+
+```javascript
+return (
+  <MainEditor placeholder="Enter your text here." />
+)
+```
+
+## FormattedOutput
+
+Component for displaying the formatted output of the analyzed text in the Russian Word Profiler.
+It highlights words based on their frequency band and allows synonym replacement.
+
+### Redux Store Interaction
+
+The component uses the following parts of the Redux store:
+
+*   `bandsSlice.bands`: An array of band objects used to determine the color and activity status of words.
+*   `text.tokens`: The tokens from the input text.
+*   `text.wordData`: The data associated with each word, including synonyms.
+
+The component dispatches the following Redux actions:
+
+*   `reset`: Action to reset the stats slice.
+*   `setLemmaFrequencyDict`: Action to set the frequency dictionary for lemmas.
+*   `setBandFrequencyDict`: Action to set the frequency dictionary for bands.
+
+### Examples
+
+```javascript
+return (
+  <FormattedOutput />
+)
+```
 
 ## SynonymReplacer
 
@@ -42,55 +131,80 @@ Dialog box component used to replace a selected word with one of its synonyms.
 
 The component uses the following parts of the Redux store:
 
-- `bandsSlice.bands`: An array of band objects used here to determine the colour of synonyms based on their rank.
+*   `bandsSlice.bands`: An array of band objects used here to determine the colour of synonyms based on their rank.
 
 The component dispatches the following Redux actions:
 
-- `changeWord`: Action to update the selected word in the Redux store.
+*   `changeWord`: Action to update the selected word in the Redux store.
 
 ### Parameters
 
-- `props` **[Object][5]** The props for SynonymReplacer.
+*   `props` **[Object][15]** The props for SynonymReplacer.
 
-  - `props.active` **[boolean][6]** Whether the dialog box is active.
-  - `props.onClose` **[Function][7]** Function to close the dialog box.
-  - `props.selectedWord` **[Object][5]** The currently selected word and its details.
+    *   `props.active` **[boolean][17]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][18]** Function to close the dialog box.
+    *   `props.selectedWord` **[Object][15]** The currently selected word and its details.
 
-    - `props.selectedWord.index` **[number][8]** The index of the selected word.
-    - `props.selectedWord.word` **[string][9]** The selected word.
-    - `props.selectedWord.colour` **[string][9]** The colour of the selected word.
-    - `props.selectedWord.synonyms` **[Array][10]** The list of synonyms for the selected word.
+        *   `props.selectedWord.index` **[number][19]** The index of the selected word.
+        *   `props.selectedWord.word` **[string][16]** The selected word.
+        *   `props.selectedWord.colour` **[string][16]** The colour of the selected word.
+        *   `props.selectedWord.synonyms` **[Array][20]** The list of synonyms for the selected word.
 
 ### Examples
 
 ```javascript
 const selectedWord = {
   index: 1,
-  word: "example",
-  colour: "blue",
+  word: 'example',
+  colour: 'blue',
   synonyms: [
-    { synonym: "sample", rank: 1, lemma: "sample" },
-    { synonym: "instance", rank: 2, lemma: "instance" },
-  ],
+    { synonym: 'sample', rank: 1, lemma: 'sample' },
+    { synonym: 'instance', rank: 2, lemma: 'instance' },
+  ]
 };
 return (
-  <SynonymReplacer
-    active={true}
-    onClose={() => {}}
-    selectedWord={selectedWord}
-  />
-);
+  <SynonymReplacer active={true} onClose={() => {}} selectedWord={selectedWord} />
+)
 ```
 
-[1]: #synonymreplacer
-[2]: #redux-store-interaction
-[3]: #parameters
-[4]: #examples
-[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
-[9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
-[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[1]: #app
+
+[2]: #initialization
+
+[3]: #examples
+
+[4]: #maineditor
+
+[5]: #redux-store-interaction
+
+[6]: #parameters
+
+[7]: #examples-1
+
+[8]: #formattedoutput
+
+[9]: #redux-store-interaction-1
+
+[10]: #examples-2
+
+[11]: #synonymreplacer
+
+[12]: #redux-store-interaction-2
+
+[13]: #parameters-1
+
+[14]: #examples-3
+
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 <!-- apistop -->
