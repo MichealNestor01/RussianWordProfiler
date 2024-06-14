@@ -747,7 +747,7 @@ Sets the word data returned by the API.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new word data.
 
 #### Examples
@@ -762,7 +762,7 @@ Sets the raw text, tokenizes it, and updates the words and tokens in the state.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new text.
 
 #### Examples
@@ -777,7 +777,7 @@ Sets the stop words to be ignored by the API.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new stop words.
 
 #### Examples
@@ -792,7 +792,7 @@ Changes a word in the tokenized text to a synonym and updates the relevant state
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
 
 #### Examples
@@ -811,7 +811,7 @@ Changes the color of a specified band.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with target band and new color.
 
 #### Examples
@@ -826,7 +826,7 @@ Changes the top value of a specified band and adjusts the bottom value of the ne
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with target band and new top value.
 
 #### Examples
@@ -841,7 +841,7 @@ Changes the bottom value of a specified band and adjusts the top value of the pr
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with target band and new bottom value.
 
 #### Examples
@@ -856,7 +856,7 @@ Removes a specified band and adjusts the pointers of adjacent bands.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the target band to be removed.
 
 #### Examples
@@ -885,7 +885,7 @@ Adds a new band to the state.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 
 #### Examples
 
@@ -899,7 +899,7 @@ Toggles the active state of a specified band.
 
 ### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the target band.
 
 ### Examples
@@ -918,7 +918,7 @@ Resets the `bands` array to an empty array.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing the reset action.
 
 #### Examples
@@ -933,7 +933,7 @@ Sets the band frequency dictionary.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new band frequency dictionary.
 
 #### Examples
@@ -948,7 +948,7 @@ Sets the table data.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new table data.
 
 #### Examples
@@ -963,7 +963,7 @@ Sets the coverage data.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new coverage data.
 
 #### Examples
@@ -978,7 +978,7 @@ Sets the distribution data.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new distribution data.
 
 #### Examples
@@ -993,7 +993,7 @@ Sets the lemma frequency dictionary.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new lemma frequency dictionary.
 
 #### Examples
@@ -1008,7 +1008,7 @@ Sets the not in list data.
 
 #### Parameters
 
-*   `state` &#x20;
+*   `state` **[Object][101]** The current state of the Redux store, provided automatically.
 *   `action` **[Object][101]** The action object containing payload with the new not in list data.
 
 #### Examples
