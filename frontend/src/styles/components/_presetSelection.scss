@@ -1,0 +1,37 @@
+.presetOptionsContainer {
+    padding: 0.5rem 2rem;
+
+    h2 {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+
+        font-size: 1rem;
+        font-weight: normal;
+        color: #8b8b8b;
+    }
+
+    .presetContainer {
+        display: flex;
+        gap: 1.5%;
+        flex-wrap: wrap;
+
+        margin-bottom: 2rem;
+
+        .preset {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 30%;
+            min-height: 8rem;
+            margin-top: 1.5%;
+
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .preset:hover {
+            background: red;
+        }
+    }
+}
