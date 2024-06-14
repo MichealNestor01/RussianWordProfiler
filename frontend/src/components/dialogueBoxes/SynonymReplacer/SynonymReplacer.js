@@ -6,10 +6,12 @@ import DialogBox from "../DialogBox";
 /**
  * SynonymReplacer component for replacing a selected word with its synonym.
  *
+ * This component interfaces with the Redux store to manage state.
+ *
  * @component
  * @param {Object} props - The props for SynonymReplacer.
  * @param {boolean} props.active - Whether the dialog box is active.
- * @param {Function} props.onClose - Function to execute on close of the dialog box.
+ * @param {Function} props.onClose - Function to close the dialog box.
  * @param {Object} props.selectedWord - The currently selected word and its details.
  * @param {number} props.selectedWord.index - The index of the selected word.
  * @param {string} props.selectedWord.word - The selected word.
@@ -29,6 +31,13 @@ import DialogBox from "../DialogBox";
  * return (
  *   <SynonymReplacer active={true} onClose={() => {}} selectedWord={selectedWord} />
  * )
+ *
+ * @redux
+ * The component uses the following parts of the Redux store:
+ * - `bandsSlice.bands`: An array of band objects used to determine the colour of synonyms based on their rank.
+ *
+ * The component dispatches the following Redux actions:
+ * - `changeWord`: Action to update the selected word in the Redux store.
  */
 const SynonymReplacer = ({ active, onClose, selectedWord }) => {
   const dispatch = useDispatch();
