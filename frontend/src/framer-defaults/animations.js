@@ -1,32 +1,16 @@
 /**
- * Animation Configurations
+ * Animation configuration for scaling elements with opacity transition using Framer Motion.
  *
- * This module contains default animation configurations for the application using Framer Motion.
- * It includes scaleAnimation and fadeAnimation for scaling and fading elements respectively.
+ * This configuration defines how elements should scale and transition opacity when used with Framer Motion.
  *
  * @example
- * import { scaleAnimation, fadeAnimation } from './animations';
+ * import { motion } from 'framer-motion';
+ * import { scaleAnimation } from './animations';
  *
  * // Use in a Framer Motion component
- * <motion.div {...scaleAnimation}>Content</motion.div>
- * <motion.div {...fadeAnimation}>Content</motion.div>
- */
-
-/**
- * @description
- * Animation configuration for scaling elements with opacity transition.
- *
- * @property {Object} initial - Initial state of the animation.
- * @property {Object} initial.opacity - Initial opacity value.
- * @property {Object} initial.scale - Initial scale value.
- * @property {Object} animate - Animation state.
- * @property {Object} animate.opacity - Final opacity value.
- * @property {Object} animate.scale - Final scale value.
- * @property {Object} exit - Exit state of the animation.
- * @property {Object} exit.opacity - Exit opacity value.
- * @property {Object} exit.scale - Exit scale value.
- * @property {Object} transition - Transition configuration.
- * @property {number} transition.duration - Duration of the transition in seconds.
+ * <motion.div initial={scaleAnimation.initial} animate={scaleAnimation.animate} exit={scaleAnimation.exit} transition={scaleAnimation.transition}>
+ *   Content
+ * </motion.div>
  */
 export const scaleAnimation = {
   initial: { opacity: 0, scale: 0.5 },
@@ -36,17 +20,18 @@ export const scaleAnimation = {
 };
 
 /**
- * @description
- * Animation configuration for fading elements.
+ * Animation configuration for fading elements using Framer Motion.
  *
- * @property {Object} initial - Initial state of the animation.
- * @property {Object} initial.opacity - Initial opacity value.
- * @property {Object} animate - Animation state.
- * @property {Object} animate.opacity - Final opacity value.
- * @property {Object} exit - Exit state of the animation.
- * @property {Object} exit.opacity - Exit opacity value.
- * @property {Object} transition - Transition configuration.
- * @property {number} transition.duration - Duration of the transition in seconds.
+ * This configuration defines how elements should fade in and out when used with Framer Motion.
+ *
+ * @example
+ * import { motion } from 'framer-motion';
+ * import { fadeAnimation } from './animations';
+ *
+ * // Use in a Framer Motion component
+ * <motion.div initial={fadeAnimation.initial} animate={fadeAnimation.animate} exit={fadeAnimation.exit} transition={fadeAnimation.transition}>
+ *   Content
+ * </motion.div>
  */
 export const fadeAnimation = {
   initial: { opacity: 0 },
