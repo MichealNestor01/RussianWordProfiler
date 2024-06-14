@@ -1,6 +1,7 @@
 import * as XLSX from "xlsx";
 
 /**
+ * @memberof functions
  * @description
  * Triggers a download of an XLS file with the given data and filename.
  *

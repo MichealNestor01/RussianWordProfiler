@@ -1,4 +1,5 @@
 /**
+ * @memberof functions
  * @description
  * Triggers a download of a CSV file with the given content and filename.
  *

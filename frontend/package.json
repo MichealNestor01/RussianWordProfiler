@@ -28,8 +28,9 @@
     "eject": "react-scripts eject",
     "doc": "jsdoc -c jsdoc.json",
     "api": "jsdoc-to-readme --src src/index.js",
-    "toc": "markdown-toc -i README.md  --maxdepth 5",
-    "readme": "npm run api && npm run toc"
+    "toc": "markdown-toc -i README.md  --maxdepth 3",
+    "readme": "npm run api && npm run toc",
+    "jsdoc": "jsdoc -a all -c jsdoc.json -r -R README.md index.js -d docs/jsdoc && jsdoc2md --files index.js > docs/API.md"
   },
   "eslintConfig": {
     "extends": [
@@ -50,7 +51,9 @@
     ]
   },
   "devDependencies": {
+    "docdash": "^2.0.2",
     "jsdoc": "^4.0.3",
+    "jsdoc-to-markdown": "^8.0.1",
     "jsdoc-to-readme": "^2.0.2",
     "markdown-toc": "^1.2.0"
   }

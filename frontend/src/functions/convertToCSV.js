@@ -1,4 +1,5 @@
 /**
+ * @memberof functions
  * @description
  * Converts a 2D array of JavaScript objects to a CSV string.
  *

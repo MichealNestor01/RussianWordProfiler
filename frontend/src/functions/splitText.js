@@ -1,5 +1,6 @@
 const PUNCTUATION_REGEX = /[.,;:!?…–\-_"“”‘’«»(){}\[\]]/;
 /**
+ * @memberof functions
  * @description
  * Splits the given text into an array of word objects, preserving punctuation and formatting. Each object contains the word, its prefix, and postfix. Also returns an array of just the words.
  *

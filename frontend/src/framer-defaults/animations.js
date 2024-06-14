@@ -1,4 +1,9 @@
 /**
+ * @namespace AnimationPresets
+ */
+
+/**
+ * @memberof AnimationPresets
  * Animation configuration for scaling elements with opacity transition using Framer Motion.
  *
  * This configuration defines how elements should scale and transition opacity when used with Framer Motion.
@@ -20,6 +25,7 @@ export const scaleAnimation = {
 };
 
 /**
+ * @memberof AnimationPresets
  * Animation configuration for fading elements using Framer Motion.
  *
  * This configuration defines how elements should fade in and out when used with Framer Motion.

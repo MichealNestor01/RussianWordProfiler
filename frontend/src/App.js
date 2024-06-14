@@ -9,6 +9,10 @@ import LemmaTable from "./components/dataAggregation/LemmaTable";
 let initial = true;
 
 /**
+ * @namespace functions
+ */
+
+/**
  * @description
  * Main application component for the Russian Word Profiler.
  *

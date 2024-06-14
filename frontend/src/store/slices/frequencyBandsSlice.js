@@ -42,41 +42,35 @@ const storedState = localStorage.getItem("russianWordProfilerBandsV2")
   : initialState;
 
 /**
- * @description
  * Redux slice for managing frequency bands, including their colors, values, and active states.
  *
- * ### Initial State
- * The initial state is either loaded from localStorage or set to default values.
- *
- * @example
- * import { useDispatch, useSelector } from 'react-redux';
- * import { changeColour, addBand } from './frequencyBandsSlice';
- *
- * const dispatch = useDispatch();
- * const bands = useSelector((state) => state.bandsSlice.bands);
- *
- * dispatch(changeColour({ target: 1, colour: '#000000' }));
- * dispatch(addBand());
+ * @namespace ReduxStoreFrequencyBandsSlice
  */
-export const frequencyBandsSlice = createSlice({
+Slice = createSlice({
   name: "bands",
   initialState: { bands: storedState },
   reducers: {
     /**
-     * @description
      * Changes the color of a specified band.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
      * @param {Object} action - The action object containing payload with target band and new color.
+     *
+     * @example
+     * dispatch(changeColour({ target: 1, colour: '#000000' }));
      */
     changeColour: (state, action) => {
       state.bands[action.payload.target].colour = action.payload.colour;
     },
 
     /**
-     * @description
      * Changes the top value of a specified band and adjusts the bottom value of the next band.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
      * @param {Object} action - The action object containing payload with target band and new top value.
+     *
+     * @example
+     * dispatch(changeTopVal({ target: 2, newVal: 2000 }));
      */
     changeTopVal: (state, action) => {
       const { target, newVal } = action.payload;
@@ -90,10 +84,13 @@ export const frequencyBandsSlice = createSlice({
     },
 
     /**
-     * @description
      * Changes the bottom value of a specified band and adjusts the top value of the previous band.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
      * @param {Object} action - The action object containing payload with target band and new bottom value.
+     *
+     * @example
+     * dispatch(changeBottomVal({ target: 3, newVal: 3000 }));
      */
     changeBottomVal: (state, action) => {
       const { target, newVal } = action.payload;
@@ -107,10 +104,13 @@ export const frequencyBandsSlice = createSlice({
     },
 
     /**
-     * @description
      * Removes a specified band and adjusts the pointers of adjacent bands.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
      * @param {Object} action - The action object containing payload with the target band to be removed.
+     *
+     * @example
+     * dispatch(removeBand(4));
      */
     removeBand: (state, action) => {
       if (!(action.payload in state.bands)) {
@@ -144,19 +144,23 @@ export const frequencyBandsSlice = createSlice({
     },
 
     /**
-     * @description
      * Toggles the active state of a specified band.
-     * @param {Object} state - The current state of the slice.
+     *
      * @param {Object} action - The action object containing payload with the target band.
+     *
+     * @example
+     * dispatch(toggleActive(5));
      */
     toggleActive: (state, action) => {
       state.bands[action.payload].active = !state.bands[action.payload].active;
     },
 
     /**
-     * @description
      * Adds a new band to the state.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
+     * @example
+     * dispatch(addBand());
      */
     addBand: (state) => {
       let maxId = -1;
@@ -187,9 +191,11 @@ export const frequencyBandsSlice = createSlice({
     },
 
     /**
-     * @description
-     * Saves the current band configuration to localStorage.
-     * @param {Object} state - The current state of the slice.
+     * Adds a new band to the state.
+     * @memberof ReduxStoreFrequencyBandsSlice
+     *
+     * @example
+     * dispatch(addBand());
      */
     saveBands: (state) => {
       localStorage.setItem(

@@ -2,25 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { splitText } from "../../functions/splitText";
 
 /**
- * @description
  * Redux slice for managing text-related state, including the raw text, tokenized text, stop words, and word data.
  *
- * ### Initial State
- * - `text`: The raw text typed by the user.
- * - `words`: The words that make up the text typed.
- * - `tokens`: The tokenized text.
- * - `stopWords`: Words to be ignored by the API.
- * - `wordData`: Data for each word returned by the API.
- *
- * @example
- * import { useDispatch, useSelector } from 'react-redux';
- * import { setText, setStopWords } from './textSlice';
- *
- * const dispatch = useDispatch();
- * const text = useSelector((state) => state.textSlice.text);
- *
- * dispatch(setText("Hello world"));
- * dispatch(setStopWords(["the", "and"]));
+ * @namespace ReduxStoreTextSlice
  */
 export const textSlice = createSlice({
   name: "text",
@@ -33,20 +17,26 @@ export const textSlice = createSlice({
   },
   reducers: {
     /**
-     * @description
      * Sets the word data returned by the API.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreTextSlice
+     *
      * @param {Object} action - The action object containing payload with the new word data.
+     *
+     * @example
+     * dispatch(setWordData({ 'word': { rank: 1, lemma: 'example', synonyms: [] }}));
      */
     setWordData: (state, action) => {
       state.wordData = action.payload;
     },
 
     /**
-     * @description
      * Sets the raw text, tokenizes it, and updates the words and tokens in the state.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreTextSlice
+     *
      * @param {Object} action - The action object containing payload with the new text.
+     *
+     * @example
+     * dispatch(setText("Hello world"));
      */
     setText: (state, action) => {
       state.text = action.payload;
@@ -56,20 +46,26 @@ export const textSlice = createSlice({
     },
 
     /**
-     * @description
      * Sets the stop words to be ignored by the API.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreTextSlice
+     *
      * @param {Object} action - The action object containing payload with the new stop words.
+     *
+     * @example
+     * dispatch(setStopWords(["the", "and"]));
      */
     setStopWords: (state, action) => {
       state.stopWords = action.payload;
     },
 
     /**
-     * @description
      * Changes a word in the tokenized text to a synonym and updates the relevant state.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStoreTextSlice
+     *
      * @param {Object} action - The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
+     *
+     * @example
+     * dispatch(changeWord({ index: 1, newWord: 'hi', newWordRank: 2, newWordLemma: 'hi' }));
      */
     changeWord: (state, action) => {
       const { index, newWord, newWordRank, newWordLemma } = action.payload;

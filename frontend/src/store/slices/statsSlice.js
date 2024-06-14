@@ -10,95 +10,100 @@ const initialState = {
 };
 
 /**
- * @description
  * Redux slice for managing statistics-related state, including bands, table data, coverage data, distribution data, and frequency dictionaries.
  *
- * ### Initial State
- * - `bands`: An array for storing band information.
- * - `tableData`: An object for storing table data.
- * - `coverageData`: An array for storing coverage data.
- * - `distributionData`: An array for storing distribution data.
- * - `bandFrequencyDict`: An object for storing the frequency of bands.
- * - `lemmaFrequencyDict`: An object for storing the frequency of lemmas.
- *
- * @example
- * import { useDispatch, useSelector } from 'react-redux';
- * import { setTableData, reset } from './statsSlice';
- *
- * const dispatch = useDispatch();
- * const stats = useSelector((state) => state.statsSlice);
- *
- * dispatch(setTableData({ key: 'value' }));
- * dispatch(reset());
+ * @namespace ReduxStorestatsSlice
  */
 export const statsSlice = createSlice({
   name: "stats",
   initialState,
   reducers: {
     /**
-     * @description
      * Resets the `bands` array to an empty array.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
+     * @param {Object} action - The action object containing the reset action.
+     *
+     * @example
+     * dispatch(reset());
      */
     reset: (state) => {
       state.bands = [];
     },
 
     /**
-     * @description
      * Sets the band frequency dictionary.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new band frequency dictionary.
+     *
+     * @example
+     * dispatch(setBandFrequencyDict({ band1: 100, band2: 200 }));
      */
     setBandFrequencyDict: (state, action) => {
       state.bandFrequencyDict = action.payload;
     },
 
     /**
-     * @description
      * Sets the table data.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new table data.
+     *
+     * @example
+     * dispatch(setTableData({ key: 'value' }));
      */
     setTableData: (state, action) => {
       state.tableData = action.payload;
     },
 
     /**
-     * @description
      * Sets the coverage data.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new coverage data.
+     *
+     * @example
+     * dispatch(setCoverageData([1, 2, 3, 4]));
      */
     setCoverageData: (state, action) => {
       state.coverageData = action.payload;
     },
 
     /**
-     * @description
      * Sets the distribution data.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new distribution data.
+     *
+     * @example
+     * dispatch(setDistributionData([5, 10, 15, 20]));
      */
     setDistributionData: (state, action) => {
       state.distributionData = action.payload;
     },
 
     /**
-     * @description
      * Sets the lemma frequency dictionary.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new lemma frequency dictionary.
+     *
+     * @example
+     * dispatch(setLemmaFrequencyDict({ lemma1: 50, lemma2: 75 }));
      */
     setLemmaFrequencyDict: (state, action) => {
       state.lemmaFrequencyDict = action.payload;
     },
 
     /**
-     * @description
      * Sets the not in list data.
-     * @param {Object} state - The current state of the slice.
+     * @memberof ReduxStorestatsSlice
+     *
      * @param {Object} action - The action object containing payload with the new not in list data.
+     *
+     * @example
+     * dispatch(setNotInList(['word1', 'word2']));
      */
     setNotInList: (state, action) => {
       state.notInList = action.payload;

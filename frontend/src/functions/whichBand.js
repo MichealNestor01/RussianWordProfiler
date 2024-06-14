@@ -1,4 +1,5 @@
 /**
+ * @memberof functions
  * @description
  * Determines the band for a given rank based on predefined bands.
  *
