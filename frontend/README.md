@@ -10,6 +10,7 @@
 - [API](#api)
   * [Table of Contents](#table-of-contents)
 - [SynonymReplacer](#synonymreplacer)
+- [Redux Store Interaction](#redux-store-interaction)
   * [Parameters](#parameters)
   * [Examples](#examples)
 
@@ -27,27 +28,36 @@ Installation instructions here
 ### Table of Contents
 
 *   [SynonymReplacer][1]
-    *   [Parameters][2]
-    *   [Examples][3]
+*   [Redux Store Interaction][2]
+    *   [Parameters][3]
+    *   [Examples][4]
 
 ## SynonymReplacer
 
-SynonymReplacer component for replacing a selected word with its synonym.
+component for replacing a selected word with its synonym.
 
-This component interfaces with the Redux store to manage state.
+## Redux Store Interaction
+
+The component uses the following parts of the Redux store:
+
+*   `bandsSlice.bands`: An array of band objects used to determine the colour of synonyms based on their rank.
+
+The component dispatches the following Redux actions:
+
+*   `changeWord`: Action to update the selected word in the Redux store.
 
 ### Parameters
 
-*   `props` **[Object][4]** The props for SynonymReplacer.
+*   `props` **[Object][5]** The props for SynonymReplacer.
 
-    *   `props.active` **[boolean][5]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][6]** Function to close the dialog box.
-    *   `props.selectedWord` **[Object][4]** The currently selected word and its details.
+    *   `props.active` **[boolean][6]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][7]** Function to close the dialog box.
+    *   `props.selectedWord` **[Object][5]** The currently selected word and its details.
 
-        *   `props.selectedWord.index` **[number][7]** The index of the selected word.
-        *   `props.selectedWord.word` **[string][8]** The selected word.
-        *   `props.selectedWord.colour` **[string][8]** The colour of the selected word.
-        *   `props.selectedWord.synonyms` **[Array][9]** The list of synonyms for the selected word.
+        *   `props.selectedWord.index` **[number][8]** The index of the selected word.
+        *   `props.selectedWord.word` **[string][9]** The selected word.
+        *   `props.selectedWord.colour` **[string][9]** The colour of the selected word.
+        *   `props.selectedWord.synonyms` **[Array][10]** The list of synonyms for the selected word.
 
 ### Examples
 
@@ -68,20 +78,22 @@ return (
 
 [1]: #synonymreplacer
 
-[2]: #parameters
+[2]: #redux-store-interaction
 
-[3]: #examples
+[3]: #parameters
 
-[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[4]: #examples
 
-[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 <!-- apistop -->

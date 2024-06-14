@@ -2,11 +2,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { whichBand } from "../../../functions/whichBand";
 import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
-
 /**
- * SynonymReplacer component for replacing a selected word with its synonym.
+ * @description
+ * component for replacing a selected word with its synonym.
+ * 
+ * ## Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `bandsSlice.bands`: An array of band objects used to determine the colour of synonyms based on their rank.
  *
- * This component interfaces with the Redux store to manage state.
+ * The component dispatches the following Redux actions:
+ * - `changeWord`: Action to update the selected word in the Redux store.
+ * 
  *
  * @component
  * @param {Object} props - The props for SynonymReplacer.
@@ -32,13 +38,9 @@ import DialogBox from "../DialogBox";
  *   <SynonymReplacer active={true} onClose={() => {}} selectedWord={selectedWord} />
  * )
  *
- * @redux
- * The component uses the following parts of the Redux store:
- * - `bandsSlice.bands`: An array of band objects used to determine the colour of synonyms based on their rank.
- *
- * The component dispatches the following Redux actions:
- * - `changeWord`: Action to update the selected word in the Redux store.
+
  */
+
 const SynonymReplacer = ({ active, onClose, selectedWord }) => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bandsSlice.bands);
