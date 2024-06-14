@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
  * @description
  * Triggers a download of an XLS file with the given data and filename.
  *
- * ### Dependencies
+ * #### Dependencies
  * This function depends on the `XLSX` library for converting JSON data to an XLSX format.
  *
  * @param {Array<Object>} data - The data to be included in the XLS file. Each object represents a row.
