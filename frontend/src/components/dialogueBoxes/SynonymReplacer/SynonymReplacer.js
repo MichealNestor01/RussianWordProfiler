@@ -4,11 +4,11 @@ import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
 /**
  * @description
- * component for replacing a selected word with its synonym.
+ * Dialog box component used to replace a selected word with one of its synonyms.
  * 
- * ## Redux Store Interaction
+ * ### Redux Store Interaction
  * The component uses the following parts of the Redux store:
- * - `bandsSlice.bands`: An array of band objects used to determine the colour of synonyms based on their rank.
+ * - `bandsSlice.bands`: An array of band objects used here to determine the colour of synonyms based on their rank.
  *
  * The component dispatches the following Redux actions:
  * - `changeWord`: Action to update the selected word in the Redux store.
