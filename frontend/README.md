@@ -96,56 +96,60 @@ Installation instructions here
     *   [Examples][81]
 *   [DownloadTableData][82]
     *   [Examples][83]
-*   [store][84]
-    *   [Examples][85]
-*   [setWordData][86]
-    *   [Parameters][87]
-*   [setText][88]
-    *   [Parameters][89]
-*   [setStopWords][90]
+*   [changeColour][84]
+    *   [Parameters][85]
+    *   [Examples][86]
+*   [changeTopVal][87]
+    *   [Parameters][88]
+    *   [Examples][89]
+*   [changeBottomVal][90]
     *   [Parameters][91]
-*   [changeWord][92]
-    *   [Parameters][93]
-*   [textSlice][94]
-    *   [Initial State][95]
-    *   [Examples][96]
-*   [splitText][97]
-    *   [Parameters][98]
-    *   [Examples][99]
-*   [changeColour][100]
-    *   [Parameters][101]
-*   [changeTopVal][102]
-    *   [Parameters][103]
-*   [changeBottomVal][104]
+    *   [Examples][92]
+*   [removeBand][93]
+    *   [Parameters][94]
+    *   [Examples][95]
+*   [addBand][96]
+    *   [Parameters][97]
+    *   [Examples][98]
+*   [saveBands][99]
+    *   [Parameters][100]
+    *   [Examples][101]
+*   [store][102]
+    *   [store.frequencyBandsSlice][103]
+*   [setWordData][104]
     *   [Parameters][105]
-*   [removeBand][106]
+*   [setText][106]
     *   [Parameters][107]
-*   [toggleActive][108]
+*   [setStopWords][108]
     *   [Parameters][109]
-*   [addBand][110]
+*   [changeWord][110]
     *   [Parameters][111]
-*   [saveBands][112]
-    *   [Parameters][113]
-*   [frequencyBandsSlice][114]
-    *   [Initial State][115]
-    *   [Examples][116]
-*   [reset][117]
-    *   [Parameters][118]
-*   [setBandFrequencyDict][119]
-    *   [Parameters][120]
-*   [setTableData][121]
+*   [textSlice][112]
+    *   [Initial State][113]
+    *   [Examples][114]
+*   [splitText][115]
+    *   [Parameters][116]
+    *   [Examples][117]
+*   [toggleActive][118]
+    *   [Parameters][119]
+    *   [Examples][120]
+*   [reset][121]
     *   [Parameters][122]
-*   [setCoverageData][123]
+*   [setBandFrequencyDict][123]
     *   [Parameters][124]
-*   [setDistributionData][125]
+*   [setTableData][125]
     *   [Parameters][126]
-*   [setLemmaFrequencyDict][127]
+*   [setCoverageData][127]
     *   [Parameters][128]
-*   [setNotInList][129]
+*   [setDistributionData][129]
     *   [Parameters][130]
-*   [statsSlice][131]
-    *   [Initial State][132]
-    *   [Examples][133]
+*   [setLemmaFrequencyDict][131]
+    *   [Parameters][132]
+*   [setNotInList][133]
+    *   [Parameters][134]
+*   [statsSlice][135]
+    *   [Initial State][136]
+    *   [Examples][137]
 
 ## root
 
@@ -194,9 +198,9 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for MainEditor.
+*   `props` **[Object][138]** The props for MainEditor.
 
-    *   `props.placeholder` **[string][135]** The placeholder text for the text input area. (optional, default `"Text Here."`)
+    *   `props.placeholder` **[string][139]** The placeholder text for the text input area. (optional, default `"Text Here."`)
 
 ### Examples
 
@@ -255,10 +259,10 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for BandConfigPanel.
+*   `props` **[Object][138]** The props for BandConfigPanel.
 
-    *   `props.active` **[boolean][136]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][137]** Function to close the dialog box.
+    *   `props.active` **[boolean][140]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][141]** Function to close the dialog box.
 
 ### Examples
 
@@ -318,14 +322,14 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for Band.
+*   `props` **[Object][138]** The props for Band.
 
-    *   `props.id` **[number][138]** The ID of the band.
-    *   `props.colour` **[string][135]** The color of the band.
-    *   `props.top` **[number][138]** The top value of the band.
-    *   `props.bottom` **[number][138]** The bottom value of the band.
-    *   `props.activeIndex` **[number][138]** The index of the active band.
-    *   `props.setActiveIndex` **[Function][137]** Function to set the active band index.
+    *   `props.id` **[number][142]** The ID of the band.
+    *   `props.colour` **[string][139]** The color of the band.
+    *   `props.top` **[number][142]** The top value of the band.
+    *   `props.bottom` **[number][142]** The bottom value of the band.
+    *   `props.activeIndex` **[number][142]** The index of the active band.
+    *   `props.setActiveIndex` **[Function][141]** Function to set the active band index.
 
 ### Examples
 
@@ -359,12 +363,12 @@ This component depends on the `ChromePicker` component from the `react-color` li
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for BandColour.
+*   `props` **[Object][138]** The props for BandColour.
 
-    *   `props.id` **[number][138]** The ID of the band.
-    *   `props.colour` **[string][135]** The current color of the band.
-    *   `props.activeIndex` **[number][138]** The index of the active band.
-    *   `props.setActiveIndex` **[Function][137]** Function to set the active band index.
+    *   `props.id` **[number][142]** The ID of the band.
+    *   `props.colour` **[string][139]** The current color of the band.
+    *   `props.activeIndex` **[number][142]** The index of the active band.
+    *   `props.setActiveIndex` **[Function][141]** Function to set the active band index.
 
 ### Examples
 
@@ -398,12 +402,12 @@ Generic dialog box component.
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for DialogBox.
+*   `props` **[Object][138]** The props for DialogBox.
 
     *   `props.header` **JSX.Element** The header content of the dialog box.
     *   `props.content` **JSX.Element** The main content of the dialog box.
-    *   `props.active` **[boolean][136]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][137]** Function to close the dialog box.
+    *   `props.active` **[boolean][140]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][141]** Function to close the dialog box.
 
 ### Examples
 
@@ -426,7 +430,7 @@ Component for API settings dialog.
 
 ### Parameters
 
-*   `$0` **[Object][134]**&#x20;
+*   `$0` **[Object][138]**&#x20;
 
     *   `$0.active` &#x20;
     *   `$0.onClose` &#x20;
@@ -490,8 +494,8 @@ Determines the band for a given rank based on predefined bands.
 
 ### Parameters
 
-*   `rank` **[number][138]** The rank to be evaluated.
-*   `bands` **[Object][134]** An object containing band information. Each key is a band identifier, and each value is an object with `topVal` and `bottomVal` properties.
+*   `rank` **[number][142]** The rank to be evaluated.
+*   `bands` **[Object][138]** An object containing band information. Each key is a band identifier, and each value is an object with `topVal` and `bottomVal` properties.
 
 ### Examples
 
@@ -505,7 +509,7 @@ const band = whichBand(85, bands);
 console.log(band); // Output: "B"
 ```
 
-Returns **([string][135] | [number][138])** The band identifier the rank falls into, or -1 if the rank does not fall into any band.
+Returns **([string][139] | [number][142])** The band identifier the rank falls into, or -1 if the rank does not fall into any band.
 
 ## SynonymReplacer
 
@@ -523,16 +527,16 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for SynonymReplacer.
+*   `props` **[Object][138]** The props for SynonymReplacer.
 
-    *   `props.active` **[boolean][136]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][137]** Function to close the dialog box.
-    *   `props.selectedWord` **[Object][134]** The currently selected word and its details.
+    *   `props.active` **[boolean][140]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][141]** Function to close the dialog box.
+    *   `props.selectedWord` **[Object][138]** The currently selected word and its details.
 
-        *   `props.selectedWord.index` **[number][138]** The index of the selected word.
-        *   `props.selectedWord.word` **[string][135]** The selected word.
-        *   `props.selectedWord.colour` **[string][135]** The colour of the selected word.
-        *   `props.selectedWord.synonyms` **[Array][139]** The list of synonyms for the selected word.
+        *   `props.selectedWord.index` **[number][142]** The index of the selected word.
+        *   `props.selectedWord.word` **[string][139]** The selected word.
+        *   `props.selectedWord.colour` **[string][139]** The colour of the selected word.
+        *   `props.selectedWord.synonyms` **[Array][143]** The list of synonyms for the selected word.
 
 ### Examples
 
@@ -613,11 +617,11 @@ Component for a download button that triggers downloading of data in XLS format.
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for DownloadButton.
+*   `props` **[Object][138]** The props for DownloadButton.
 
-    *   `props.data` **[Array][139]** The data to be downloaded.
-    *   `props.filename` **[string][135]** The base filename for the downloaded file.
-    *   `props.text` **[string][135]** The text displayed on the download button.
+    *   `props.data` **[Array][143]** The data to be downloaded.
+    *   `props.filename` **[string][139]** The base filename for the downloaded file.
+    *   `props.text` **[string][139]** The text displayed on the download button.
 
 ### Examples
 
@@ -634,7 +638,7 @@ Converts a 2D array of JavaScript objects to a CSV string.
 
 ### Parameters
 
-*   `arr` **[Array][139]<[Array][139]<([string][135] | [number][138])>>** The 2D array of data to be converted to CSV format.
+*   `arr` **[Array][143]<[Array][143]<([string][139] | [number][142])>>** The 2D array of data to be converted to CSV format.
 
 ### Examples
 
@@ -652,7 +656,7 @@ console.log(csv);
 // Jane,25
 ```
 
-Returns **[string][135]** The CSV formatted string.
+Returns **[string][139]** The CSV formatted string.
 
 ## downloadCSV
 
@@ -660,8 +664,8 @@ Triggers a download of a CSV file with the given content and filename.
 
 ### Parameters
 
-*   `csv` **[string][135]** The CSV string to be downloaded.
-*   `filename` **[string][135]** The name of the file to be downloaded.
+*   `csv` **[string][139]** The CSV string to be downloaded.
+*   `filename` **[string][139]** The name of the file to be downloaded.
 
 ### Examples
 
@@ -680,8 +684,8 @@ This function depends on the `XLSX` library for converting JSON data to an XLSX 
 
 ### Parameters
 
-*   `data` **[Array][139]<[Object][134]>** The data to be included in the XLS file. Each object represents a row.
-*   `filename` **[string][135]** The name of the file to be downloaded.
+*   `data` **[Array][143]<[Object][138]>** The data to be included in the XLS file. Each object represents a row.
+*   `filename` **[string][139]** The name of the file to be downloaded.
 
 ### Examples
 
@@ -699,12 +703,12 @@ Generic component for displaying a bar representing a band. Shows a tooltip with
 
 ### Parameters
 
-*   `props` **[Object][134]** The props for BandBar.
+*   `props` **[Object][138]** The props for BandBar.
 
-    *   `props.index` **[number][138]** The index of the band bar.
-    *   `props.total` **[number][138]** The total number of words in the band.
-    *   `props.width` **[string][135]** The width of the band bar.
-    *   `props.colour` **[string][135]** The color of the band bar.
+    *   `props.index` **[number][142]** The index of the band bar.
+    *   `props.total` **[number][142]** The total number of words in the band.
+    *   `props.width` **[string][139]** The width of the band bar.
+    *   `props.colour` **[string][139]** The color of the band bar.
 
 ### Examples
 
@@ -760,22 +764,101 @@ return (
 )
 ```
 
-## store
+## changeColour
 
-Configures the Redux store with slices for text, frequency bands, and statistics.
+Changes the color of a specified band.
+
+### Parameters
+
+*   `state` &#x20;
+*   `action` **[Object][138]** The action object containing payload with target band and new color.
 
 ### Examples
 
 ```javascript
-import { Provider } from 'react-redux';
-import store from './store';
-
-const App = () => (
-  <Provider store={store}>
-    <MyComponent />
-  </Provider>
-);
+dispatch(changeColour({ target: 1, colour: '#000000' }));
 ```
+
+## changeTopVal
+
+Changes the top value of a specified band and adjusts the bottom value of the next band.
+
+### Parameters
+
+*   `state` &#x20;
+*   `action` **[Object][138]** The action object containing payload with target band and new top value.
+
+### Examples
+
+```javascript
+dispatch(changeTopVal({ target: 2, newVal: 2000 }));
+```
+
+## changeBottomVal
+
+Changes the bottom value of a specified band and adjusts the top value of the previous band.
+
+### Parameters
+
+*   `state` &#x20;
+*   `action` **[Object][138]** The action object containing payload with target band and new bottom value.
+
+### Examples
+
+```javascript
+dispatch(changeBottomVal({ target: 3, newVal: 3000 }));
+```
+
+## removeBand
+
+Removes a specified band and adjusts the pointers of adjacent bands.
+
+### Parameters
+
+*   `state` &#x20;
+*   `action` **[Object][138]** The action object containing payload with the target band to be removed.
+
+### Examples
+
+```javascript
+dispatch(removeBand(4));
+```
+
+## addBand
+
+Adds a new band to the state.
+
+### Parameters
+
+*   `state` &#x20;
+
+### Examples
+
+```javascript
+dispatch(addBand());
+```
+
+## saveBands
+
+Adds a new band to the state.
+
+### Parameters
+
+*   `state` &#x20;
+
+### Examples
+
+```javascript
+dispatch(addBand());
+```
+
+## store
+
+redux store configuration
+
+### store.frequencyBandsSlice
+
+Redux slice for managing frequency bands, including their colors, values, and active states.
 
 ## setWordData
 
@@ -783,8 +866,8 @@ Sets the word data returned by the API.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new word data.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new word data.
 
 ## setText
 
@@ -792,8 +875,8 @@ Sets the raw text, tokenizes it, and updates the words and tokens in the state.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new text.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new text.
 
 ## setStopWords
 
@@ -801,8 +884,8 @@ Sets the stop words to be ignored by the API.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new stop words.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new stop words.
 
 ## changeWord
 
@@ -810,8 +893,8 @@ Changes a word in the tokenized text to a synonym and updates the relevant state
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
 
 ## textSlice
 
@@ -846,7 +929,7 @@ The function handles cases where words are nested within punctuation and maintai
 
 ### Parameters
 
-*   `text` **[string][135]** The text to be split into word objects.
+*   `text` **[string][139]** The text to be split into word objects.
 
 ### Examples
 
@@ -865,44 +948,8 @@ console.log(result.words);
 // ['hello', 'world', 'sleep']
 ```
 
-Returns **[Object][134]** An object containing:*   `objects`: An array of word objects, each with `index`, `prefix`, `word`, and `postfix`.
+Returns **[Object][138]** An object containing:*   `objects`: An array of word objects, each with `index`, `prefix`, `word`, and `postfix`.
 *   `words`: An array of just the words extracted from the text.
-
-## changeColour
-
-Changes the color of a specified band.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with target band and new color.
-
-## changeTopVal
-
-Changes the top value of a specified band and adjusts the bottom value of the next band.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with target band and new top value.
-
-## changeBottomVal
-
-Changes the bottom value of a specified band and adjusts the top value of the previous band.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with target band and new bottom value.
-
-## removeBand
-
-Removes a specified band and adjusts the pointers of adjacent bands.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the target band to be removed.
 
 ## toggleActive
 
@@ -910,44 +957,13 @@ Toggles the active state of a specified band.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the target band.
-
-## addBand
-
-Adds a new band to the state.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-
-## saveBands
-
-Saves the current band configuration to localStorage.
-
-### Parameters
-
-*   `state` **[Object][134]** The current state of the slice.
-
-## frequencyBandsSlice
-
-Redux slice for managing frequency bands, including their colors, values, and active states.
-
-### Initial State
-
-The initial state is either loaded from localStorage or set to default values.
+*   `state` &#x20;
+*   `action` **[Object][138]** The action object containing payload with the target band.
 
 ### Examples
 
 ```javascript
-import { useDispatch, useSelector } from 'react-redux';
-import { changeColour, addBand } from './frequencyBandsSlice';
-
-const dispatch = useDispatch();
-const bands = useSelector((state) => state.bandsSlice.bands);
-
-dispatch(changeColour({ target: 1, colour: '#000000' }));
-dispatch(addBand());
+dispatch(toggleActive(5));
 ```
 
 ## reset
@@ -956,7 +972,7 @@ Resets the `bands` array to an empty array.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
+*   `state` **[Object][138]** The current state of the slice.
 
 ## setBandFrequencyDict
 
@@ -964,8 +980,8 @@ Sets the band frequency dictionary.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new band frequency dictionary.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new band frequency dictionary.
 
 ## setTableData
 
@@ -973,8 +989,8 @@ Sets the table data.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new table data.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new table data.
 
 ## setCoverageData
 
@@ -982,8 +998,8 @@ Sets the coverage data.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new coverage data.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new coverage data.
 
 ## setDistributionData
 
@@ -991,8 +1007,8 @@ Sets the distribution data.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new distribution data.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new distribution data.
 
 ## setLemmaFrequencyDict
 
@@ -1000,8 +1016,8 @@ Sets the lemma frequency dictionary.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new lemma frequency dictionary.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new lemma frequency dictionary.
 
 ## setNotInList
 
@@ -1009,8 +1025,8 @@ Sets the not in list data.
 
 ### Parameters
 
-*   `state` **[Object][134]** The current state of the slice.
-*   `action` **[Object][134]** The action object containing payload with the new not in list data.
+*   `state` **[Object][138]** The current state of the slice.
+*   `action` **[Object][138]** The action object containing payload with the new not in list data.
 
 ## statsSlice
 
@@ -1204,116 +1220,124 @@ dispatch(reset());
 
 [83]: #examples-26
 
-[84]: #store
+[84]: #changecolour
 
-[85]: #examples-27
+[85]: #parameters-13
 
-[86]: #setworddata
+[86]: #examples-27
 
-[87]: #parameters-13
+[87]: #changetopval
 
-[88]: #settext
+[88]: #parameters-14
 
-[89]: #parameters-14
+[89]: #examples-28
 
-[90]: #setstopwords
+[90]: #changebottomval
 
 [91]: #parameters-15
 
-[92]: #changeword
+[92]: #examples-29
 
-[93]: #parameters-16
+[93]: #removeband
 
-[94]: #textslice
+[94]: #parameters-16
 
-[95]: #initial-state
+[95]: #examples-30
 
-[96]: #examples-28
+[96]: #addband
 
-[97]: #splittext
+[97]: #parameters-17
 
-[98]: #parameters-17
+[98]: #examples-31
 
-[99]: #examples-29
+[99]: #savebands
 
-[100]: #changecolour
+[100]: #parameters-18
 
-[101]: #parameters-18
+[101]: #examples-32
 
-[102]: #changetopval
+[102]: #store
 
-[103]: #parameters-19
+[103]: #storefrequencybandsslice
 
-[104]: #changebottomval
+[104]: #setworddata
 
-[105]: #parameters-20
+[105]: #parameters-19
 
-[106]: #removeband
+[106]: #settext
 
-[107]: #parameters-21
+[107]: #parameters-20
 
-[108]: #toggleactive
+[108]: #setstopwords
 
-[109]: #parameters-22
+[109]: #parameters-21
 
-[110]: #addband
+[110]: #changeword
 
-[111]: #parameters-23
+[111]: #parameters-22
 
-[112]: #savebands
+[112]: #textslice
 
-[113]: #parameters-24
+[113]: #initial-state
 
-[114]: #frequencybandsslice
+[114]: #examples-33
 
-[115]: #initial-state-1
+[115]: #splittext
 
-[116]: #examples-30
+[116]: #parameters-23
 
-[117]: #reset
+[117]: #examples-34
 
-[118]: #parameters-25
+[118]: #toggleactive
 
-[119]: #setbandfrequencydict
+[119]: #parameters-24
 
-[120]: #parameters-26
+[120]: #examples-35
 
-[121]: #settabledata
+[121]: #reset
 
-[122]: #parameters-27
+[122]: #parameters-25
 
-[123]: #setcoveragedata
+[123]: #setbandfrequencydict
 
-[124]: #parameters-28
+[124]: #parameters-26
 
-[125]: #setdistributiondata
+[125]: #settabledata
 
-[126]: #parameters-29
+[126]: #parameters-27
 
-[127]: #setlemmafrequencydict
+[127]: #setcoveragedata
 
-[128]: #parameters-30
+[128]: #parameters-28
 
-[129]: #setnotinlist
+[129]: #setdistributiondata
 
-[130]: #parameters-31
+[130]: #parameters-29
 
-[131]: #statsslice
+[131]: #setlemmafrequencydict
 
-[132]: #initial-state-2
+[132]: #parameters-30
 
-[133]: #examples-31
+[133]: #setnotinlist
 
-[134]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[134]: #parameters-31
 
-[135]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[135]: #statsslice
 
-[136]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[136]: #initial-state-1
 
-[137]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[137]: #examples-36
 
-[138]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[138]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[139]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[139]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[140]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[141]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[142]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[143]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 <!-- apistop -->
