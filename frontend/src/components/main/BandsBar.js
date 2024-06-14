@@ -6,6 +6,33 @@ import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 import { toggleActive } from "../../store/slices/frequencyBandsSlice";
 import { useState } from "react";
 
+/**
+ * @description
+ * Component for displaying and configuring the bands bar, which includes options for configuring bands and API settings, as well as profiling the text.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `bandsSlice.bands`: An array of band objects.
+ * - `text.words`: The words to be profiled.
+ * - `text.stopWords`: The stop words to be excluded from profiling.
+ *
+ * The component dispatches the following Redux actions:
+ * - `setWordData`: Action to set the word data based on the profiling response.
+ * - `toggleActive`: Action to toggle the active state of a band.
+ *
+ * ### API Interaction
+ * The component interacts with the API as follows:
+ * - `submitHandler`: Sends a POST request to the `/scantext/` endpoint with the text and optional stop words.
+ *   - If the response status is 200, it dispatches `setWordData` with the received data.
+ *   - If the response status is not 200, it logs an error message.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <BandsBar />
+ * )
+ */
 const BandsBar = () => {
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bandsSlice.bands);

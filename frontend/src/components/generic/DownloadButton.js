@@ -4,6 +4,22 @@ import { downloadCSV } from "../../functions/downloadCSV";
 import { downloadXLS } from "../../functions/downloadXLS";
 import downloadIcon from "../../assets/download_icon.svg";
 
+/**
+ * @description
+ * Component for a download button that triggers downloading of data in XLS format.
+ *
+ * @component
+ * @param {Object} props - The props for DownloadButton.
+ * @param {Array} props.data - The data to be downloaded.
+ * @param {string} props.filename - The base filename for the downloaded file.
+ * @param {string} props.text - The text displayed on the download button.
+ *
+ * @example
+ * const data = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }];
+ * return (
+ *   <DownloadButton data={data} filename="data" text="Download Data" />
+ * )
+ */
 function DownloadButton({ data, filename, text }) {
   const handleClick = () => {
     const currentdate = new Date();

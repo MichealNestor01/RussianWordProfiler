@@ -8,6 +8,29 @@ import {
 } from "../../store/slices/statsSlice";
 import SynonymReplacer from "../dialogueBoxes/SynonymReplacer/SynonymReplacer";
 
+/**
+ * @description
+ * Component for displaying the formatted output of the analyzed text in the Russian Word Profiler.
+ * It highlights words based on their frequency band and allows synonym replacement.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `bandsSlice.bands`: An array of band objects used to determine the color and activity status of words.
+ * - `text.tokens`: The tokens from the input text.
+ * - `text.wordData`: The data associated with each word, including synonyms.
+ *
+ * The component dispatches the following Redux actions:
+ * - `reset`: Action to reset the stats slice.
+ * - `setLemmaFrequencyDict`: Action to set the frequency dictionary for lemmas.
+ * - `setBandFrequencyDict`: Action to set the frequency dictionary for bands.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <FormattedOutput />
+ * )
+ */
 const FormattedOutput = () => {
   const [output, setOutput] = useState("");
   const bands = useSelector((state) => state.bandsSlice.bands);

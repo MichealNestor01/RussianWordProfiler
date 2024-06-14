@@ -17,6 +17,26 @@ function statisticsReducer(state, action) {
   });
 }
 
+/**
+ * @description
+ * Main editor component for text input and analysis in the Russian Word Profiler.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `textSlice.text`: The current text input by the user.
+ *
+ * The component dispatches the following Redux actions:
+ * - `setText`: Action to update the text input in the Redux store.
+ *
+ * @component
+ * @param {Object} props - The props for MainEditor.
+ * @param {string} [props.placeholder="Text Here."] - The placeholder text for the text input area.
+ *
+ * @example
+ * return (
+ *   <MainEditor placeholder="Enter your text here." />
+ * )
+ */
 function MainEditor({ placeholder = "Text Here." }) {
   const dispatch = useDispatch();
   const text = useSelector((state) => state.text.text);

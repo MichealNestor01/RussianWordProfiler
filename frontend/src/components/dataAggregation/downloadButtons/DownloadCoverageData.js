@@ -1,6 +1,17 @@
 import { useSelector } from "react-redux";
 import DownloadButton from "../../generic/DownloadButton";
 
+/**
+ * @description
+ * Component for downloading coverage data.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <DownloadCoverageData />
+ * )
+ */
 const DownloadCoverageData = () => {
   // Get coverage data.
   const coverageData = useSelector((state) => state.stats.coverageData);
