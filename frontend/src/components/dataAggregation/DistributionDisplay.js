@@ -1,7 +1,6 @@
 import { Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setDistributionData } from "../../store/slices/statsSlice";
-import DownloadDistributionData from "./downloadButtons/DownloadDistributionData";
+import { useSelector } from "react-redux";
+import DownloadButton from "../generic/DownloadButton";
 import BandBar from "../generic/BandBar";
 
 /**
@@ -12,9 +11,6 @@ import BandBar from "../generic/BandBar";
  * The component uses the following parts of the Redux store:
  * - `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
  *
- * The component dispatches the following Redux actions:
- * - `setDistributionData`: Action to set the distribution data. Used so this data can be downloaded
- *
  * @component
  *
  * @example
@@ -24,7 +20,6 @@ import BandBar from "../generic/BandBar";
  */
 
 const DistributionDisplay = () => {
-  const dispatch = useDispatch();
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
@@ -53,14 +48,18 @@ const DistributionDisplay = () => {
       ),
     });
   });
-  dispatch(setDistributionData(distributionData));
 
   let prevBand = 0;
   return (
     <div className="distributionContainer card">
       <div className="cardHeader">
         <h1 className="title">
-          Word Frequency Distribution <DownloadDistributionData />
+          Word Frequency Distribution{" "}
+          <DownloadButton
+            data={distributionData}
+            filename="profilerDistributionData"
+            text="Download Distribution Data"
+          />
         </h1>
       </div>
 

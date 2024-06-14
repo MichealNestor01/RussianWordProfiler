@@ -47,48 +47,6 @@ export const statsSlice = createSlice({
     },
 
     /**
-     * Sets the table data.
-     * @memberof ReduxStorestatsSlice
-     *
-     * @param {Object} state - The current state of the Redux store, provided automatically.
-     * @param {Object} action - The action object containing payload with the new table data.
-     *
-     * @example
-     * dispatch(setTableData({ key: 'value' }));
-     */
-    setTableData: (state, action) => {
-      state.tableData = action.payload;
-    },
-
-    /**
-     * Sets the coverage data.
-     * @memberof ReduxStorestatsSlice
-     *
-     * @param {Object} state - The current state of the Redux store, provided automatically.
-     * @param {Object} action - The action object containing payload with the new coverage data.
-     *
-     * @example
-     * dispatch(setCoverageData([1, 2, 3, 4]));
-     */
-    setCoverageData: (state, action) => {
-      state.coverageData = action.payload;
-    },
-
-    /**
-     * Sets the distribution data.
-     * @memberof ReduxStorestatsSlice
-     *
-     * @param {Object} state - The current state of the Redux store, provided automatically.
-     * @param {Object} action - The action object containing payload with the new distribution data.
-     *
-     * @example
-     * dispatch(setDistributionData([5, 10, 15, 20]));
-     */
-    setDistributionData: (state, action) => {
-      state.distributionData = action.payload;
-    },
-
-    /**
      * Sets the lemma frequency dictionary.
      * @memberof ReduxStorestatsSlice
      *
@@ -120,9 +78,6 @@ export const statsSlice = createSlice({
 
 export const {
   reset,
-  setTableData,
-  setCoverageData,
-  setDistributionData,
   setLemmaFrequencyDict,
   setBandFrequencyDict,
   setNotInList,
