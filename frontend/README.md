@@ -75,13 +75,13 @@ Installation instructions here
     *   [Examples][60]
 *   [DownloadDistributionData][61]
     *   [Examples][62]
-*   [DownloadButton][63]
+*   [BandBar][63]
     *   [Parameters][64]
     *   [Examples][65]
-*   [BandBar][66]
-    *   [Parameters][67]
-    *   [Examples][68]
-*   [DownloadCoverageData][69]
+*   [DownloadCoverageData][66]
+    *   [Examples][67]
+*   [DownloadButton][68]
+    *   [Parameters][69]
     *   [Examples][70]
 *   [LemmaTable][71]
     *   [Redux Store Interaction][72]
@@ -648,27 +648,6 @@ return (
 )
 ```
 
-## DownloadButton
-
-Component for a download button that triggers downloading of data in XLS format.
-
-### Parameters
-
-*   `props` **[Object][100]** The props for DownloadButton.
-
-    *   `props.data` **[Array][102]** The data to be downloaded.
-    *   `props.filename` **[string][101]** The base filename for the downloaded file.
-    *   `props.text` **[string][101]** The text displayed on the download button.
-
-### Examples
-
-```javascript
-const data = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }];
-return (
-  <DownloadButton data={data} filename="data" text="Download Data" />
-)
-```
-
 ## BandBar
 
 Generic component for displaying a bar representing a band. Shows a tooltip with the total number of words on hover.
@@ -699,6 +678,27 @@ Component for downloading coverage data.
 ```javascript
 return (
   <DownloadCoverageData />
+)
+```
+
+## DownloadButton
+
+Component for a download button that triggers downloading of data in XLS format.
+
+### Parameters
+
+*   `props` **[Object][100]** The props for DownloadButton.
+
+    *   `props.data` **[Array][102]** The data to be downloaded.
+    *   `props.filename` **[string][101]** The base filename for the downloaded file.
+    *   `props.text` **[string][101]** The text displayed on the download button.
+
+### Examples
+
+```javascript
+const data = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }];
+return (
+  <DownloadButton data={data} filename="data" text="Download Data" />
 )
 ```
 
@@ -1140,19 +1140,19 @@ dispatch(setNotInList(['word1', 'word2']));
 
 [62]: #examples-21
 
-[63]: #downloadbutton
+[63]: #bandbar
 
 [64]: #parameters-12
 
 [65]: #examples-22
 
-[66]: #bandbar
+[66]: #downloadcoveragedata
 
-[67]: #parameters-13
+[67]: #examples-23
 
-[68]: #examples-23
+[68]: #downloadbutton
 
-[69]: #downloadcoveragedata
+[69]: #parameters-13
 
 [70]: #examples-24
 
