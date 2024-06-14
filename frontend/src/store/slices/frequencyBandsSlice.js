@@ -54,6 +54,7 @@ Slice = createSlice({
      * Changes the color of a specified band.
      * @memberof ReduxStoreFrequencyBandsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with target band and new color.
      *
      * @example
@@ -67,6 +68,7 @@ Slice = createSlice({
      * Changes the top value of a specified band and adjusts the bottom value of the next band.
      * @memberof ReduxStoreFrequencyBandsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with target band and new top value.
      *
      * @example
@@ -87,6 +89,7 @@ Slice = createSlice({
      * Changes the bottom value of a specified band and adjusts the top value of the previous band.
      * @memberof ReduxStoreFrequencyBandsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with target band and new bottom value.
      *
      * @example
@@ -107,6 +110,7 @@ Slice = createSlice({
      * Removes a specified band and adjusts the pointers of adjacent bands.
      * @memberof ReduxStoreFrequencyBandsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the target band to be removed.
      *
      * @example
@@ -146,6 +150,7 @@ Slice = createSlice({
     /**
      * Toggles the active state of a specified band.
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the target band.
      *
      * @example
@@ -194,6 +199,7 @@ Slice = createSlice({
      * Adds a new band to the state.
      * @memberof ReduxStoreFrequencyBandsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @example
      * dispatch(addBand());
      */

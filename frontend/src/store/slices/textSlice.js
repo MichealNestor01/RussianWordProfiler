@@ -20,6 +20,7 @@ export const textSlice = createSlice({
      * Sets the word data returned by the API.
      * @memberof ReduxStoreTextSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new word data.
      *
      * @example
@@ -33,6 +34,7 @@ export const textSlice = createSlice({
      * Sets the raw text, tokenizes it, and updates the words and tokens in the state.
      * @memberof ReduxStoreTextSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new text.
      *
      * @example
@@ -49,6 +51,7 @@ export const textSlice = createSlice({
      * Sets the stop words to be ignored by the API.
      * @memberof ReduxStoreTextSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new stop words.
      *
      * @example
@@ -62,6 +65,7 @@ export const textSlice = createSlice({
      * Changes a word in the tokenized text to a synonym and updates the relevant state.
      * @memberof ReduxStoreTextSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
      *
      * @example

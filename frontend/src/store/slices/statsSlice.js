@@ -22,6 +22,7 @@ export const statsSlice = createSlice({
      * Resets the `bands` array to an empty array.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing the reset action.
      *
      * @example
@@ -35,6 +36,7 @@ export const statsSlice = createSlice({
      * Sets the band frequency dictionary.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new band frequency dictionary.
      *
      * @example
@@ -48,6 +50,7 @@ export const statsSlice = createSlice({
      * Sets the table data.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new table data.
      *
      * @example
@@ -61,6 +64,7 @@ export const statsSlice = createSlice({
      * Sets the coverage data.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new coverage data.
      *
      * @example
@@ -74,6 +78,7 @@ export const statsSlice = createSlice({
      * Sets the distribution data.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new distribution data.
      *
      * @example
@@ -87,6 +92,7 @@ export const statsSlice = createSlice({
      * Sets the lemma frequency dictionary.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new lemma frequency dictionary.
      *
      * @example
@@ -100,6 +106,7 @@ export const statsSlice = createSlice({
      * Sets the not in list data.
      * @memberof ReduxStorestatsSlice
      *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the new not in list data.
      *
      * @example
