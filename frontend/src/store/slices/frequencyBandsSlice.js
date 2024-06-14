@@ -149,6 +149,7 @@ Slice = createSlice({
 
     /**
      * Toggles the active state of a specified band.
+     * @memberof ReduxStoreFrequencyBandsSlice
      *
      * @param {Object} state - The current state of the Redux store, provided automatically.
      * @param {Object} action - The action object containing payload with the target band.
