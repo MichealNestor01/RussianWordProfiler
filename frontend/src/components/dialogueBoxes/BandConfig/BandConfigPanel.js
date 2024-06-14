@@ -1,110 +1,84 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { Fragment, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { scaleAnimation } from "../../../framer-defaults/animations";
 import Band from "./Band";
+import NewBand from "./NewBand";
+import DialogBox from "../DialogBox";
 import { useSelector, useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
-import { changeTopValue, removeBand, addBand } from "../../../store/slices/frequencyBandsSlice";
+import {
+  SwatchIcon,
+  CloudArrowDownIcon,
+  CloudArrowUpIcon,
+} from "@heroicons/react/24/solid";
+import { saveBands } from "../../../store/slices/frequencyBandsSlice";
 
-const BandConfigPanel = () => {
+// Wrap the band config panel in a dialog box.
+// We add an onclose that saves the configuration when closing the dialog box.
+const BandConfigPanel = ({ active, onClose }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
+  const bands = useSelector((state) => state.bandsSlice.bands);
 
-  const createBandInputDivs = () => {
-    return bands.map((band, index) => {
-      const top = index === 0;
-      return (
-        <div className="bandInput" key={`bandInput-${index}`}>
-          <Band
-            id={band.id}
-            startColour={band.colour}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-          />
-          {top ? (
-            <div className="gridItem">
-              Top
-              <input
-                type="number"
-                min="0"
-                max="60000"
-                value={bands[index].top}
-                onChange={(e) => {
-                  dispatch(changeTopValue({ target: index, top: e.target.value }));
-                }}
-              />
-            </div>
-          ) : (
-            <div className="gridItem">
-              <input
-                type="number"
-                min="0"
-                max="60000"
-                value={parseInt(bands[index - 1].top) + 1}
-                onChange={(e) => {
-                  dispatch(changeTopValue({ target: index - 1, top: e.target.value }));
-                }}
-              />
-              to
-              <input
-                type="number"
-                min={parseInt(bands[index - 1].top) + 1}
-                max="60000"
-                value={bands[index].top}
-                onChange={(e) => {
-                  dispatch(changeTopValue({ target: index, top: e.target.value }));
-                }}
-              />
-            </div>
-          )}
-          <h2
-            className="removeButton"
-            onClick={() => {
-              dispatch(removeBand(index));
-            }}
-          >
-            x
-          </h2>
-        </div>
-      );
-    });
-  };
-
-  const panelHeight = 31 * bands.length;
+  const [showPresets, setShowPresets] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: "0%", x: "350px" }}
-      animate={{ opacity: 1, y: "-60px", x: "350px" }}
-      exit={{ opacity: 0, y: "0%", x: "350px" }}
-      transition={{ duration: 0.2 }}
-      style={{ height: `${panelHeight + 160}px` }}
-      className="panel card"
-    >
-      <div className="top">
-        <h2>Band Configuration</h2>
-        <div
-          className="closeButton"
-          onClick={() => {
-            dispatch(closeActiveDialogue());
-            setActiveIndex(-1);
-          }}
-        >
-          x
-        </div>
-      </div>
-      <div className="bandsForm">
-        Bands:
-        {createBandInputDivs()}
-        <div
-          onClick={() => {
-            dispatch(addBand());
-          }}
-        >
-          Add Band +
-        </div>
-      </div>
-    </motion.div>
+    <DialogBox
+      header={<h1>Band Configuration</h1>}
+      active={active}
+      onClose={() => {
+        onClose();
+        setActiveIndex(-1);
+        dispatch(saveBands());
+      }}
+      content={
+        <Fragment>
+          <AnimatePresence initial={false}>
+            {Object.keys(bands).map((band) => {
+              return (
+                <motion.div {...scaleAnimation} key={band + "-container"}>
+                  <Band
+                    key={band}
+                    id={band}
+                    colour={bands[band].colour}
+                    top={bands[band].topVal}
+                    bottom={bands[band].bottomVal}
+                  />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+
+          <NewBand />
+
+          <div className="orDivider">
+            <div className="divider"></div>
+            <p>OR</p>
+            <div className="divider"></div>
+          </div>
+
+          <div className="bandConfigOptions">
+            <button onClick={() => setShowPresets(true)}>
+              <SwatchIcon className="configIcon" />
+              Use Ready-Made Presets
+            </button>
+            <button>
+              <CloudArrowDownIcon className="configIcon" />
+              Save current preset to local file
+            </button>
+            <button>
+              <CloudArrowUpIcon className="configIcon" />
+              Load a preset from a local file
+            </button>
+          </div>
+          <DialogBox
+            active={showPresets}
+            onClose={() => setShowPresets(false)}
+            header={<h1>Band Preset Selector</h1>}
+            content={<p>Select a preset:</p>}
+          />
+        </Fragment>
+      }
+    />
   );
 };
 

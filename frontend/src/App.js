@@ -4,17 +4,10 @@ import MainEditor from "./components/main/MainEditor";
 import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
 import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
 import LemmaTable from "./components/dataAggregation/LemmaTable";
-import { saveBands, setDefaultBands } from "./store/slices/frequencyBandsSlice";
-import { useSelector, useDispatch } from "react-redux";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
 function App() {
-  const dispatch = useDispatch();
-  const dataCollected = useSelector(
-    (state) => Object.keys(state.stats.tableData).length
-  );
-
   useEffect(() => {
     if (initial) {
       alert(
@@ -24,20 +17,13 @@ function App() {
     initial = false;
   }, []);
 
-  const saveConfig = () => {
-    dispatch(saveBands());
-  };
-  const resetDefault = () => {
-    dispatch(setDefaultBands());
-  };
-
   return (
     <div className="page-wrapper">
       <div className="title-container">
         <h1 className="title">Russian Word Profiler</h1>
         <div className="button-container">
-          <button onClick={saveConfig}>Save Band Configuration</button>
-          <button onClick={resetDefault}>Reset Band Configuration</button>
+          {/* <button onClick={saveConfig}>Save Band Configuration</button> */}
+          {/* <button onClick={resetDefault}>Reset Band Configuration</button> */}
         </div>
       </div>
 
@@ -51,7 +37,9 @@ function App() {
             <CoverageDisplay />
           </div>
           <LemmaTable />
-          <a href="https://tech.yandex.com/dictionary/" target="_blank">Powered by Yandex.Dictionary</a>
+          <a href="https://tech.yandex.com/dictionary/" target="_blank">
+            Powered by Yandex.Dictionary
+          </a>
         </section>
       </section>
       {/* This is a background splash image */}

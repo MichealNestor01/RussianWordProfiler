@@ -1,33 +1,26 @@
-import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
 import FileUpload from "../../generic/FileUpload";
+import DialogBox from "../DialogBox";
+import { Fragment } from "react";
 
-const ApiSettings = () => {
-  const dispatch = useDispatch();
-
+const ApiSettings = ({ active, onClose }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: "-200px", x: "700px" }}
-      animate={{ opacity: 1, y: "-240px", x: "700px" }}
-      exit={{ opacity: 0, y: "-200px", x: "700px" }}
-      transition={{ duration: 0.2 }}
-      className="wordEditor"
-    >
-      <div className="top">
-        <h2>API Settings</h2>
-        <div
-          className="closeButton"
-          onClick={() => {
-            dispatch(closeActiveDialogue());
-          }}
-        >
-          x
-        </div>
-      </div>
-      <h1>Upload stopwords</h1>
-      <FileUpload />
-    </motion.div>
+    <DialogBox
+      active={active}
+      onClose={onClose}
+      header={<h1>Api Settings</h1>}
+      content={
+        <Fragment>
+          <div className="top">
+            <h2>API Settings</h2>
+            <div className="closeButton" onClick={onClose}>
+              x
+            </div>
+          </div>
+          <h1>Upload stopwords</h1>
+          <FileUpload />
+        </Fragment>
+      }
+    />
   );
 };
 

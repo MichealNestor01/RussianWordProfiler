@@ -1,34 +1,17 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { closeActiveDialogue } from "../../../store/slices/siteStateSlice";
-import { whichColour } from "../../../functions/whichColour";
+import { whichBand } from "../../../functions/whichBand";
 import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
-const WordEditor = () => {
-  const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
-  const {
-    index: activeWordIndex,
-    word,
-    colour,
-    synonyms,
-  } = useSelector((state) => state.siteState.selectedWord);
-  const [editorHeight, setEditorHeight] = useState(0);
 
-  useEffect(() => {
-    const listItemHeight = 24;
-    const minHeight = 100;
-    const extraHeight = 50;
-    if (synonyms) {
-      setEditorHeight(
-        Math.max(minHeight, synonyms.length * listItemHeight + extraHeight)
-      );
-    }
-  }, [synonyms]);
+const SynonymReplacer = ({ active, onClose, selectedWord }) => {
+  const dispatch = useDispatch();
+  const bands = useSelector((state) => state.bandsSlice.bands);
+  const { index: activeWordIndex, word, colour, synonyms } = selectedWord;
 
   return (
     <DialogBox
+      active={active}
+      onClose={onClose}
       header={
         <h1>
           Change Selected Word: <b style={{ color: colour }}>{word}</b>{" "}
@@ -40,7 +23,8 @@ const WordEditor = () => {
           <div className="wordEditorList">
             <ul>
               {synonyms.map((synonym, index) => {
-                const [colour] = whichColour(synonym.rank, [...bands]);
+                const band = whichBand(synonym.rank, { ...bands });
+                const colour = band === -1 ? "black" : bands[band].colour;
                 return (
                   <li
                     key={`synonym-${index}`}
@@ -51,9 +35,11 @@ const WordEditor = () => {
                         changeWord({
                           index: activeWordIndex,
                           newWord: synonym.synonym,
+                          newWordRank: synonym.rank,
+                          newWordLemma: synonym.lemma,
                         })
                       );
-                      dispatch(closeActiveDialogue());
+                      onClose();
                     }}
                   >
                     {synonym.synonym}
@@ -68,4 +54,4 @@ const WordEditor = () => {
   );
 };
 
-export default WordEditor;
+export default SynonymReplacer;

@@ -49,12 +49,15 @@ class ProfilerObj:
         # get data from yandex about the word
         synonyms = await self.cache.get_synonyms(lemma)
         # get the frequency rank of the synonyms
-        synonyms_rank = [{"synonym": synonym, "rank": self.get_frequency_rank(
-            self.mystem.lemmatize(synonym)[0])} for synonym in synonyms]
+        synonyms_with_rank_and_lemma = [{
+            "synonym": synonym, 
+            "rank": self.get_frequency_rank(lemma), 
+            "lemma": lemma,
+        } for synonym in synonyms for lemma in [self.mystem.lemmatize(synonym)[0]]]
         # update word data
         return {word: {
             'rank': rank,
-            'synonyms': synonyms_rank,
+            'synonyms': synonyms_with_rank_and_lemma,
             'lemma': lemma
         }}
 

@@ -1,29 +1,23 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import BandConfigPanel from "../dialogueBoxes/BandConfig/BandConfigPanel";
-import { setActiveDialogue } from "../../store/slices/siteStateSlice";
 import { setWordData } from "../../store/slices/textSlice";
-import { AnimatePresence } from "framer-motion";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
-import {
-  addSelectedBand,
-  removeSelectedBand,
-} from "../../store/slices/selectedBandSlice";
+import { toggleActive } from "../../store/slices/frequencyBandsSlice";
+import { useState } from "react";
 
 const BandsBar = () => {
   const dispatch = useDispatch();
-  const bands = useSelector((state) => state.bands);
-  const activeWindow = useSelector((state) => state.siteState.activeWindow);
+  const bands = useSelector((state) => state.bandsSlice.bands);
   const { words, stopWords } = useSelector((state) => state.text);
-
-  const selectedBands = useSelector(
-    (state) => state.selectedBands.selectedBands
-  );
+  const [showBandConfig, setShowBandConfig] = useState(false);
+  const [showApiSettings, setShowApiSettings] = useState(false);
 
   const submitHandler = async () => {
     const url =
-      window.location.href === "http://localhost:3000/" || window.location.href === "http://localhost:5000/"
-        ? "http://127.0.0.1:5000/" 
+      window.location.href === "http://localhost:3000/" ||
+      window.location.href === "http://localhost:5000/"
+        ? "http://127.0.0.1:5000/"
         : "https://michealnestor.pythonanywhere.com/";
     const response = await axios({
       method: "post",
@@ -41,17 +35,8 @@ const BandsBar = () => {
     }
   };
 
-  // Toggling the band adds it to the list of bands not to show on the formatted output.
-  function toggleBand(band) {
-    if (band.id in selectedBands) {
-      dispatch(removeSelectedBand(band.id));
-    } else {
-      dispatch(addSelectedBand(band.id));
-    }
-  }
-
   const createBandDivs = () => {
-    return bands.map((band, index) => {
+    return Object.keys(bands).map((band, index) => {
       return (
         <div
           className={`bandContainer ${index > 0 && "withBorder"}`}
@@ -60,15 +45,20 @@ const BandsBar = () => {
           <div
             className="bandColour"
             style={{
-              backgroundColor: !(band.id in selectedBands)
-                ? band.colour
+              backgroundColor: bands[band].active
+                ? bands[band].colour
                 : "transparent",
-              borderColor:
-                band.id in selectedBands ? band.colour : "transparent",
+              borderColor: bands[band].active
+                ? "transparent"
+                : bands[band].colour,
             }}
-            onClick={() => toggleBand(band)}
+            onClick={() => dispatch(toggleActive(band))}
           />
-          {index > 0 ? <h5>{band.top}</h5> : <h5>Top {band.top}</h5>}
+          {index > 0 ? (
+            <h5>{bands[band].topVal}</h5>
+          ) : (
+            <h5>Top {bands[band].topVal}</h5>
+          )}
         </div>
       );
     });
@@ -78,30 +68,18 @@ const BandsBar = () => {
     <section className="bands-selector">
       <div className="scrollArea">{createBandDivs()}</div>
       <div className="buttons">
-        <button
-          onClick={() => {
-            dispatch(
-              setActiveDialogue(activeWindow === "bands" ? "" : "bands")
-            );
-          }}
-        >
-          Configure Bands
-        </button>
-        <button
-          onClick={() => {
-            dispatch(setActiveDialogue(activeWindow === "api" ? "" : "api"));
-          }}
-        >
-          API Settings
-        </button>
+        <button onClick={() => setShowBandConfig(true)}>Configure Bands</button>
+        <button onClick={() => setShowApiSettings(true)}>API Settings</button>
         <button onClick={submitHandler}>Profile Text</button>
       </div>
-      <AnimatePresence>
-        {activeWindow === "api" && <ApiSettings />}
-      </AnimatePresence>
-      <AnimatePresence>
-        {activeWindow === "bands" && <BandConfigPanel />}
-      </AnimatePresence>
+      <ApiSettings
+        active={showApiSettings}
+        onClose={() => setShowApiSettings(false)}
+      />
+      <BandConfigPanel
+        active={showBandConfig}
+        onClose={() => setShowBandConfig(false)}
+      />
     </section>
   );
 };
