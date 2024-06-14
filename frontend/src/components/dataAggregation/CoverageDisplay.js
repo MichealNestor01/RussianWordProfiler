@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setCoverageData } from "../../store/slices/statsSlice";
 import BandBar from "../generic/BandBar";
-import DownloadCoverageData from "../dataAggregation/downloadButtons/DownloadCoverageData";
+import DownloadButton from "../generic/DownloadButton";
 
 /**
  * @description
@@ -12,9 +12,6 @@ import DownloadCoverageData from "../dataAggregation/downloadButtons/DownloadCov
  * The component uses the following parts of the Redux store:
  * - `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
  *
- * The component dispatches the following Redux actions:
- * - `setCoverageData`: Action to set the coverage data. Used so this data can be downloaded.
- *
  * @component
  *
  * @example
@@ -23,7 +20,6 @@ import DownloadCoverageData from "../dataAggregation/downloadButtons/DownloadCov
  * )
  */
 const DistributionDisplay = () => {
-  const dispatch = useDispatch();
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
@@ -46,14 +42,18 @@ const DistributionDisplay = () => {
     });
   });
 
-  dispatch(setCoverageData(coverageData));
   // reset to 0 for display
   currentTotal = 0;
   return (
     <div className="distributionContainer card">
       <div className="cardHeader">
         <h1 className="title">
-          Cumulative Coverage <DownloadCoverageData />
+          Cumulative Coverage
+          <DownloadButton
+            data={coverageData}
+            filename="profilerCoverageData"
+            text="Download Coverage Data"
+          />
         </h1>
       </div>
       <div className="barGraph">
