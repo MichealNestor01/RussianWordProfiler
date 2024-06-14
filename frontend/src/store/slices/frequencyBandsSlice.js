@@ -46,7 +46,7 @@ const storedState = localStorage.getItem("russianWordProfilerBandsV2")
  *
  * @namespace ReduxStoreFrequencyBandsSlice
  */
-Slice = createSlice({
+export const frequencyBandsSlice = createSlice({
   name: "bands",
   initialState: { bands: storedState },
   reducers: {
