@@ -70,14 +70,14 @@ Installation instructions here
 *   [DistributionDisplay][55]
     *   [Redux Store Interaction][56]
     *   [Examples][57]
-*   [DistributionDisplay][58]
-    *   [Redux Store Interaction][59]
+*   [DownloadButton][58]
+    *   [Parameters][59]
     *   [Examples][60]
-*   [DownloadButton][61]
+*   [BandBar][61]
     *   [Parameters][62]
     *   [Examples][63]
-*   [BandBar][64]
-    *   [Parameters][65]
+*   [CoverageDisplay][64]
+    *   [Redux Store Interaction][65]
     *   [Examples][66]
 *   [LemmaTable][67]
     *   [Redux Store Interaction][68]
@@ -599,24 +599,6 @@ return (
 )
 ```
 
-## DistributionDisplay
-
-Component for displaying coverage data.
-
-### Redux Store Interaction
-
-The component uses the following parts of the Redux store:
-
-*   `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
-
-### Examples
-
-```javascript
-return (
-  <CoverageDisplay />
-)
-```
-
 ## DownloadButton
 
 Component for a download button that triggers downloading of data in XLS format.
@@ -656,6 +638,24 @@ Generic component for displaying a bar representing a band. Shows a tooltip with
 ```javascript
 return (
   <BandBar index={0} total={100} width="50%" colour="red" />
+)
+```
+
+## CoverageDisplay
+
+Component for displaying coverage data.
+
+### Redux Store Interaction
+
+The component uses the following parts of the Redux store:
+
+*   `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
+
+### Examples
+
+```javascript
+return (
+  <CoverageDisplay />
 )
 ```
 
@@ -1026,21 +1026,21 @@ dispatch(setNotInList(['word1', 'word2']));
 
 [57]: #examples-19
 
-[58]: #distributiondisplay-1
+[58]: #downloadbutton
 
-[59]: #redux-store-interaction-10
+[59]: #parameters-12
 
 [60]: #examples-20
 
-[61]: #downloadbutton
+[61]: #bandbar
 
-[62]: #parameters-12
+[62]: #parameters-13
 
 [63]: #examples-21
 
-[64]: #bandbar
+[64]: #coveragedisplay
 
-[65]: #parameters-13
+[65]: #redux-store-interaction-10
 
 [66]: #examples-22
 

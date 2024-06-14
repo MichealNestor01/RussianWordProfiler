@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { setCoverageData } from "../../store/slices/statsSlice";
 import BandBar from "../generic/BandBar";
 import DownloadButton from "../generic/DownloadButton";
 
@@ -19,7 +18,7 @@ import DownloadButton from "../generic/DownloadButton";
  *   <CoverageDisplay />
  * )
  */
-const DistributionDisplay = () => {
+const CoverageDisplay = () => {
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
@@ -100,4 +99,4 @@ const DistributionDisplay = () => {
   );
 };
 
-export default DistributionDisplay;
+export default CoverageDisplay;
