@@ -1,6 +1,17 @@
 import { useSelector } from "react-redux";
 import DownloadButton from "../../generic/DownloadButton";
 
+/**
+ * @description
+ * Component for downloading table data.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <DownloadTableData />
+ * )
+ */
 const DownloadTableData = () => {
   const tableData = useSelector((state) => state.stats.tableData);
   // const CSVData = [["BAND", "LEMMA", "WORDS", "OCCURRENCES", "RANK"]];
@@ -18,9 +29,15 @@ const DownloadTableData = () => {
   const xlsData = [];
   tableData.forEach((band) => {
     band.lemmas.forEach((lemma) => {
-      xlsData.push({"BAND": band.name, "LEMMA": lemma.lemma, "WORDS": lemma.words.join(" "), "OCCURRENCES": lemma.occurrences, "RANK": lemma.rank});
+      xlsData.push({
+        BAND: band.name,
+        LEMMA: lemma.lemma,
+        WORDS: lemma.words.join(" "),
+        OCCURRENCES: lemma.occurrences,
+        RANK: lemma.rank,
+      });
     });
-  }); 
+  });
 
   return (
     <DownloadButton

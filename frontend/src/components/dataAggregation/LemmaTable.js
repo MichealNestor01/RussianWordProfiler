@@ -3,6 +3,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { setTableData } from "../../store/slices/statsSlice";
 import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableData";
 
+/**
+ * @description
+ * Component for displaying lemma table data.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `statsSlice.lemmaFrequencyDict`: Frequency dictionary for lemmas.
+ *
+ * The component dispatches the following Redux actions:
+ * - `setTableData`: Action to set the table data. Used so that this data can be downloaded.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <LemmaTable />
+ * )
+ */
 const LemmaTable = () => {
   const dispatch = useDispatch();
   const [selectedBand, setSelectedBand] = useState(0);

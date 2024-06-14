@@ -12,10 +12,28 @@ import {
 } from "@heroicons/react/24/solid";
 import { saveBands } from "../../../store/slices/frequencyBandsSlice";
 
-// Wrap the band config panel in a dialog box.
-// We add an onclose that saves the configuration when closing the dialog box.
+/**
+ * @description
+ * Component for configuring bands in a panel, wrapped in a dialog box. The configuration is saved when the dialog box is closed.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `bandsSlice.bands`: An array of band objects.
+ *
+ * The component dispatches the following Redux actions:
+ * - `saveBands`: Action to save the current band configuration.
+ *
+ * @component
+ * @param {Object} props - The props for BandConfigPanel.
+ * @param {boolean} props.active - Whether the dialog box is active.
+ * @param {Function} props.onClose - Function to close the dialog box.
+ *
+ * @example
+ * return (
+ *   <BandConfigPanel active={true} onClose={() => {}} />
+ * )
+ */
 const BandConfigPanel = ({ active, onClose }) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
   const dispatch = useDispatch();
   const bands = useSelector((state) => state.bandsSlice.bands);
 
@@ -27,7 +45,6 @@ const BandConfigPanel = ({ active, onClose }) => {
       active={active}
       onClose={() => {
         onClose();
-        setActiveIndex(-1);
         dispatch(saveBands());
       }}
       content={

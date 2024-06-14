@@ -1,14 +1,30 @@
 const PUNCTUATION_REGEX = /[.,;:!?…–\-_"“”‘’«»(){}\[\]]/;
-// split text is a way for me to extract words from the text we are given
-// when given:
-//      ...hello.. .world. sleep.
-// It will extract:
-//      {index: 0, prefix: ..., word: hello, postfix: ..},
-//      {index: 1, prefix: ., word: world, postfix: .},
-//      {index: 2, prefix: , word: sleep, postfix: .}
-// This allows me to maintain user formatting of text by parsing these objects later
-// instead of the text itself
-// this function returns an array of these objects, and an array of just the words
+/**
+ * @memberof functions
+ * @description
+ * Splits the given text into an array of word objects, preserving punctuation and formatting. Each object contains the word, its prefix, and postfix. Also returns an array of just the words.
+ *
+ * The function handles cases where words are nested within punctuation and maintains line breaks as part of the word objects.
+ *
+ * @param {string} text - The text to be split into word objects.
+ * @returns {Object} An object containing:
+ * - `objects`: An array of word objects, each with `index`, `prefix`, `word`, and `postfix`.
+ * - `words`: An array of just the words extracted from the text.
+ *
+ * @example
+ * const text = "...hello.. .world. sleep.";
+ * const result = splitText(text);
+ * console.log(result.objects);
+ * // Output:
+ * // [
+ * //   { index: 0, prefix: '...', word: 'hello', postfix: '..' },
+ * //   { index: 1, prefix: '.', word: 'world', postfix: '.' },
+ * //   { index: 2, prefix: ' ', word: 'sleep', postfix: '.' }
+ * // ]
+ * console.log(result.words);
+ * // Output:
+ * // ['hello', 'world', 'sleep']
+ */
 export const splitText = (text) => {
   // console.log("\n\n\tRUNNING FORMAT TEXT\n\n");
   const items = text.split(" ");
@@ -34,7 +50,11 @@ export const splitText = (text) => {
     }
     wordEnd = currentItem.length;
     // find in the item the next word
-    for (let charIndex = wordStart; charIndex < currentItem.length; charIndex++) {
+    for (
+      let charIndex = wordStart;
+      charIndex < currentItem.length;
+      charIndex++
+    ) {
       if (charIndex === wordStart) {
         if (PUNCTUATION_REGEX.test(currentItem[charIndex])) {
           wordStart++;
@@ -70,8 +90,16 @@ export const splitText = (text) => {
     if (foundLineBreak) {
       word = currentItem.substring(wordStart, wordEnd);
     }
-    const postfix = currentItem.substring(wordEnd, nextWord === -1 ? currentItem.length : nextWord);
-    outputBuffer.push({ index: wordIndex++, prefix: prefix, word: word, postfix: postfix });
+    const postfix = currentItem.substring(
+      wordEnd,
+      nextWord === -1 ? currentItem.length : nextWord
+    );
+    outputBuffer.push({
+      index: wordIndex++,
+      prefix: prefix,
+      word: word,
+      postfix: postfix,
+    });
     wordBuffer.push(word);
     // Debug output: console.log(
     //  `item ${itemIndex}: {${currentItem}}\n\twordStart: ${wordStart}\n\twordEnd: ${wordEnd}\n\tnextWord: ${nextWord}\n\tprefix: ${prefix}\n\tword: ${word}\n\tpostfix: ${postfix}\n`

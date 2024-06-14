@@ -2,6 +2,21 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setStopWords } from "../../store/slices/textSlice";
 
+/**
+ * @description
+ * Component for uploading a file to set stop words in the Redux store.
+ *
+ * ### Redux Store Interaction
+ * The component dispatches the following Redux actions:
+ * - `setStopWords`: Action to set the stop words in the Redux store.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <FileUpload />
+ * )
+ */
 const FileUpload = () => {
   const dispatch = useDispatch();
 

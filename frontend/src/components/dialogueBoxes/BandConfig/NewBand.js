@@ -1,6 +1,22 @@
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
 import { addBand } from "../../../store/slices/frequencyBandsSlice";
+
+/**
+ * @description
+ * Component for adding a new band.
+ *
+ * ### Redux Store Interaction
+ * The component dispatches the following Redux actions:
+ * - `addBand`: Action to add a new band.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <NewBand />
+ * )
+ */
 const NewBand = () => {
   const dispatch = useDispatch();
 

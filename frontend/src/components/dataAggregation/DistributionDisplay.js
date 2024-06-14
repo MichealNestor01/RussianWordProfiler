@@ -4,6 +4,25 @@ import { setDistributionData } from "../../store/slices/statsSlice";
 import DownloadDistributionData from "./downloadButtons/DownloadDistributionData";
 import BandBar from "../generic/BandBar";
 
+/**
+ * @description
+ * Component for displaying distribution data.
+ *
+ * ### Redux Store Interaction
+ * The component uses the following parts of the Redux store:
+ * - `statsSlice.bandFrequencyDict`: Frequency dictionary for bands.
+ *
+ * The component dispatches the following Redux actions:
+ * - `setDistributionData`: Action to set the distribution data. Used so this data can be downloaded
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <DistributionDisplay />
+ * )
+ */
+
 const DistributionDisplay = () => {
   const dispatch = useDispatch();
   const bandFrequencyDict = useSelector(
