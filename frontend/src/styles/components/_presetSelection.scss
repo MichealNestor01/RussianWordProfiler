@@ -43,9 +43,13 @@
                 .presetBar {
                     flex-grow: 1;
                     margin-right: 4px;
-
                     border-radius: 4px;
                 }
+            }
+
+            .activePreset {
+                background-color: #dbe8fd87;
+                border: 2px solid rgba(0, 0, 0, 0.2);
             }
 
             .presetText {

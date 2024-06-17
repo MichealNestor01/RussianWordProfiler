@@ -820,6 +820,10 @@ ul {
   margin-right: 4px;
   border-radius: 4px;
 }
+.presetOptionsContainer .presetContainer .presetButton .activePreset {
+  background-color: rgba(219, 232, 253, 0.5294117647);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
 .presetOptionsContainer .presetContainer .presetButton .presetText {
   color: #343734;
   font-weight: 500;

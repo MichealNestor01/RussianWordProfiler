@@ -34,12 +34,14 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
                 // dispatch(loadPreset(preset.name));
                 onClick();
             }}
-            style={{
-                backgroundColor:
-                    selectedPreset === preset.name ? "red" : "grey",
-            }}
         >
-            <div className="preset">{bars}</div>
+            <div
+                className={`preset ${
+                    selectedPreset === preset.name ? "activePreset" : ""
+                }`}
+            >
+                {bars}
+            </div>
             <div className="presetText">{preset.name}</div>
         </button>
     );
