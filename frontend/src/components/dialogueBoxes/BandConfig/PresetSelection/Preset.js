@@ -1,9 +1,34 @@
 // import { PlusIcon } from "@heroicons/react/24/solid";
-import { useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadPreset } from "../../../../store/slices/frequencyBandsSlice";
+import {
+    ArrowUpTrayIcon,
+    FolderArrowDownIcon,
+} from "@heroicons/react/24/outline";
 
 const Preset = ({ preset, onClick, selectedPreset }) => {
+    const [presetClass, setPresetClass] = useState(
+        `preset ${preset.name === "Current Preset" ? "currentPreset" : ""}`
+    );
+
+    let content = <Fragment />;
+    if (preset.name === "Current Preset") {
+        content = (
+            <div className="currentPresetButton">
+                <FolderArrowDownIcon />
+                <p>Click here to save current preset</p>
+            </div>
+        );
+    } else if (preset.name === "Upload New Preset") {
+        content = (
+            <div className="currentPresetButton">
+                <ArrowUpTrayIcon />
+                <p>Click here or drag a preset file</p>
+            </div>
+        );
+    }
+
     let bars = [];
 
     const highestVal = Math.log10(52063);
@@ -27,6 +52,14 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
         prevTop = top;
     }
 
+    useEffect(() => {
+        if (preset.name != "Current Preset") {
+            setPresetClass(
+                `preset ${selectedPreset === preset.name ? "activePreset" : ""}`
+            );
+        }
+    }, [selectedPreset]);
+
     return (
         <button
             className="presetButton"
@@ -35,13 +68,11 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
                 onClick();
             }}
         >
-            <div
-                className={`preset ${
-                    selectedPreset === preset.name ? "activePreset" : ""
-                }`}
-            >
+            <div className={presetClass}>
                 {bars}
+                {content}
             </div>
+
             <div className="presetText">{preset.name}</div>
         </button>
     );

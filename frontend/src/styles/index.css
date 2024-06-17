@@ -806,6 +806,7 @@ ul {
   margin-bottom: 2rem;
 }
 .presetOptionsContainer .presetContainer .presetButton .preset {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -824,8 +825,36 @@ ul {
   background-color: rgba(219, 232, 253, 0.5294117647);
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
+.presetOptionsContainer .presetContainer .presetButton .currentPreset .presetBar {
+  opacity: 0.1;
+}
 .presetOptionsContainer .presetContainer .presetButton .presetText {
   color: #343734;
   font-weight: 500;
   font-size: 1rem;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton {
+  position: absolute;
+  left: 5%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  transform: scale(0.9);
+  transition: transform 0.1s ease-in-out;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton p {
+  color: #343734;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton svg {
+  width: 2rem;
+  margin-bottom: 0.5rem;
+  stroke: #343734;
+  stroke-width: 2;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton:hover {
+  transform: scale(0.95);
 }/*# sourceMappingURL=index.css.map */

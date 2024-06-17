@@ -6,9 +6,21 @@ import DialogBox from "../../DialogBox";
 
 const PresetSelection = ({ active, onClose }) => {
     const { presets, bands } = useSelector((state) => state.bandsSlice);
-    const [selectedPreset, setSelectedPreset] = useState("Current Preset");
+    const [selectedPreset, setSelectedPreset] = useState("");
     const [currentPreset, setCurrentPreset] = useState({});
     const [currentPresetDiv, setCurrentPresetDiv] = useState({});
+
+    const addNewPresetDiv = (
+        <Preset
+            key={"Upload New Preset"}
+            preset={{ name: "Upload New Preset", isDefault: false, bands: [] }}
+            onClick={() => {
+                console.log("UPLOAD NEW FILE");
+                setSelectedPreset("");
+            }}
+            selectedPreset={selectedPreset}
+        />
+    );
 
     const createPresetDivs = () => {
         const tempDefaultPresetDivs = [];
@@ -55,7 +67,10 @@ const PresetSelection = ({ active, onClose }) => {
             <Preset
                 key={tempCurrentPreset.name}
                 preset={tempCurrentPreset}
-                onClick={() => setSelectedPreset(tempCurrentPreset.name)}
+                onClick={() => {
+                    console.log("OPEN SAVE CURRENT MODAL");
+                    setSelectedPreset("");
+                }}
                 selectedPreset={selectedPreset}
             />
         );
@@ -75,7 +90,16 @@ const PresetSelection = ({ active, onClose }) => {
 
                     <h2>Other Presets</h2>
                     <div className="presetContainer">
-                        {[currentPresetDiv, ...addedPresetDivs]}
+                        {[
+                            currentPresetDiv,
+                            addNewPresetDiv,
+                            ...addedPresetDivs,
+                        ]}
+                    </div>
+
+                    <div className="presetButtonsContainer">
+                        <button>Download Selected Preset</button>
+                        <button>Load Selected Preset</button>
                     </div>
                 </div>
             }
