@@ -14,14 +14,14 @@ The Flask api which powers the Russian Word Profiler
   - [Scan Text Endpoint](#scan-text-endpoint)
     - [POST /scantext/](#post-scantext)
 - [Profiler documentation](#profiler-documentation)
-    - [*class* modules.profiler.ProfilerObj(use\_cache=True)](#class-modulesprofilerprofilerobjuse_cachetrue)
+  - [*class* modules.profiler.ProfilerObj(use\_cache=True)](#class-modulesprofilerprofilerobjuse_cachetrue)
     - [Attributes:](#attributes)
     - [Methods:](#methods)
-      - [get\_frequency\_rank(lemma)](#get_frequency_ranklemma)
-      - [load\_frequency\_list(file\_path)](#load_frequency_listfile_path)
-      - [*async* process\_word(word)](#async-process_wordword)
-      - [*async* scan\_text(txt)](#async-scan_texttxt)
-      - [set\_stopwords(stopwords)](#set_stopwordsstopwords)
+    - [get\_frequency\_rank(lemma)](#get_frequency_ranklemma)
+    - [load\_frequency\_list(file\_path)](#load_frequency_listfile_path)
+    - [*async* process\_word(word)](#async-process_wordword)
+    - [*async* scan\_text(txt)](#async-scan_texttxt)
+    - [set\_stopwords(stopwords)](#set_stopwordsstopwords)
 - [Cache documentation](#cache-documentation)
     - [*class* modules.cache.WordDataCacheEntry](#class-modulescacheworddatacacheentry)
     - [*class* modules.cache.WordCache(file=None)](#class-modulescachewordcachefilenone)
@@ -128,7 +128,7 @@ Content-Type: application/json, text/javascript
 
 # Profiler documentation
 
-### *class* modules.profiler.ProfilerObj(use_cache=True)
+## *class* modules.profiler.ProfilerObj(use_cache=True)
 
 Bases: `object`
 
@@ -161,7 +161,7 @@ A profiler object to process and analyze word frequency and synonyms.
 **async scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asynchronously scans a block of text and analyzes each word in it.
 
-#### get_frequency_rank(lemma)
+### get_frequency_rank(lemma)
 
 Retrieve the frequency rank of a given lemma.
 
@@ -173,7 +173,7 @@ Retrieve the frequency rank of a given lemma.
 *Returns*:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int: The frequency rank of the lemma or -1 if the lemma is not found.
 
-#### load_frequency_list(file_path)
+### load_frequency_list(file_path)
 
 Load a frequency list from a specified file path.
 
@@ -182,40 +182,38 @@ Load a frequency list from a specified file path.
 *Args*:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_path (str): The path to the frequency list file.
 
-#### *async* process_word(word)
+### *async* process_word(word)
 
 Asynchronously process a single word to determine its lemma, frequency
 rank, and synonyms.
 
-- **Return type:** `Dict`\[`str`, `Dict`\[`str`, `Any`\]\]
+*Return type:* `Dict[str, Dict[str, Any]]`
 
-Args:  
-word (str): The word to process.
+*Args*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word (str): The word to process.
 
-Returns:  
-dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank:
-int, lemma: str}\]}
+*Returns*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank: int, lemma: str}\]}  
 
-#### *async* scan_text(txt)
+### *async* scan_text(txt)
 
 Asynchronously scan a block of text and analyze each word in it.
 
-- **Return type:** `Dict`\[`str`, `Dict`\[`str`, `Any`\]\]
+*Return type:* `Dict[str, Dict[str, Any]]`
 
-Args:  
-txt (str): The text to scan.
+*Args*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt (str): The text to scan.
 
-Returns:  
-dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank:
-int, lemma: str}\]}
+*Returns*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank: int, lemma: str}\]}  
 
-#### set_stopwords(stopwords)
+### set_stopwords(stopwords)
 
 Set the stopwords for the profiler.
 
-- **Return type:** `None`
+*Return type:* `None`
 
-Args:  
+*Args*:  
 stopwords (iterable): An iterable of words to set as stopwords.
 
 # Cache documentation
