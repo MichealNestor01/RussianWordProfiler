@@ -143,22 +143,22 @@ A profiler object to process and analyze word frequency and synonyms.
 
 ### Methods:
 
-**\_\_init_\_(self, use_cache: bool = True)**: 
+**\_\_init_\_(self, use_cache: bool = True)**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initializes the ProfilerObj with an optional cache.
 
-**set_stopwords(self, stopwords) -> None**: 
+**set_stopwords(self, stopwords) -> None**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the stopwords for the profiler.
 
-**load_frequency_list(self, file_path: str) -> None**: 
+**load_frequency_list(self, file_path: str) -> None**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loads a frequency list from a specified file path.
 
-**get_frequency_rank(self, lemma: str) -> int**: 
+**get_frequency_rank(self, lemma: str) -> int**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the frequency rank of a given lemma.
 
-**async process_word(self, word: str) -> Dict[str, Dict[str, Any]]**: 
+**async process_word(self, word: str) -> Dict[str, Dict[str, Any]]**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asynchronously processes a single word to determine its lemma, frequency rank, and synonyms.
 
-**async scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]**:
+**async scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asynchronously scans a block of text and analyzes each word in it.
 
 #### get_frequency_rank(lemma)
