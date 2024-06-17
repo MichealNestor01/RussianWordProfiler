@@ -245,6 +245,7 @@ ul {
   border: 3px solid transparent;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 .bands-selector .bandContainer h5 {
   white-space: nowrap;

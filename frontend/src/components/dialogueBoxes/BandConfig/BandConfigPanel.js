@@ -82,6 +82,7 @@ const BandConfigPanel = ({ active, onClose }) => {
                             <SwatchIcon className="configIcon" />
                             Use Ready-Made Presets
                         </button>
+
                         <button>
                             <CloudArrowDownIcon className="configIcon" />
                             Save current preset to local file
@@ -91,11 +92,9 @@ const BandConfigPanel = ({ active, onClose }) => {
                             Load a preset from a local file
                         </button>
                     </div>
-                    <DialogBox
+                    <PresetSelection
                         active={showPresets}
                         onClose={() => setShowPresets(false)}
-                        header={<h1>Band Preset Selector</h1>}
-                        content={<PresetSelection />}
                     />
                 </Fragment>
             }
