@@ -1,8 +1,3 @@
-<!-- api documentation master file, created by
-sphinx-quickstart on Mon Jun 17 10:07:45 2024.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive. -->
-
 # Russian Word Profiler Flask API
 
 The Flask api which powers the Russian Word Profiler
@@ -20,6 +15,8 @@ The Flask api which powers the Russian Word Profiler
     - [POST /scantext/](#post-scantext)
 - [Profiler documentation](#profiler-documentation)
     - [*class* modules.profiler.ProfilerObj(use\_cache=True)](#class-modulesprofilerprofilerobjuse_cachetrue)
+    - [Attributes:](#attributes)
+    - [Methods:](#methods)
       - [get\_frequency\_rank(lemma)](#get_frequency_ranklemma)
       - [load\_frequency\_list(file\_path)](#load_frequency_listfile_path)
       - [*async* process\_word(word)](#async-process_wordword)
@@ -35,7 +32,6 @@ The Flask api which powers the Russian Word Profiler
 - [query\_yandex documentation](#query_yandex-documentation)
     - [*async* modules.query\_yandex.query\_yandex\_for\_synonyms(word)](#async-modulesquery_yandexquery_yandex_for_synonymsword)
 
-
 # Usage Instrutctions
 
 Add details here about how to run the development server
@@ -48,12 +44,7 @@ Add details of how to generate documentation
 
 # API documentation
 
-This document provides an overview of the available API endpoints and their usage.
-
-> ##### Table of Contents
->
-> - [Default Endpoint](#default-endpoint)
-> - [Scan Text Endpoint](#scan-text-endpoint)
+An overview of the available API endpoints and their usage.
 
 ## Default Endpoint
 
@@ -63,14 +54,14 @@ Returns the react.js frontend app.
 
 **Example request**:
 
-```http
+``` http
 GET / HTTP/1.1
 Host: michealnestor.pythonanywhere.com
 ```
 
 **Example response**:
 
-```http
+``` http
 HTTP/1.1 200 OK
 Content-Type: text/html
 
@@ -85,7 +76,7 @@ Processes a string of words and returns the frequency rank of each word, synonym
 
 **Example request**:
 
-```http
+``` http
 POST /scantext/ HTTP/1.1
 Host: michealnestor.pythonanywhere.com
 Accept: application/json
@@ -98,7 +89,7 @@ Accept: application/json
 
 **Example response**:
 
-```http
+``` http
 HTTP/1.1 200 OK
 Content-Type: application/json, text/javascript
 
@@ -132,8 +123,8 @@ Content-Type: application/json, text/javascript
 ```
 
 - **Status Codes:**
-  - [200 OK](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1) – No error
-  - [400 Bad Request](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1) – Bad request
+  - [200 OK](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1): No error
+  - [400 Bad Request](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1): Bad request
 
 # Profiler documentation
 
@@ -143,84 +134,89 @@ Bases: `object`
 
 A profiler object to process and analyze word frequency and synonyms.
 
-Attributes:
-: mystem (Mystem): A Mystem object for lemmatization.
-  stopwords (set): A set of stopwords to ignore during text processing.
-  frequency_list (dict): A dictionary mapping lemmas to their frequency ranks.
-  cache (WordCache): A cache object to store and retrieve synonyms.
+### Attributes:
 
-Methods:
-: \_\_init_\_(self, use_cache: bool = True):
-  : Initializes the ProfilerObj with an optional cache.
-: set_stopwords(self, stopwords) -> None:
-  : Sets the stopwords for the profiler.
-: load_frequency_list(self, file_path: str) -> None:
-  : Loads a frequency list from a specified file path.
-: get_frequency_rank(self, lemma: str) -> int:
-  : Retrieves the frequency rank of a given lemma.
-: async process_word(self, word: str) -> Dict[str, Dict[str, Any]]:
-  : Asynchronously processes a single word to determine its lemma, frequency rank, and synonyms.
-: async scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]:
-  : Asynchronously scans a block of text and analyzes each word in it.
+- **mystem** (Mystem): A Mystem object for lemmatization.
+- **stopwords** (set): A set of stopwords to ignore during text processing.
+- **frequency_list** (dict): A dictionary mapping lemmas to their frequency ranks.
+- **cache** (WordCache): A cache object to store and retrieve synonyms.
+
+### Methods:
+
+**\_\_init_\_(self, use_cache: bool = True)**: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initializes the ProfilerObj with an optional cache.
+
+**set_stopwords(self, stopwords) -> None**: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the stopwords for the profiler.
+
+**load_frequency_list(self, file_path: str) -> None**: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loads a frequency list from a specified file path.
+
+**get_frequency_rank(self, lemma: str) -> int**: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the frequency rank of a given lemma.
+
+**async process_word(self, word: str) -> Dict[str, Dict[str, Any]]**: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asynchronously processes a single word to determine its lemma, frequency rank, and synonyms.
+
+**async scan_text(self, txt: str) -> Dict[str, Dict[str, Any]]**:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asynchronously scans a block of text and analyzes each word in it.
 
 #### get_frequency_rank(lemma)
 
 Retrieve the frequency rank of a given lemma.
 
-* **Return type:**
-  `int`
+*Return type:* `int`
 
-Args:
-: lemma (str): The lemma whose frequency rank is to be retrieved.
+*Args*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lemma (str): The lemma whose frequency rank is to be retrieved.
 
-Returns:
-: int: The frequency rank of the lemma or -1 if the lemma is not found.
+*Returns*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int: The frequency rank of the lemma or -1 if the lemma is not found.
 
 #### load_frequency_list(file_path)
 
 Load a frequency list from a specified file path.
 
-* **Return type:**
-  `None`
+*Return type:* `None`
 
-Args:
-: file_path (str): The path to the frequency list file.
+*Args*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_path (str): The path to the frequency list file.
 
 #### *async* process_word(word)
 
-Asynchronously process a single word to determine its lemma, frequency rank, and synonyms.
+Asynchronously process a single word to determine its lemma, frequency
+rank, and synonyms.
 
-* **Return type:**
-  `Dict`[`str`, `Dict`[`str`, `Any`]]
+- **Return type:** `Dict`\[`str`, `Dict`\[`str`, `Any`\]\]
 
-Args:
-: word (str): The word to process.
+Args:  
+word (str): The word to process.
 
-Returns:
-: dict: {word: {rank: int, lemma: str, synonyms: [{synonym: str, rank: int, lemma: str}]}
+Returns:  
+dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank:
+int, lemma: str}\]}
 
 #### *async* scan_text(txt)
 
 Asynchronously scan a block of text and analyze each word in it.
 
-* **Return type:**
-  `Dict`[`str`, `Dict`[`str`, `Any`]]
+- **Return type:** `Dict`\[`str`, `Dict`\[`str`, `Any`\]\]
 
-Args:
-: txt (str): The text to scan.
+Args:  
+txt (str): The text to scan.
 
-Returns:
-: dict: {word: {rank: int, lemma: str, synonyms: [{synonym: str, rank: int, lemma: str}]}
+Returns:  
+dict: {word: {rank: int, lemma: str, synonyms: \[{synonym: str, rank:
+int, lemma: str}\]}
 
 #### set_stopwords(stopwords)
 
 Set the stopwords for the profiler.
 
-* **Return type:**
-  `None`
+- **Return type:** `None`
 
-Args:
-: stopwords (iterable): An iterable of words to set as stopwords.
+Args:  
+stopwords (iterable): An iterable of words to set as stopwords.
 
 # Cache documentation
 
@@ -230,101 +226,111 @@ Bases: `TypedDict`
 
 A TypedDict that represents a cache entry for a word.
 
-Attributes:
-: synonyms (List[str]): A list of synonyms for the word.
-  last_updated (datetime): The timestamp of when the entry was last updated.
-  time_to_live (int): The time-to-live (TTL) for the entry in days.
+Attributes:  
+synonyms (List\[str\]): A list of synonyms for the word. last_updated
+(datetime): The timestamp of when the entry was last updated.
+time_to_live (int): The time-to-live (TTL) for the entry in days.
 
 ### *class* modules.cache.WordCache(file=None)
 
 Bases: `object`
 
-A class to manage a cache of words and their synonyms with a time-to-live (TTL) mechanism.
+A class to manage a cache of words and their synonyms with a
+time-to-live (TTL) mechanism.
 
-Attributes:
-: default_ttl (int): Default TTL value in days for cache entries. Set to 30.
-  file (str): Path to the file for saving/loading the cache.
-  words (Dict[str, WordDataCacheEntry]): Dictionary storing the cache entries.
+Attributes:  
+default_ttl (int): Default TTL value in days for cache entries. Set
+to 30. file (str): Path to the file for saving/loading the cache. words
+(Dict\[str, WordDataCacheEntry\]): Dictionary storing the cache entries.
 
-Methods:
-: \_\_init_\_(self, file: str = None):
-  : Initializes the WordCache object with an optional file for loading the cache.
-: loadFromFile(self, file: str) -> None:
-  : Loads the cache from the specified file.
-: save(self, file: str = None) -> None:
-  : Saves the current cache to the specified file.
-: addWord(self, word: str, synonyms: List[str]) -> None:
-  : Adds a word and its synonyms to the cache.
-: async get_synonyms(self, word: str) -> List[str]:
-  : Retrieves the synonyms for the specified word, updating the cache if necessary.
+Methods:  
+\_\_init\_\_(self, file: str = None):
+
+Initializes the WordCache object with an optional file for loading the
+cache.
+
+loadFromFile(self, file: str) -\> None:
+
+Loads the cache from the specified file.
+
+save(self, file: str = None) -\> None:
+
+Saves the current cache to the specified file.
+
+addWord(self, word: str, synonyms: List\[str\]) -\> None:
+
+Adds a word and its synonyms to the cache.
+
+async get_synonyms(self, word: str) -\> List\[str\]:
+
+Retrieves the synonyms for the specified word, updating the cache if
+necessary.
 
 #### addWord(word, synonyms)
 
 Adds a word and its synonyms to the cache with the default TTL.
 
-* **Return type:**
-  `None`
+- **Return type:** `None`
 
-Args:
-: word (str): The word to add to the cache.
-  synonyms (List[str]): List of synonyms for the word.
+Args:  
+word (str): The word to add to the cache. synonyms (List\[str\]): List
+of synonyms for the word.
 
 #### *async* get_synonyms(word)
 
-Retrieves the synonyms for the specified word, updating the cache if necessary.
+Retrieves the synonyms for the specified word, updating the cache if
+necessary.
 
-* **Return type:**
-  `List`[`str`]
+- **Return type:** `List`\[`str`\]
 
-Args:
-: word (str): The word to retrieve synonyms for.
+Args:  
+word (str): The word to retrieve synonyms for.
 
-Returns:
-: List[str]: List of synonyms for the specified word.
+Returns:  
+List\[str\]: List of synonyms for the specified word.
 
 #### loadFromFile(file)
 
 Loads the cache from the specified file.
 
-* **Return type:**
-  `None`
+- **Return type:** `None`
 
-Args:
-: file (str): Path to the file for loading the cache.
+Args:  
+file (str): Path to the file for loading the cache.
 
-Raises:
-: FileNotFoundError: If the specified file does not exist.
+Raises:  
+FileNotFoundError: If the specified file does not exist.
 
 #### save(file=None)
 
 Saves the current cache to the specified file.
 
-* **Return type:**
-  `None`
+- **Return type:** `None`
 
-Args:
-: file (str, optional): Path to the file for saving the cache. If None, uses the initial file path. Defaults to None.
+Args:  
+file (str, optional): Path to the file for saving the cache. If None,
+uses the initial file path. Defaults to None.
 
-Raises:
-: Exception: If there is an error saving the file.
+Raises:  
+Exception: If there is an error saving the file.
 
 # query_yandex documentation
 
 ### *async* modules.query_yandex.query_yandex_for_synonyms(word)
 
-Asynchronously query the Yandex Dictionary API for synonyms of a given word.
+Asynchronously query the Yandex Dictionary API for synonyms of a given
+word.
 
-* **Return type:**
-  `List`[`str`]
+- **Return type:** `List`\[`str`\]
 
-Args:
-: word (str): The word for which synonyms are to be retrieved.
+Args:  
+word (str): The word for which synonyms are to be retrieved.
 
-Returns:
-: List[str]: A list of synonyms for the word.
+Returns:  
+List\[str\]: A list of synonyms for the word.
 
-Raises:
-: aiohttp.ClientResponseError: If the HTTP request to the Yandex API fails,
-  : this exception is raised with detailed error information.
+Raises:  
+aiohttp.ClientResponseError: If the HTTP request to the Yandex API
+fails,
 
-
+this exception is raised with detailed error information.
