@@ -12,6 +12,20 @@ API_KEY = os.getenv('API_KEY')
 DEPLOYED = os.getenv('DEPLOYED')
 
 async def query_yandex_for_synonyms(word: str) -> List[str]:
+    """
+    Asynchronously query the Yandex Dictionary API for synonyms of a given word.
+
+    Args:
+        word (str): The word for which synonyms are to be retrieved.
+
+    Returns:
+        List[str]: A list of synonyms for the word.
+
+    Raises:
+        aiohttp.ClientResponseError: If the HTTP request to the Yandex API fails,
+                                     this exception is raised with detailed error information.
+    """
+    # proxy is needed when deployed on pythonanywhere
     proxy = 'http://proxy.server:3128' if DEPLOYED == 'true' else None
     url = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={API_KEY}&lang=ru-ru&text={word}'
     async with aiohttp.ClientSession() as session:
