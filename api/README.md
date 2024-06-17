@@ -217,7 +217,7 @@ Set the stopwords for the profiler.
 *Return type:* `None`
 
 *Args*:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stopwords (iterable): An iterable of words to set as stopwords.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stopwords `List[str]`: An iterable of words to set as stopwords.
 
 # Cache ([modules/cache.py](modules/cache.py))
 
