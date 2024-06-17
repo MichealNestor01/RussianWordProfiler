@@ -9,12 +9,17 @@ import {
 import Preset from "./Preset";
 import DialogBox from "../../DialogBox";
 import InputWithValidation from "../../../generic/InputWithValidation";
+import { downloadJSON } from "../../../../functions/downloadJSON";
 
-const PresetSelection = ({ active, onClose }) => {
+const PresetSelection = ({
+    active,
+    onClose,
+    currentPreset,
+    setCurrentPreset,
+}) => {
     const dispatch = useDispatch();
     const { presets, bands } = useSelector((state) => state.bandsSlice);
     const [selectedPreset, setSelectedPreset] = useState("");
-    const [currentPreset, setCurrentPreset] = useState({});
     const [currentPresetDiv, setCurrentPresetDiv] = useState({});
     const [showSaveCurrentPreset, setShowSaveCurrentPreset] = useState(false);
     const [proposedName, setProposedName] = useState("");
@@ -64,7 +69,6 @@ const PresetSelection = ({ active, onClose }) => {
     }, [presets, selectedPreset]);
 
     useEffect(() => {
-        console.log("THIS IS BANDS: ", bands);
         const tempCurrentPreset = {
             isDefault: false,
             name: "Current Preset",
@@ -105,43 +109,11 @@ const PresetSelection = ({ active, onClose }) => {
         if (selectedPreset === "") {
             return;
         }
-        const savePreset = async () => {
-            const blob = new Blob(
-                [
-                    JSON.stringify(
-                        presets.filter(
-                            (preset) => preset.name === selectedPreset
-                        )[0]
-                    ),
-                ],
-                { type: "text/json;charset=utf-8" }
-            );
-            if ("showSaveFilePicker" in window) {
-                const opts = {
-                    types: [
-                        {
-                            description:
-                                "Russian Word Profiler Preset Configuration File",
-                            suggestedName: `${selectedPreset}.json`,
-                            accept: { "text/json": [".json"] },
-                        },
-                    ],
-                };
-                const handle = await window.showSaveFilePicker(opts);
-                const writable = await handle.createWritable();
-                await writable.write(blob);
-                await writable.close();
-            } else {
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.setAttribute(
-                    "download",
-                    `RussianWordProfilerPreset-${selectedPreset}.json`
-                );
-                link.click();
-            }
-        };
-        savePreset();
+        downloadJSON(
+            presets.filter((preset) => preset.name === selectedPreset)[0],
+            "Russian Word Profiler Preset Configuration File",
+            `RussianWordProfilerPreset-${selectedPreset}.json`
+        );
     };
 
     const loadSelectedPreset = () => {

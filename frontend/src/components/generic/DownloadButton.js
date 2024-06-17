@@ -3,6 +3,7 @@ import { convertToCSV } from "../../functions/convertToCSV";
 import { downloadCSV } from "../../functions/downloadCSV";
 import { downloadXLS } from "../../functions/downloadXLS";
 import downloadIcon from "../../assets/download_icon.svg";
+import { getDatetimeString } from "../../functions/getDatetimeString";
 
 /**
  * @description
@@ -22,22 +23,8 @@ import downloadIcon from "../../assets/download_icon.svg";
  */
 function DownloadButton({ data, filename, text }) {
     const handleClick = () => {
-        const currentdate = new Date();
-        const datetime =
-            currentdate.getDate() +
-            "-" +
-            (currentdate.getMonth() + 1) +
-            "-" +
-            currentdate.getFullYear() +
-            " " +
-            currentdate.getHours() +
-            "-" +
-            currentdate.getMinutes() +
-            "-" +
-            currentdate.getSeconds();
-        // const csv = convertToCSV(data);
-        // downloadCSV(csv, `${filename} ${datetime}.csv`);
-        downloadXLS(data, `${filename}_${datetime}.xlsx`);
+        // downloadCSV(csv, `${filename} ${getDatetimeString()}.csv`);
+        downloadXLS(data, `${filename}_${getDatetimeString()}.xlsx`);
     };
 
     return (

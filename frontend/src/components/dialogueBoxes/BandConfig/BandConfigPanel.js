@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { scaleAnimation } from "../../../framer-defaults/animations";
 import Band from "./Band";
@@ -12,6 +12,8 @@ import {
     CloudArrowUpIcon,
 } from "@heroicons/react/24/solid";
 import { saveBands } from "../../../store/slices/frequencyBandsSlice";
+import { downloadJSON } from "../../../functions/downloadJSON";
+import { getDatetimeString } from "../../../functions/getDatetimeString";
 
 /**
  * @description
@@ -35,11 +37,32 @@ import { saveBands } from "../../../store/slices/frequencyBandsSlice";
  * )
  */
 const BandConfigPanel = ({ active, onClose }) => {
-    const [activeIndex, setActiveIndex] = useState(-1);
     const dispatch = useDispatch();
-    const bands = useSelector((state) => state.bandsSlice.bands);
-
+    const { bands, presets } = useSelector((state) => state.bandsSlice);
+    const [activeIndex, setActiveIndex] = useState(-1);
     const [showPresets, setShowPresets] = useState(false);
+    const [currentPreset, setCurrentPreset] = useState({});
+
+    useEffect(() => {
+        const tempCurrentPreset = {
+            isDefault: false,
+            name: "Current Preset",
+            bands: Object.keys(bands).map((band) => ({
+                top: bands[band].topVal,
+                colour: bands[band].colour,
+            })),
+        };
+        setCurrentPreset(tempCurrentPreset);
+    }, [bands, setCurrentPreset]);
+
+    const downloadCurrentPreset = () => {
+        const now = getDatetimeString();
+        downloadJSON(
+            { ...currentPreset, name: `Preset-${now}` },
+            "Russian Word Profiler Preset Configuration File",
+            `RussianWordProfilerPreset-${now}.json`
+        );
+    };
 
     return (
         <DialogBox
@@ -87,7 +110,7 @@ const BandConfigPanel = ({ active, onClose }) => {
                             Use Ready-Made Presets
                         </button>
 
-                        <button>
+                        <button onClick={downloadCurrentPreset}>
                             <CloudArrowDownIcon className="configIcon" />
                             Save current preset to local file
                         </button>
@@ -99,6 +122,8 @@ const BandConfigPanel = ({ active, onClose }) => {
                     <PresetSelection
                         active={showPresets}
                         onClose={() => setShowPresets(false)}
+                        currentPreset={currentPreset}
+                        setCurrentPreset={setCurrentPreset}
                     />
                 </Fragment>
             }
