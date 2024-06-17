@@ -43,6 +43,7 @@ const storedBandState = localStorage.getItem("russianWordProfilerBandsV2")
 
 const defaultPresets = [
     {
+        isDefault: true,
         name: "Default",
         bands: initialBandState.map((band) => ({
             top: band.topVal,
@@ -50,6 +51,7 @@ const defaultPresets = [
         })),
     },
     {
+        isDefault: true,
         name: "CERF levels",
         bands: [
             { top: 89, colour: "#389F23" },
@@ -61,57 +63,6 @@ const defaultPresets = [
         ],
     },
 ];
-// const presetState = [
-//     {
-//         name: "Default Preset",
-//         bands: [
-//             {
-//                 top: 1000,
-//                 colour: "#f58231",
-//             },
-//             {
-//                 top: 2000,
-//                 colour: "#D7BF17",
-//             },
-//             {
-//                 top: 3000,
-//                 colour: "#98C41D",
-//             },
-//             {
-//                 top: 4000,
-//                 colour: "#3cb44b",
-//             },
-//             {
-//                 top: 5000,
-//                 colour: "#42d4f4",
-//             },
-//             {
-//                 top: 6000,
-//                 colour: "#4363d8",
-//             },
-//             {
-//                 top: 7000,
-//                 colour: "#911eb4",
-//             },
-//             {
-//                 top: 8000,
-//                 colour: "#f032e6",
-//             },
-//             {
-//                 top: 9000,
-//                 colour: "#fabebe",
-//             },
-//             {
-//                 top: 10000,
-//                 colour: "#aa6e28",
-//             },
-//             {
-//                 top: 52063,
-//                 colour: "#000000",
-//             },
-//         ],
-//     },
-// ];
 
 /**
  * Redux slice for managing frequency bands, including their colors, values, and active states.

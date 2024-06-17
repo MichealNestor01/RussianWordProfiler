@@ -1,14 +1,65 @@
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 // import frequencyBandsSlice from "../../../../store/slices/frequencyBandsSlice";
 import Preset from "./Preset";
 import DialogBox from "../../DialogBox";
 
 const PresetSelection = ({ active, onClose }) => {
-    const defaultPresets = useSelector((state) => state.bandsSlice.presets);
+    const { presets, bands } = useSelector((state) => state.bandsSlice);
+    const [selectedPreset, setSelectedPreset] = useState("Current Preset");
+    const [currentPreset, setCurrentPreset] = useState({});
+    const [currentPresetDiv, setCurrentPresetDiv] = useState({});
 
-    const defaultPresetDivs = defaultPresets.map((preset) => {
-        return <Preset preset={preset} onClose={onClose} />;
-    });
+    const createPresetDivs = () => {
+        const tempDefaultPresetDivs = [];
+        const tempAddedPresetDivs = [];
+        presets.forEach((preset) => {
+            const presetDiv = (
+                <Preset
+                    key={preset.name}
+                    preset={preset}
+                    onClick={() => setSelectedPreset(preset.name)}
+                    selectedPreset={selectedPreset}
+                />
+            );
+            if (preset.isDefault) {
+                tempDefaultPresetDivs.push(presetDiv);
+            } else {
+                tempAddedPresetDivs.push(presetDiv);
+            }
+        });
+        return { tempDefaultPresetDivs, tempAddedPresetDivs };
+    };
+
+    const [addedPresetDivs, setAddedPresetDivs] = useState([]);
+    const [defaultPresetDivs, setDefaultPresetDivs] = useState([]);
+
+    useEffect(() => {
+        const { tempDefaultPresetDivs, tempAddedPresetDivs } =
+            createPresetDivs();
+        setDefaultPresetDivs(tempDefaultPresetDivs);
+        setAddedPresetDivs(tempAddedPresetDivs);
+    }, [presets, selectedPreset]);
+
+    useEffect(() => {
+        const tempCurrentPreset = {
+            isDefault: false,
+            name: "Current Preset",
+            bands: bands.map((band) => ({
+                top: band.topVal,
+                colour: band.colour,
+            })),
+        };
+        setCurrentPresetDiv(
+            <Preset
+                key={tempCurrentPreset.name}
+                preset={tempCurrentPreset}
+                onClick={() => setSelectedPreset(tempCurrentPreset.name)}
+                selectedPreset={selectedPreset}
+            />
+        );
+        setCurrentPreset(tempCurrentPreset);
+    }, [bands, selectedPreset, setCurrentPreset]);
 
     return (
         <DialogBox
@@ -21,10 +72,9 @@ const PresetSelection = ({ active, onClose }) => {
 
                     <div className="presetContainer">{defaultPresetDivs}</div>
 
-                    <h2>Presets uploaded from this device</h2>
+                    <h2>Other Presets</h2>
                     <div className="presetContainer">
-                        {/* <Preset /> */}
-                        {/* <Preset /> */}
+                        {[currentPresetDiv, ...addedPresetDivs]}
                     </div>
                 </div>
             }

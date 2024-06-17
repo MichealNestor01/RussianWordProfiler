@@ -1,10 +1,9 @@
 // import { PlusIcon } from "@heroicons/react/24/solid";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadPreset } from "../../../../store/slices/frequencyBandsSlice";
 
-const Preset = ({ preset, onClose }) => {
-    const dispatch = useDispatch();
-
+const Preset = ({ preset, onClick, selectedPreset }) => {
     let bars = [];
 
     const highestVal = Math.log10(52063);
@@ -32,8 +31,12 @@ const Preset = ({ preset, onClose }) => {
         <button
             className="presetButton"
             onClick={(e) => {
-                dispatch(loadPreset(preset.name));
-                onClose();
+                // dispatch(loadPreset(preset.name));
+                onClick();
+            }}
+            style={{
+                backgroundColor:
+                    selectedPreset === preset.name ? "red" : "grey",
             }}
         >
             <div className="preset">{bars}</div>
