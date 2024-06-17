@@ -42,12 +42,13 @@ const PresetSelection = ({ active, onClose }) => {
     }, [presets, selectedPreset]);
 
     useEffect(() => {
+        console.log("THIS IS BANDS: ", bands);
         const tempCurrentPreset = {
             isDefault: false,
             name: "Current Preset",
-            bands: bands.map((band) => ({
-                top: band.topVal,
-                colour: band.colour,
+            bands: Object.keys(bands).map((band) => ({
+                top: bands[band].topVal,
+                colour: bands[band].colour,
             })),
         };
         setCurrentPresetDiv(
