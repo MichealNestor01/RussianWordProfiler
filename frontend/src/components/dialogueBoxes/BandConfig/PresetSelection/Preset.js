@@ -8,6 +8,10 @@ import {
 } from "@heroicons/react/24/outline";
 
 const Preset = ({ preset, onClick, selectedPreset }) => {
+    const name =
+        preset.name === "Current Preset" || preset.name === "Upload New Preset"
+            ? "᠌" //<- U+180C MONGOLIAN FREE VARIATION SELECTOR TWO hehe
+            : preset.name;
     const [presetClass, setPresetClass] = useState(
         `preset ${preset.name === "Current Preset" ? "currentPreset" : ""}`
     );
@@ -73,7 +77,7 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
                 {content}
             </div>
 
-            <div className="presetText">{preset.name}</div>
+            <div className="presetText">{name}</div>
         </button>
     );
 };
