@@ -17,7 +17,7 @@ import { setStopWords } from "../../store/slices/textSlice";
  *   <FileUpload />
  * )
  */
-const FileUpload = () => {
+const TextFileUpload = () => {
     const dispatch = useDispatch();
 
     const handleFileUpload = (event) => {
@@ -55,4 +55,4 @@ const FileUpload = () => {
     );
 };
 
-export default FileUpload;
+export default TextFileUpload;

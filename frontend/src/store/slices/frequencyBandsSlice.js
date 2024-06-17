@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getDatetimeString } from "../../functions/getDatetimeString";
 
 // by default have 11 colours selected for readability
 const colours = [
@@ -279,7 +280,16 @@ export const frequencyBandsSlice = createSlice({
             }));
          */
         addNewPreset: (state, action) => {
-            console.log(action);
+            const newPreset = action.payload;
+            if (
+                state.presets
+                    .map((preset) => preset.name)
+                    .includes(newPreset.name)
+            ) {
+                newPreset.name = `${
+                    newPreset.name
+                }-(copy at ${getDatetimeString()})`;
+            }
             state.presets.push(action.payload);
             frequencyBandsSlice.caseReducers.savePresets(state);
         },

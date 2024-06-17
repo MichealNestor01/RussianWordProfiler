@@ -10,6 +10,8 @@ import Preset from "./Preset";
 import DialogBox from "../../DialogBox";
 import InputWithValidation from "../../../generic/InputWithValidation";
 import { downloadJSON } from "../../../../functions/downloadJSON";
+import { handleJsonUpload } from "../../../../functions/uploadJSON";
+import { validatePresetJson } from "../../../../functions/validatePresetJson";
 
 const PresetSelection = ({
     active,
@@ -30,7 +32,7 @@ const PresetSelection = ({
             key={"Upload New Preset"}
             preset={{ name: "Upload New Preset", isDefault: false, bands: [] }}
             onClick={() => {
-                console.log("UPLOAD NEW FILE");
+                //handleJsonUpload(e, validatePresetJson);
                 setSelectedPreset("");
             }}
             selectedPreset={selectedPreset}
