@@ -135,19 +135,19 @@ Content-Type: application/json, text/javascript
 
 Bases: `object`
 
-A profiler object to process and analyze word frequency and synonyms.
+A class used to analyze and process words in a given text, providing information such as frequency rank and synonyms.
 
 ### Attributes
 
-- **mystem** `Mystem`: A Mystem object for lemmatization.
-- **stopwords** `set`: A set of stopwords to ignore during text processing.
-- **frequency_list** `dict`: A dictionary mapping lemmas to their frequency ranks.
-- **cache** `WordCache`: A cache object to store and retrieve synonyms.
+- **mystem** `Mystem`: An instance of the Mystem class for lemmatization.
+- **stopwords** `set`: A set of stopwords to be excluded from analysis.
+- **frequency_list** `dict`: A dictionary mapping lemmas to their frequency rank.
+- **cache** `WordCache`: An instance of the WordCache class for caching synonyms.
 
 ### Methods
 
 **\_\_init_\_(self, use_cache: bool = True)**:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initializes the ProfilerObj with an optional cache.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initializes the ProfilerObj with an option to use a cache for synonyms.
 
 **set_stopwords(self, stopwords) -> None**:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the stopwords for the profiler.
@@ -166,41 +166,44 @@ A profiler object to process and analyze word frequency and synonyms.
 
 ### get_frequency_rank(lemma)
 
-Retrieve the frequency rank of a given lemma.
+Retrieves the frequency rank of a given lemma.
 
 *Return type:* `int`
 
 *Args*:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lemma `str`: The lemma whose frequency rank is to be retrieved.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lemma `str`: The lemma for which the frequency rank is to be retrieved.
 
 *Returns*:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`int`: The frequency rank of the lemma or -1 if the lemma is not found.
 
 ### load_frequency_list(file_path)
 
-Load a frequency list from a specified file path.
+Loads a frequency list from a CSV file into the frequency_list attribute.
 
 *Return type:* `None`
 
 *Args*:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_path (str): The path to the frequency list file.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_path `str`: The path to the frequency list file.
+
+*Raises*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`FileNotFoundError`: If the specified file does not exist.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ValueError`: If there is an issue with the format of the file.
 
 ### *async* process_word(word)
 
-Asynchronously process a single word to determine its lemma, frequency
-rank, and synonyms.
+Processes a word to retrieve its lemma, frequency rank, and synonyms with their ranks.
 
 *Return type:* `Dict[str, Dict[str, Any]]`
 
 *Args*:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word (str): The word to process.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word `str`: The word to process.
 
 *Returns*:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Dict[str, Dict[str, Any]]`: {word: {rank: int, lemma: str, synonyms: [{synonym: str, rank: int, lemma: str}]}  
 
 ### *async* scan_text(txt)
 
-Asynchronously scan a block of text and analyze each word in it.
+Scans a large amount of plain text, analyzes each word, and provides detailed word data including frequency ranks and synonyms.
 
 *Return type:* `Dict[str, Dict[str, Any]]`
 
@@ -210,14 +213,17 @@ Asynchronously scan a block of text and analyze each word in it.
 *Returns*:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Dict[str, Dict[str, Any]]`: {word: {rank: int, lemma: str, synonyms: [{synonym: str, rank: int, lemma: str}]}  
 
+*Raises*:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Exception`: If an issue occurs during the text processing.
+
 ### set_stopwords(stopwords)
 
-Set the stopwords for the profiler.
+Sets user-defined stopwords to exclude from text analysis.
 
 *Return type:* `None`
 
 *Args*:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stopwords `List[str]`: An iterable of words to set as stopwords.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stopwords `List[str]`: A list of stopwords to be set.
 
 # Cache ([modules/cache.py](modules/cache.py))
 
