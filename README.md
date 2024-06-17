@@ -8,7 +8,7 @@ The project relies heavily on Sharov's and Lyashevskaya's Russian Frequency Dict
 
 ## Documentation
 
-Documentation for the [frontend](frontend/README.md) and [api](api/README.md) are found in the README's of their respective dicretories. 
+Documentation for the [frontend](frontend/) and [api](api/) are found in the README's of their respective dicretories. 
 
 ## Acknowledgements
 
