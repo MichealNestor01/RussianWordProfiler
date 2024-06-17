@@ -105,4 +105,20 @@
         // .preset:hover {
         // }
     }
+
+    .presetButtonsContainer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 2rem;
+
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+
+        button {
+            font-size: 1rem;
+        }
+        .selectable {
+            color: red;
+        }
+    }
 }

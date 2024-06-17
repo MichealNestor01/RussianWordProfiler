@@ -857,4 +857,17 @@ ul {
 }
 .presetOptionsContainer .presetContainer .presetButton .currentPresetButton:hover {
   transform: scale(0.95);
+}
+.presetOptionsContainer .presetButtonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.presetOptionsContainer .presetButtonsContainer button {
+  font-size: 1rem;
+}
+.presetOptionsContainer .presetButtonsContainer .selectable {
+  color: red;
 }/*# sourceMappingURL=index.css.map */

@@ -64,6 +64,10 @@ const defaultPresets = [
     },
 ];
 
+const storedPresetState = localStorage.getItem("russianWordProfilerPresetsV1")
+    ? JSON.parse(localStorage.getItem("russianWordProfilerPresetsV1"))
+    : defaultPresets;
+
 /**
  * Redux slice for managing frequency bands, including their colors, values, and active states.
  *
@@ -71,7 +75,7 @@ const defaultPresets = [
  */
 export const frequencyBandsSlice = createSlice({
     name: "bands",
-    initialState: { bands: storedBandState, presets: defaultPresets },
+    initialState: { bands: storedBandState, presets: storedPresetState },
     reducers: {
         /**
          * Changes the color of a specified band.
@@ -221,27 +225,22 @@ export const frequencyBandsSlice = createSlice({
         },
 
         /**
-         * Adds a new band to the state.
+         * Loads the given preset
          * @memberof ReduxStoreFrequencyBandsSlice
          *
          * @param {Object} state - The current state of the Redux store, provided automatically.
-         * @param {Object} action - The action object containing payload with the target band.
+         * @param {Object} action - The action object containing payload with the target preset name.
          *
          * @example
          * dispatch(loadPreset("Default"));
          */
         loadPreset: (state, action) => {
-            const targetPresetName = action.payload;
             let targetPreset = {};
-
             state.presets.forEach((preset) => {
-                if (preset.name === targetPresetName) {
+                if (preset.name === action.payload) {
                     targetPreset = preset;
                 }
             });
-
-            console.log("Loading Default:", targetPresetName);
-            console.log(targetPreset);
 
             let prevTop = 1;
             state.bands = targetPreset.bands.map((band, index) => {
@@ -259,7 +258,51 @@ export const frequencyBandsSlice = createSlice({
         },
 
         /**
-         * Adds a new band to the state.
+         * Adds a new preset to the list
+         * @memberof ReduxStoreFrequencyBandsSlice
+         *
+         * @param {Object} state - The current state of the Redux store, provided automatically.
+         * @param {Object} action - The action object containing payload with the preset object to add.
+         *
+         * @example
+         * dispatch(addNewPreset({
+                isDefault: false,
+                name: "CERF levels",
+                bands: [
+                    { top: 89, colour: "#389F23" },
+                    { top: 372, colour: "#008C48" },
+                    { top: 897, colour: "#C06040" },
+                    { top: 1894, colour: "#C80000" },
+                    { top: 3394, colour: "#1C2181" },
+                    { top: 5392, colour: "#52007A" },
+                ],
+            }));
+         */
+        addNewPreset: (state, action) => {
+            console.log(action);
+            state.presets.push(action.payload);
+            frequencyBandsSlice.caseReducers.savePresets(state);
+        },
+
+        /**
+         * Removes a preset from the list and local storage
+         * @memberof ReduxStoreFrequencyBandsSlice
+         *
+         * @param {Object} state - The current state of the Redux store, provided automatically.
+         * @param {Object} action - The action object containing payload with the preset object to delete.
+         *
+         * @example
+         * dispatch(addNewPreset("Default"));
+         */
+        deletePreset: (state, action) => {
+            state.presets = state.presets.filter(
+                (preset) => preset.name !== action.payload
+            );
+            frequencyBandsSlice.caseReducers.savePresets(state);
+        },
+
+        /**
+         * Saves the current bands to local storage
          * @memberof ReduxStoreFrequencyBandsSlice
          *
          * @param {Object} state - The current state of the Redux store, provided automatically.
@@ -270,6 +313,21 @@ export const frequencyBandsSlice = createSlice({
             localStorage.setItem(
                 "russianWordProfilerBandsV2",
                 JSON.stringify(state.bands)
+            );
+        },
+
+        /**
+         * Saves the current presets to local storage
+         * @memberof ReduxStoreFrequencyBandsSlice
+         *
+         * @param {Object} state - The current state of the Redux store, provided automatically.
+         * @example
+         * dispatch(savePresets());
+         */
+        savePresets: (state) => {
+            localStorage.setItem(
+                "russianWordProfilerPresetsV1",
+                JSON.stringify(state.presets)
             );
         },
     },
@@ -284,6 +342,9 @@ export const {
     saveBands,
     toggleActive,
     loadPreset,
+    addNewPreset,
+    savePresets,
+    deletePreset,
 } = frequencyBandsSlice.actions;
 
 export default frequencyBandsSlice.reducer;
