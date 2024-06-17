@@ -15,23 +15,47 @@
         gap: 1.5%;
         flex-wrap: wrap;
 
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
 
-        .preset {
+        .presetButton {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 1rem;
 
             width: 30%;
-            min-height: 8rem;
+            min-height: 10rem;
             margin-top: 1.5%;
+            margin-bottom: 2rem;
 
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            .preset {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+
+                width: 100%;
+                height: 100%;
+                padding: 1rem;
+
+                border: 2px solid rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+
+                .presetBar {
+                    flex-grow: 1;
+                    margin-right: 4px;
+
+                    border-radius: 4px;
+                }
+            }
+
+            .presetText {
+                color: #343734;
+                font-weight: 500;
+                font-size: 1rem;
+            }
         }
 
         .preset:hover {
-            background: red;
         }
     }
 }

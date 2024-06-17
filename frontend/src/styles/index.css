@@ -776,4 +776,51 @@ ul {
 }
 .band:hover .bandDelete {
   color: rgba(0, 0, 0, 0.8);
+}
+
+.presetOptionsContainer {
+  padding: 0.5rem 2rem;
+}
+.presetOptionsContainer h2 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #8b8b8b;
+}
+.presetOptionsContainer .presetContainer {
+  display: flex;
+  gap: 1.5%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.presetOptionsContainer .presetContainer .presetButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 30%;
+  min-height: 10rem;
+  margin-top: 1.5%;
+  margin-bottom: 2rem;
+}
+.presetOptionsContainer .presetContainer .presetButton .preset {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.presetOptionsContainer .presetContainer .presetButton .preset .presetBar {
+  flex-grow: 1;
+  margin-right: 4px;
+  border-radius: 4px;
+}
+.presetOptionsContainer .presetContainer .presetButton .presetText {
+  color: #343734;
+  font-weight: 500;
+  font-size: 1rem;
 }/*# sourceMappingURL=index.css.map */
