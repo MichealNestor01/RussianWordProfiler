@@ -35,6 +35,7 @@ import { saveBands } from "../../../store/slices/frequencyBandsSlice";
  * )
  */
 const BandConfigPanel = ({ active, onClose }) => {
+    const [activeIndex, setActiveIndex] = useState(-1);
     const dispatch = useDispatch();
     const bands = useSelector((state) => state.bandsSlice.bands);
 
@@ -47,6 +48,7 @@ const BandConfigPanel = ({ active, onClose }) => {
             onClose={() => {
                 onClose();
                 dispatch(saveBands());
+                setActiveIndex(-1);
             }}
             content={
                 <Fragment>
@@ -63,6 +65,8 @@ const BandConfigPanel = ({ active, onClose }) => {
                                         colour={bands[band].colour}
                                         top={bands[band].topVal}
                                         bottom={bands[band].bottomVal}
+                                        setActiveIndex={setActiveIndex}
+                                        activeIndex={activeIndex}
                                     />
                                 </motion.div>
                             );
