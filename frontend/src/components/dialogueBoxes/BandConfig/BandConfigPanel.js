@@ -142,7 +142,6 @@ const BandConfigPanel = ({ active, onClose }) => {
                                     validatePresetJson,
                                     (json) => {
                                         setCurrentPreset(json);
-                                        console.log(json);
                                         dispatch(addNewPreset(json));
                                         dispatch(loadPreset(json.name));
                                     }

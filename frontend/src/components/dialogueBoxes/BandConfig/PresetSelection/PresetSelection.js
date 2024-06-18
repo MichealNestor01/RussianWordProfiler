@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
     loadPreset,
     addNewPreset,
@@ -20,6 +20,7 @@ const PresetSelection = ({
     setCurrentPreset,
 }) => {
     const dispatch = useDispatch();
+    const fileInputRef = useRef(null);
     const { presets, bands } = useSelector((state) => state.bandsSlice);
     const [selectedPreset, setSelectedPreset] = useState("");
     const [currentPresetDiv, setCurrentPresetDiv] = useState({});
@@ -32,7 +33,7 @@ const PresetSelection = ({
             key={"Upload New Preset"}
             preset={{ name: "Upload New Preset", isDefault: false, bands: [] }}
             onClick={() => {
-                //handleJsonUpload(e, validatePresetJson);
+                fileInputRef.current.click();
                 setSelectedPreset("");
             }}
             selectedPreset={selectedPreset}
@@ -199,6 +200,23 @@ const PresetSelection = ({
                             onSave={saveCurrentPreset}
                         />
                     </div>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".json"
+                        style={{ display: "none" }}
+                        onChange={(event) =>
+                            handleJsonUpload(
+                                event,
+                                validatePresetJson,
+                                (json) => {
+                                    setCurrentPreset(json);
+                                    dispatch(addNewPreset(json));
+                                    dispatch(loadPreset(json.name));
+                                }
+                            )
+                        }
+                    />
                 </div>
             }
         />

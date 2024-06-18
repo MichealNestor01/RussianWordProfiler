@@ -28,7 +28,7 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
         content = (
             <div className="currentPresetButton">
                 <ArrowUpTrayIcon />
-                <p>Click here or drag a preset file</p>
+                <p>Click here to upload a preset file</p>
             </div>
         );
     }
@@ -65,13 +65,7 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
     }, [selectedPreset]);
 
     return (
-        <button
-            className="presetButton"
-            onClick={(e) => {
-                // dispatch(loadPreset(preset.name));
-                onClick();
-            }}
-        >
+        <button className="presetButton" onClick={onClick}>
             <div className={presetClass}>
                 {bars}
                 {content}
