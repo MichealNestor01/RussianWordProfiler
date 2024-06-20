@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import background from "./assets/background.png";
-import MainEditor from "./components/main/MainEditor";
-import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
-import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
-import LemmaTable from "./components/dataAggregation/LemmaTable";
+import Main from "./pages/Main";
+import About from "./pages/About";
+import NotFoundError from "./pages/NotFoundError";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import NavBarItem from "./components/generic/NavBarItem";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
@@ -11,6 +12,19 @@ let initial = true;
 /**
  * @namespace functions
  */
+
+const routes = [
+  {
+    element: <Main />,
+    title: "Home",
+    path: "/",
+  },
+  {
+    element: <About />,
+    title: "About",
+    path: "/about",
+  },
+];
 
 /**
  * @description
@@ -27,6 +41,7 @@ let initial = true;
  * )
  */
 function App() {
+  const navigate = useNavigate();
   useEffect(() => {
     if (initial) {
       alert(
@@ -39,31 +54,37 @@ function App() {
   return (
     <div className="page-wrapper">
       <div className="title-container">
-        <h1 className="title">Russian Word Profiler</h1>
-        <div className="button-container">
-          {/* <button onClick={saveConfig}>Save Band Configuration</button> */}
-          {/* <button onClick={resetDefault}>Reset Band Configuration</button> */}
+        <h1 className="title" onClick={() => navigate("/")}>
+          Russian Word Profiler
+        </h1>
+        <div className="nav-bar">
+          {routes.map((route) => (
+            <NavBarItem
+              key={route.path + "navItem"}
+              title={route.title}
+              path={route.path}
+            />
+          ))}
         </div>
       </div>
-
-      <section className="input-section">
-        <MainEditor placeholder="Place text here!" />
-      </section>
-      <section className="bottom-panel">
-        <section className="data-grid">
-          <div className="top-panel">
-            <DistributionDisplay />
-            <CoverageDisplay />
-          </div>
-          <LemmaTable />
-          <a href="https://tech.yandex.com/dictionary/" target="_blank">
-            Powered by Yandex.Dictionary
-          </a>
-        </section>
-      </section>
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            key={route.path + "route"}
+            element={route.element}
+            path={route.path}
+          />
+        ))}
+        <Route path="*" element={<NotFoundError />} />
+      </Routes>
       {/* This is a background splash image */}
       <div className="image-container">
-        <img src={background} alt="background splash" className="image" />
+        <img
+          style={{ userSelect: "none" }}
+          src={background}
+          alt="background splash"
+          className="image"
+        />
       </div>
     </div>
   );
