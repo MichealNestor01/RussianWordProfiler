@@ -4,23 +4,31 @@ const About = () => {
       <h1>About</h1>
       <p>
         This is an open source tool created by{" "}
-        <a href="https://michealnestor.com" target="_blank">
+        <a href="https://michealnestor.com" target="_blank" rel="noreferrer">
           Micheal Nestor
         </a>{" "}
         and{" "}
-        <a href="https://benthirkill.com" target="_blank">
+        <a href="https://benthirkill.com" target="_blank" rel="noreferrer">
           Ben Thirkill
         </a>{" "}
         while studying Computer Science at the{" "}
-        <a href="https://www.leeds.ac.uk/" target="_blank">
+        <a href="https://www.leeds.ac.uk/" target="_blank" rel="noreferrer">
           University of Leeds
         </a>
         . It is a joint project created in collaboration with the{" "}
-        <a href={"https://ahc.leeds.ac.uk/russian"} target="_blank">
+        <a
+          href={"https://ahc.leeds.ac.uk/russian"}
+          target="_blank"
+          rel="noreferrer"
+        >
           Russian and Slavonic Studies
         </a>{" "}
         department which was supervised and inspired by{" "}
-        <a href="https://leeds.academia.edu/PavelGudoshnikov" target="_blank">
+        <a
+          href="https://leeds.academia.edu/PavelGudoshnikov"
+          target="_blank"
+          rel="noreferrer"
+        >
           Dr Pavel Gudoshnikov
         </a>
         . The goal of the Russian Word Profiler is to emulate the feature set of
@@ -28,6 +36,7 @@ const About = () => {
         <a
           href="https://www.laurenceanthony.net/software/antwordprofiler/"
           target="_blank"
+          rel="noreferrer"
         >
           AntWordProfiler
         </a>{" "}
@@ -39,7 +48,11 @@ const About = () => {
         <li>
           <p>
             Lemma frequencies ranks are taken from{" "}
-            <a href="http://dict.ruslang.ru/freq.php" target="_blank">
+            <a
+              href="http://dict.ruslang.ru/freq.php"
+              target="_blank"
+              rel="noreferrer"
+            >
               Sharov's and Lyashevskaya's Russian Frequency Dictionary
             </a>
             .
@@ -48,7 +61,11 @@ const About = () => {
         <li>
           <p>
             Synonyms generation is{" "}
-            <a href="https://tech.yandex.com/dictionary/" target="_blank">
+            <a
+              href="https://tech.yandex.com/dictionary/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Powered by Yandex.Dictionary
             </a>
             .
@@ -59,13 +76,14 @@ const About = () => {
       <h1>Contribute</h1>
       <p>
         Have something to add or thoughts on the project? Please contact{" "}
-        <a href="https://michealnestor.com" target="_blank">
+        <a href="https://michealnestor.com" target="_blank" rel="noreferrer">
           Micheal Nestor
         </a>{" "}
         or contribute to the project directly{" "}
         <a
           href="https://github.com/MichealNestor01/RussianWordProfiler"
           target="_blank"
+          rel="noreferrer"
         >
           through GitHub
         </a>
