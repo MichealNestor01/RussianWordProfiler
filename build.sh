@@ -32,4 +32,4 @@ cd ..
 SOURCE_DIR="api"
 ZIP_FILE="russian-word-profiler.zip"
 
-zip -r "$ZIP_FILE" "$SOURCE_DIR" -x "*$SOURCE_DIR/.venv/*" -x "*$SOURCE_DIR/sphinx-docs/*" -x "*$SOURCE_DIR/tests/*" -x "*$SOURCE_DIR/README.md" -x "*$SOURCE_DIR/word_data_cache.pickle*" -x "*$SOURCE_DIR/__pycache__/*" -x "*$SOURCE_DIR/.env"
+zip -r "$ZIP_FILE" "$SOURCE_DIR" -x "*$SOURCE_DIR/.venv/*" -x "*$SOURCE_DIR/sphinx-docs/*" -x "*$SOURCE_DIR/tests/*" -x "*$SOURCE_DIR/README.md" -x "*$SOURCE_DIR/word_data_cache.pickle*" -x "*$SOURCE_DIR/__pycache__/*"
