@@ -281,6 +281,17 @@ export const frequencyBandsSlice = createSlice({
          */
         addNewPreset: (state, action) => {
             const newPreset = action.payload;
+            newPreset.isDefault = false;
+
+            if (
+                newPreset.name === "Save Current Preset" ||
+                newPreset.name === "Upload New Preset"
+            ) {
+                newPreset.name = `${
+                    newPreset.name
+                }-(copy at ${getDatetimeString()})`;
+            }
+
             if (
                 state.presets
                     .map((preset) => preset.name)
@@ -290,7 +301,7 @@ export const frequencyBandsSlice = createSlice({
                     newPreset.name
                 }-(copy at ${getDatetimeString()})`;
             }
-            state.presets.push(action.payload);
+            state.presets.push(newPreset);
             frequencyBandsSlice.caseReducers.savePresets(state);
         },
 

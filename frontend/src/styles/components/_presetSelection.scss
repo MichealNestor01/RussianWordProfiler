@@ -1,5 +1,6 @@
 .presetOptionsContainer {
-    padding: 0.5rem 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 
     h2 {
         margin-top: 1rem;
@@ -8,6 +9,14 @@
         font-size: 1rem;
         font-weight: normal;
         color: #8b8b8b;
+    }
+
+    .containerMaxHeight {
+        padding-left: 2rem;
+        padding-right: 2rem;
+
+        max-height: 32rem;
+        overflow-y: scroll;
     }
 
     .presetContainer {
@@ -25,6 +34,7 @@
 
             width: 30%;
             min-height: 10rem;
+            // height: 100%;
             margin-top: 1.5%;
             margin-bottom: 2rem;
 
@@ -36,7 +46,8 @@
                 align-items: flex-end;
 
                 width: 100%;
-                height: 100%;
+                height: 7rem;
+
                 padding: 1rem;
 
                 border: 2px solid rgba(0, 0, 0, 0.1);
@@ -56,7 +67,7 @@
 
             .currentPreset {
                 .presetBar {
-                    opacity: 0.1;
+                    opacity: 0.2;
                 }
             }
 
@@ -87,18 +98,14 @@
                 }
 
                 svg {
-                    width: 2rem;
+                    width: 3rem;
                     margin-bottom: 0.5rem;
-
-                    // path {
-                    stroke: $colorPrimaryA;
-                    stroke-width: 2;
-                    // }
                 }
             }
 
             .currentPresetButton:hover {
-                transform: scale(0.95);
+                transform: scale(1);
+                color: #9593ff;
             }
         }
 
@@ -106,19 +113,34 @@
         // }
     }
 
+    .selectedOptionsContainer {
+        margin-bottom: 1rem;
+        padding-top: 0.5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+
+        border-top: 2px solid $colorCardBorder;
+    }
+
     .presetButtonsContainer {
         display: flex;
-        justify-content: flex-end;
-        gap: 2rem;
-
-        margin-top: 2rem;
-        margin-bottom: 1rem;
+        justify-content: flex-start;
+        gap: 3rem;
 
         button {
+            display: flex;
             font-size: 1rem;
+
+            color: rgba(0, 0, 0, 0.2);
+
+            svg {
+                width: 1.25rem;
+                margin-right: 0.5rem;
+            }
         }
+
         .selectable {
-            color: red;
+            color: $colorPrimaryA;
         }
     }
 }

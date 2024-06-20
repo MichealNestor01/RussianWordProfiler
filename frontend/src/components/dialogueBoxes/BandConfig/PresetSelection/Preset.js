@@ -8,27 +8,28 @@ import {
 } from "@heroicons/react/24/outline";
 
 const Preset = ({ preset, onClick, selectedPreset }) => {
-    const name =
-        preset.name === "Current Preset" || preset.name === "Upload New Preset"
-            ? "᠌" //<- U+180C MONGOLIAN FREE VARIATION SELECTOR TWO hehe
-            : preset.name;
+    // const name =
+    //     preset.name === "Current Preset" || preset.name === "Upload New Preset"
+    //         ? ""
+    //         : preset.name;
+    const name = preset.name;
     const [presetClass, setPresetClass] = useState(
-        `preset ${preset.name === "Current Preset" ? "currentPreset" : ""}`
+        `preset ${preset.name === "Save Current Preset" ? "currentPreset" : ""}`
     );
 
     let content = <Fragment />;
-    if (preset.name === "Current Preset") {
+    if (preset.name === "Save Current Preset") {
         content = (
             <div className="currentPresetButton">
                 <FolderArrowDownIcon />
-                <p>Click here to save current preset</p>
+                {/* <p>Save current preset</p> */}
             </div>
         );
     } else if (preset.name === "Upload New Preset") {
         content = (
             <div className="currentPresetButton">
                 <ArrowUpTrayIcon />
-                <p>Click here to upload a preset file</p>
+                {/* <p>Upload a preset file</p> */}
             </div>
         );
     }
@@ -57,7 +58,7 @@ const Preset = ({ preset, onClick, selectedPreset }) => {
     }
 
     useEffect(() => {
-        if (preset.name != "Current Preset") {
+        if (preset.name != "Save Current Preset") {
             setPresetClass(
                 `preset ${selectedPreset === preset.name ? "activePreset" : ""}`
             );

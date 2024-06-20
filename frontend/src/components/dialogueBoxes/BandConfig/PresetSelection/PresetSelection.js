@@ -13,6 +13,11 @@ import { downloadJSON } from "../../../../functions/downloadJSON";
 import { handleJsonUpload } from "../../../../functions/uploadJSON";
 import { validatePresetJson } from "../../../../functions/validatePresetJson";
 
+import {
+    ArrowDownTrayIcon,
+    TrashIcon,
+    CheckIcon,
+} from "@heroicons/react/24/solid";
 const PresetSelection = ({
     active,
     onClose,
@@ -74,7 +79,7 @@ const PresetSelection = ({
     useEffect(() => {
         const tempCurrentPreset = {
             isDefault: false,
-            name: "Current Preset",
+            name: "Save Current Preset",
             bands: Object.keys(bands).map((band) => ({
                 top: bands[band].topVal,
                 colour: bands[band].colour,
@@ -96,7 +101,7 @@ const PresetSelection = ({
 
     const updateProposedName = (val) => {
         const presetNames = [
-            "Current Preset",
+            "Save Current Preset",
             "Upload New Preset",
             ...presets.map((preset) => preset.name),
         ];
@@ -153,70 +158,77 @@ const PresetSelection = ({
             header={<h1>Band Preset Selector</h1>}
             content={
                 <div className="presetOptionsContainer">
-                    <h2>Ready-Made Presets</h2>
-                    <div className="presetContainer">{defaultPresetDivs}</div>
+                    <div className="containerMaxHeight">
+                        <h2>Ready-Made Presets</h2>
+                        <div className="presetContainer">
+                            {defaultPresetDivs}
+                        </div>
 
-                    <h2>Other Presets</h2>
-                    <div className="presetContainer">
-                        {[
-                            ...addedPresetDivs,
-                            currentPresetDiv,
-                            addNewPresetDiv,
-                        ]}
+                        <h2>Other Presets</h2>
+                        <div className="presetContainer">
+                            {[
+                                currentPresetDiv,
+                                addNewPresetDiv,
+                                ...addedPresetDivs,
+                            ]}
+                        </div>
                     </div>
 
-                    <div className="presetButtonsContainer">
-                        {/*prettier-ignore*/}
-                        <button className={selectedPreset !== "" ? "selectable" : ""} onClick={downloadSelectedPreset}>
-                            Download Selected Preset
+                    <div className="selectedOptionsContainer">
+                        <h2>Selected Preset Options</h2>
+                        <div className="presetButtonsContainer">
+                            {/*prettier-ignore*/}
+                            <button className={selectedPreset !== "" ? "selectable" : ""} onClick={loadSelectedPreset}>
+                            <CheckIcon/> Use Preset 
                         </button>
-                        {/*prettier-ignore*/}
-                        <button className={selectedPreset !== "" ? "selectable" : ""} onClick={loadSelectedPreset}>
-                            Load Selected Preset
+                            {/*prettier-ignore*/}
+                            <button className={selectedPreset !== "" ? "selectable" : ""} onClick={downloadSelectedPreset}>
+                            <ArrowDownTrayIcon/> Download
                         </button>
-                        <button
-                            className={
-                                selectedPreset !== "" &&
-                                presets
-                                    .filter((preset) => !preset.isDefault)
-                                    .map((preset) => preset.name)
-                                    .includes(selectedPreset)
-                                    ? "selectable"
-                                    : ""
+                            <button
+                                className={
+                                    selectedPreset !== "" &&
+                                    presets
+                                        .filter((preset) => !preset.isDefault)
+                                        .map((preset) => preset.name)
+                                        .includes(selectedPreset)
+                                        ? "selectable"
+                                        : ""
+                                }
+                                onClick={deleteSelectedPreset}
+                            >
+                                <TrashIcon /> Delete
+                            </button>
+                            <InputWithValidation
+                                active={showSaveCurrentPreset}
+                                onClose={() => setShowSaveCurrentPreset(false)}
+                                text={proposedName}
+                                updateText={updateProposedName}
+                                isValid={isAllowedName}
+                                title="Save Current Preset"
+                                placeholder="Preset Name Here"
+                                onCancel={() => setShowSaveCurrentPreset(false)}
+                                onSave={saveCurrentPreset}
+                            />
+                        </div>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept=".json"
+                            style={{ display: "none" }}
+                            onChange={(event) =>
+                                handleJsonUpload(
+                                    event,
+                                    validatePresetJson,
+                                    (json) => {
+                                        setCurrentPreset(json);
+                                        dispatch(addNewPreset(json));
+                                        dispatch(loadPreset(json.name));
+                                    }
+                                )
                             }
-                            onClick={deleteSelectedPreset}
-                        >
-                            Delete Selected Preset
-                        </button>
-                        <InputWithValidation
-                            active={showSaveCurrentPreset}
-                            onClose={() => setShowSaveCurrentPreset(false)}
-                            text={proposedName}
-                            updateText={updateProposedName}
-                            isValid={isAllowedName}
-                            title="Save Current Preset"
-                            placeholder="Preset Name Here"
-                            onCancel={() => setShowSaveCurrentPreset(false)}
-                            onSave={saveCurrentPreset}
                         />
                     </div>
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept=".json"
-                        style={{ display: "none" }}
-                        onChange={(event) =>
-                            handleJsonUpload(
-                                event,
-                                validatePresetJson,
-                                (json) => {
-                                    setCurrentPreset(json);
-                                    dispatch(addNewPreset(json));
-                                    dispatch(loadPreset(json.name));
-                                }
-                            )
-                        }
-                    />
                 </div>
             }
         />

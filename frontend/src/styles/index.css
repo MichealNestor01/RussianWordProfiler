@@ -643,6 +643,7 @@ ul {
   height: 4rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  border-bottom: 2px solid #ececec;
 }
 .dialogBackground .dialogBox .headerContainer .closeButton {
   height: 4rem;
@@ -668,6 +669,7 @@ ul {
   align-items: center;
   width: 100%;
   padding: 0.5rem 2rem;
+  border-bottom: 1px solid #ececec;
 }
 .band .bandColor {
   width: 24px;
@@ -678,7 +680,7 @@ ul {
 .band .bandInput {
   width: 4.5rem;
   height: 34px;
-  background-color: #F3EFF9;
+  background-color: #f3eff9;
   padding-left: 0.5rem;
   border-radius: 4px;
   border: rgba(0, 0, 0, 0.1) 1px solid;
@@ -721,6 +723,12 @@ ul {
 }
 .band .disabled {
   opacity: 0.5;
+}
+
+.bandContainerMaxHeight {
+  padding-top: 1rem;
+  max-height: 32rem;
+  overflow-y: scroll;
 }
 
 .orDivider {
@@ -780,7 +788,8 @@ ul {
 }
 
 .presetOptionsContainer {
-  padding: 0.5rem 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .presetOptionsContainer h2 {
   margin-top: 1rem;
@@ -788,6 +797,12 @@ ul {
   font-size: 1rem;
   font-weight: normal;
   color: #8b8b8b;
+}
+.presetOptionsContainer .containerMaxHeight {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-height: 32rem;
+  overflow-y: scroll;
 }
 .presetOptionsContainer .presetContainer {
   display: flex;
@@ -811,7 +826,7 @@ ul {
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  height: 100%;
+  height: 7rem;
   padding: 1rem;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -826,7 +841,7 @@ ul {
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 .presetOptionsContainer .presetContainer .presetButton .currentPreset .presetBar {
-  opacity: 0.1;
+  opacity: 0.2;
 }
 .presetOptionsContainer .presetContainer .presetButton .presetText {
   color: #343734;
@@ -850,24 +865,34 @@ ul {
   color: #343734;
 }
 .presetOptionsContainer .presetContainer .presetButton .currentPresetButton svg {
-  width: 2rem;
+  width: 3rem;
   margin-bottom: 0.5rem;
-  stroke: #343734;
-  stroke-width: 2;
 }
 .presetOptionsContainer .presetContainer .presetButton .currentPresetButton:hover {
-  transform: scale(0.95);
+  transform: scale(1);
+  color: #9593ff;
+}
+.presetOptionsContainer .selectedOptionsContainer {
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-top: 2px solid #ececec;
 }
 .presetOptionsContainer .presetButtonsContainer {
   display: flex;
-  justify-content: flex-end;
-  gap: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  justify-content: flex-start;
+  gap: 3rem;
 }
 .presetOptionsContainer .presetButtonsContainer button {
+  display: flex;
   font-size: 1rem;
+  color: rgba(0, 0, 0, 0.2);
+}
+.presetOptionsContainer .presetButtonsContainer button svg {
+  width: 1.25rem;
+  margin-right: 0.5rem;
 }
 .presetOptionsContainer .presetButtonsContainer .selectable {
-  color: red;
+  color: #343734;
 }/*# sourceMappingURL=index.css.map */
