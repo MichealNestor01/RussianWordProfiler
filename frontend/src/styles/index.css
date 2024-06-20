@@ -735,7 +735,7 @@ ul {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem;
 }
 .orDivider .divider {
   flex-grow: 1;
@@ -752,7 +752,7 @@ ul {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 .bandConfigOptions button {
   display: flex;
@@ -883,6 +883,7 @@ ul {
   display: flex;
   justify-content: flex-start;
   gap: 3rem;
+  padding-top: 0.25rem;
 }
 .presetOptionsContainer .presetButtonsContainer button {
   display: flex;
@@ -895,4 +896,46 @@ ul {
 }
 .presetOptionsContainer .presetButtonsContainer .selectable {
   color: #343734;
+}
+.presetOptionsContainer .presetButtonsContainer .selectable:hover {
+  color: #9593ff;
+}
+.presetOptionsContainer .presetButtonsContainer .delete:hover {
+  color: #ff0000;
+}
+.presetOptionsContainer .inputWithValidationContainer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.presetOptionsContainer .inputWithValidationContainer p {
+  margin-left: 2rem;
+  margin-bottom: 0.5rem;
+}
+.presetOptionsContainer .inputWithValidationContainer input {
+  margin-left: 2rem;
+  height: 34px;
+  background-color: #f3eff9;
+  padding-left: 0.5rem;
+  border-radius: 4px;
+  border: rgba(0, 0, 0, 0.1) 1px solid;
+}
+.presetOptionsContainer .inputWithValidationContainer button {
+  color: #343734;
+}
+.presetOptionsContainer .inputWithValidationContainer button:hover {
+  color: #9593ff;
+}
+.presetOptionsContainer .inputWithValidationContainer .invalid {
+  color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.presetOptionsContainer .inputWithValidationContainer .buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-top: 2px solid #ececec;
 }/*# sourceMappingURL=index.css.map */

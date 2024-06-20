@@ -192,7 +192,7 @@ const PresetSelection = ({
                                         .filter((preset) => !preset.isDefault)
                                         .map((preset) => preset.name)
                                         .includes(selectedPreset)
-                                        ? "selectable"
+                                        ? "selectable delete"
                                         : ""
                                 }
                                 onClick={deleteSelectedPreset}
@@ -206,7 +206,7 @@ const PresetSelection = ({
                                 updateText={updateProposedName}
                                 isValid={isAllowedName}
                                 title="Save Current Preset"
-                                placeholder="Preset Name Here"
+                                placeholder="Give the Preset a Name"
                                 onCancel={() => setShowSaveCurrentPreset(false)}
                                 onSave={saveCurrentPreset}
                             />

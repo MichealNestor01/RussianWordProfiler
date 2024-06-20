@@ -127,6 +127,7 @@
         justify-content: flex-start;
         gap: 3rem;
 
+        padding-top: 0.25rem;
         button {
             display: flex;
             font-size: 1rem;
@@ -141,6 +142,60 @@
 
         .selectable {
             color: $colorPrimaryA;
+        }
+
+        .selectable:hover {
+            color: #9593ff;
+        }
+
+        .delete:hover {
+            color: #ff0000;
+        }
+    }
+
+    .inputWithValidationContainer {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        p {
+            margin-left: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        input {
+            margin-left: 2rem;
+
+            height: 34px;
+
+            background-color: #f3eff9;
+            padding-left: 0.5rem;
+            border-radius: 4px;
+            border: rgba(0, 0, 0, 0.1) 1px solid;
+        }
+
+        button {
+            color: $colorPrimaryA;
+        }
+
+        button:hover {
+            color: #9593ff;
+        }
+
+        .invalid {
+            color: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .buttonContainer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 2rem;
+
+            margin-top: 1rem;
+            padding-top: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+
+            border-top: 2px solid $colorCardBorder;
         }
     }
 }
