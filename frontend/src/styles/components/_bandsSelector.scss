@@ -32,14 +32,14 @@
       height: 6rem;
       background-color: transparent;
       border: none;
-      border-left: 1px solid #e7e7e7;
+      border-left: 1px solid $colorDivider;
       outline: none;
       font-family: "Roboto";
       cursor: pointer;
     }
 
     button:hover {
-      color: #9593ff;
+      color: $colourHover;
     }
   }
   .bandContainer {

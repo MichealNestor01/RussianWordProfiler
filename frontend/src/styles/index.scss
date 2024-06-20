@@ -4,6 +4,7 @@ $colorPrimaryA: #343734;
 $colorPrimaryB: #a6a6a8;
 $colorSecondary: #f5f5f5;
 $colorTertiary: #ededf5;
+$colourHover: #9593ff;
 
 $colorBackground: #f9f9fd;
 $colorCardBackground: #f5f5f5;
@@ -26,4 +27,4 @@ $colorBoldText: #343633;
 @import "./components/downloadData";
 @import "./components/tooltips";
 @import "./components/dialogBox";
-@import "./components/bandConfig"
+@import "./components/bandConfig";

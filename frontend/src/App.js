@@ -3,8 +3,8 @@ import background from "./assets/background.png";
 import Main from "./pages/Main";
 import About from "./pages/About";
 import NotFoundError from "./pages/NotFoundError";
-import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import NavBarItem from "./components/generic/NavBarItem";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
@@ -13,18 +13,18 @@ let initial = true;
  * @namespace functions
  */
 
-const router = createBrowserRouter([
+const routes = [
   {
     element: <Main />,
+    title: "Home",
     path: "/",
-    errorElement: <NotFoundError />,
   },
   {
     element: <About />,
+    title: "About",
     path: "/about",
-    errorElement: <NotFoundError />,
   },
-]);
+];
 
 /**
  * @description
@@ -41,6 +41,7 @@ const router = createBrowserRouter([
  * )
  */
 function App() {
+  const navigate = useNavigate();
   useEffect(() => {
     if (initial) {
       alert(
@@ -53,12 +54,37 @@ function App() {
   return (
     <div className="page-wrapper">
       <div className="title-container">
-        <h1 className="title">Russian Word Profiler</h1>
+        <h1 className="title" onClick={() => navigate("/")}>
+          Russian Word Profiler
+        </h1>
+        <div className="nav-bar">
+          {routes.map((route) => (
+            <NavBarItem
+              key={route.path + "navItem"}
+              title={route.title}
+              path={route.path}
+            />
+          ))}
+        </div>
       </div>
-      <RouterProvider router={router} />
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            key={route.path + "route"}
+            element={route.element}
+            path={route.path}
+          />
+        ))}
+        <Route path="*" element={<NotFoundError />} />
+      </Routes>
       {/* This is a background splash image */}
       <div className="image-container">
-        <img src={background} alt="background splash" className="image" />
+        <img
+          style={{ userSelect: "none" }}
+          src={background}
+          alt="background splash"
+          className="image"
+        />
       </div>
     </div>
   );
