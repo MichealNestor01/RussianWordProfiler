@@ -273,7 +273,6 @@ ul {
   border: 3px solid transparent;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
-  cursor: pointer;
 }
 .bands-selector .bandContainer h5 {
   white-space: nowrap;
@@ -491,6 +490,7 @@ ul {
 .lemmaFull .band {
   display: flex;
   align-items: center;
+  min-width: 5rem;
   height: 100%;
   padding-left: 1.5rem;
   padding-right: 1.5rem;

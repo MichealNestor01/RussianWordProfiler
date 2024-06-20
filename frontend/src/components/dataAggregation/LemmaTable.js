@@ -43,64 +43,59 @@ const LemmaTable = () => {
 
   const bands = Object.keys(bandFrequencyDict).map((band) => {
     const { colour, active, bottomVal } = bandFrequencyDict[band];
-    return { name: band, colour, active, bottomVal };
+    return { name: band, colour, active, bottomVal, lemmas: [] };
   });
+
+  console.log("BANDS 1");
+  console.log(bands);
 
   // Keep track of the lemmas that get placed in bands so we can
   // see which words are in limbo.
-  const bandedLemmas = {};
   const bandsWithLemmas = [];
-  bands.forEach((band) => {
-    if (band.active) {
-      const lemmasInBand = [];
-      for (const lemma in lemmaWordsDict) {
-        const { rank, words } = lemmaWordsDict[lemma];
-        if (lemma in lemmaFrequencyDict) {
-          const occurrences = lemmaFrequencyDict[lemma];
 
-          if (band.name === "N/A" && rank === "N/A") {
-            lemmasInBand.push({ lemma, words, rank, occurrences });
-            bandedLemmas[lemma] = true;
-          } else if (rank <= parseInt(band.name) && rank >= band.bottomVal) {
-            lemmasInBand.push({ lemma, words, rank, occurrences });
-            bandedLemmas[lemma] = true;
+  for (const lemma in lemmaWordsDict) {
+    const { rank, words } = lemmaWordsDict[lemma];
+    let putInNa = true;
+    if (lemma in lemmaFrequencyDict) {
+      const occurrences = lemmaFrequencyDict[lemma];
+      for (const band in bands) {
+        if (bands[band].active) {
+          if (bands[band].name === "N/A" && rank === "N/A") {
+            bands[band].lemmas.push({ lemma, words, rank, occurrences });
+            putInNa = false;
+          } else if (
+            rank <= parseInt(bands[band].name) &&
+            rank >= bands[band].bottomVal
+          ) {
+            bands[band].lemmas.push({ lemma, words, rank, occurrences });
+            putInNa = false;
           }
         }
       }
-
-      // Sort lemmasInBand by rank.
-      if (band.name !== "N/A") {
-        lemmasInBand.sort((a, b) => a.rank - b.rank);
-      }
-      bandsWithLemmas.push({ ...band, lemmas: lemmasInBand });
     }
-  });
-
-  // // Add words from limbo to N/A
-  // for (const word in wordData) {
-  //   const { lemma, _ } = wordData[word];
-
-  //   if (!(lemma in bandedLemmas)) {
-  //     const { rank, words } = lemmaWordsDict[lemma];
-  //     const occurrences = 1; //lemmaFrequencyDict[lemma];
-
-  //     bandsWithLemmas
-  //       .find((item) => item.name === "N/A")
-  //       .lemmas.push({ lemma, words, rank, occurrences });
-  //   }
-  // }
-  // dispatch(setTableData(bandsWithLemmas));
-  const xlsData = [];
-  bandsWithLemmas.forEach((band) => {
-    band.lemmas.forEach((lemma) => {
-      xlsData.push({
-        BAND: band.name,
-        LEMMA: lemma.lemma,
-        WORDS: lemma.words.join(" "),
-        OCCURRENCES: lemma.occurrences,
-        RANK: lemma.rank,
+    if (putInNa && bands.length) {
+      bands[bands.length - 1].lemmas.push({
+        lemma,
+        words,
+        rank,
+        occurrences: 0,
       });
-    });
+    }
+  }
+
+  const xlsData = [];
+  bands.forEach((band) => {
+    if (band.active) {
+      band.lemmas.forEach((lemma) => {
+        xlsData.push({
+          BAND: band.name,
+          LEMMA: lemma.lemma,
+          WORDS: lemma.words.join(" "),
+          OCCURRENCES: lemma.occurrences,
+          RANK: lemma.rank,
+        });
+      });
+    }
   });
 
   return (
@@ -117,41 +112,44 @@ const LemmaTable = () => {
           </h1>
           <div className="activeBandContainer">
             <div className="bands">
-              {bandsWithLemmas.map((band, bandIndex) => {
-                return (
-                  <a
-                    href="#"
-                    className={
-                      "band " + (bandIndex === selectedBand && "activeBand")
-                    }
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedBand(bandIndex);
-                    }}
-                    style={{
-                      width: 100 / bandsWithLemmas.length + "%",
-                      color:
-                        bandIndex === selectedBand &&
-                        bandsWithLemmas[selectedBand]?.colour,
-                      textDecoration: "none",
-                    }}
-                  >
-                    {band.name}
-                  </a>
-                );
+              {bands.map((band, bandIndex) => {
+                if (band.active) {
+                  return (
+                    <a
+                      href="#"
+                      className={
+                        "band " + (bandIndex === selectedBand && "activeBand")
+                      }
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedBand(bandIndex);
+                      }}
+                      style={{
+                        width: 100 / bands.length + "%",
+                        color:
+                          bandIndex === selectedBand &&
+                          bands[selectedBand]?.colour,
+                        textDecoration: "none",
+                      }}
+                    >
+                      {band.name}
+                    </a>
+                  );
+                }
+                return <Fragment />;
               })}
             </div>
             <div
               className="activeBandSelector"
               style={{
-                marginLeft: (100 / bandsWithLemmas.length) * selectedBand + "%",
-                width: 100 / bandsWithLemmas.length + "%",
-                backgroundColor: bandsWithLemmas[selectedBand]?.colour,
+                marginLeft: (100 / bands.length) * selectedBand + "%",
+                width: 100 / bands.length + "%",
+                backgroundColor: bands[selectedBand]?.colour,
               }}
             ></div>
           </div>
         </div>
-        {bandsWithLemmas[selectedBand] ? (
+        {bands[selectedBand] ? (
           <div className="lemmaTable">
             <div className="bandHeaders">
               <p>Lemma</p>
@@ -161,18 +159,16 @@ const LemmaTable = () => {
             </div>
 
             <div className="bandBody">
-              {bandsWithLemmas[selectedBand]?.lemmas.map(
-                (lemmaObj, lemmaIndex) => {
-                  return (
-                    <div className="bandRow">
-                      <p>{lemmaObj.lemma}</p>
-                      <p>{lemmaObj.words.join(", ")}</p>
-                      <p>{lemmaObj.occurrences}</p>
-                      <p>{lemmaObj.rank}</p>
-                    </div>
-                  );
-                }
-              )}
+              {bands[selectedBand]?.lemmas.map((lemmaObj, lemmaIndex) => {
+                return (
+                  <div className="bandRow">
+                    <p>{lemmaObj.lemma}</p>
+                    <p>{lemmaObj.words.join(", ")}</p>
+                    <p>{lemmaObj.occurrences}</p>
+                    <p>{lemmaObj.rank}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         ) : (
