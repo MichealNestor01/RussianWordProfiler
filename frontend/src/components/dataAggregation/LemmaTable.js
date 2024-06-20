@@ -51,17 +51,25 @@ const LemmaTable = () => {
     return { name: band, colour, active, bottomVal };
   });
 
+  // Keep track of the lemmas that get placed in bands so we can
+  // see which words are in limbo.
+  const bandedLemmas = {};
   const bandsWithLemmas = [];
   bands.forEach((band) => {
     if (band.active) {
       const lemmasInBand = [];
       for (const lemma in lemmaWordsDict) {
         const { rank, words } = lemmaWordsDict[lemma];
-        const occurrences = lemmaFrequencyDict[lemma];
-        if (band.name === "N/A" && rank === "N/A") {
-          lemmasInBand.push({ lemma, words, rank, occurrences });
-        } else if (rank <= parseInt(band.name) && rank >= band.bottomVal) {
-          lemmasInBand.push({ lemma, words, rank, occurrences });
+        if (lemma in lemmaFrequencyDict) {
+          const occurrences = lemmaFrequencyDict[lemma];
+
+          if (band.name === "N/A" && rank === "N/A") {
+            lemmasInBand.push({ lemma, words, rank, occurrences });
+            bandedLemmas[lemma] = true;
+          } else if (rank <= parseInt(band.name) && rank >= band.bottomVal) {
+            lemmasInBand.push({ lemma, words, rank, occurrences });
+            bandedLemmas[lemma] = true;
+          }
         }
       }
 
@@ -73,6 +81,19 @@ const LemmaTable = () => {
     }
   });
 
+  // Add words from limbo to N/A
+  for (const word in wordData) {
+    const { lemma, _ } = wordData[word];
+
+    if (!(lemma in bandedLemmas)) {
+      const { rank, words } = lemmaWordsDict[lemma];
+      const occurrences = 1; //lemmaFrequencyDict[lemma];
+
+      bandsWithLemmas
+        .find((item) => item.name === "N/A")
+        .lemmas.push({ lemma, words, rank, occurrences });
+    }
+  }
   dispatch(setTableData(bandsWithLemmas));
 
   return (
