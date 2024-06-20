@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import background from "./assets/background.png";
-import MainEditor from "./components/main/MainEditor";
-import DistributionDisplay from "./components/dataAggregation/DistributionDisplay";
-import CoverageDisplay from "./components/dataAggregation/CoverageDisplay";
-import LemmaTable from "./components/dataAggregation/LemmaTable";
+import Main from "./pages/Main";
+import About from "./pages/About";
+import NotFoundError from "./pages/NotFoundError";
+import * as ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
 let initial = true;
@@ -11,6 +12,19 @@ let initial = true;
 /**
  * @namespace functions
  */
+
+const router = createBrowserRouter([
+  {
+    element: <Main />,
+    path: "/",
+    errorElement: <NotFoundError />,
+  },
+  {
+    element: <About />,
+    path: "/about",
+    errorElement: <NotFoundError />,
+  },
+]);
 
 /**
  * @description
@@ -40,27 +54,8 @@ function App() {
     <div className="page-wrapper">
       <div className="title-container">
         <h1 className="title">Russian Word Profiler</h1>
-        <div className="button-container">
-          {/* <button onClick={saveConfig}>Save Band Configuration</button> */}
-          {/* <button onClick={resetDefault}>Reset Band Configuration</button> */}
-        </div>
       </div>
-
-      <section className="input-section">
-        <MainEditor placeholder="Place text here!" />
-      </section>
-      <section className="bottom-panel">
-        <section className="data-grid">
-          <div className="top-panel">
-            <DistributionDisplay />
-            <CoverageDisplay />
-          </div>
-          <LemmaTable />
-          <a href="https://tech.yandex.com/dictionary/" target="_blank">
-            Powered by Yandex.Dictionary
-          </a>
-        </section>
-      </section>
+      <RouterProvider router={router} />
       {/* This is a background splash image */}
       <div className="image-container">
         <img src={background} alt="background splash" className="image" />
