@@ -1,7 +1,6 @@
 import { useState, Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setTableData } from "../../store/slices/statsSlice";
-import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableData";
+import { useSelector } from "react-redux";
+import DownloadButton from "../generic/DownloadButton";
 
 /**
  * @description
@@ -11,9 +10,6 @@ import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableD
  * The component uses the following parts of the Redux store:
  * - `statsSlice.lemmaFrequencyDict`: Frequency dictionary for lemmas.
  *
- * The component dispatches the following Redux actions:
- * - `setTableData`: Action to set the table data. Used so that this data can be downloaded.
- *
  * @component
  *
  * @example
@@ -22,7 +18,6 @@ import DownloadTableData from "../dataAggregation/downloadButtons/DownloadTableD
  * )
  */
 const LemmaTable = () => {
-  const dispatch = useDispatch();
   const [selectedBand, setSelectedBand] = useState(0);
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
@@ -81,27 +76,44 @@ const LemmaTable = () => {
     }
   });
 
-  // Add words from limbo to N/A
-  for (const word in wordData) {
-    const { lemma, _ } = wordData[word];
+  // // Add words from limbo to N/A
+  // for (const word in wordData) {
+  //   const { lemma, _ } = wordData[word];
 
-    if (!(lemma in bandedLemmas)) {
-      const { rank, words } = lemmaWordsDict[lemma];
-      const occurrences = 1; //lemmaFrequencyDict[lemma];
+  //   if (!(lemma in bandedLemmas)) {
+  //     const { rank, words } = lemmaWordsDict[lemma];
+  //     const occurrences = 1; //lemmaFrequencyDict[lemma];
 
-      bandsWithLemmas
-        .find((item) => item.name === "N/A")
-        .lemmas.push({ lemma, words, rank, occurrences });
-    }
-  }
-  dispatch(setTableData(bandsWithLemmas));
+  //     bandsWithLemmas
+  //       .find((item) => item.name === "N/A")
+  //       .lemmas.push({ lemma, words, rank, occurrences });
+  //   }
+  // }
+  // dispatch(setTableData(bandsWithLemmas));
+  const xlsData = [];
+  bandsWithLemmas.forEach((band) => {
+    band.lemmas.forEach((lemma) => {
+      xlsData.push({
+        BAND: band.name,
+        LEMMA: lemma.lemma,
+        WORDS: lemma.words.join(" "),
+        OCCURRENCES: lemma.occurrences,
+        RANK: lemma.rank,
+      });
+    });
+  });
 
   return (
     <Fragment>
       <div className="lemmaFull card">
         <div className="cardHeader">
           <h1 className="title">
-            Frequency Lemma Table <DownloadTableData />
+            Frequency Lemma Table{" "}
+            <DownloadButton
+              data={xlsData}
+              filename="profilerTableData"
+              text="Download Table as CSV"
+            />
           </h1>
           <div className="activeBandContainer">
             <div className="bands">

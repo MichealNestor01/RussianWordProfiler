@@ -26,7 +26,33 @@
     flex-direction: row;
     justify-content: space-between;
     .title {
+      cursor: pointer;
       font-size: 2rem;
+    }
+
+    .nav-bar {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+
+      .nav-bar-item {
+        font-size: 1.2rem;
+      }
+
+      .nav-bar-item:hover {
+        cursor: pointer;
+        color: $colorHover;
+      }
+
+      .active {
+        text-decoration: underline;
+        color: $colorHover;
+      }
+
+      .inactive {
+        text-decoration: none;
+        color: $colorPrimaryA;
+      }
     }
 
     .button-container {

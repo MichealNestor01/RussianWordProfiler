@@ -84,6 +84,13 @@ ul {
   background: #343633;
 }
 
+.about-page p {
+  text-align: justify;
+}
+.about-page a {
+  color: #9593ff;
+}
+
 .page-wrapper {
   position: relative;
   width: 80%;
@@ -111,7 +118,28 @@ ul {
   justify-content: space-between;
 }
 .page-wrapper .title-container .title {
+  cursor: pointer;
   font-size: 2rem;
+}
+.page-wrapper .title-container .nav-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+.page-wrapper .title-container .nav-bar .nav-bar-item {
+  font-size: 1.2rem;
+}
+.page-wrapper .title-container .nav-bar .nav-bar-item:hover {
+  cursor: pointer;
+  color: #9593ff;
+}
+.page-wrapper .title-container .nav-bar .active {
+  text-decoration: underline;
+  color: #9593ff;
+}
+.page-wrapper .title-container .nav-bar .inactive {
+  text-decoration: none;
+  color: #343734;
 }
 .page-wrapper .title-container .button-container button {
   margin-left: 10px;
