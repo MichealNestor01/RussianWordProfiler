@@ -84,6 +84,13 @@ ul {
   background: #343633;
 }
 
+.about-page p {
+  text-align: justify;
+}
+.about-page a {
+  color: #9593ff;
+}
+
 .page-wrapper {
   position: relative;
   width: 80%;
