@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 profiler = ProfilerObj()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./build/static', template_folder='./build')
 CORS(app)
 
 
