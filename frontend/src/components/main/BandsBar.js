@@ -5,6 +5,7 @@ import { setWordData } from "../../store/slices/textSlice";
 import ApiSettings from "../dialogueBoxes/ApiSettings/ApiSettings";
 import { toggleActive } from "../../store/slices/frequencyBandsSlice";
 import { useState } from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 /**
  * @description
@@ -39,8 +40,10 @@ const BandsBar = () => {
   const { words, stopWords } = useSelector((state) => state.text);
   const [showBandConfig, setShowBandConfig] = useState(false);
   const [showApiSettings, setShowApiSettings] = useState(false);
+  const [waitingResponse, setWaitingResponse] = useState(false);
 
   const submitHandler = async () => {
+    setWaitingResponse(true);
     const url =
       window.location.href === "http://localhost:3000/" ||
       window.location.href === "http://localhost:5000/"
@@ -54,6 +57,7 @@ const BandsBar = () => {
           ? { stopwords: stopWords, text: words }
           : { text: words },
     });
+    setWaitingResponse(false);
     if (response.status === 200) {
       console.log(response.data);
       dispatch(setWordData(response.data));
@@ -97,7 +101,15 @@ const BandsBar = () => {
       <div className="buttons">
         <button onClick={() => setShowBandConfig(true)}>Configure Bands</button>
         <button onClick={() => setShowApiSettings(true)}>API Settings</button>
-        <button onClick={submitHandler}>Profile Text</button>
+        {!waitingResponse && (
+          <button onClick={submitHandler}>Profile Text</button>
+        )}
+        <BeatLoader
+          className="spinner"
+          color="#9593ff"
+          loading={waitingResponse}
+          aria-label="Loading Spinner"
+        />
       </div>
       <ApiSettings
         active={showApiSettings}

@@ -1,5 +1,6 @@
 .wordEditorList {
-  margin-bottom: 1rem;
+  max-height: 32rem;
+  overflow-y: scroll;
 
   .wordOption {
     padding-top: 0.5rem;
@@ -16,5 +17,16 @@
 
   .wordOption:hover {
     background-color: #f3eff9;
+  }
+}
+.yandex-link {
+  width: 100%;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 2px solid $colorCardBorder;
+  a {
+    color: $colorPrimaryA;
   }
 }
