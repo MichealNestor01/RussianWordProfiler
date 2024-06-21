@@ -52,10 +52,10 @@ const BandsBar = () => {
     const response = await axios({
       method: "post",
       url: `${url}scantext/`,
-      data:
-        stopWords.length > 0
-          ? { stopwords: stopWords, text: words }
-          : { text: words },
+      data: {
+        stopwords: stopWords.map((word) => word.toLowerCase()),
+        text: words,
+      },
     });
     setWaitingResponse(false);
     if (response.status === 200) {
