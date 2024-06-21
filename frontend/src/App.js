@@ -6,9 +6,6 @@ import NotFoundError from "./pages/NotFoundError";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NavBarItem from "./components/generic/NavBarItem";
 
-//const apiURL = "russian-word-profiler-api.fseggvhtdefnbdez.uksouth.azurecontainer.io:5000";
-let initial = true;
-
 /**
  * @namespace functions
  */
@@ -42,15 +39,6 @@ const routes = [
  */
 function App() {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (initial) {
-      alert(
-        "This project is still new and may have a few bugs, non-standard displays are not yet supported, if you do find some wierd behaviour please report them to michealnestor@outlook.com"
-      );
-    }
-    initial = false;
-  }, []);
-
   return (
     <div className="page-wrapper">
       <div className="title-container">
