@@ -244,12 +244,20 @@ ul {
   display: flex;
   justify-content: space-evenly;
 }
-.bands-selector .buttons button {
-  flex-grow: 1;
+.bands-selector .buttons button,
+.bands-selector .buttons .spinner {
+  width: 33%;
   height: 6rem;
   background-color: transparent;
   border: none;
   border-left: 1px solid #e7e7e7;
+}
+.bands-selector .buttons .spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bands-selector .buttons button {
   outline: none;
   font-family: "Roboto";
   cursor: pointer;
