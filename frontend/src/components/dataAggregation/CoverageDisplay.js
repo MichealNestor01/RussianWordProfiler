@@ -1,8 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import BandBar from "../generic/BandBar";
 import DownloadButton from "../generic/DownloadButton";
-
+import Switch from "../generic/Switch";
 /**
  * @description
  * Component for displaying coverage data.
@@ -19,16 +19,20 @@ import DownloadButton from "../generic/DownloadButton";
  * )
  */
 const CoverageDisplay = () => {
+  const [hideNa, setHideNa] = useState(false);
+
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
 
   const totals = [];
-  const bands = Object.keys(bandFrequencyDict).map((band) => {
-    const { colour, total } = bandFrequencyDict[band];
-    totals.push(total);
-    return { name: band, colour, total };
-  });
+  const bands = Object.keys(bandFrequencyDict)
+    .filter((band) => !(hideNa && band === "N/A"))
+    .map((band) => {
+      const { colour, total } = bandFrequencyDict[band];
+      totals.push(total);
+      return { name: band, colour, total };
+    });
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
   let currentTotal = 0;
 
@@ -54,6 +58,8 @@ const CoverageDisplay = () => {
             text="Download Coverage Data"
           />
         </h1>
+        <p>Hide N/A</p>
+        <Switch value={hideNa} onToggle={() => setHideNa(!hideNa)} />
       </div>
       <div className="barGraph">
         {bands.length === 0 ? (
