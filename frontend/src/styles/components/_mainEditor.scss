@@ -4,6 +4,9 @@
   // BOX MODEL
   //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
   // BACKGROUND
   //background-color: $colorSecondary;
   // CHILDREN
@@ -47,6 +50,7 @@
       // BOX MODEL
       resize: none;
       min-height: 32rem;
+      overflow-y: hidden;
       padding: 10px 15px 15px 15px;
       // BOX MODEL
       border: none;
@@ -61,7 +65,8 @@
     .text-output {
       // BOX MODEL
       padding: 10px 15px 15px 15px;
-      border: 1px solid #e1e1e1;
+      border-top: 1px solid #e1e1e1;
+      border-bottom: 1px solid #e1e1e1;
       border-right: none;
       // BACKGROUND
       background-color: $colorSecondary;
