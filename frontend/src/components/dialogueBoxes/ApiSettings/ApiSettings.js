@@ -1,7 +1,7 @@
 import DialogBox from "../DialogBox";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import TextFileUpload from "../../generic/TextFileUpload";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   XMarkIcon,
   PlusIcon,
@@ -9,7 +9,13 @@ import {
   CloudArrowDownIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
-import Switch from "../../generic/Switch";
+import {
+  deleteStopWord,
+  addStopWord,
+  setStopWords,
+} from "../../../store/slices/textSlice";
+import { downloadStopwords } from "../../../functions/downloadStopwords";
+import { getDatetimeString } from "../../../functions/getDatetimeString";
 
 /**
  * @description
@@ -23,14 +29,15 @@ import Switch from "../../generic/Switch";
  * )
  */
 const ApiSettings = ({ active, onClose }) => {
-  const stopWords = useSelector((state) => state.text.stopWords);
+  const dispatch = useDispatch();
+  const inputRef = useRef(null);
+  const { stopWords } = useSelector((state) => state.text);
   const [showAddStopWord, setShowAddStopWord] = useState(false);
   const [newStopWord, setNewStopWord] = useState("");
-  const [useCaseSensitive, setUseCaseSensitive] = useState(false);
 
   const updateNewStopWord = (e) => {
     const { value } = e.target;
-    if (/\s/.test(value)) {
+    if (/\s/.test(value) || value.toLowerCase() !== value) {
       e.target.value = newStopWord;
       setShowAddStopWord(false);
       return;
@@ -41,16 +48,24 @@ const ApiSettings = ({ active, onClose }) => {
     );
   };
 
+  const onAddButtonClick = () => {
+    if (showAddStopWord) {
+      dispatch(addStopWord(newStopWord));
+      setNewStopWord("");
+      inputRef.current.value = "";
+      setShowAddStopWord(false);
+    }
+  };
   return (
     <DialogBox
       active={active}
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+        setNewStopWord("");
+      }}
       header={
         <div className="apiSettingsHeader">
           <h1>Api Settings </h1>
-
-          <p>Use Case-Sensitive</p>
-          <Switch value={useCaseSensitive} onToggle={setUseCaseSensitive} />
         </div>
       }
       content={
@@ -59,8 +74,13 @@ const ApiSettings = ({ active, onClose }) => {
             {stopWords.length > 0 ? (
               stopWords.map((word, index) => (
                 <div className="stopWord" key={index + "STOPWORD"}>
-                  <p>{word}</p>
-                  <XMarkIcon className="delete" />
+                  <p>{word.toLowerCase()}</p>
+                  <button
+                    className="delete"
+                    onClick={() => dispatch(deleteStopWord(word))}
+                  >
+                    <XMarkIcon />
+                  </button>
                 </div>
               ))
             ) : (
@@ -70,6 +90,7 @@ const ApiSettings = ({ active, onClose }) => {
           <div className="buttonContainer">
             <div className="addStopwordContainer">
               <input
+                ref={inputRef}
                 placeholder="New Stop Word"
                 text={newStopWord}
                 onChange={(e) => updateNewStopWord(e)}
@@ -77,9 +98,17 @@ const ApiSettings = ({ active, onClose }) => {
                   color:
                     showAddStopWord || newStopWord === "" ? "black" : "red",
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onAddButtonClick();
+                  }
+                }}
               />
 
-              <button className={`addButton ${showAddStopWord && "active"}`}>
+              <button
+                className={`addButton ${showAddStopWord && "active"}`}
+                onClick={onAddButtonClick}
+              >
                 <PlusIcon /> Add New Stopword
               </button>
             </div>
@@ -95,11 +124,22 @@ const ApiSettings = ({ active, onClose }) => {
 
           <div className="bandConfigOptions">
             <TextFileUpload />
-            <button>
+            <button
+              onClick={() => {
+                if (stopWords.length > 0) {
+                  const now = getDatetimeString();
+                  downloadStopwords(
+                    stopWords,
+                    "Russian Word Profiler Stopwords File",
+                    `StopWords-${now}.stopwords`
+                  );
+                }
+              }}
+            >
               <CloudArrowDownIcon className="configIcon" />
               Download Stopwords
             </button>
-            <button>
+            <button onClick={() => dispatch(setStopWords([]))}>
               <TrashIcon className="configIcon" />
               Clear All Stopwords
             </button>

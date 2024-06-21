@@ -4,6 +4,8 @@
 
   flex-grow: 1;
 
+  overflow-y: hidden;
+
   h1 {
     flex-grow: 1;
   }
@@ -21,7 +23,8 @@
 .apiSettingsContainer {
   .maxHeight {
     min-height: 4rem;
-    max-height: 32rem;
+    max-height: 30rem;
+    overflow-y: auto;
 
     .stopWord {
       display: flex;
@@ -71,7 +74,6 @@
   }
 
   .buttonContainer {
-    margin-top: 2rem;
     border-top: 2px solid $colorCardBorder;
     // p {
     //   margin-left: 2rem;

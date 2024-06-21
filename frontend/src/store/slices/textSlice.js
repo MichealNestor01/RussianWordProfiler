@@ -13,6 +13,7 @@ export const textSlice = createSlice({
     words: "", // the words that make up the text typed
     tokens: [], // the tokenized text
     stopWords: [], // words to be ignored by the API
+    stopWordsCaseSensitive: true, // whether the stop words should respect case
     wordData: {}, // data for each word returned by the API
   },
   reducers: {
@@ -62,6 +63,50 @@ export const textSlice = createSlice({
     },
 
     /**
+     * Sets whether or not the stop words should be case sensitive
+     * @memberof ReduxStoreTextSlice
+     *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
+     * @param {Object} action - The action object containing payload with a boolean.
+     *
+     * @example
+     * dispatch(setStopWordsCaseSensitive(false));
+     */
+    setStopWordsCaseSensitive: (state, action) => {
+      state.stopWordsCaseSensitive = action.payload;
+    },
+
+    /**
+     * Removes a stopword.
+     * @memberof ReduxStoreTextSlice
+     *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
+     * @param {Object} action - The action object containing payload with the stop word to delete.
+     *
+     * @example
+     * dispatch(deleteStopWord("and"));
+     */
+    deleteStopWord: (state, action) => {
+      state.stopWords = state.stopWords.filter(
+        (word) => word !== action.payload
+      );
+    },
+
+    /**
+     * Adds a new stopword
+     * @memberof ReduxStoreTextSlice
+     *
+     * @param {Object} state - The current state of the Redux store, provided automatically.
+     * @param {Object} action - The action object containing payload with the new stop word.
+     *
+     * @example
+     * dispatch(addStopWord("and"));
+     */
+    addStopWord: (state, action) => {
+      state.stopWords.push(action.payload);
+    },
+
+    /**
      * Changes a word in the tokenized text to a synonym and updates the relevant state.
      * @memberof ReduxStoreTextSlice
      *
@@ -101,7 +146,14 @@ export const textSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setWordData, setText, setStopWords, changeWord } =
-  textSlice.actions;
+export const {
+  setWordData,
+  setText,
+  setStopWords,
+  changeWord,
+  deleteStopWord,
+  setStopWordsCaseSensitive,
+  addStopWord,
+} = textSlice.actions;
 
 export default textSlice.reducer;
