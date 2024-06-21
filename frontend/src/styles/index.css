@@ -376,6 +376,18 @@ ul {
   background-color: #f3eff9;
 }
 
+.yandex-link {
+  width: 100%;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 2px solid #ececec;
+}
+.yandex-link a {
+  color: #343734;
+}
+
 .distributionContainer {
   min-height: 300px;
   height: -moz-fit-content;

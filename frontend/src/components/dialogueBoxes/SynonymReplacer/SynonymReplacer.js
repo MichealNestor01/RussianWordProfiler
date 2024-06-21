@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { whichBand } from "../../../functions/whichBand";
 import { changeWord } from "../../../store/slices/textSlice";
 import DialogBox from "../DialogBox";
+import { Fragment } from "react";
 /**
  * @description
  * Dialog box component used to replace a selected word with one of its synonyms.
@@ -59,34 +60,45 @@ const SynonymReplacer = ({ active, onClose, selectedWord }) => {
       content={
         synonyms !== undefined &&
         synonyms.length > 0 && (
-          <div className="wordEditorList">
-            <ul>
-              {synonyms.map((synonym, index) => {
-                const band = whichBand(synonym.rank, { ...bands });
-                const colour = band === -1 ? "black" : bands[band].colour;
-                return (
-                  <li
-                    key={`synonym-${index}`}
-                    style={{ color: colour, cursor: "pointer" }}
-                    className="wordOption"
-                    onClick={() => {
-                      dispatch(
-                        changeWord({
-                          index: activeWordIndex,
-                          newWord: synonym.synonym,
-                          newWordRank: synonym.rank,
-                          newWordLemma: synonym.lemma,
-                        })
-                      );
-                      onClose();
-                    }}
-                  >
-                    {synonym.synonym}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <Fragment>
+            <div className="wordEditorList">
+              <ul>
+                {synonyms.map((synonym, index) => {
+                  const band = whichBand(synonym.rank, { ...bands });
+                  const colour = band === -1 ? "black" : bands[band].colour;
+                  return (
+                    <li
+                      key={`synonym-${index}`}
+                      style={{ color: colour, cursor: "pointer" }}
+                      className="wordOption"
+                      onClick={() => {
+                        dispatch(
+                          changeWord({
+                            index: activeWordIndex,
+                            newWord: synonym.synonym,
+                            newWordRank: synonym.rank,
+                            newWordLemma: synonym.lemma,
+                          })
+                        );
+                        onClose();
+                      }}
+                    >
+                      {synonym.synonym}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="yandex-link">
+              <a
+                href="https://tech.yandex.com/dictionary/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Powered by Yandex.Dictionary
+              </a>
+            </div>
+          </Fragment>
         )
       }
     />
