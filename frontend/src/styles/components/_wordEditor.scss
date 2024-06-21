@@ -1,5 +1,6 @@
 .wordEditorList {
-  margin-bottom: 1rem;
+  max-height: 32rem;
+  overflow-y: scroll;
 
   .wordOption {
     padding-top: 0.5rem;
