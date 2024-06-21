@@ -2,9 +2,17 @@
 
 > react frontend
 
-## Install
+## Running Locally
 
-Installation instructions here
+## Installation
+
+Ensure node.js is installed on your system. Then open this directory in your terminal of choice. 
+
+```
+$ npm install
+$ npm start
+```
+
 
 # Documentation
 
