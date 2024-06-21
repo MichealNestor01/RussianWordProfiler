@@ -5,6 +5,9 @@ set -e  # Exit immediately if a command exits with a non-zero status
 cd frontend/
 npm install
 
+# build the css
+sass ./src/styles/
+
 # run frontend tests here if and when made
 
 # Build the frontend
