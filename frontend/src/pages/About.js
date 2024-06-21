@@ -75,9 +75,13 @@ const About = () => {
       <br />
       <h1>Contribute</h1>
       <p>
-        Have something to add or thoughts on the project? Please contact{" "}
-        <a href="https://michealnestor.com" target="_blank" rel="noreferrer">
-          Micheal Nestor
+        Have something to add or thoughts on the project? Please contact us at{" "}
+        <a
+          href="mailto:russianwordprofiler@gmail.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          russianwordprofiler@gmail.com
         </a>{" "}
         or contribute to the project directly{" "}
         <a
