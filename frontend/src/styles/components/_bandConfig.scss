@@ -1,152 +1,155 @@
 .band {
-    display:flex;
+    display: flex;
     align-items: center;
 
-    width:100%;
+    width: 100%;
+    padding: 0.5rem 2rem;
 
-    padding:0.5rem 2rem;
-    
+    border-bottom: 1px solid $colorCardBorder;
+
     .bandColor {
-        width:24px;
-        height:24px;
+        width: 24px;
+        height: 24px;
 
-        margin-right:1rem;
-        border-radius:4px;
+        margin-right: 1rem;
+        border-radius: 4px;
     }
 
     .bandInput {
-        width:4.5rem;
-        height:34px;
+        width: 4.5rem;
+        height: 34px;
 
-        background-color: #F3EFF9;
-        padding-left:0.5rem;
-        border-radius:4px;
-        border:rgba(0,0,0,0.1) 1px solid;
-
+        background-color: #f3eff9;
+        padding-left: 0.5rem;
+        border-radius: 4px;
+        border: rgba(0, 0, 0, 0.1) 1px solid;
     }
 
     .bandTo {
-        margin-left:1rem;
-        margin-right:1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
 
-        font-size:0.75rem;
-        color:rgba(0, 0, 0, 0.3);
+        font-size: 0.75rem;
+        color: rgba(0, 0, 0, 0.3);
     }
-
 
     .bandDelete {
         position: relative;
 
-        width:32px;
-        height:32px;
+        width: 32px;
+        height: 32px;
 
-        padding:8px;
+        padding: 8px;
 
-        border:none;
-        background:none;
-        color:rgba(0, 0, 0, 0.3);
-        cursor:pointer;
+        border: none;
+        background: none;
+        color: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
 
-        margin-left:auto;
+        margin-left: auto;
     }
 
     .bandAdd {
         position: relative;
-        display:flex;
+        display: flex;
         align-items: center;
         justify-content: center;
-        
-        margin-left:auto;
-        padding:8px;
 
-        color:rgb(27, 149, 255);
+        margin-left: auto;
+        padding: 8px;
+
+        color: rgb(27, 149, 255);
         font-weight: 400;
 
-        transition:transform 0.1s ease-out;
+        transition: transform 0.1s ease-out;
     }
 
     .bandAdd:hover {
-        transform:scale(1.1);
+        transform: scale(1.1);
     }
 
     .bandIcon {
         width: 32px;
         height: 32px;
 
-        padding:8px;
+        padding: 8px;
     }
 
     .disabled {
-        opacity:0.5;
+        opacity: 0.5;
     }
 }
 
+.bandContainerMaxHeight {
+    padding-top: 1rem;
+
+    max-height: 32rem;
+    overflow-y: scroll;
+}
 
 .orDivider {
-    display:flex;
+    display: flex;
     align-items: center;
 
-    width:100%;
-    padding:2rem 1rem 1rem 1rem;
+    width: 100%;
+    padding: 1rem;
 
     .divider {
-        flex-grow:1;
-        border-bottom:rgba(0,0,0,0.1) 1px solid;
+        flex-grow: 1;
+        border-bottom: rgba(0, 0, 0, 0.1) 1px solid;
     }
 
     p {
-        padding:1rem;
-        font-size:1rem;
-        color:rgba(0, 0, 0, 0.3);
+        padding: 1rem;
+        font-size: 1rem;
+        color: rgba(0, 0, 0, 0.3);
     }
 }
 
 .bandConfigOptions {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 
-    width:100%;
-    padding:1rem;
+    width: 100%;
+    padding: 0.5rem;
 
     button {
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content:flex-start;
+        justify-content: flex-start;
 
-        width:33.3%;
-        height:6rem;
-        padding:0rem 1rem;
+        width: 33.3%;
+        height: 6rem;
+        padding: 0rem 1rem;
 
         background: none;
-        border:none;
+        border: none;
         text-align: center;
-        font-size:0.75rem;
-        font-weight:500;
-        color:#333;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #333;
 
         cursor: pointer;
 
         .configIcon {
-            height:2rem;
-            margin-bottom:0.5rem;
+            height: 2rem;
+            margin-bottom: 0.5rem;
         }
 
-        transition:transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
     }
 
     button:hover {
         color: #9593ff;
-        transform:scale(1.1);
+        transform: scale(1.1);
     }
-
-
 }
 
 .band:hover {
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     .bandDelete {
-        color:rgba(0, 0, 0, 0.8);
+        color: rgba(0, 0, 0, 0.8);
     }
 }

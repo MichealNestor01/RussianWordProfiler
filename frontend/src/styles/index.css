@@ -490,6 +490,7 @@ ul {
 .lemmaFull .band {
   display: flex;
   align-items: center;
+  min-width: 5rem;
   height: 100%;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -670,6 +671,7 @@ ul {
   height: 4rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  border-bottom: 2px solid #ececec;
 }
 .dialogBackground .dialogBox .headerContainer .closeButton {
   height: 4rem;
@@ -695,6 +697,7 @@ ul {
   align-items: center;
   width: 100%;
   padding: 0.5rem 2rem;
+  border-bottom: 1px solid #ececec;
 }
 .band .bandColor {
   width: 24px;
@@ -705,7 +708,7 @@ ul {
 .band .bandInput {
   width: 4.5rem;
   height: 34px;
-  background-color: #F3EFF9;
+  background-color: #f3eff9;
   padding-left: 0.5rem;
   border-radius: 4px;
   border: rgba(0, 0, 0, 0.1) 1px solid;
@@ -750,11 +753,17 @@ ul {
   opacity: 0.5;
 }
 
+.bandContainerMaxHeight {
+  padding-top: 1rem;
+  max-height: 32rem;
+  overflow-y: scroll;
+}
+
 .orDivider {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem;
 }
 .orDivider .divider {
   flex-grow: 1;
@@ -771,7 +780,7 @@ ul {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 .bandConfigOptions button {
   display: flex;
@@ -804,4 +813,157 @@ ul {
 }
 .band:hover .bandDelete {
   color: rgba(0, 0, 0, 0.8);
+}
+
+.presetOptionsContainer {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.presetOptionsContainer h2 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #8b8b8b;
+}
+.presetOptionsContainer .containerMaxHeight {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-height: 32rem;
+  overflow-y: scroll;
+}
+.presetOptionsContainer .presetContainer {
+  display: flex;
+  gap: 1.5%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.presetOptionsContainer .presetContainer .presetButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 30%;
+  min-height: 10rem;
+  margin-top: 1.5%;
+  margin-bottom: 2rem;
+}
+.presetOptionsContainer .presetContainer .presetButton .preset {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 7rem;
+  padding: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.presetOptionsContainer .presetContainer .presetButton .preset .presetBar {
+  flex-grow: 1;
+  margin-right: 4px;
+  border-radius: 4px;
+}
+.presetOptionsContainer .presetContainer .presetButton .activePreset {
+  background-color: rgba(219, 232, 253, 0.5294117647);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPreset .presetBar {
+  opacity: 0.2;
+}
+.presetOptionsContainer .presetContainer .presetButton .presetText {
+  color: #343734;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton {
+  position: absolute;
+  left: 5%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  transform: scale(0.9);
+  transition: transform 0.1s ease-in-out;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton p {
+  color: #343734;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton svg {
+  width: 3rem;
+  margin-bottom: 0.5rem;
+}
+.presetOptionsContainer .presetContainer .presetButton .currentPresetButton:hover {
+  transform: scale(1);
+  color: #9593ff;
+}
+.presetOptionsContainer .selectedOptionsContainer {
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-top: 2px solid #ececec;
+}
+.presetOptionsContainer .presetButtonsContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
+  padding-top: 0.25rem;
+}
+.presetOptionsContainer .presetButtonsContainer button {
+  display: flex;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.2);
+}
+.presetOptionsContainer .presetButtonsContainer button svg {
+  width: 1.25rem;
+  margin-right: 0.5rem;
+}
+.presetOptionsContainer .presetButtonsContainer .selectable {
+  color: #343734;
+}
+.presetOptionsContainer .presetButtonsContainer .selectable:hover {
+  color: #9593ff;
+}
+.presetOptionsContainer .presetButtonsContainer .delete:hover {
+  color: #ff0000;
+}
+.presetOptionsContainer .inputWithValidationContainer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.presetOptionsContainer .inputWithValidationContainer p {
+  margin-left: 2rem;
+  margin-bottom: 0.5rem;
+}
+.presetOptionsContainer .inputWithValidationContainer input {
+  margin-left: 2rem;
+  height: 34px;
+  background-color: #f3eff9;
+  padding-left: 0.5rem;
+  border-radius: 4px;
+  border: rgba(0, 0, 0, 0.1) 1px solid;
+}
+.presetOptionsContainer .inputWithValidationContainer button {
+  color: #343734;
+}
+.presetOptionsContainer .inputWithValidationContainer button:hover {
+  color: #9593ff;
+}
+.presetOptionsContainer .inputWithValidationContainer .invalid {
+  color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.presetOptionsContainer .inputWithValidationContainer .buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-top: 2px solid #ececec;
 }/*# sourceMappingURL=index.css.map */
