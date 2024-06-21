@@ -387,6 +387,16 @@ ul {
   flex-grow: 1;
   margin-left: 2rem;
 }
+.distributionContainer .cardHeader button {
+  margin-right: 2rem;
+}
+.distributionContainer .cardHeader p {
+  margin-right: 1rem;
+  margin-top: 2px;
+}
+.distributionContainer .cardHeader .selected {
+  background-color: green;
+}
 .distributionContainer .bandBarContainer {
   height: 45px;
   display: flex;
@@ -966,4 +976,35 @@ ul {
   padding-left: 2rem;
   padding-right: 2rem;
   border-top: 2px solid #ececec;
+}
+
+.switchButton .switch {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 3.5rem;
+  height: 3rem;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+.switchButton .line {
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.switchButton .ball {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -1.25rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+.switchButton .ball-right {
+  margin-left: 1.75rem;
+  background-color: #343734;
+}
+.switchButton .ball-left {
+  margin-left: 0.25rem;
+  background-color: #a6a6a8;
 }/*# sourceMappingURL=index.css.map */
