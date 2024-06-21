@@ -1,201 +1,201 @@
 .presetOptionsContainer {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 
-    h2 {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
+  h2 {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 
+    font-size: 1rem;
+    font-weight: normal;
+    color: #8b8b8b;
+  }
+
+  .containerMaxHeight {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    max-height: 32rem;
+    overflow-y: scroll;
+  }
+
+  .presetContainer {
+    display: flex;
+    gap: 1.5%;
+    flex-wrap: wrap;
+
+    margin-bottom: 1rem;
+
+    .presetButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      width: 30%;
+      min-height: 10rem;
+      // height: 100%;
+      margin-top: 1.5%;
+      margin-bottom: 2rem;
+
+      .preset {
+        position: relative;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        width: 100%;
+        height: 7rem;
+
+        padding: 1rem;
+
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+
+        .presetBar {
+          flex-grow: 1;
+          margin-right: 4px;
+          border-radius: 4px;
+        }
+      }
+
+      .activePreset {
+        background-color: #dbe8fd87;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .currentPreset {
+        .presetBar {
+          opacity: 0.2;
+        }
+      }
+
+      .presetText {
+        color: #343734;
+        font-weight: 500;
         font-size: 1rem;
-        font-weight: normal;
-        color: #8b8b8b;
-    }
+      }
 
-    .containerMaxHeight {
-        padding-left: 2rem;
-        padding-right: 2rem;
+      .currentPresetButton {
+        position: absolute;
+        left: 5%;
+        top: 0;
 
-        max-height: 32rem;
-        overflow-y: scroll;
-    }
-
-    .presetContainer {
         display: flex;
-        gap: 1.5%;
-        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-        margin-bottom: 1rem;
+        width: 90%;
+        height: 100%;
 
-        .presetButton {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-
-            width: 30%;
-            min-height: 10rem;
-            // height: 100%;
-            margin-top: 1.5%;
-            margin-bottom: 2rem;
-
-            .preset {
-                position: relative;
-
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
-
-                width: 100%;
-                height: 7rem;
-
-                padding: 1rem;
-
-                border: 2px solid rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
-
-                .presetBar {
-                    flex-grow: 1;
-                    margin-right: 4px;
-                    border-radius: 4px;
-                }
-            }
-
-            .activePreset {
-                background-color: #dbe8fd87;
-                border: 2px solid rgba(0, 0, 0, 0.2);
-            }
-
-            .currentPreset {
-                .presetBar {
-                    opacity: 0.2;
-                }
-            }
-
-            .presetText {
-                color: #343734;
-                font-weight: 500;
-                font-size: 1rem;
-            }
-
-            .currentPresetButton {
-                position: absolute;
-                left: 5%;
-                top: 0;
-
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-
-                width: 90%;
-                height: 100%;
-
-                transform: scale(0.9);
-                transition: transform 0.1s ease-in-out;
-
-                p {
-                    color: $colorPrimaryA;
-                }
-
-                svg {
-                    width: 3rem;
-                    margin-bottom: 0.5rem;
-                }
-            }
-
-            .currentPresetButton:hover {
-                transform: scale(1);
-                color: #9593ff;
-            }
-        }
-
-        // .preset:hover {
-        // }
-    }
-
-    .selectedOptionsContainer {
-        margin-bottom: 1rem;
-        padding-top: 0.5rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
-
-        border-top: 2px solid $colorCardBorder;
-    }
-
-    .presetButtonsContainer {
-        display: flex;
-        justify-content: flex-start;
-        gap: 3rem;
-
-        padding-top: 0.25rem;
-        button {
-            display: flex;
-            font-size: 1rem;
-
-            color: rgba(0, 0, 0, 0.2);
-
-            svg {
-                width: 1.25rem;
-                margin-right: 0.5rem;
-            }
-        }
-
-        .selectable {
-            color: $colorPrimaryA;
-        }
-
-        .selectable:hover {
-            color: #9593ff;
-        }
-
-        .delete:hover {
-            color: #ff0000;
-        }
-    }
-
-    .inputWithValidationContainer {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        transform: scale(0.9);
+        transition: transform 0.1s ease-in-out;
 
         p {
-            margin-left: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        input {
-            margin-left: 2rem;
-
-            height: 34px;
-
-            background-color: #f3eff9;
-            padding-left: 0.5rem;
-            border-radius: 4px;
-            border: rgba(0, 0, 0, 0.1) 1px solid;
+          color: $colorPrimaryA;
         }
 
-        button {
-            color: $colorPrimaryA;
+        svg {
+          width: 3rem;
+          margin-bottom: 0.5rem;
         }
+      }
 
-        button:hover {
-            color: #9593ff;
-        }
-
-        .invalid {
-            color: rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-
-        .buttonContainer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 2rem;
-
-            margin-top: 1rem;
-            padding-top: 1rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
-
-            border-top: 2px solid $colorCardBorder;
-        }
+      .currentPresetButton:hover {
+        transform: scale(1);
+        color: #9593ff;
+      }
     }
+
+    // .preset:hover {
+    // }
+  }
+
+  .selectedOptionsContainer {
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    border-top: 2px solid $colorCardBorder;
+  }
+
+  .presetButtonsContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 3rem;
+
+    padding-top: 0.25rem;
+    button {
+      display: flex;
+      font-size: 1rem;
+
+      color: rgba(0, 0, 0, 0.2);
+
+      svg {
+        width: 1.25rem;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .selectable {
+      color: $colorPrimaryA;
+    }
+
+    .selectable:hover {
+      color: #9593ff;
+    }
+
+    .delete:hover {
+      color: #ff0000;
+    }
+  }
+
+  .inputWithValidationContainer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    p {
+      margin-left: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      margin-left: 2rem;
+
+      height: 34px;
+
+      background-color: #f3eff9;
+      padding-left: 0.5rem;
+      border-radius: 4px;
+      border: rgba(0, 0, 0, 0.1) 1px solid;
+    }
+
+    button {
+      color: $colorPrimaryA;
+    }
+
+    button:hover {
+      color: #9593ff;
+    }
+
+    .invalid {
+      color: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+
+      margin-top: 1rem;
+      padding-top: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      border-top: 2px solid $colorCardBorder;
+    }
+  }
 }
