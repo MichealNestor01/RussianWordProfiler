@@ -45,7 +45,7 @@ const BandsBar = () => {
       window.location.href === "http://localhost:3000/" ||
       window.location.href === "http://localhost:5000/"
         ? "http://127.0.0.1:5000/"
-        : "https://michealnestor.pythonanywhere.com/";
+        : "https://russianwordprofiler.pythonanywhere.com/";
     const response = await axios({
       method: "post",
       url: `${url}scantext/`,
