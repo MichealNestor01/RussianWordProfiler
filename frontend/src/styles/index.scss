@@ -1,5 +1,6 @@
 //===variables===//
 //colour pallette
+
 $colorPrimaryA: #343734;
 $colorPrimaryB: #a6a6a8;
 $colorSecondary: #f5f5f5;
@@ -33,3 +34,4 @@ $colorBoldText: #343633;
 @import "./components/bandConfig";
 @import "./components/presetSelection";
 @import "./components/switch";
+@import "./components/apiSettings";
