@@ -18,6 +18,19 @@
       flex-grow: 1;
       margin-left: 2rem;
     }
+
+    button {
+      margin-right: 2rem;
+    }
+
+    p {
+      margin-right: 1rem;
+      margin-top: 2px;
+    }
+
+    .selected {
+      background-color: green;
+    }
   }
 
   .bandBarContainer {

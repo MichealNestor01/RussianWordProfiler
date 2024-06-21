@@ -1,8 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import DownloadButton from "../generic/DownloadButton";
 import BandBar from "../generic/BandBar";
-
+import Switch from "../generic/Switch";
 /**
  * @description
  * Component for displaying distribution data.
@@ -20,16 +20,21 @@ import BandBar from "../generic/BandBar";
  */
 
 const DistributionDisplay = () => {
+  const [hideNa, setHideNa] = useState(false);
+
   const bandFrequencyDict = useSelector(
     (state) => state.stats.bandFrequencyDict
   );
 
   const totals = [];
-  const bands = Object.keys(bandFrequencyDict).map((band) => {
-    const { colour, total, bottomVal } = bandFrequencyDict[band];
-    totals.push(total);
-    return { name: band, colour, total, bottomVal };
-  });
+  const bands = Object.keys(bandFrequencyDict)
+    .filter((band) => !(hideNa && band === "N/A"))
+    .map((band) => {
+      const { colour, total, bottomVal } = bandFrequencyDict[band];
+      totals.push(total);
+      return { name: band, colour, total, bottomVal };
+    });
+
   const maxTotal = Math.max(...totals);
   const sumTotal = [...totals].reduce((a, b) => a + b, 0);
 
@@ -61,6 +66,8 @@ const DistributionDisplay = () => {
             text="Download Distribution Data"
           />
         </h1>
+        <p>Hide N/A</p>
+        <Switch value={hideNa} onToggle={() => setHideNa(!hideNa)} />
       </div>
 
       <div className="barGraph">
