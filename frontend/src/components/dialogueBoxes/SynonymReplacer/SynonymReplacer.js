@@ -52,7 +52,8 @@ const SynonymReplacer = ({ active, onClose, selectedWord }) => {
       onClose={onClose}
       header={
         <h1>
-          Change Selected Word: <b style={{ color: colour }}>{word}</b>{" "}
+          Replace <b style={{ color: colour }}>{word}</b> with one of its
+          synonyms:
         </h1>
       }
       content={
