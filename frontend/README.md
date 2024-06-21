@@ -51,55 +51,68 @@ Installation instructions here
 *   [NewBand][36]
     *   [Redux Store Interaction][37]
     *   [Examples][38]
-*   [DialogBox][39]
+*   [PresetSelection][39]
     *   [Parameters][40]
     *   [Examples][41]
-*   [ApiSettings][42]
+*   [Preset][42]
     *   [Parameters][43]
     *   [Examples][44]
-*   [FileUpload][45]
-    *   [Redux Store Interaction][46]
+*   [ApiSettings][45]
+    *   [Parameters][46]
     *   [Examples][47]
-*   [FormattedOutput][48]
-    *   [Redux Store Interaction][49]
+*   [DialogBox][48]
+    *   [Parameters][49]
     *   [Examples][50]
-*   [SynonymReplacer][51]
+*   [TextFileUpload][51]
     *   [Redux Store Interaction][52]
-    *   [Parameters][53]
-    *   [Examples][54]
-*   [DistributionDisplay][55]
-    *   [Redux Store Interaction][56]
-    *   [Examples][57]
-*   [DownloadButton][58]
+    *   [Examples][53]
+*   [FormattedOutput][54]
+    *   [Redux Store Interaction][55]
+    *   [Examples][56]
+*   [SynonymReplacer][57]
+    *   [Redux Store Interaction][58]
     *   [Parameters][59]
     *   [Examples][60]
-*   [BandBar][61]
-    *   [Parameters][62]
+*   [DistributionDisplay][61]
+    *   [Redux Store Interaction][62]
     *   [Examples][63]
 *   [CoverageDisplay][64]
     *   [Redux Store Interaction][65]
     *   [Examples][66]
-*   [LemmaTable][67]
-    *   [Redux Store Interaction][68]
+*   [BandBar][67]
+    *   [Parameters][68]
     *   [Examples][69]
-*   [ReduxStoreTextSlice][70]
-    *   [setWordData][71]
-    *   [setText][72]
-    *   [setStopWords][73]
-    *   [changeWord][74]
-*   [ReduxStoreFrequencyBandsSlice][75]
-    *   [changeColour][76]
-    *   [changeTopVal][77]
-    *   [changeBottomVal][78]
-    *   [removeBand][79]
-    *   [toggleActive][80]
-    *   [addBand][81]
-    *   [saveBands][82]
-*   [ReduxStorestatsSlice][83]
-    *   [reset][84]
-    *   [setBandFrequencyDict][85]
-    *   [setLemmaFrequencyDict][86]
-    *   [setNotInList][87]
+*   [DownloadButton][70]
+    *   [Parameters][71]
+    *   [Examples][72]
+*   [LemmaTable][73]
+    *   [Redux Store Interaction][74]
+    *   [Examples][75]
+*   [ReduxStoreTextSlice][76]
+    *   [setWordData][77]
+    *   [setText][78]
+    *   [setStopWords][79]
+    *   [setStopWordsCaseSensitive][80]
+    *   [deleteStopWord][81]
+    *   [addStopWord][82]
+    *   [changeWord][83]
+*   [ReduxStoreFrequencyBandsSlice][84]
+    *   [changeColour][85]
+    *   [changeTopVal][86]
+    *   [changeBottomVal][87]
+    *   [removeBand][88]
+    *   [toggleActive][89]
+    *   [addBand][90]
+    *   [loadPreset][91]
+    *   [addNewPreset][92]
+    *   [deletePreset][93]
+    *   [saveBands][94]
+    *   [savePresets][95]
+*   [ReduxStorestatsSlice][96]
+    *   [reset][97]
+    *   [setBandFrequencyDict][98]
+    *   [setLemmaFrequencyDict][99]
+    *   [setNotInList][100]
 
 ## functions
 
@@ -109,8 +122,8 @@ Determines the band for a given rank based on predefined bands.
 
 #### Parameters
 
-*   `rank` **[number][88]** The rank to be evaluated.
-*   `bands` **[Object][89]** An object containing band information. Each key is a band identifier, and each value is an object with `topVal` and `bottomVal` properties.
+*   `rank` **[number][101]** The rank to be evaluated.
+*   `bands` **[Object][102]** An object containing band information. Each key is a band identifier, and each value is an object with `topVal` and `bottomVal` properties.
 
 #### Examples
 
@@ -124,7 +137,7 @@ const band = whichBand(85, bands);
 console.log(band); // Output: "B"
 ```
 
-Returns **([string][90] | [number][88])** The band identifier the rank falls into, or -1 if the rank does not fall into any band.
+Returns **([string][103] | [number][101])** The band identifier the rank falls into, or -1 if the rank does not fall into any band.
 
 ### convertToCSV
 
@@ -132,7 +145,7 @@ Converts a 2D array of JavaScript objects to a CSV string.
 
 #### Parameters
 
-*   `arr` **[Array][91]<[Array][91]<([string][90] | [number][88])>>** The 2D array of data to be converted to CSV format.
+*   `arr` **[Array][104]<[Array][104]<([string][103] | [number][101])>>** The 2D array of data to be converted to CSV format.
 
 #### Examples
 
@@ -150,7 +163,7 @@ console.log(csv);
 // Jane,25
 ```
 
-Returns **[string][90]** The CSV formatted string.
+Returns **[string][103]** The CSV formatted string.
 
 ### downloadCSV
 
@@ -158,8 +171,8 @@ Triggers a download of a CSV file with the given content and filename.
 
 #### Parameters
 
-*   `csv` **[string][90]** The CSV string to be downloaded.
-*   `filename` **[string][90]** The name of the file to be downloaded.
+*   `csv` **[string][103]** The CSV string to be downloaded.
+*   `filename` **[string][103]** The name of the file to be downloaded.
 
 #### Examples
 
@@ -178,8 +191,8 @@ This function depends on the `XLSX` library for converting JSON data to an XLSX 
 
 #### Parameters
 
-*   `data` **[Array][91]<[Object][89]>** The data to be included in the XLS file. Each object represents a row.
-*   `filename` **[string][90]** The name of the file to be downloaded.
+*   `data` **[Array][104]<[Object][102]>** The data to be included in the XLS file. Each object represents a row.
+*   `filename` **[string][103]** The name of the file to be downloaded.
 
 #### Examples
 
@@ -199,7 +212,7 @@ The function handles cases where words are nested within punctuation and maintai
 
 #### Parameters
 
-*   `text` **[string][90]** The text to be split into word objects.
+*   `text` **[string][103]** The text to be split into word objects.
 
 #### Examples
 
@@ -218,7 +231,7 @@ console.log(result.words);
 // ['hello', 'world', 'sleep']
 ```
 
-Returns **[Object][89]** An object containing:*   `objects`: An array of word objects, each with `index`, `prefix`, `word`, and `postfix`.
+Returns **[Object][102]** An object containing:*   `objects`: An array of word objects, each with `index`, `prefix`, `word`, and `postfix`.
 *   `words`: An array of just the words extracted from the text.
 
 ## App
@@ -253,9 +266,9 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for MainEditor.
+*   `props` **[Object][102]** The props for MainEditor.
 
-    *   `props.placeholder` **[string][90]** The placeholder text for the text input area. (optional, default `"Text Here."`)
+    *   `props.placeholder` **[string][103]** The placeholder text for the text input area. (optional, default `"Text Here."`)
 
 ### Examples
 
@@ -314,10 +327,10 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for BandConfigPanel.
+*   `props` **[Object][102]** The props for BandConfigPanel.
 
-    *   `props.active` **[boolean][92]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][93]** Function to close the dialog box.
+    *   `props.active` **[boolean][105]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][106]** Function to close the dialog box.
 
 ### Examples
 
@@ -371,14 +384,14 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for Band.
+*   `props` **[Object][102]** The props for Band.
 
-    *   `props.id` **[number][88]** The ID of the band.
-    *   `props.colour` **[string][90]** The color of the band.
-    *   `props.top` **[number][88]** The top value of the band.
-    *   `props.bottom` **[number][88]** The bottom value of the band.
-    *   `props.activeIndex` **[number][88]** The index of the active band.
-    *   `props.setActiveIndex` **[Function][93]** Function to set the active band index.
+    *   `props.id` **[number][101]** The ID of the band.
+    *   `props.colour` **[string][103]** The color of the band.
+    *   `props.top` **[number][101]** The top value of the band.
+    *   `props.bottom` **[number][101]** The bottom value of the band.
+    *   `props.activeIndex` **[number][101]** The index of the active band.
+    *   `props.setActiveIndex` **[Function][106]** Function to set the active band index.
 
 ### Examples
 
@@ -412,12 +425,12 @@ This component depends on the `ChromePicker` component from the `react-color` li
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for BandColour.
+*   `props` **[Object][102]** The props for BandColour.
 
-    *   `props.id` **[number][88]** The ID of the band.
-    *   `props.colour` **[string][90]** The current color of the band.
-    *   `props.activeIndex` **[number][88]** The index of the active band.
-    *   `props.setActiveIndex` **[Function][93]** Function to set the active band index.
+    *   `props.id` **[number][101]** The ID of the band.
+    *   `props.colour` **[string][103]** The current color of the band.
+    *   `props.activeIndex` **[number][101]** The index of the active band.
+    *   `props.setActiveIndex` **[Function][106]** Function to set the active band index.
 
 ### Examples
 
@@ -445,18 +458,87 @@ return (
 )
 ```
 
+## PresetSelection
+
+Component for displaying a brand preset
+
+### Parameters
+
+*   `props` **[Object][102]** The props for preset selection menu.
+
+    *   `props.active` **bool** Whether the dialog box should be open.
+    *   `props.onClose` **[Function][106]** The function to execute on dialog box close.
+    *   `props.currentPreset` **[Object][102]** Stores the preset object for the current band layout.
+    *   `props.setCurrentPreset` **[Function][106]** Function to change the current preset.
+
+### Examples
+
+```javascript
+return (
+  <PresetSelection
+     active={showPresets}
+       onClose={() => setShowPresets(false)}
+      currentPreset={currentPreset}
+     setCurrentPreset={setCurrentPreset}
+/>
+)
+```
+
+## Preset
+
+Component for displaying a brand preset
+
+### Parameters
+
+*   `props` **[Object][102]** The props for preset.
+
+    *   `props.preset` **[Object][102]** The preset object to display.
+    *   `props.onClick` **[Function][106]** The function to run when clicked.
+    *   `props.selectedPreset` **[string][103]** Stores the name of the currently highlighted preset.
+
+### Examples
+
+```javascript
+return (
+ <Preset
+      preset={presetObject}
+      onClick={() => {}}
+      selectedPreset={"Default"}
+  />
+)
+```
+
+## ApiSettings
+
+Component for API settings dialog.
+
+### Parameters
+
+*   `$0` **[Object][102]**&#x20;
+
+    *   `$0.active` &#x20;
+    *   `$0.onClose` &#x20;
+
+### Examples
+
+```javascript
+return (
+  <ApiSettings />
+)
+```
+
 ## DialogBox
 
 Generic dialog box component.
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for DialogBox.
+*   `props` **[Object][102]** The props for DialogBox.
 
     *   `props.header` **JSX.Element** The header content of the dialog box.
     *   `props.content` **JSX.Element** The main content of the dialog box.
-    *   `props.active` **[boolean][92]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][93]** Function to close the dialog box.
+    *   `props.active` **[boolean][105]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][106]** Function to close the dialog box.
 
 ### Examples
 
@@ -473,26 +555,7 @@ return (
 )
 ```
 
-## ApiSettings
-
-Component for API settings dialog.
-
-### Parameters
-
-*   `$0` **[Object][89]**&#x20;
-
-    *   `$0.active` &#x20;
-    *   `$0.onClose` &#x20;
-
-### Examples
-
-```javascript
-return (
-  <ApiSettings />
-)
-```
-
-## FileUpload
+## TextFileUpload
 
 Component for uploading a file to set stop words in the Redux store.
 
@@ -553,16 +616,16 @@ The component dispatches the following Redux actions:
 
 ### Parameters
 
-*   `props` **[Object][89]** The props for SynonymReplacer.
+*   `props` **[Object][102]** The props for SynonymReplacer.
 
-    *   `props.active` **[boolean][92]** Whether the dialog box is active.
-    *   `props.onClose` **[Function][93]** Function to close the dialog box.
-    *   `props.selectedWord` **[Object][89]** The currently selected word and its details.
+    *   `props.active` **[boolean][105]** Whether the dialog box is active.
+    *   `props.onClose` **[Function][106]** Function to close the dialog box.
+    *   `props.selectedWord` **[Object][102]** The currently selected word and its details.
 
-        *   `props.selectedWord.index` **[number][88]** The index of the selected word.
-        *   `props.selectedWord.word` **[string][90]** The selected word.
-        *   `props.selectedWord.colour` **[string][90]** The colour of the selected word.
-        *   `props.selectedWord.synonyms` **[Array][91]** The list of synonyms for the selected word.
+        *   `props.selectedWord.index` **[number][101]** The index of the selected word.
+        *   `props.selectedWord.word` **[string][103]** The selected word.
+        *   `props.selectedWord.colour` **[string][103]** The colour of the selected word.
+        *   `props.selectedWord.synonyms` **[Array][104]** The list of synonyms for the selected word.
 
 ### Examples
 
@@ -599,48 +662,6 @@ return (
 )
 ```
 
-## DownloadButton
-
-Component for a download button that triggers downloading of data in XLS format.
-
-### Parameters
-
-*   `props` **[Object][89]** The props for DownloadButton.
-
-    *   `props.data` **[Array][91]** The data to be downloaded.
-    *   `props.filename` **[string][90]** The base filename for the downloaded file.
-    *   `props.text` **[string][90]** The text displayed on the download button.
-
-### Examples
-
-```javascript
-const data = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }];
-return (
-  <DownloadButton data={data} filename="data" text="Download Data" />
-)
-```
-
-## BandBar
-
-Generic component for displaying a bar representing a band. Shows a tooltip with the total number of words on hover.
-
-### Parameters
-
-*   `props` **[Object][89]** The props for BandBar.
-
-    *   `props.index` **[number][88]** The index of the band bar.
-    *   `props.total` **[number][88]** The total number of words in the band.
-    *   `props.width` **[string][90]** The width of the band bar.
-    *   `props.colour` **[string][90]** The color of the band bar.
-
-### Examples
-
-```javascript
-return (
-  <BandBar index={0} total={100} width="50%" colour="red" />
-)
-```
-
 ## CoverageDisplay
 
 Component for displaying coverage data.
@@ -656,6 +677,48 @@ The component uses the following parts of the Redux store:
 ```javascript
 return (
   <CoverageDisplay />
+)
+```
+
+## BandBar
+
+Generic component for displaying a bar representing a band. Shows a tooltip with the total number of words on hover.
+
+### Parameters
+
+*   `props` **[Object][102]** The props for BandBar.
+
+    *   `props.index` **[number][101]** The index of the band bar.
+    *   `props.total` **[number][101]** The total number of words in the band.
+    *   `props.width` **[string][103]** The width of the band bar.
+    *   `props.colour` **[string][103]** The color of the band bar.
+
+### Examples
+
+```javascript
+return (
+  <BandBar index={0} total={100} width="50%" colour="red" />
+)
+```
+
+## DownloadButton
+
+Component for a download button that triggers downloading of data in XLS format.
+
+### Parameters
+
+*   `props` **[Object][102]** The props for DownloadButton.
+
+    *   `props.data` **[Array][104]** The data to be downloaded.
+    *   `props.filename` **[string][103]** The base filename for the downloaded file.
+    *   `props.text` **[string][103]** The text displayed on the download button.
+
+### Examples
+
+```javascript
+const data = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }];
+return (
+  <DownloadButton data={data} filename="data" text="Download Data" />
 )
 ```
 
@@ -687,8 +750,8 @@ Sets the word data returned by the API.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new word data.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new word data.
 
 #### Examples
 
@@ -702,8 +765,8 @@ Sets the raw text, tokenizes it, and updates the words and tokens in the state.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new text.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new text.
 
 #### Examples
 
@@ -717,13 +780,58 @@ Sets the stop words to be ignored by the API.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new stop words.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new stop words.
 
 #### Examples
 
 ```javascript
 dispatch(setStopWords(["the", "and"]));
+```
+
+### setStopWordsCaseSensitive
+
+Sets whether or not the stop words should be case sensitive
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with a boolean.
+
+#### Examples
+
+```javascript
+dispatch(setStopWordsCaseSensitive(false));
+```
+
+### deleteStopWord
+
+Removes a stopword.
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the stop word to delete.
+
+#### Examples
+
+```javascript
+dispatch(deleteStopWord("and"));
+```
+
+### addStopWord
+
+Adds a new stopword
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new stop word.
+
+#### Examples
+
+```javascript
+dispatch(addStopWord("and"));
 ```
 
 ### changeWord
@@ -732,8 +840,8 @@ Changes a word in the tokenized text to a synonym and updates the relevant state
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the index of the word to change, the new word, its rank, and lemma.
 
 #### Examples
 
@@ -751,8 +859,8 @@ Changes the color of a specified band.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with target band and new color.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with target band and new color.
 
 #### Examples
 
@@ -766,8 +874,8 @@ Changes the top value of a specified band and adjusts the bottom value of the ne
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with target band and new top value.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with target band and new top value.
 
 #### Examples
 
@@ -781,8 +889,8 @@ Changes the bottom value of a specified band and adjusts the top value of the pr
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with target band and new bottom value.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with target band and new bottom value.
 
 #### Examples
 
@@ -796,8 +904,8 @@ Removes a specified band and adjusts the pointers of adjacent bands.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the target band to be removed.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the target band to be removed.
 
 #### Examples
 
@@ -811,8 +919,8 @@ Toggles the active state of a specified band.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the target band.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the target band.
 
 #### Examples
 
@@ -834,18 +942,88 @@ Adds a new band to the state.
 dispatch(addBand());
 ```
 
-### saveBands
+### loadPreset
 
-Adds a new band to the state.
+Loads the given preset
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the target preset name.
 
 #### Examples
 
 ```javascript
-dispatch(addBand());
+dispatch(loadPreset("Default"));
+```
+
+### addNewPreset
+
+Adds a new preset to the list
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the preset object to add.
+
+#### Examples
+
+```javascript
+dispatch(addNewPreset({
+isDefault: false,
+name: "CERF levels",
+bands: [
+{ top: 89, colour: "#389F23" },
+{ top: 372, colour: "#008C48" },
+{ top: 897, colour: "#C06040" },
+{ top: 1894, colour: "#C80000" },
+{ top: 3394, colour: "#1C2181" },
+{ top: 5392, colour: "#52007A" },
+],
+}));
+```
+
+### deletePreset
+
+Removes a preset from the list and local storage
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the preset object to delete.
+
+#### Examples
+
+```javascript
+dispatch(addNewPreset("Default"));
+```
+
+### saveBands
+
+Saves the current bands to local storage
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+
+#### Examples
+
+```javascript
+dispatch(saveBands());
+```
+
+### savePresets
+
+Saves the current presets to local storage
+
+#### Parameters
+
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+
+#### Examples
+
+```javascript
+dispatch(savePresets());
 ```
 
 ## ReduxStorestatsSlice
@@ -858,8 +1036,8 @@ Resets the `bands` array to an empty array.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing the reset action.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing the reset action.
 
 #### Examples
 
@@ -873,8 +1051,8 @@ Sets the band frequency dictionary.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new band frequency dictionary.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new band frequency dictionary.
 
 #### Examples
 
@@ -888,8 +1066,8 @@ Sets the lemma frequency dictionary.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new lemma frequency dictionary.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new lemma frequency dictionary.
 
 #### Examples
 
@@ -903,8 +1081,8 @@ Sets the not in list data.
 
 #### Parameters
 
-*   `state` **[Object][89]** The current state of the Redux store, provided automatically.
-*   `action` **[Object][89]** The action object containing payload with the new not in list data.
+*   `state` **[Object][102]** The current state of the Redux store, provided automatically.
+*   `action` **[Object][102]** The action object containing payload with the new not in list data.
 
 #### Examples
 
@@ -988,53 +1166,53 @@ dispatch(setNotInList(['word1', 'word2']));
 
 [38]: #examples-13
 
-[39]: #dialogbox
+[39]: #presetselection
 
 [40]: #parameters-9
 
 [41]: #examples-14
 
-[42]: #apisettings
+[42]: #preset
 
 [43]: #parameters-10
 
 [44]: #examples-15
 
-[45]: #fileupload
+[45]: #apisettings
 
-[46]: #redux-store-interaction-6
+[46]: #parameters-11
 
 [47]: #examples-16
 
-[48]: #formattedoutput
+[48]: #dialogbox
 
-[49]: #redux-store-interaction-7
+[49]: #parameters-12
 
 [50]: #examples-17
 
-[51]: #synonymreplacer
+[51]: #textfileupload
 
-[52]: #redux-store-interaction-8
+[52]: #redux-store-interaction-6
 
-[53]: #parameters-11
+[53]: #examples-18
 
-[54]: #examples-18
+[54]: #formattedoutput
 
-[55]: #distributiondisplay
+[55]: #redux-store-interaction-7
 
-[56]: #redux-store-interaction-9
+[56]: #examples-19
 
-[57]: #examples-19
+[57]: #synonymreplacer
 
-[58]: #downloadbutton
+[58]: #redux-store-interaction-8
 
-[59]: #parameters-12
+[59]: #parameters-13
 
 [60]: #examples-20
 
-[61]: #bandbar
+[61]: #distributiondisplay
 
-[62]: #parameters-13
+[62]: #redux-store-interaction-9
 
 [63]: #examples-21
 
@@ -1044,58 +1222,84 @@ dispatch(setNotInList(['word1', 'word2']));
 
 [66]: #examples-22
 
-[67]: #lemmatable
+[67]: #bandbar
 
-[68]: #redux-store-interaction-11
+[68]: #parameters-14
 
 [69]: #examples-23
 
-[70]: #reduxstoretextslice
+[70]: #downloadbutton
 
-[71]: #setworddata
+[71]: #parameters-15
 
-[72]: #settext
+[72]: #examples-24
 
-[73]: #setstopwords
+[73]: #lemmatable
 
-[74]: #changeword
+[74]: #redux-store-interaction-11
 
-[75]: #reduxstorefrequencybandsslice
+[75]: #examples-25
 
-[76]: #changecolour
+[76]: #reduxstoretextslice
 
-[77]: #changetopval
+[77]: #setworddata
 
-[78]: #changebottomval
+[78]: #settext
 
-[79]: #removeband
+[79]: #setstopwords
 
-[80]: #toggleactive
+[80]: #setstopwordscasesensitive
 
-[81]: #addband
+[81]: #deletestopword
 
-[82]: #savebands
+[82]: #addstopword
 
-[83]: #reduxstorestatsslice
+[83]: #changeword
 
-[84]: #reset
+[84]: #reduxstorefrequencybandsslice
 
-[85]: #setbandfrequencydict
+[85]: #changecolour
 
-[86]: #setlemmafrequencydict
+[86]: #changetopval
 
-[87]: #setnotinlist
+[87]: #changebottomval
 
-[88]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[88]: #removeband
 
-[89]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[89]: #toggleactive
 
-[90]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[90]: #addband
 
-[91]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[91]: #loadpreset
 
-[92]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[92]: #addnewpreset
 
-[93]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[93]: #deletepreset
+
+[94]: #savebands
+
+[95]: #savepresets
+
+[96]: #reduxstorestatsslice
+
+[97]: #reset
+
+[98]: #setbandfrequencydict
+
+[99]: #setlemmafrequencydict
+
+[100]: #setnotinlist
+
+[101]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[102]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[103]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[104]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[105]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[106]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
 <!-- apistop -->
