@@ -4,6 +4,8 @@
 .vscode
 .venv
 .zip
+*.css
+*.css.map
 /api/testfiles
 /api/modules/.env
 */__pycache__
