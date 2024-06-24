@@ -102,15 +102,20 @@
       .addButton {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
         gap: 1rem;
         min-width: 12rem;
-        height: 32px;
+        height: 1.5rem;
         padding: 8px;
 
         color: rgba(0, 0, 0, 0.2);
 
         transition: all 0.1s ease;
         cursor: default;
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
       }
 
       .active {
