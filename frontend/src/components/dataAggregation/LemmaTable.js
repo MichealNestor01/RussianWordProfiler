@@ -46,13 +46,6 @@ const LemmaTable = () => {
     return { name: band, colour, active, bottomVal, lemmas: [] };
   });
 
-  console.log("BANDS 1");
-  console.log(bands);
-
-  // Keep track of the lemmas that get placed in bands so we can
-  // see which words are in limbo.
-  const bandsWithLemmas = [];
-
   for (const lemma in lemmaWordsDict) {
     const { rank, words } = lemmaWordsDict[lemma];
     let putInNa = true;
