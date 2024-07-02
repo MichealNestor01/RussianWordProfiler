@@ -53,7 +53,7 @@ const About = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Sharov's and Lyashevskaya's Russian Frequency Dictionary
+              Sharoff's and Lyashevskaya's Russian Frequency Dictionary
             </a>
             .
           </p>
