@@ -46,6 +46,7 @@ frontend/russian-word-profiler/build/asset-manifest.json
 api/modules/__pycache__/profiler.cpython-311.pyc
 api/modules/__pycache__/profiler.cpython-311.pyc
 api/word_data_cache.pickle
+api/word_data_cache_old.pickle
 api/stopwords2.txt
 .vscode/settings.json
 api/modules/__pycache__/profiler.cpython-39.pyc
