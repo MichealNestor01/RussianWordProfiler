@@ -47,12 +47,12 @@ const defaultPresets = [
     isDefault: true,
     name: "CERF levels",
     bands: [
-      { top: 89, colour: "#389F23" },
-      { top: 372, colour: "#008C48" },
-      { top: 897, colour: "#C06040" },
-      { top: 1894, colour: "#C80000" },
-      { top: 3394, colour: "#1C2181" },
-      { top: 5392, colour: "#52007A" },
+      { top: 900, colour: "#389F23" }, // A1
+      { top: 1894, colour: "#008C48" }, // A2
+      { top: 3373, colour: "#C06040" }, // B1
+      { top: 6633, colour: "#C80000" }, // B2
+      { top: 7976, colour: "#1C2181" }, // C1
+      { top: 8536, colour: "#52007A" }, // C2
     ],
   },
   {
