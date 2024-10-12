@@ -49,11 +49,11 @@ const About = () => {
           <p>
             Lemma frequencies ranks are taken from{" "}
             <a
-              href="http://dict.ruslang.ru/freq.php"
+              href="https://ssharoff.github.io/kelly/"
               target="_blank"
               rel="noreferrer"
             >
-              Sharoff's and Lyashevskaya's Russian Frequency Dictionary
+              The Kelly Project
             </a>
             .
           </p>
