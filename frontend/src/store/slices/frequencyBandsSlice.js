@@ -13,28 +13,28 @@ const colours = [
   "#911eb4",
   "#f032e6",
   "#fabebe",
-  "#aa6e28",
 ];
 
 // const initialState = [];
+const initialBandsWidth = 500;
 const initialBandState = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < colours.length; i++) {
   initialBandState[i] = {
     next: i + 1,
     prev: i - 1,
-    bottomVal: 1000 * i + 1,
-    topVal: 1000 * (i + 1),
+    bottomVal: initialBandsWidth * i + 1,
+    topVal: initialBandsWidth * (i + 1),
     colour: colours[i],
     active: true,
   };
 }
 
-initialBandState[10] = {
+initialBandState[colours.length - 1] = {
   prev: 9,
   next: -1,
-  bottomVal: 10001,
-  topVal: 52047,
-  colour: colours[10],
+  bottomVal: initialBandsWidth * colours.length,
+  topVal: 10000, // only 8500 words in our list we are now using
+  colour: colours[colours.length - 1],
   active: true,
 };
 
@@ -43,14 +43,6 @@ const storedBandState = localStorage.getItem("russianWordProfilerBandsV3")
   : initialBandState;
 
 const defaultPresets = [
-  {
-    isDefault: true,
-    name: "Default",
-    bands: initialBandState.map((band) => ({
-      top: band.topVal,
-      colour: band.colour,
-    })),
-  },
   {
     isDefault: true,
     name: "CERF levels",
@@ -63,10 +55,18 @@ const defaultPresets = [
       { top: 5392, colour: "#52007A" },
     ],
   },
+  {
+    isDefault: true,
+    name: "Rainbow",
+    bands: initialBandState.map((band) => ({
+      top: band.topVal,
+      colour: band.colour,
+    })),
+  },
 ];
 
-const storedPresetState = localStorage.getItem("russianWordProfilerPresetsV2")
-  ? JSON.parse(localStorage.getItem("russianWordProfilerPresetsV2"))
+const storedPresetState = localStorage.getItem("russianWordProfilerPresetsV3")
+  ? JSON.parse(localStorage.getItem("russianWordProfilerPresetsV3"))
   : defaultPresets;
 
 /**
