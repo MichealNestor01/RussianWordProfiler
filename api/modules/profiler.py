@@ -30,8 +30,8 @@ class ProfilerObj:
         # Start a mystem connection
         self.mystem = Mystem()
         self.stopwords = set([])
-        # Retrieve frequency list (Sharoff 2011)
-        self.load_frequency_list("assets/2011-frequency-list-SORTED.txt") 
+        # Retrieve frequency list (Sharoff 2014 modified)
+        self.load_frequency_list("assets/modifiedSsharoffFrequencyList2014.csv") 
         # Connect the cache to a file if we are using it
         if use_cache:
             self.cache = WordCache(CACHE_FILE)

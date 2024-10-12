@@ -6,7 +6,9 @@ This project is hosted [here](https://russianwordprofiler.pythonanywhere.com/).
 
 This project's aim is to emulate the feature set of the AntWordProfiler, (Laurence Anthony, https://www.laurenceanthony.net/software/antwordprofiler/), except this time through a web based interface and with baked in support for Russian.
 
-The project relies heavily on Sharoff's and Lyashevskaya's Russian Frequency Dictionary (О. Н. Ляшевская, С. А. Шаров, Частотный словарь современного русского языка (на материалах Национального корпуса русского языка). М.: Азбуковник, 2009, http://dict.ruslang.ru/freq.php)
+For lemma frequencies we use the [Kelly project](https://ssharoff.github.io/kelly/)'s list, Kilgarriff A, Charalabopoulou F, Gavrilidou M, Johannessen JB, Khalil S, Johansson Kokkinakis S, Lew R, Sharoff S, Vadlapudi R, Volodina E. Corpus-based vocabulary lists for language learners for nine languages. Language resources and evaluation. 2014; 48:121-63. 
+
+The project formerly (July 2024 - October 2024) used Sharoff's and Lyashevskaya's Russian Frequency Dictionary (О. Н. Ляшевская, С. А. Шаров, Частотный словарь современного русского языка (на материалах Национального корпуса русского языка). М.: Азбуковник, 2009, http://dict.ruslang.ru/freq.php)
 
 ## Running the Project Locally
 ### Prerequisites 
@@ -67,4 +69,6 @@ Authors: Dr. Pavel Gudoshnikov, Micheal Nestor, Ben Thirkill
 
 AntWordProfiler: Dr. Laurence Anthony
 
-Russian Lemma Frequency List: О. Н. Ляшевская, С. А. Шаров (Lyashevskaya O. N. , Sharov S. A.)
+Current Russian Lemma Frequency List: [Kelly project](https://ssharoff.github.io/kelly/)
+
+Russian Lemma Frequency List (July 2024 - October 2024): О. Н. Ляшевская, С. А. Шаров (Lyashevskaya O. N. , Sharov S. A.)
